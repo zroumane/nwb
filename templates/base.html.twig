@@ -5,6 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
@@ -14,6 +15,29 @@
         {% endblock %}
     </head>
     <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{path('build')}}">
+                <img src="http://51.195.45.151:4444/src/img/nwicone.png" alt="" width="100" height="100">
+            </a>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'build' %}active{% endif %}"  href="{{path('build')}}">Build</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('create')}}">Create</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </nav>
+
         {% block body %}{% endblock %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     </body>
 </html>

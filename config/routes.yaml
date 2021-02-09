@@ -1,3 +1,11 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+build:
+  path: /
+  controller : App\Controller\BuildController::index
+
+create:
+  path: /create
+  controller : App\Controller\CreateBuildController::index
