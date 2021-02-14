@@ -1,0 +1,316 @@
+﻿{
+    "key" : "Bow",
+    "counter": [19, 0, 0],
+    "branchName" : ["Huntsman","Bowman"],
+    "selectedMainSkills" : [],
+    "skills" : [
+        [
+            [
+                {
+                    "key" : "ArrowPlus25prcntRange",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "RapidShot",
+                    "col" : "3",
+                    "active" : false 
+                },
+                {
+                    "key" : "Bow10prcntHeadShot",
+                    "col" : "5",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "JumpBackShot",
+                    "col" : "1",
+                    "active" : false 
+                },
+                {
+                    "key" : "Rapid2secCDR",
+                    "col" : "3",
+                    "active" : false 
+                },
+                {
+                    "key" : "LootableArrows",
+                    "col" : "5",
+                    "active" : false    
+                }
+
+            ],
+            [
+                {
+                    "key" : "JumpBackKnockback",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "Bow10prcntAccuracy",
+                    "col" : "2",
+                    "active" : false   
+                },
+
+                {
+                    "key" : "PenetratingShot",
+                    "col" : "4",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "RapidDMG3shot",
+                    "col" : "3",
+                    "active" : false    
+                },
+                {
+                    "key" : "PenetratingDMG",
+                    "col" : "4",
+                    "active" : false   
+                },
+                {
+                    "key" : "Bow20prcntHeadShot",
+                    "col" : "5",
+                    "active" : false    
+                }    
+            ],
+            [
+                {
+                    "key" : "JumpBackDistance",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "Bow20prcntAccuracy",
+                    "col" : "2",
+                    "active" : false  
+                },				
+                {
+                    "key" : "BowLegSlow",
+                    "col" : "5",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "PenetratingCharge",
+                    "col" : "4",
+                    "active" : false 
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "key" : "ArrowPlus5prcntDMG",
+                    "col" : "2",
+                    "active" : false  
+                },
+                {
+                    "key" : "SpreadShot",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "BowPlus20prcntKnockback",
+                    "col" : "4",
+                    "active" : false 
+                }
+            ],
+            [
+                {
+                    "key" : "SmokeShot",
+                    "col" : "1",
+                    "active" : false 
+                },
+                {
+                    "key" : "SpreadStartup",
+                    "col" : "3",
+                    "active" : false      
+                }
+            ],
+            [
+                {
+                    "key" : "SmokeAoE",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "Bow10prcntCDRonKill",
+                    "col" : "2",
+                    "active" : false  
+                },	
+                {
+                    "key" : "RainOfArrows",
+                    "col" : "5",
+                    "active" : false 
+                }
+            ],
+            [
+                {
+                    "key" : "SmokeDuration",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {  
+                    "key" : "Spread5Arrows",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "RainofArrowsAoE",
+                    "col" : "5",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "SmokeVision",
+                    "col" : "1",
+                    "active" : false 
+                },
+                {
+                    "key" : "BowCDR10prcnt",
+                    "col" : "4",
+                    "active" : false 
+                },
+                {
+                    "key" : "RainofArrowsSlow",
+                    "col" : "5",
+                    "active" : false 
+                }
+            ],
+            [
+                {
+                    "key" : "BowOneArrowConsume",
+                    "col" : "3",
+                    "active" : false 
+                }
+    
+            ]
+
+        ]
+    ],
+    "lines" : [
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },
+            {
+                "type" : "Start",
+                "col" : "4",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "5"
+            },
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "4",
+                "row" : "6"
+            }
+        ],
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },
+            {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            }
+        ]
+    ]
+}

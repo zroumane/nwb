@@ -1,0 +1,308 @@
+{
+    "key" : "Sword",
+    "counter": [19, 0, 0],
+    "branchName" : ["Sword","Shield"],
+    "selectedMainSkills" : [],
+    "skills" : [
+        [
+            [
+                {
+                    "key" : "Precision",
+                    "col" : "2",
+                    "active" : false              
+                },
+                {
+                    "key" : "WhirlingBlade",
+                    "col" : "3",
+                    "active" : false              
+                },
+                {
+                    "key" : "KeenBlade",
+                    "col" : "4",
+                    "active" : false              
+                }
+            ],
+            [
+                {
+                    "key" : "ReverseStab",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "QuickWhirl",
+                    "col" : "3",
+                    "active" : false            
+                },
+                {
+                    "key" : "CounterAttack",
+                    "col" : "4",
+                    "active" : false            
+                }                       
+            ],
+            [
+                {
+                    "key" : "UnstoppableStab",
+                    "col" : "1",
+                    "active" : false                
+                },
+                {
+                    "key" : "UltraKeen",
+                    "col" : "4",
+                    "active" : false
+                },
+                {
+                    "key" : "LeapingStrike",
+                    "col" : "5",
+                    "active" : false
+                }                   
+            ],
+            [
+                {
+                    "key" : "FinePrecision",
+                    "col" : "2",
+                    "active" : false                
+                },
+                {
+                    "key" : "SharpenedEdge",
+                    "col" : "3",
+                    "active" : false            
+                },
+                {
+                    "key" : "ReachingStrike",
+                    "col" : "5",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "UltimateStab",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "WhirlingDeath",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "KillerAdvantage",
+                    "col" : "4",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "ChargedStrike",
+                    "col" : "5",
+                    "active" : false
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "key" : "StudyShield",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "ShieldBash",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "MinorFortitude",
+                    "col" : "5",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "ShieldRush",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "ConcussiveBash",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "ElementalResistance",
+                    "col" : "4",
+                    "active" : false
+                } 
+            ],
+            [
+                {
+                    "key" : "BarricadeShield",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "LastStand",
+                    "col" : "4",
+                    "active" : false
+                },
+                {
+                    "key" : "MajorFortitude",
+                    "col" : "5",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "IntimidatingRush",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "IncomingResistance",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "EnduringStand",
+                    "col" : "4",
+                    "active" : false
+                }
+	
+            ],
+            [
+                {
+                    "key" : "RefreshingRush",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "Recuperation",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "ReinforcedArmor",
+                    "col" : "5",
+                    "active" : false
+                } 
+            ],
+            [
+                {
+                    "key" : "Leadership",
+                    "col" : "3",
+                    "active" : false
+                }
+            ]
+        ]
+    ],
+    "lines" : [
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },		
+		    {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+		    {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },		
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },		 
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },					
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },	
+           {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+           {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "5"
+            },	
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "5"
+            },
+			            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "6"
+            }	
+        ],
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },		
+		    {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+		    {
+                "type" : "Start",
+                "col" : "4",
+                "row" : "3"
+            },		
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },	
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "5"
+            },
+			            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "2"
+            },
+            {
+                "type" : "Stop",
+                "col" : "4",
+                "row" : "4"
+            }	
+        ]
+    ]
+}

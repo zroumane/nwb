@@ -1,0 +1,338 @@
+{
+    "key" : "Hatchet",
+    "counter": [19, 0, 0],
+    "branchName" : ["Throwing","Berserk"],
+    "selectedMainSkills" : [],
+    "skills" : [
+         [
+            [
+                {
+                    "key" : "OnFire",
+                    "col" : "2",
+                    "active" : false              
+                },
+                {
+                    "key" : "AimedThrow",
+                    "col" : "3",
+                    "active" : false              
+                },
+                {
+                    "key" : "RefreshingHeadshot",
+                    "col" : "4",
+                    "active" : false              
+                }
+            ],
+            [
+                {
+                    "key" : "QuickThrow",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "FocusedAim",
+                    "col" : "3",
+                    "active" : false            
+                },
+                {
+                    "key" : "CriticalThrow",
+                    "col" : "5",
+                    "active" : false            
+                }                       
+            ],
+            [
+                {
+                    "key" : "QuickCounter",
+                    "col" : "2",
+                    "active" : false                
+                },
+                {
+                    "key" : "DoubleThrow",
+                    "col" : "4",
+                    "active" : false
+                },
+                {
+                    "key" : "PowerThrow",
+                    "col" : "5",
+                    "active" : false
+                }                   
+            ],
+            [
+                {
+                    "key" : "QuickPower",
+                    "col" : "1",
+                    "active" : false                
+                },
+                {
+                    "key" : "BloodLust",
+                    "col" : "3",
+                    "active" : false            
+                },
+                {
+                    "key" : "PowerBreaker",
+                    "col" : "5",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "QuickRefresh",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "TripleThrow",
+                    "col" : "4",
+                    "active" : false
+                },
+                {
+                    "key" : "MortalPower",
+                    "col" : "5",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "ThrowUltimate",
+                    "col" : "3",
+                    "active" : false
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "key" : "CulltheWeak",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "Berserk",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "RelentlessFury",
+                    "col" : "4",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "SprintAttack",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "BerserkingSpeed",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "HeavyPushback",
+                    "col" : "4",
+                    "active" : false
+                } 
+            ],
+            [
+                {
+                    "key" : "SprintingGrit",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "BerserkingRefresh",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "Purge",
+                    "col" : "5",
+                    "active" : false
+                }
+            ],
+            [
+                {
+                    "key" : "SprintingWound",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "BerserkingEndurance",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "IronSplitter",
+                    "col" : "4",
+                    "active" : false
+                }
+	
+            ],
+            [
+                {
+                    "key" : "SprintingRefresh",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "DesperateRefresh",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "PurgedStrength",
+                    "col" : "5",
+                    "active" : false
+                } 
+            ],
+            [
+                {
+                    "key" : "ImmortalBerserk",
+                    "col" : "3",
+                    "active" : false
+                }
+            ]
+        ]
+    ],
+    "lines" : [
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },		
+		    {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+		    {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },		
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },		 
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },	
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "5"
+            },				
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },	
+           {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "5"
+            },
+			            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "5"
+            },
+           {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            },	
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "6"
+            }	
+        ],
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },		
+		    {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+		    {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },		
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },	
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "2"
+            },	
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "4"
+            },	
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "3"
+            },	
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },	
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "2",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "4",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            }				
+        ]
+    ]
+}

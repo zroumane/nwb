@@ -1,0 +1,314 @@
+{
+    "key" : "LifeStaff",
+    "counter": [19, 0, 0],
+    "branchName" : ["Protector","LifeStealer"],
+    "selectedMainSkills" : [],
+    "skills" : [
+        [
+            [
+                {
+                    "key" : "ProtectorProjUpgrade",
+                    "col" : "2",
+                    "active" : false
+                },
+                {
+                    "key" : "HealingWave",
+                    "col" : "3",
+                    "active" : false
+                },
+                {
+                    "key" : "ArcaneJustice",
+                    "col" : "4",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "HolyShield",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "HealingWave_Mod1",
+                    "col" : "3",
+                    "active" : false 
+                },
+                {
+                    "key" : "ManaFlow",
+                    "col" : "5",
+                    "active" : false 
+                }
+            ],
+            [
+                {
+                    "key" : "HolyShield_Mod1",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "HealingWave_Mod2",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "TouchOfLife",
+                    "col" : "5",
+                    "active" : false  
+                } 
+            ],
+            [
+                {
+                    "key" : "HolyShield_Mod2",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "HealingWave_Mod3",
+                    "col" : "3",
+                    "active" : false  
+                },
+                {
+                    "key" : "TouchOfLife_Mod1",
+                    "col" : "5",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "DivineProtection",
+                    "col" : "2",
+                    "active" : false  
+                },
+                {
+                    "key" : "MassResurection",
+                    "col" : "4",
+                    "active" : false   
+                },
+                {
+                    "key" : "TouchOfLife_Mod2",
+                    "col" : "5",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "AncientGuardian",
+                    "col" : "3",
+                    "active" : false   
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "key" : "ArcaneMight",
+                    "col" : "2",
+                    "active" : false 
+                },
+                {
+                    "key" : "Siphon",
+                    "col" : "3",
+                    "active" : false 
+                },
+                {
+                    "key" : "ArcaneRage",
+                    "col" : "4",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "SpeedOfLight",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "Siphon_Mod1",
+                    "col" : "3",
+                    "active" : false  
+                },
+                {
+                    "key" : "SoulSteal",
+                    "col" : "4",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "SpeedOfLight_Mod1",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "Transcendence",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "Smite",
+                    "col" : "5",
+                    "active" : false  
+                }
+            ],
+            [
+                
+                {
+                    "key" : "SpeedOfLight_Mod2",
+                    "col" : "1",
+                    "active" : false   
+                },
+                {
+                    "key" : "SpiritsUnited",
+                    "col" : "2",
+                    "active" : false 
+                },
+                {
+                    "key" : "Smite_Mod1",
+                    "col" : "5",
+                    "active" : false  
+                }
+
+            ],
+            [ 
+                {
+                    "key" : "Siphon_Mod2",
+                    "col" : "3",
+                    "active" : false 
+                },
+                {
+                    "key" : "Resuscitate",
+                    "col" : "4",
+                    "active" : false   
+                },
+                {
+                    "key" : "Smite_Mod2",
+                    "col" : "5",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "Siphon_Mod3",
+                    "col" : "3",
+                    "active" : false   
+                }
+            ]
+        ]
+    ],
+    "lines" : [
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },
+            {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            }
+        ],
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },
+            {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "6"
+            }
+        ]
+    ]
+}

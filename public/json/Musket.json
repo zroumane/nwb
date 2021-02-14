@@ -1,0 +1,319 @@
+{
+    "key" : "Musket",
+    "counter": [19, 0, 0],
+    "branchName" : ["Trapper","Sharpshooter"],
+    "selectedMainSkills" : [],
+    "skills" : [
+        [
+            [
+                {
+                    "key" : "MusketDMGBeast",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "Traps",
+                    "col" : "3",
+                    "active" : false  
+                },
+                {
+                    "key" : "MusketShieldAbsorb",
+                    "col" : "4",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "HuntersVision",
+                    "col" : "1",
+                    "active" : false   
+                },
+                {
+                    "key" : "TrapDMG",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "MusketReduceDMG",
+                    "col" : "4",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "MusketReduceSlow",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "TrapDouble",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "StickyBomb",
+                    "col" : "5",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "TrapVision",
+                    "col" : "1",
+                    "active" : false   
+                },
+                {
+                    "key" : "TrapThrow",
+                    "col" : "3",
+                    "active" : false  
+                },
+                {
+                    "key" : "MusketFirstBlood",
+                    "col" : "4",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "MusketSacrifice",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "StickyDouble",
+                    "col" : "5",
+                    "active" : false    
+                }
+            ],
+            [            
+                {
+                    "key" : "TrapTriple",
+                    "col" : "3",
+                    "active" : false   
+                }
+
+            ]
+        ],
+        [
+            [
+                {
+                    "key" : "MusketSnipe",
+                    "col" : "2",
+                    "active" : false  
+                },
+                {
+                    "key" : "PowerShot",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "Musket10prcntHeadShot",
+                    "col" : "4",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "Musket10prcntAccuracy",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "PowerLoad",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "ShootersStance",
+                    "col" : "5",
+                    "active" : false 
+                }
+            ],
+            [
+                {
+                    "key" : "PlayDead",
+                    "col" : "1",
+                    "active" : false   
+                },
+                {
+                    "key" : "PowerRange",
+                    "col" : "3",
+                    "active" : false 
+                },
+                {
+                    "key" : "ShootMore",
+                    "col" : "5",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "PlayAction",
+                    "col" : "1",
+                    "active" : false 
+                },
+                {
+                    "key" : "MusketDMGHeavyArmor",
+                    "col" : "2",
+                    "active" : false  
+                },
+                {
+                    "key" : "MusketLegShot",
+                    "col" : "4",
+                    "active" : false  
+                }
+            ],
+            [
+                {
+                    "key" : "PlayReset",
+                    "col" : "1",
+                    "active" : false
+                },
+                {
+                    "key" : "CleanPowder",
+                    "col" : "3",
+                    "active" : false  
+                },
+                {
+                    "key" : "ShootPower",
+                    "col" : "5",
+                    "active" : false  
+                }
+            ],
+            [
+ 
+                {
+                    "key" : "MusketSniper",
+                    "col" : "3",
+                    "active" : false   
+                }
+            ]
+        ]
+    ],
+    "lines" : [
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },		
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "3"
+            },		
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },		 
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+           {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "4"
+            },
+                        {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "6"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            }
+        ],
+        [
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "1"
+            },		
+		    {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "3"
+            },
+		    {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "2"
+            },		
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "2"
+            },
+           {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "3"
+            },		 
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },					
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },	
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "5"
+            },
+			            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            }		
+        ]
+    ]
+}

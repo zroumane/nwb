@@ -1,0 +1,37 @@
+[
+    {
+        "key" : "Bow",
+        "name": "Arc",
+        "branch" : ["Chasseur", "Archer"]
+    },
+    {
+        "key" : "FireStaff",
+        "name": "Bâton de feu",
+        "branch" : ["Invocateur De Flamme", "Pyromane"]
+    },
+    {
+        "key" : "LifeStaff",
+        "name": "Bâton de vie",
+        "branch" : ["Protecteur", "Voleur De Vie"]
+    },
+    {
+        "key" : "Sword",
+        "name": "Epée",
+        "branch" : ["Epée", "Bouclier"]
+    },
+    {
+        "key" : "Hatchet",
+        "name": "Hâche de jet",
+        "branch" : ["Rage", "Lancer"]
+    },
+    {
+        "key" : "Warhammer",
+        "name": "Marteau de guerre",
+        "branch" : ["Mastodonte", "Ecrase Foule"]
+    },
+    {
+        "key" : "Musket",
+        "name": "Mousquet",
+        "branch" : ["Fin Tireur", "Trappeur"]
+    }
+]

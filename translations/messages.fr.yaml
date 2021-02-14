@@ -1,0 +1,22 @@
+BuildName: 'Nom du build'
+PlayerName: 'Nom du joueur'
+BuildDesc: 'Descriptif du build'
+TypeName: Type
+Siege: Siège
+Weapons: Armes
+Bow: Arc
+Hatchet: 'Hâche de jet'
+Musket: Mousquet
+Sword: Epée
+Warhammer: 'Marteau de guerre'
+LifeStaff: 'Bâton de vie'
+FireStaff: 'Bâton de feu'
+ChooseWeapon1: 'Choisir arme 1'
+ChooseWeapon2: 'Choisir arme 2'
+ChooseWeapon3: 'Choisir arme 3'
+Weapon1: 'Arme 1'
+Weapon2: 'Arme 2'
+Weapon3: 'Arme 3'
+WeaponAlert: 'Veuillez d''abord choisir une arme'
+Save: Enregistrer
+Reset: Réinitialiser

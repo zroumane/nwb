@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/nwfond.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+.navbar {
+    background-color:white;
+}

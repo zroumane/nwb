@@ -1,0 +1,342 @@
+{
+    "key" : "FireStaff",
+    "counter": [19, 0, 0],
+    "branchName" : ["FlameSummoner","Pyromaniac"],
+    "selectedMainSkills" : [],
+    "skills" : [
+        [
+            [
+                {
+                    "key" : "PillarOfFire",
+                    "col" : "1",
+                    "active" : false    
+                },
+                {
+                    "key" : "AdvancedSorcery",
+                    "col" : "2",
+                    "active" : false    
+                },
+                {
+                    "key" : "BurningCharge",
+                    "col" : "4",
+                    "active" : false    
+                } 
+            ],
+            [
+                {
+                    "key" : "PillarOfFire_Mod1",
+                    "col" : "1",
+                    "active" : false    
+                },
+                {
+                    "key" : "DemonicAscension",
+                    "col" : "2",
+                    "active" : false    
+                },
+                {
+                    "key" : "MeteorStorm",
+                    "col" : "5",
+                    "active" : false   
+                }
+            ],
+            [
+                {
+                    "key" : "PillarOfFire_Mod2",
+                    "col" : "1",
+                    "active" : false   
+                },
+                {
+                    "key" : "FireSiege",
+                    "col" : "3",
+                    "active" : false   
+                },
+                {
+                    "key" : "MeteorStorm_Mod1",
+                    "col" : "5",
+                    "active" : false    
+                }
+            ],
+            [
+                {
+                    "key" : "SummonersGift",
+                    "col" : "2",
+                    "active" : false    
+                },
+                {
+                    "key" : "FireSiege_Mod1",
+                    "col" : "3",
+                    "active" : false    
+                },
+                {
+                    "key" : "MeteorStorm_Mod2",
+                    "col" : "5",
+                    "active" : false     
+                }
+            ],
+            [
+                {
+                    "key" : "FireSiege_Mod2",
+                    "col" : "3",
+                    "active" : false     
+                },
+                {
+                    "key" : "FireFlare",
+                    "col" : "4",
+                    "active" : false    
+                },
+                {
+                    "key" : "MeteorStorm_Mod3",
+                    "col" : "5",
+                    "active" : false    
+                }
+            ],
+            [            
+                {
+                    "key" : "FireSiege_Mod3",
+                    "col" : "3",
+                    "active" : false     
+                }
+            ]
+        ],
+        [
+            [
+                {
+                    "key" : "FlameThrower",
+                    "col" : "1",
+                    "active" : false    
+                },
+                {
+                    "key" : "FireArmor",
+                    "col" : "2",
+                    "active" : false    
+                },
+                {
+                    "key" : "BurningAgony",
+                    "col" : "4",
+                    "active" : false     
+                }
+            ],
+            [            
+                {
+                    "key" : "FlameThrower_Mod1",
+                    "col" : "1",
+                    "active" : false  
+                },
+                {
+                    "key" : "Pyromania",
+                    "col" : "3",
+                    "active" : false     
+                },
+                {
+                    "key" : "FastFlame",
+                    "col" : "5",
+                    "active" : false     
+                }
+            ],
+            [
+                {
+                    "key" : "FlameThrower_Mod2",
+                    "col" : "1",
+                    "active" : false     
+                },
+                {
+                    "key" : "Incinerate",
+                    "col" : "3",
+                    "active" : false    
+                },
+                {
+                    "key" : "FastFlame_Mod1",
+                    "col" : "5",
+                    "active" : false    
+                }
+            ],
+            [
+                {
+                    "key" : "FlameThrower_Mod3",
+                    "col" : "1",
+                    "active" : false   
+                },
+                {
+                    "key" : "Incinerate_Mod1",
+                    "col" : "3",
+                    "active" : false     
+                },
+                {
+                    "key" : "FastFlame_Mod2",
+                    "col" : "5",
+                    "active" : false     
+                }
+            ],
+            [
+                {
+                    "key" : "TrialByFire",
+                    "col" : "2",
+                    "active" : false   
+                },
+                {
+                    "key" : "Incinerate_Mod2",
+                    "col" : "3",
+                    "active" : false    
+                },
+                {
+                    "key" : "ProphetFireGod",
+                    "col" : "4",
+                    "active" : false    
+                } 
+            ],
+            [
+                {
+                    "key" : "Incinerate_Mod3",
+                    "col" : "3",
+                    "active" : false    
+                }
+            ]
+        ]
+    ],
+    "lines" : [
+        [
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "1"
+            },
+            {
+                "type" : "Start",
+                "col" : "4",
+                "row" : "1"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "2"
+            },
+            {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "2"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "4",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "4",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "6"
+            }
+        ],
+        [
+            {
+                "type" : "Start",
+                "col" : "1",
+                "row" : "1"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "2"
+            },
+            {
+                "type" : "Start",
+                "col" : "5",
+                "row" : "2"
+            },
+            {
+                "type" : "Solid",
+                "col" : "1",
+                "row" : "3"
+            },
+            {
+                "type" : "Start",
+                "col" : "3",
+                "row" : "3"
+            },
+            {
+                "type" : "Solid",
+                "col" : "5",
+                "row" : "3"
+            },
+            {
+                "type" : "Stop",
+                "col" : "1",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "4"
+            },
+            {
+                "type" : "Stop",
+                "col" : "5",
+                "row" : "4"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Solid",
+                "col" : "3",
+                "row" : "5"
+            },
+            {
+                "type" : "Stop",
+                "col" : "3",
+                "row" : "6"
+            }
+        ]
+    ]
+}
