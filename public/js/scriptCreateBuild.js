@@ -55,7 +55,7 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
     
     //lance le setup de l'arme apres avoir verifier si deja presente dans les donners, sinon ajout
       if(globalWeapon.filter(w => w.key == option.attr('value')).length == 0){
-        $.getJSON("src/json/"+option.attr('value')+".json", function(weaponInfo){
+        $.getJSON("json/"+option.attr('value')+".json", function(weaponInfo){
           globalWeapon.push(weaponInfo)
           setupWeapon(option); 
         })
@@ -79,7 +79,7 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
     $('#weaponCollapse'+weaponCollapse).css('display', 'block');
 
     //reset complet
-    $(".skill-container-img.collapse"+weaponCollapse).attr('src', 'src/img/emptyCadre.png');
+    $(".skill-container-img.collapse"+weaponCollapse).attr('src', 'img/emptyCadre.png');
     $(".skill-container.collapse"+weaponCollapse).css('background-image', 'url("")');
     $(".skill-container.collapse"+weaponCollapse).popover('disable')
     $(".skill-container.collapse"+weaponCollapse).attr('fill', 'false');
@@ -99,9 +99,10 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
           var skillTitle = skillsInfo[skillKey];
           var skillDescription = skillsInfo[skillKey + '_description']
           var idSkill = '#skill-'+weaponCollapse+'-'+weaponSide+'-'+skillRow+'-'+skill.col;
-          var imgPath = 'src/img/'+weaponKey+'/'+globalWeapon.filter(w => w.key == weaponKey)[0].branchName[indexbranch]+'/'+skillKey+'.png';
+          var imgPath = 'img/'+weaponKey+'/'+globalWeapon.filter(w => w.key == weaponKey)[0].branchName[indexbranch]+'/'+skillKey+'.png';
           var skillObject = $(idSkill);
           skillObject[0].firstChild.src = imgPath;
+          console.log(skillObject[0].firstChild);
           skillObject.attr('weaponKey', weaponKey).attr('skill', skillKey).attr('weaponCollapse', weaponCollapse).attr('fill', true)
           skillObject.popover('enable').attr('data-bs-original-title', skillTitle).attr('data-bs-content', skillDescription)
           greyscale(skillObject, skill.active);
@@ -111,7 +112,7 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
       //place les lignes
       globalWeapon.filter(w => w.key == weaponKey)[0].lines[indexbranch].forEach(line => {
         var idSkill = '#skill-'+weaponCollapse+'-'+weaponSide+'-'+line.row+'-'+line.col;
-        $(idSkill).css('background-image', 'url("src/img/skillLine'+line.type+'.png")');
+        $(idSkill).css('background-image', 'url("img/skillLine'+line.type+'.png")');
       })
 
     })

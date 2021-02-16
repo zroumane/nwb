@@ -1,24 +1,14 @@
-BuildName: 'Build name'
-PlayerName: 'Player name'
-BuildDesc: 'Build description'
-TypeName: Type
-Siege: Siege
-Weapons: Weapons
-Bow: Bow
-Hatchet: Hatchet
-Musket: Musket
-Sword: Sword
-Warhammer: Warhammer
-LifeStaff: LifeStaff
-FireStaff: FireStaff
-ChooseWeapon1: 'Choose weapon 1'
-ChooseWeapon2: 'Choose weapon 2'
-ChooseWeapon3: 'Choose weapon 3'
-Weapon1: 'Weapon 1'
-Weapon2: 'Weapon 2'
-Weapon3: 'Weapon 3'
-WeaponAlert: 'Veuillez d''abord choisir une arme'
-Save: Save
-Reset: Reset
+Base:
 
-    
+Create:
+  BuildName: Build name
+  PlayerName: Player name
+  BuildDesc: Build description
+  TypeName: Type
+  Siege: Siege
+  Weapons: Weapons
+  ChooseWeapon: Choose weapon %number%
+  Weapon: Weapon %number%
+  WeaponAlert: Please choose a weapon first
+  Save: Save
+  Reset: Reset
