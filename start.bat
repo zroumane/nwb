@@ -1,3 +1,3 @@
 @echo off
-php -S localhost:4444 -t public
+php7.3 -S localhost:4444 -t public
 @pause

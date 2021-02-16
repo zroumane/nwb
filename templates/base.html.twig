@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="{{ locale }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}New World Builders{% endblock %}</title>
-        <meta name="keywords" lang="'{{ lang }}" content="build, create, newworld, new, world"/>
+        <title>{% block title %}{% trans into locale %}PageTitle.BuildTitle{% endtrans %}{% endblock %}</title>
+        <meta name="keywords" locale="'{{ locale }}" content="build, create, newworld, new, world"/>
         <meta name="description" content=""/>
         <link rel="shortcut icon" href="img/nwicone2.jpg"/>
         <link href="css/global.css" rel="stylesheet">
@@ -14,20 +14,38 @@
         {% block javascripts %}{% endblock %}
     </head>
     <body>
-
+	
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{path('build')}}">
                 <img src="/img/nwicone.png" alt="" width="100" height="100">
             </a>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% if current_menu == 'build' %}active{% endif %}"  href="{{path('build')}}">Build</a>
+                        <a class="nav-link {% if current_menu == 'build' %}active{% endif %}"  href="{{path('build')}}">{% trans into locale %}NavBar.Build{% endtrans %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('create')}}">Create</a>
+                        <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('create')}}">{% trans into locale %}NavBar.Create{% endtrans %}</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">{% trans into locale %}NavBar.Login{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% trans into locale %}NavBar.Language{% endtrans %}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'en'}) }}">English</a></li>
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'fr'}) }}">Français</a></li>
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'de'}) }}">Deutsche</a></li>
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'es'}) }}">España</a></li>
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'it'}) }}">Italiano</a></li>
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pl'}) }}">Polskie</a></li>
+                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pt'}) }}">Português</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>

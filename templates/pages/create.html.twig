@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title "Create a Build" %}
+{% block title %}{% trans into locale %}PageTitle.CreateTitle{% endtrans %}{% endblock %}
 
 {% block stylesheets %} <link href="css/createBuild.css" rel="stylesheet"> {% endblock %}
 
@@ -11,43 +11,43 @@
 
 
 <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg" id="BuildName">{% trans into lang %}Create.BuildName{% endtrans %} :</label>
+    <label class="col-sm-3 col-form-label col-form-label-lg" id="BuildName">{% trans into locale %}Create.BuildName{% endtrans %} :</label>
     <div class="col">
-        <input class="form-control" name="buildname" id="BuildNameInput" placeholder="{% trans into lang %}Create.BuildName{% endtrans %}"/>
+        <input class="form-control" name="buildname" id="BuildNameInput" placeholder="{% trans into locale %}Create.BuildName{% endtrans %}"/>
     </div>
     <div class="col-2">
         <select class="form-select" id="selectType" name="modetype" id="modetypeInput" >
-            <option hidden disabled selected>{% trans into lang %}Create.TypeName{% endtrans %}</option>
+            <option hidden disabled selected>{% trans into locale %}Create.TypeName{% endtrans %}</option>
             <option name="modetype1" id="modetype1" value="1">PVP</option>
             <option name="modetype2" id="modetype2" value="2">PVE</option>
             <option name="modetype3" id="modetype3" value="3">PVPVE</option>
-            <option name="modetype4" id="modetype4" value="4">{% trans into lang %}Create.Siege{% endtrans %}</option>
+            <option name="modetype4" id="modetype4" value="4">{% trans into locale %}Create.Siege{% endtrans %}</option>
         </select>   
     </div>
 </div>
 <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg" id="BuildName">{% trans into lang %}Create.PlayerName{% endtrans %} :</label>
+    <label class="col-sm-3 col-form-label col-form-label-lg" id="BuildName">{% trans into locale %}Create.PlayerName{% endtrans %} :</label>
     <div class="col">
-        <input class="form-control" name="playername" id="playernameInput" placeholder="{% trans into lang %}Create.PlayerName{% endtrans %}"/>
+        <input class="form-control" name="playername" id="playernameInput" placeholder="{% trans into locale %}Create.PlayerName{% endtrans %}"/>
     </div>
 </div>
 <div class="mb-4 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg" id="description">{% trans into lang %}Create.BuildDesc{% endtrans %} :</label>
+    <label class="col-sm-3 col-form-label col-form-label-lg" id="description">{% trans into locale %}Create.BuildDesc{% endtrans %} :</label>
     <div class="col">
-        <textarea class="form-control" id="description" name="description" placeholder="{% trans into lang %}Create.BuildDesc{% endtrans %}"></textarea>
+        <textarea class="form-control" id="description" name="description" placeholder="{% trans into locale %}Create.BuildDesc{% endtrans %}"></textarea>
     </div>
 </div>
 
 
 <div class="mb-3 row">
-<label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into lang %}Create.Weapons{% endtrans %}</label>
+<label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into locale %}Create.Weapons{% endtrans %}</label>
 
 {% for select in 1..2 %}
     <div class="col">
         <select class="form-select p-2 border selectChoixWeapon" id="WeaponSelect{{ select }}" weaponCollapse="{{ select }}">
-        <option value="0" hidden selected>{% trans with {'%number%': select} into lang %}Create.ChooseWeapon{% endtrans %}</option>
+        <option value="0" hidden selected>{% trans with {'%number%': select} into locale %}Create.ChooseWeapon{% endtrans %}</option>
         {% for weapon in weapons %}
-            <option id="option{{weapon.key}}" weaponCollapse="{{ select }}" class="optionChoixWeapon weaponCollapse'{{ select }}" 
+            <option id="option{{weapon.key}}" weaponCollapse="{{ select }}" class="optionChoixWeapon weaponCollapse{{ select }}" 
             value="{{weapon.key}}" branch1="{{weapon.branch[0]}}" branch2="{{weapon.branch[1]}}">{{weapon.name}}</option>
         {% endfor %}
         </select>
@@ -62,7 +62,7 @@
     <div class="accordion-item" collapseId="{{collapse}}">
         <h2 class="accordion-header" id="heading{{collapse}}" collapseId="{{collapse}}">
         <button class="accordion-button collapsed fs-4" id="buttonCollapse{{collapse}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{collapse}}" 
-        aria-expanded="false" aria-controls="collapse{{collapse}}">{% trans with {'%number%': collapse} into lang %}Create.Weapon{% endtrans %}</button>
+        aria-expanded="false" aria-controls="collapse{{collapse}}">{% trans with {'%number%': collapse} into locale %}Create.Weapon{% endtrans %}</button>
         </h2>
         <div id="collapse{{collapse}}" class="accordion-collapse collapse" collapseId="{{collapse}}" aria-labelledby="heading{{collapse}}" data-bs-parent="#accordionWeapon">
         <div class="accordion-body p-0" collapseId="{{collapse}}">
@@ -77,7 +77,7 @@
             {% for row in 1..6 %}
                 <div class="row gx-0 pe-2 ps-2" collapseId="{{collapse}}" side="{{side}}" row="{{row}}">
                 {% for col in 1..5 %}
-                    <div class="col skill-container collapse{{collapse}}" side="{{side}}" row="{{row}}" id="skill-{{collapse}}-{{side}}-{{row}}-{{col}}" title="Popver" data-toggle="popover" data-bs-trigger="hover" data-bs-content="Popover description" alert="false"><img class="skill-container-img collapse{{collapse}}" src="src/img/emptyCadre.png" style="width:100%"/></div>
+                    <div class="col skill-container collapse{{collapse}}" side="{{side}}" row="{{row}}" id="skill-{{collapse}}-{{side}}-{{row}}-{{col}}" title="Popver" data-toggle="popover" data-bs-trigger="hover" data-bs-content="Popover description" alert="false"><img class="skill-container-img collapse{{collapse}}" src="img/emptyCadre.png" style="width:100%"/></div>
                 {% endfor %}
                 </div>
             {% endfor %}
@@ -103,11 +103,11 @@
         </div>
         </div>
         <div class="col position-relative">
-        <button type="button"class="btn btn-outline-light position-absolute top-50 start-50 translate-middle fs-4">{% trans into lang %}Create.Reset{% endtrans %}</button>
+        <button type="button"class="btn btn-outline-light position-absolute top-50 start-50 translate-middle fs-4">{% trans into locale %}Create.Reset{% endtrans %}</button>
         </div>
         </div>
         </div>
-        <div class="row p-3 gx-0 fs-4 weaponAlert{{collapse}}">{% trans into lang %}Create.WeaponAlert{% endtrans %}</div>
+        <div class="row p-3 gx-0 fs-4 weaponAlert{{collapse}}">{% trans into locale %}Create.WeaponAlert{% endtrans %}</div>
         </div>
         </div> 
     </div>
@@ -115,7 +115,7 @@
 </div>
 
 <div class="row p-3 justify-content-end">
-    <button type="button" id="showResult" class="btn btn-outline-light fs-3">{% trans into lang %}Create.Save{% endtrans %}</button>
+    <button type="button" id="showResult" class="btn btn-outline-light fs-3">{% trans into locale %}Create.Save{% endtrans %}</button>
 </div>
 
 {% endblock %}

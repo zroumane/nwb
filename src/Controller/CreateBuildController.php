@@ -4,17 +4,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @param TranslatorInterface $translator
  * @return Response
  */
 class CreateBuildController extends AbstractController{
     
-
     private $kernel;
-    private $lang;
+    private $locale;
 
     public function __construct(KernelInterface $kernel){
         $this->kernel = $kernel; 
@@ -22,13 +19,12 @@ class CreateBuildController extends AbstractController{
 
     public function index(Request $request) : Response
     {
-        $request->setLocale('fr');
-        $this->lang = $request->getLocale();
+        $this->locale = $request->getLocale();
 
         return $this->render('pages/create.html.twig', [
             'current_menu' => 'create',
-            'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$this->lang.'/weapon.json')),
-            'lang' => $this->lang
+            'locale' => $this->locale,
+            'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$this->locale.'/weapon.json'))
         ]);
     }
 

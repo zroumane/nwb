@@ -1,5 +1,11 @@
-Base:
-
+PageTitle:
+  BuildTitle: New World Builders
+  CreateTitle: Créer un Build
+NavBar:  
+  Build: Builds
+  Create: Créer
+  Language: Langue
+  Login: Connectez-vous avec Steam
 Create:
   BuildName: Nom du build
   PlayerName: Nom du joueur
@@ -12,4 +18,3 @@ Create:
   WeaponAlert: Veuillez dabord choisir une arme
   Save: Enregistrer
   Reset: Réinitialiser
-

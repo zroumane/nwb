@@ -1,6 +1,5 @@
 window.onload = function (){
 
-
 //initialise les popovers
 $(document).ready(function(){
   $('[data-toggle="popover"]').popover({
@@ -42,11 +41,11 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
     //appelle fonction de remplissage et si collapse ouverte attend fin fermeture
     var toChange = true;
     var collapse = $('#collapse'+weaponCollapse)
-    if(collapse.hasClass('show')){
+    if(collapse.hasClass("show")){
         collapse.collapse("hide");
         collapse.on('hidden.bs.collapse', function(){ 
-          if(toChange){ modifyCollapse(option);} toChange = false; });
-    } else { modifyCollapse(option); toChange = false;}
+          if(toChange){modifyCollapse(option);} toChange = false;});
+    } else {modifyCollapse(option); toChange = false;}
 
   })
 
@@ -102,7 +101,6 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
           var imgPath = 'img/'+weaponKey+'/'+globalWeapon.filter(w => w.key == weaponKey)[0].branchName[indexbranch]+'/'+skillKey+'.png';
           var skillObject = $(idSkill);
           skillObject[0].firstChild.src = imgPath;
-          console.log(skillObject[0].firstChild);
           skillObject.attr('weaponKey', weaponKey).attr('skill', skillKey).attr('weaponCollapse', weaponCollapse).attr('fill', true)
           skillObject.popover('enable').attr('data-bs-original-title', skillTitle).attr('data-bs-content', skillDescription)
           greyscale(skillObject, skill.active);
@@ -220,9 +218,6 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
   //fonction pour supprimer le skill
   function delSkill(skillObject,skill, weapon){
     var matchStartLine = globalWeapon.filter(w => w.key == weapon.key)[0].lines[skillObject.attr('side')-1].filter(l => l.col == skill.col && l.row == skillObject.attr('row') && l.type == "Start");
-    // if(matchStartLine.length > 0){
-    //    console.log( weapon.selectedMainSkills.splice(weapon.selectedMainSkills.indexOf(skill.key), 1));
-    // }
     var skillkey = skillObject.attr('skill')
     weapon.counter[0]++; 
     weapon.counter[skillObject.attr('side')]--;
