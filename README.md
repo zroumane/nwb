@@ -3,24 +3,24 @@
 Repo du site : newworld-builder.com
 Dev Demo : http://51.195.45.151:4444
 
-###Requis
+### Requis
 [PHP](https://www.php.net/downloads)
 [Composer](https://getcomposer.org/download/)
 
-###Intallation
+### Intallation
 ```bash
 git clone https://github.com/zroumane/nwb
 cd nwb
 composer install
 ```
 
-###Lancer
+### Lancer
 Executer `start.bat` ou :
 ```bash
 php -S localhost:4444 -t public
 ```
 
-###Déploiement
+### Déploiement
 Passer `APP_ENV` en `prod` dans le fichier `.env` puis :
 ```bash
 sudo rsync -avhb --exclude-from=exclude ./ ubuntu@51.195.45.151:~/www/nwb-syf
