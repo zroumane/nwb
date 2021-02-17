@@ -6,6 +6,7 @@ NavBar:
   Create: Créer
   Language: Langue
   Login: Connectez-vous avec Steam
+  Loged: Connectez en tant que %username%
 Create:
   BuildName: Nom du build
   PlayerName: Nom du joueur

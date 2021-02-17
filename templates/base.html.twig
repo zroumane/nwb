@@ -15,46 +15,52 @@
     </head>
     <body>
 	
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{path('build')}}">
-                <img src="/img/nwicone.png" alt="" width="100" height="100">
-            </a>
-            <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {% if current_menu == 'build' %}active{% endif %}"  href="{{path('build')}}">{% trans into locale %}NavBar.Build{% endtrans %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('create')}}">{% trans into locale %}NavBar.Create{% endtrans %}</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="">{% trans into locale %}NavBar.Login{% endtrans %}</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {% trans into locale %}NavBar.Language{% endtrans %}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'en'}) }}">English</a></li>
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'fr'}) }}">Français</a></li>
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'de'}) }}">Deutsche</a></li>
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'es'}) }}">España</a></li>
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'it'}) }}">Italiano</a></li>
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pl'}) }}">Polskie</a></li>
-                            <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pt'}) }}">Português</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{{path('build')}}">
+            <img src="/img/nwicone.png" alt="" width="100" height="100">
+        </a>
+        <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {% if current_menu == 'build' %}active{% endif %}"  href="{{path('build')}}">{% trans into locale %}NavBar.Build{% endtrans %}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('create')}}">{% trans into locale %}NavBar.Create{% endtrans %}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="">{% trans into locale %}NavBar.Login{% endtrans %}</a>
+                </li>
+                <li class="nav-item dropdown fs-5 d-flex align-items-center">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if locale == 'en' %}English{% endif %}
+                        {% if locale == 'fr' %}Français{% endif %}
+                        {% if locale == 'de' %}Deutsche{% endif %}
+                        {% if locale == 'es' %}España{% endif %}
+                        {% if locale == 'it' %}Italiano{% endif %}
+                        {% if locale == 'pl' %}Polskie{% endif %}
+                        {% if locale == 'pt' %}Português{% endif %}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'en'}) }}">English</a></li>
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'fr'}) }}">Français</a></li>
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'de'}) }}">Deutsche</a></li>
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'es'}) }}">España</a></li>
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'it'}) }}">Italiano</a></li>
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pl'}) }}">Polskie</a></li>
+                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pt'}) }}">Português</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        </nav>
+    </div>
+    </nav>
 
-        <div class="text-light container p-4" style="background-color:#535353b0">
-            {% block body %}{% endblock %}
-        </div>
-        
+    <div class="text-light container p-4" style="background-color:#535353b0">
+        {% block body %}{% endblock %}
+    </div> 
+    
     </body>
 </html>
