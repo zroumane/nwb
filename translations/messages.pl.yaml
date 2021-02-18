@@ -1,16 +1,18 @@
 PageTitle:
   BuildTitle: New World Builders
   CreateTitle: Create a Build  Page Title
+  PatchNote: Patch Note
 NavBar:  
   Build: Builds
   Create: Create
+  PatchNote: Patch Note
   Language: Language
   Login: Log in with Steam
   Loged: Logged as %username%
 Create:
   BuildName: Build name
   PlayerName: Player name
-  BuildDesc: Build description
+  BuildDesc: Description
   TypeName: Type
   Siege: Siege
   Weapons: Weapons

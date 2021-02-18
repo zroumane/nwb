@@ -8,16 +8,14 @@
 
 {% block body %}
 
-
-
 <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg" id="BuildName">{% trans into locale %}Create.BuildName{% endtrans %} :</label>
+    <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildName{% endtrans %} :</label>
     <div class="col">
-        <input class="form-control" name="buildname" id="BuildNameInput" placeholder="{% trans into locale %}Create.BuildName{% endtrans %}"/>
+        <input class="form-control" id="BuildNameInput" placeholder="{% trans into locale %}Create.BuildName{% endtrans %}"/>
     </div>
     <div class="col-2">
-        <select class="form-select" id="selectType" name="modetype" id="modetypeInput" >
-            <option hidden disabled selected>{% trans into locale %}Create.TypeName{% endtrans %}</option>
+        <select class="form-select" id="SelectType">
+            <option hidden disabled selected value="0">{% trans into locale %}Create.TypeName{% endtrans %}</option>
             <option name="modetype1" id="modetype1" value="1">PVP</option>
             <option name="modetype2" id="modetype2" value="2">PVE</option>
             <option name="modetype3" id="modetype3" value="3">PVPVE</option>
@@ -25,22 +23,16 @@
         </select>   
     </div>
 </div>
-<div class="mb-3 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg" id="BuildName">{% trans into locale %}Create.PlayerName{% endtrans %} :</label>
-    <div class="col">
-        <input class="form-control" name="playername" id="playernameInput" placeholder="{% trans into locale %}Create.PlayerName{% endtrans %}"/>
-    </div>
-</div>
 <div class="mb-4 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg" id="description">{% trans into locale %}Create.BuildDesc{% endtrans %} :</label>
+    <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildDesc{% endtrans %} :</label>
     <div class="col">
-        <textarea class="form-control" id="description" name="description" placeholder="{% trans into locale %}Create.BuildDesc{% endtrans %}"></textarea>
+        <textarea class="form-control" id="DescriptionInput" placeholder="{% trans into locale %}Create.BuildDesc{% endtrans %}"></textarea>
     </div>
 </div>
 
 
 <div class="mb-3 row">
-<label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into locale %}Create.Weapons{% endtrans %}</label>
+<label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into locale %}Create.Weapons{% endtrans %} :</label>
 
 {% for select in 1..2 %}
     <div class="col">
@@ -115,7 +107,12 @@
 </div>
 
 <div class="row p-3 justify-content-end">
-    <button type="button" id="showResult" class="btn btn-outline-light fs-3">{% trans into locale %}Create.Save{% endtrans %}</button>
+    <a id="showResult">Log</button>
 </div>
+
+<div class="row p-3 justify-content-end">
+    <button type="button" id="sendBuild" class="btn btn-outline-light fs-3">{% trans into locale %}Create.Save{% endtrans %}</button>
+</div>
+
 
 {% endblock %}

@@ -250,9 +250,45 @@ $.getJSON("json/"+lang+"/messageSkill.json", function(messageSkill){
   }
 
   $('#showResult').click(function(){
-    console.log(globalWeapon);
+    var buildObject = {
+      "title": $('#BuildNameInput').val(),
+      "type": $('#SelectType').children(":selected").val(),
+      "description": $('#DescriptionInput').val()
+    }
+    console.log(buildObject)
     console.log(globalWeapon.filter(w => w.key == selectedWeapon[0] || w.key == selectedWeapon[1]));
   })
+
+  $('#sendBuild').click(function(){
+
+    var buildObject = new Object;
+
+    if($('#BuildNameInput').val().length << 4){
+      buildObject.title = $('#BuildNameInput').val();
+    }else{
+      console.log("Le nom doit avoir plus de 5 caractere");
+      return;
+    }
+
+    if($('#SelectType').children(":selected").val() == 0){
+      console.log("Le nom doit avoir plus de 5 caractere");
+      return;
+    }else{
+      buildObject.type = $('#SelectType').children(":selected").val();
+    }
+    buildObject.description = $('#DescriptionInput').val();
+
+    buildObject.weapon = globalWeapon.filter(w => w.key == selectedWeapon[0] || w.key == selectedWeapon[1]);
+
+    $.post('sendbuild', JSON.stringify(buildObject), function(result){
+      var data = JSON.parse(result);
+      if(data[0] == 'ok'){
+        window.location.href="/build/"+data[1];
+      }
+    })
+
+  })
+
 
 });
 });

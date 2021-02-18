@@ -2,14 +2,35 @@
 #    path: /
 #    controller: App\Controller\DefaultController::index
 
-build:
+#Page principale, liste les builds
+builds:
   path: /
-  controller : App\Controller\BuildController::index
+  controller : App\Controller\BuildsController::index
 
+#Page pour un build spécifique
+build:
+  path: /build/{id}
+  defaults:  { id: null }
+  controller : App\Controller\BuildsController::getBuild
+
+#Page de création d'un build
 create:
   path: /create
   controller : App\Controller\CreateBuildController::index
 
+#Patch note, a réfléchir
+patchnote:
+  path: /patchnote
+  controller : App\Controller\PatchNoteController::index
+
+#Route pour sauvegarder le build
+sendbuild:
+  path: /sendbuild
+  controller : App\Controller\CreateBuildController::sendBuild
+  methods : POST
+
+#Route pour changer la localisation
 setlocale:
   path: /setlocale/{locale}
+  defaults:  { locale: 'en' }
   controller : App\Controller\SetLocalController::index
