@@ -2,29 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bb42912-d222-4cb2-b02e-eb5d90571826" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/nwb-syf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/nwb-syf.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/scriptCreateBuild.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/scriptCreateBuild.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/BuildController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BuildsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BuildsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CreateBuildController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CreateBuildController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start.bat" beforeDir="false" afterPath="$PROJECT_DIR$/start.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/BuildType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/BuildType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pages/build.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/build.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pages/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/create.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.de.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.de.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.en.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.en.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.es.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.es.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.fr.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.fr.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.it.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.it.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.pl.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.pl.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.pt.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.pt.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pages/builds.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages/builds.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,6 +173,7 @@
       <workItem from="1613443839039" duration="49000" />
       <workItem from="1613579364766" duration="163000" />
       <workItem from="1613607180360" duration="596000" />
+      <workItem from="1613739087123" duration="1244000" />
     </task>
     <servers />
   </component>

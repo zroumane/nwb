@@ -19,19 +19,19 @@
 	
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="{{path('builds')}}">
+        <a class="navbar-brand" href="{{path('app_builds_index')}}">
             <img src="/img/nwicone.png" alt="" width="100" height="100">
         </a>
         <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link {% if current_menu == 'builds' %}active{% endif %}"  href="{{path('builds')}}">{% trans into locale %}NavBar.Build{% endtrans %}</a>
+                    <a class="nav-link {% if current_menu == 'builds' %}active{% endif %}"  href="{{path('app_builds_index')}}">{% trans into locale %}NavBar.Build{% endtrans %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('create')}}">{% trans into locale %}NavBar.Create{% endtrans %}</a>
+                    <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans into locale %}NavBar.Create{% endtrans %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('patchnote')}}">{% trans into locale %}NavBar.PatchNote{% endtrans %}</a>
+                    <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans into locale %}NavBar.PatchNote{% endtrans %}</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -49,13 +49,13 @@
                         {% if locale == 'pt' %}Português{% endif %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'en'}) }}">English</a></li>
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'fr'}) }}">Français</a></li>
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'de'}) }}">Deutsche</a></li>
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'es'}) }}">España</a></li>
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'it'}) }}">Italiano</a></li>
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pl'}) }}">Polskie</a></li>
-                        <li><a class="dropdown-item" href="{{ path('setlocale', {'locale': 'pt'}) }}">Português</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'en'}) }}">English</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'de'}) }}">Deutsche</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li>
                     </ul>
                 </li>
             </ul>

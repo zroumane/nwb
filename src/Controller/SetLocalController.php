@@ -2,13 +2,18 @@
 namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * @param String $locale
  * @return array
  */
 class SetLocalController{
-    
+
+    /** 
+    * @Route("/setlocale/{locale}")
+    */ 
     public function index(Request $request, $locale = null)
     {
         if(in_array($locale, ['de','en','es','fr','it','pl','pt']))
