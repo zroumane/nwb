@@ -2,7 +2,7 @@
     "key" : "Musket",
     "counter": [19, 0, 0],
     "branchName" : ["Trapper","Sharpshooter"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
         [
             [

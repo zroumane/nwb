@@ -22,7 +22,7 @@
     {
         "key" : "Hatchet",
         "name": "Hâche de jet",
-        "branch" : ["Rage", "Lancer"]
+        "branch" : ["Lancer", "Rage"]
     },
     {
         "key" : "Warhammer",

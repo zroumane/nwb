@@ -2,7 +2,7 @@
     "key" : "Bow",
     "counter": [19, 0, 0],
     "branchName" : ["Huntsman","Bowman"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
         [
             [
@@ -14,7 +14,7 @@
                 {
                     "key" : "RapidShot",
                     "col" : "3",
-                    "child": "Rapid2secCDR",
+                    "child": ["Rapid2secCDR"],
                     "active" : false 
                 },
                 {
@@ -27,14 +27,14 @@
                 {
                     "key" : "JumpBackShot",
                     "col" : "1",
-                    "child": "JumpBackKnockback",
+                    "child": ["JumpBackKnockback"],
                     "active" : false 
                 },
                 {
                     "key" : "Rapid2secCDR",
                     "col" : "3",
-                    "parent": "RapidShot",
-                    "child": "RapidDMG3shot",
+                    "parent": ["RapidShot"],
+                    "child": ["RapidDMG3shot"],
                     "active" : false 
                 },
                 {
@@ -48,8 +48,8 @@
                 {
                     "key" : "JumpBackKnockback",
                     "col" : "1",
-                    "parent": "JumpBackShot",
-                    "child": "JumpBackDistance",
+                    "parent": ["JumpBackShot"],
+                    "child": ["JumpBackDistance"],
                     "active" : false  
                 },
                 {
@@ -61,7 +61,7 @@
                 {
                     "key" : "PenetratingShot",
                     "col" : "4",
-                    "child": "PenetratingDMG",
+                    "child": ["PenetratingDMG"],
                     "active" : false  
                 }
             ],
@@ -69,14 +69,14 @@
                 {
                     "key" : "RapidDMG3shot",
                     "col" : "3",
-                    "parent": "Rapid2secCDR",
+                    "parent": ["Rapid2secCDR"],
                     "active" : false    
                 },
                 {
                     "key" : "PenetratingDMG",
                     "col" : "4",
-                    "parent": "PenetratingShot",
-                    "child": "PenetratingCharge",
+                    "parent": ["PenetratingShot"],
+                    "child": ["PenetratingCharge"],
                     "active" : false   
                 },
                 {
@@ -89,7 +89,7 @@
                 {
                     "key" : "JumpBackDistance",
                     "col" : "1",
-                    "parent": "JumpBackKnockback",
+                    "parent": ["JumpBackKnockback"],
                     "active" : false  
                 },
                 {
@@ -107,7 +107,7 @@
                 {
                     "key" : "PenetratingCharge",
                     "col" : "4",
-                    "parent" : "PenetratingDMG",
+                    "parent" : ["PenetratingDMG"],
                     "active" : false 
                 }
             ]
@@ -122,8 +122,8 @@
                 {
                     "key" : "SpreadShot",
                     "col" : "3",
-                    "child": "SpreadStartup",
-                    "active" : false   
+                    "child": ["SpreadStartup"],
+                    "active" : false
                 },
                 {
                     "key" : "BowPlus20prcntKnockback",
@@ -135,13 +135,14 @@
                 {
                     "key" : "SmokeShot",
                     "col" : "1",
-                    "child": "SmokeAoE",
+                    "child": ["SmokeAoE"],
                     "active" : false 
                 },
                 {
                     "key" : "SpreadStartup",
                     "col" : "3",
-                    "parent" : "SpreadShot",
+                    "parent" : ["SpreadShot"],
+                    "child" : ["Spread5Arrows"],
                     "active" : false      
                 }
             ],
@@ -149,8 +150,8 @@
                 {
                     "key" : "SmokeAoE",
                     "col" : "1",
-                    "parent" : "SmokeShot",
-                    "child": "SmokeDuration",
+                    "parent" : ["SmokeShot"],
+                    "child": ["SmokeDuration"],
                     "active" : false  
                 },
                 {
@@ -161,7 +162,7 @@
                 {
                     "key" : "RainOfArrows",
                     "col" : "5",
-                    "child" : "RainofArrowsAoE",
+                    "child" : ["RainofArrowsAoE"],
                     "active" : false 
                 }
             ],
@@ -169,21 +170,21 @@
                 {
                     "key" : "SmokeDuration",
                     "col" : "1",
-                    "parent" : "SmokeDuration",
-                    "child": "SmokeVision",
+                    "parent" : ["SmokeDuration"],
+                    "child": ["SmokeVision"],
                     "active" : false  
                 },
                 {  
                     "key" : "Spread5Arrows",
                     "col" : "3",
-                    "parent" : "SpreadStartup",
+                    "parent" : ["SpreadStartup"],
                     "active" : false   
                 },
                 {
                     "key" : "RainofArrowsAoE",
                     "col" : "5",
-                    "parent" : "RainOfArrows",
-                    "child": "RainofArrowsSlow",
+                    "parent" : ["RainOfArrows"],
+                    "child": ["RainofArrowsSlow"],
                     "active" : false  
                 }
             ],
@@ -191,7 +192,7 @@
                 {
                     "key" : "SmokeVision",
                     "col" : "1",
-                    "parent" : "SmokeDuration",
+                    "parent" : ["SmokeDuration"],
                     "active" : false 
                 },
                 {
@@ -202,7 +203,7 @@
                 {
                     "key" : "RainofArrowsSlow",
                     "col" : "5",
-                    "parent" : "RainofArrowsAoE",
+                    "parent" : ["RainofArrowsAoE"],
                     "active" : false 
                 }
             ],

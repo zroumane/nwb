@@ -2,7 +2,7 @@
     "key" : "Warhammer",
     "counter": [19, 0, 0],
     "branchName" : ["Juggernaut", "CrowdCrusher"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
         [
             [

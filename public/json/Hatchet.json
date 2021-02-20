@@ -2,23 +2,26 @@
     "key" : "Hatchet",
     "counter": [19, 0, 0],
     "branchName" : ["Throwing","Berserk"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
          [
             [
                 {
                     "key" : "OnFire",
                     "col" : "2",
+                    "parent" : ["AimedThrow"],
                     "active" : false              
                 },
                 {
                     "key" : "AimedThrow",
                     "col" : "3",
+                    "child" : ["OnFire", "RefreshingHeadshot", "DoubleThrow", "FocusedAim"],
                     "active" : false              
                 },
                 {
                     "key" : "RefreshingHeadshot",
                     "col" : "4",
+                    "parent" : ["AimedThrow"],
                     "active" : false              
                 }
             ],
@@ -26,10 +29,12 @@
                 {
                     "key" : "QuickThrow",
                     "col" : "1",
+                    "child" : ["QuickPower", "QuickCounter"],
                     "active" : false
                 },
                 {
                     "key" : "FocusedAim",
+                    "parent" : ["AimedThrow"],
                     "col" : "3",
                     "active" : false            
                 },
@@ -43,16 +48,21 @@
                 {
                     "key" : "QuickCounter",
                     "col" : "2",
+                    "parent" : ["QuickThrow"],
+                    "child" : ["QuickRefresh"],
                     "active" : false                
                 },
                 {
                     "key" : "DoubleThrow",
                     "col" : "4",
+                    "parent" : ["AimedThrow"],
+                    "child" : ["TripleThrow"],
                     "active" : false
                 },
                 {
                     "key" : "PowerThrow",
                     "col" : "5",
+                    "child" : ["PowerBreaker"],
                     "active" : false
                 }                   
             ],
@@ -60,6 +70,7 @@
                 {
                     "key" : "QuickPower",
                     "col" : "1",
+                    "parent": ["QuickThrow"],
                     "active" : false                
                 },
                 {
@@ -70,6 +81,8 @@
                 {
                     "key" : "PowerBreaker",
                     "col" : "5",
+                    "parent" : ["PowerThrow"],
+                    "child" : ["MortalPower"],
                     "active" : false
                 }
             ],
@@ -77,16 +90,19 @@
                 {
                     "key" : "QuickRefresh",
                     "col" : "2",
+                    "parent": ["QuickCounter"],
                     "active" : false
                 },
                 {
                     "key" : "TripleThrow",
                     "col" : "4",
+                    "parent": ["DoubleThrow"],
                     "active" : false
                 },
                 {
                     "key" : "MortalPower",
                     "col" : "5",
+                    "parent" : ["MortalPower"],
                     "active" : false
                 }
             ],
@@ -108,6 +124,7 @@
                 {
                     "key" : "Berserk",
                     "col" : "3",
+                    "child" : ["BerserkingSpeed"],
                     "active" : false
                 },
                 {
@@ -120,11 +137,14 @@
                 {
                     "key" : "SprintAttack",
                     "col" : "1",
+                    "child" : ["SprintingGrit", "SprintingWound"],
                     "active" : false
                 },
                 {
                     "key" : "BerserkingSpeed",
                     "col" : "2",
+                    "parent" : ["Berserk"],
+                    "child" : ["BerserkingRefresh"],
                     "active" : false
                 },
                 {
@@ -137,16 +157,21 @@
                 {
                     "key" : "SprintingGrit",
                     "col" : "1",
+                    "parent" : ["SprintAttack"],
+                    "child" : ["SprintingRefresh"],
                     "active" : false
                 },
                 {
                     "key" : "BerserkingRefresh",
                     "col" : "3",
+                    "parent" : ["BerserkingSpeed"],
+                    "child" : ["BerserkingEndurance"],
                     "active" : false
                 },
                 {
                     "key" : "Purge",
                     "col" : "5",
+                    "child" : ["PurgedStrength"],
                     "active" : false
                 }
             ],
@@ -154,11 +179,14 @@
                 {
                     "key" : "SprintingWound",
                     "col" : "2",
+                    "parent" : ["SprintAttack"],
                     "active" : false
                 },
                 {
                     "key" : "BerserkingEndurance",
                     "col" : "3",
+                    "parent" : ["BerserkingRefresh"],
+                    "child" : ["ImmortalBerserk"],
                     "active" : false
                 },
                 {
@@ -172,6 +200,7 @@
                 {
                     "key" : "SprintingRefresh",
                     "col" : "1",
+                    "parent" : ["SprintingGrit"],
                     "active" : false
                 },
                 {
@@ -182,6 +211,7 @@
                 {
                     "key" : "PurgedStrength",
                     "col" : "5",
+                    "parent" : ["Purge"],
                     "active" : false
                 } 
             ],
@@ -189,6 +219,7 @@
                 {
                     "key" : "ImmortalBerserk",
                     "col" : "3",
+                    "parent" : ["BerserkingEndurance"],
                     "active" : false
                 }
             ]
@@ -196,143 +227,20 @@
     ],
     "lines" : [
         [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },		
-		    {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-		    {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },		
-           {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "2"
-            },
-           {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "3"
-            },		 
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "4"
-            },	
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "5"
-            },				
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "4"
-            },	
-           {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "5"
-            },
-			            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "5"
-            },
-           {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "5"
-            },	
-            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "6"
-            }	
+            [1,2,1,4],
+            [1,2,2,3],
+            [2,3,2,5],
+            [2,1,4,1],
+            [3,1,3,2],
+            [3,1,4,3],
+            [4,3,4,5],
+            [5,3,5,5]
         ],
         [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },		
-		    {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-		    {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },		
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "4"
-            },	
-            {
-                "type" : "Solid",
-                "col" : "4",
-                "row" : "2"
-            },	
-            {
-                "type" : "Solid",
-                "col" : "4",
-                "row" : "4"
-            },	
-            {
-                "type" : "Solid",
-                "col" : "4",
-                "row" : "3"
-            },	
-            {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },	
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "4"
-            },
-            {
-                "type" : "Stop",
-                "col" : "2",
-                "row" : "5"
-            },
-            {
-                "type" : "Stop",
-                "col" : "4",
-                "row" : "5"
-            },
-            {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "5"
-            }				
+            [1,2,1,5],
+            [1,2,2,4],
+            [3,1,3,6],
+            [5,3,5,5]
         ]
     ]
 }

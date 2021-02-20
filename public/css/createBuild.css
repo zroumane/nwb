@@ -70,11 +70,16 @@
 	box-shadow: inherit;
 }
 
+.mainskillbtn::after {
+    color: white;
+}
+
+
 .mainskillli{
     width: 100%;
 }
 
-.bgSvg {
+.svgContainer {
     position: absolute;
     width: 100%;
     height: 100%;

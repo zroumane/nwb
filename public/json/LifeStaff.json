@@ -2,7 +2,7 @@
     "key" : "LifeStaff",
     "counter": [19, 0, 0],
     "branchName" : ["Protector","LifeStealer"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
         [
             [

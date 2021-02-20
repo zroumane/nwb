@@ -2,7 +2,7 @@
     "key" : "Sword",
     "counter": [19, 0, 0],
     "branchName" : ["Sword","Shield"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
         [
             [

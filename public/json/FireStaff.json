@@ -2,7 +2,7 @@
     "key" : "FireStaff",
     "counter": [19, 0, 0],
     "branchName" : ["FlameSummoner","Pyromaniac"],
-    "selectedMainSkills" : [],
+    "selectedMainSkills" : ["", "", ""],
     "skills" : [
         [
             [
