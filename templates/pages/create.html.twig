@@ -11,13 +11,15 @@
 
 <div id="WeaponDataContainer" style="display:none;" data-weapon="{% if build is defined%}{{ build.skills }}{% endif %}"></div>
 
+<form id="BuildForm">
+
 <div class="mb-3 row">
     <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildName{% endtrans %} :</label>
     <div class="col">
-        <input class="form-control" id="BuildNameInput" placeholder="{% trans into locale %}Create.BuildName{% endtrans %}"/>
+        <input class="form-control" type="text" id="BuildNameInput" placeholder="{% trans into locale %}Create.BuildName{% endtrans %}"/>
     </div>
     <div class="col-2">
-        <select class="form-select" id="SelectType">
+        <select type="radio" class="form-select" id="SelectType">
             <option hidden disabled selected value="0">{% trans into locale %}Create.TypeName{% endtrans %}</option>
             <option name="modetype1" id="modetype1" value="1">PVP</option>
             <option name="modetype2" id="modetype2" value="2">PVE</option>
@@ -39,10 +41,10 @@
 
 {% for select in 1..2 %}
     <div class="col">
-        <select class="form-select p-2 border selectChoixWeapon" id="WeaponSelect{{ select }}" weaponCollapse="{{ select }}">
-        <option value="0" hidden selected>{% trans with {'%number%': select} into locale %}Create.ChooseWeapon{% endtrans %}</option>
+        <select collapse="{{ select }}" type="radio" class="form-select p-2 selectChoixWeapon">
+        <option value="0" hidden disabled selected>{% trans with {'%number%': select} into locale %}Create.ChooseWeapon{% endtrans %}</option>
         {% for weapon in weapons %}
-            <option id="option{{weapon.key}}" weaponCollapse="{{ select }}" class="optionChoixWeapon weaponCollapse{{ select }}" 
+            <option collapse="{{ select }}" class="optionChoixWeapon"
             value="{{weapon.key}}" branch1="{{weapon.branch[0]}}" branch2="{{weapon.branch[1]}}">{{weapon.name}}</option>
         {% endfor %}
         </select>
@@ -54,14 +56,15 @@
     
 <div class="accordion" id="accordionWeapon">
 {% for collapse in 1..2 %}
-    <div class="accordion-item" collapseId="{{collapse}}">
-        <h2 class="accordion-header" id="heading{{collapse}}" collapseId="{{collapse}}">
+    <div class="accordion-item" collapse="{{collapse}}">
+        <h2 class="accordion-header" id="heading{{collapse}}" collapse="{{collapse}}">
             <button class="accordion-button collapsed fs-4" id="buttonCollapse{{collapse}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{collapse}}" 
             aria-expanded="false" aria-controls="collapse{{collapse}}">{% trans with {'%number%': collapse} into locale %}Create.Weapon{% endtrans %}</button>
         </h2>
-        <div id="collapse{{collapse}}" class="accordion-collapse collapse" collapseId="{{collapse}}" aria-labelledby="heading{{collapse}}" data-bs-parent="#accordionWeapon">
-            <div class="accordion-body p-0" collapseId="{{collapse}}">
-                <div class="weaponCollapse" id="weaponCollapse{{collapse}}">
+        <div id="collapse{{collapse}}" class="accordion-collapse collapse" collapse="{{collapse}}" aria-labelledby="heading{{collapse}}" data-bs-parent="#accordionWeapon">
+            <div class="accordion-body p-0" collapse="{{collapse}}">
+                <div class="row p-3 gx-0 fs-4 collapseAlert{{collapse}}">{% trans into locale %}Create.WeaponAlert{% endtrans %}</div>
+                <div class="weaponCollapse" id="weaponCollapse-{{collapse}}">
                     <div class="p-2">
                         <div class="progress position-relative" style="height: 40px; background-color:white; border:3px white solid; border-radius: 0.2rem">
                             <div id="pointProgres{{collapse}}" class="progress-bar" role="progressbar" style="width: 100%; background-color:#ffc107; border-radius: 0.2rem" 
@@ -69,36 +72,42 @@
                             <div id="pointProgresText{{collapse}}" class="justify-content-center d-flex position-absolute w-100 h4 m-0" style="color:black;height:100%"></div>
                         </div>
                     </div>
-                    <div class="row p-3 gx-0 collapseId{{collapse}}">
+                    <div class="row p-3 gx-0 collapse{{collapse}}">
                     {% for side in 1..2 %}
-                        <div class="col side{{side}}" collapseId="{{collapse}}" side="{{side}}">
+                        <div class="col side{{side}}" collapse="{{collapse}}" side="{{side}}">
                             <div class="row p-3 mb-3 justify-content-center fs-3 fw-bold" id="branchName-{{collapse}}-{{side}}"></div>
-                            {% for row in 1..6 %}
-                                <div class="row gx-0 pe-2 ps-2" collapseId="{{collapse}}" side="{{side}}" row="{{row}}">
-                                {% for col in 1..5 %}
-                                    <div class="col skill-container collapse{{collapse}}" side="{{side}}" row="{{row}}" id="skill-{{collapse}}-{{side}}-{{row}}-{{col}}" 
-                                    title="Popver" data-toggle="popover" data-bs-trigger="hover" data-bs-content="Popover description" alert="false">
-                                        <img class="skill-container-img collapse{{collapse}}" src="img/emptyCadre.png" style="width:100%"/>
-                                    </div>
-                                {% endfor %}
+                            <div class="ro" style="position:relative">
+                                <div class="row m-0 p-3 svgContainer svgSide{{side}} collapse{{collapse}}">
+                                    <svg class="collapse{{collapse}} p-0 bgSvg" id="bgSvg-{{collapse}}-{{side}}"></svg> 
                                 </div>
-                            {% endfor %}
+                                <div class="row m-0 p-3">
+                                    {% for row in 1..6 %}
+                                        <div class="row gx-0" collapse="{{collapse}}" side="{{side}}" row="{{row}}">
+                                        {% for col in 1..5 %}
+                                            <div class="col skill-container" collapse="{{collapse}}" side="{{side}}" row="{{row}}" id="skill-{{collapse}}-{{side}}-{{row}}-{{col}}" 
+                                            title="Popver" data-toggle="popover" data-bs-trigger="hover" data-bs-content="Popover description" alert="false">
+                                                <img class="skill-container-img" collapse="{{collapse}}" src="img/emptyCadre.png" style="width:100%"/>
+                                            </div>
+                                        {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div> 
+                            </div>
                         </div>
+
                     {% endfor %}
                     </div>
-                    <div class="row p-3 justify-content-center" collapseId="{{collapse}}">
+                    <div class="row p-3 justify-content-center" collapse="{{collapse}}">
                         <div class="col">
                             <div class="row gx-1 justify-content-center">
                             {% for cadre in 1..3 %}
                                 <div class="col-2">
                                     <div class="dropdown dropup">
-                                    <button class="mainskillbtn btn dropdown-toggle w-100 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img class="dropdown-item p-0" src="img/Bow/Bowman/SpreadShot.png" style="width:100%"/>
-                                    </button>
-                                    <ul class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton" style="width:100%; max-width:inherit;min-width:inherit">
-                                        <li class="mainskillli"><img class="dropdown-item p-0" src="img/Bow/Huntsman/RapidShot.png"/></li>
-                                        <li class="mainskillli"><img class="dropdown-item p-0" src="img/Bow/Bowman/SmokeShot.png"/></li>
-                                    </ul>
+                                        <button class="mainskillbtn btn dropdown-toggle w-100 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img id="mainSkillSelected-{{collapse}}-{{cadre}}" collapse="{{collapse}}" cadre="{{cadre}}" class="dropdown-item p-0 mainSkillSelected"/>
+                                        </button>
+                                        <ul class="dropdown-menu p-0 ulMainSkill" collapse="{{collapse}}" id="ulMainSkill-{{collapse}}-{{cadre}}" aria-labelledby="dropdownMenuButton" style="width:100%; max-width:inherit;min-width:inherit">
+                                        </ul>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -109,20 +118,30 @@
                         </div>
                     </div>
                 </div>
-                <div class="row p-3 gx-0 fs-4 weaponAlert{{collapse}}">{% trans into locale %}Create.WeaponAlert{% endtrans %}</div>
             </div>
         </div> 
     </div>
 {% endfor %}
 </div>
 
-<div class="row p-3 justify-content-end">
-    <a id="showResult">Log</button>
+<div class="mt-3 m-3 row fs-5">
+    <span id="zoneErreur" class="justify-content-center" style="background-color:red"></span>
 </div>
 
-<div class="row p-3 justify-content-end">
-    <button type="button" id="sendBuild" class="btn btn-outline-light fs-3">{% trans into locale %}Create.Save{% endtrans %}</button>
+<div class="row p-3 justify-content-center">
+    <button type="submit" class="btn btn-outline-light fs-3">{% trans into locale %}Create.Save{% endtrans %}</button>
 </div>
+
+</form>
+
+<script>
+//initialise les popovers
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+        html: true
+    }); 
+});
+</script>
 
 
 {% endblock %}

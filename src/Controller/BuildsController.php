@@ -60,7 +60,7 @@ class BuildsController extends AbstractController{
     {
         $this->locale = $request->getLocale();
 
-        return $this->render('pages/create2.html.twig', [
+        return $this->render('pages/create.html.twig', [
             'current_menu' => 'create',
             'locale' => $this->locale,
             'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$this->locale.'/weapon.json'))

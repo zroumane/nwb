@@ -1,14 +1,6 @@
 //recupere la lang envoyé par le php
 var lang = $('html').attr('lang')
 
-//initialise les popovers
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover({
-        html: true
-    }); 
-});
-
-
 // //fetch les traductions de competences
 var skillsInfo = null;
 var messageSkill = null;
@@ -19,42 +11,41 @@ $.getJSON(`json/${lang}/messageSkill.json`, function(result){
   messageSkill = result;
 })
 
-//initialise les variables weapon global
+//initialise les variables globales
 var weaponObject = $('#WeaponDataContainer').attr('data-weapon')
 if (!weaponObject){
   globalWeapon = []
   selectedWeapon  = ["",""]
     $('.selectChoixWeapon').prop('selectedIndex', 0);
-    $('.selectType').prop('selectedIndex', 0);
+    $('#SelectType').prop('selectedIndex', 0);
 }else{
-  console.log('odd');
   globalWeapon = weaponObject
   selectedWeapon  = ["",""]
 }
+var textErr = $('#zoneErreur')
 
 
 //executé au click du choix d'armes
 $('.selectChoixWeapon').change(function(){
 
-  var weaponCollapse = $(this).attr('weaponCollapse');
+  var collapse = $(this).attr('collapse');
   var option = $(this).children(":selected");
 
   //verifie si deja selectionné, si oui break
-  if(selectedWeapon[weaponCollapse-1] == option.attr('value')){return}
-  selectedWeapon[weaponCollapse-1] = option.attr('value');
+  if(selectedWeapon[collapse-1] == option.attr('value')){return}
+  selectedWeapon[collapse-1] = option.attr('value');
 
   //enleve l'arme du menu deroulant deja choisi dans l'autre menu deroulant
-  if (weaponCollapse == 1) {var nweaponCollapseId = '.weaponCollapse'+2 } 
-  else {var nweaponCollapseId = '.weaponCollapse'+1}
-  $(nweaponCollapseId).css('display', 'block');
-  $(nweaponCollapseId+"#"+option.attr('id')).css('display', 'none');
+  var negCollapse = `[collapse = "${Math.abs(collapse-3)}"]`
+  $(`.optionChoixWeapon${negCollapse}`).css('display', 'block');
+  $(`.optionChoixWeapon${negCollapse}[value = "${option.attr('value')}"]`).css('display', 'none');
   
   //appelle fonction de remplissage et si collapse ouverte attend fin fermeture
   var toChange = true;
-  var collapse = $('#collapse'+weaponCollapse)
-  if(collapse.hasClass("show")){
-      collapse.collapse("hide");
-      collapse.on('hidden.bs.collapse', function(){ 
+  var collapseObject = $('#collapse'+collapse)
+  if(collapseObject.hasClass("show")){
+    collapseObject.collapse("hide");
+    collapseObject.on('hidden.bs.collapse', function(){ 
         if(toChange){modifyCollapse(option);} toChange = false;});
   } else {modifyCollapse(option); toChange = false;}
 
@@ -77,27 +68,30 @@ function modifyCollapse(option){
 function setupWeapon(option){
   //initiale les variables
   var option  
-  var weaponCollapse = option.attr('weaponCollapse');
+  var collapse = option.attr('collapse');
   var weaponName = option.html()
   var weaponKey = option.attr('value');
 
   //ajoute le nom de l'arme sur le button de collapse correspondant
-  $('#buttonCollapse'+weaponCollapse).html(weaponName);
+  $('#buttonCollapse'+collapse).html(weaponName);
   
   //fait appraitre le body de la collapse et enleve le message "pas d'amre"
-  $('.weaponAlert'+weaponCollapse).css('display', 'none');
-  $('#weaponCollapse'+weaponCollapse).css('display', 'block');
+  $('.collapseAlert'+collapse).css('display', 'none');
+  $('#weaponCollapse-'+collapse).css('display', 'block');
 
   //reset complet
-  $(".skill-container-img.collapse"+weaponCollapse).attr('src', 'img/emptyCadre.png');
-  var skillContainer = $(".skill-container.collapse"+weaponCollapse)
-  skillContainer.css('background-image', 'url("")').popover('disable');
-  skillContainer.attr('fill', 'false').attr('alert', 'false');
-  changeProgress(weaponCollapse, globalWeapon.filter(w => w.key == weaponKey)[0].counter[0])
+  $(`.bgSvg.collapse${collapse}`).children().remove();
+  $(`.skill-container[collapse = "${collapse}"]`).attr('fill', 'false').attr('alert', 'false').popover('disable');
+  $(`.skill-container-img[collapse = "${collapse}"]`).attr('src', 'img/emptyCadre.png');
+  $(`.ulMainSkill[collapse = "${collapse}"]`).children().remove();
+  $(`.mainSkillSelected[collapse = "${collapse}"]`).attr('src', 'img/CadreSkill.png').attr('skillKey', '')
+
+
+  changeProgress(collapse, globalWeapon.filter(w => w.key == weaponKey)[0].counter[0])
 
   globalWeapon.filter(w => w.key == weaponKey)[0].skills.forEach(function (branch, indexbranch) {
     var weaponSide = indexbranch+1;
-    var branchNameId = '#branchName-'+weaponCollapse+'-'+weaponSide;
+    var branchNameId = '#branchName-'+collapse+'-'+weaponSide;
     $(branchNameId).html(option.attr('branch'+weaponSide))
 
     //place les skills
@@ -105,24 +99,52 @@ function setupWeapon(option){
       row.forEach(function(skill) {
         var skillKey = skill.key;
         var skillDescription = skillsInfo[skillKey + '_description']
-        var idSkill = '#skill-'+weaponCollapse+'-'+weaponSide+'-'+(indexrow+1)+'-'+skill.col;
+        var idSkill = '#skill-'+collapse+'-'+weaponSide+'-'+(indexrow+1)+'-'+skill.col;
         var imgPath = 'img/'+weaponKey+'/'+globalWeapon.filter(w => w.key == weaponKey)[0].branchName[indexbranch]+'/'+skillKey+'.png';
         var skillObject = $(idSkill);
         skillObject[0].firstElementChild.src = imgPath;
-        skillObject.attr('weaponKey', weaponKey).attr('skill', skillKey).attr('weaponCollapse', weaponCollapse).attr('fill', true)
+        skillObject.attr('weaponKey', weaponKey).attr('skill', skillKey).attr('collapse', collapse).attr('fill', true)
         skillObject.popover('enable').attr('data-bs-original-title', skillsInfo[skillKey]).attr('data-bs-content', skillDescription)
         greyscale(skillObject, skill.active);
+        if(typeof skill.child == 'object' && typeof skill.parent == 'undefined' && skill.active == true){
+          var isSelected = false;
+          globalWeapon.filter(w => w.key == weaponKey)[0].selectedMainSkills.forEach(function(mainSkill, index){
+            if(mainSkill == skillKey){
+              var selected = $(`#mainSkillSelected-${collapse}-${index+1}`)
+              selected.attr('src', imgPath)
+              selected.attr('skillKey', skillKey)
+              isSelected = true;
+              var ul = $(`#ulMainSkill-${collapse}-${index+1}`)
+              ul.append(`<li class="w-100"><img collapse="${collapse}" cadre="${index+1}" skillKey="" class="mainskillli dropdown-item p-0" src="img/CadreSkill.png"/></li>`)
+              addClickEvent(collapse, index+1)
+            }
+          });
+          if(!isSelected){
+            for (let i = 1; i <= 3; i++) {
+              var ul = $(`#ulMainSkill-${collapse}-${i}`)
+              ul.append(`<li class="w-100"><img collapse="${collapse}" cadre="${i}" skillKey="${skillKey}" class="mainskillli dropdown-item p-0" src="${imgPath}"/></li>`)
+              addClickEvent(collapse, i)
+            }        
+          }
+        }
       })
     })
 
-    //place les lignes
+    //place les lignes sur le svg
+    var bgSVG = $(`#bgSvg-${collapse}-${(indexbranch+1)}`);
     globalWeapon.filter(w => w.key == weaponKey)[0].lines[indexbranch].forEach(line => {
-      var idSkill = '#skill-'+weaponCollapse+'-'+weaponSide+'-'+line.row+'-'+line.col;
-      $(idSkill).css('background-image', 'url("img/skillLine'+line.type+'.png")');
+      var coordinates = []
+      line.forEach(function(n, index){
+        if(index % 2 == 0){ coordinates.push(n*100/5-10) }
+        else{ coordinates.push(n*100/6-10) }
+      })
+      bgSVG.append('<line class="skillLine" x1="'+coordinates[0]+'%" y1="'+coordinates[1]+'%" x2="'+coordinates[2]+'%" y2="'+coordinates[3]+'%"/>')
     })
-
+    var svgContainer = $(".svgContainer.svgSide"+(indexbranch+1)+'.collapse'+collapse)
+    svgContainer.html(svgContainer.html());
   })
 }
+
 
 //au click d'un skill verifie si il est déja seclectionné, redirige vers la bonne fonction
 $('.skill-container').click(function(){
@@ -133,14 +155,12 @@ $('.skill-container').click(function(){
   var skillkey = skillObject.attr('skill');
   var side = skillObject.attr('side');
   var weaponKey = skillObject.attr('weaponKey');
-  var weaponcollapse = skillObject.attr('weaponcollapse');
+  var collapse = skillObject.attr('collapse');
   var row = skillObject.attr('row');
   var weapon = globalWeapon.filter(w => w.key == weaponKey)[0];
-  var branchName = $('#branchName-'+weaponcollapse+'-'+side).html()
+  var branchName = $('#branchName-'+collapse+'-'+side).html()
   var branchSkill = weapon.skills[side-1];
   var skill = branchSkill[row-1].filter(s => s.key == skillkey)[0];
-  var col = skill.col;
-  var lines = weapon.lines[side-1];
   var counters = weapon.counter;
   
   //reset popover
@@ -148,29 +168,35 @@ $('.skill-container').click(function(){
 
   //Conditions pour allumer le skill //addskill(skillObject, weapon);
   if(skill.active == false){
-
     //Si tous les point utiliser -> refuse
     if(counters[0] == 0){changePopover(skillObject, messageSkill.NoMorePoint);return}
 
     //Si premiere ligne -> allume
     if(row == 1){addskill(skillObject,skill, weapon);return}
 
-    //Si skill dependant
-    if(lines.filter(l => l.col == col && l.row == row && (l.type == "Solid" || l.type == "Stop")).length > 0){
-      var skillTocheck;
-      branchSkill.slice(0, row-1).forEach(topRow =>{ // recupere les ligne suivantes
-        var rowToCheck = topRow.filter(s => s.col == col)
-        if(rowToCheck.length != 0){skillTocheck = rowToCheck[0]}
-      })
-      //Si skill dominant inactive -> refuse
-      if(skillTocheck.active == false){ changePopover(skillObject, messageSkill.InlineSkillTop+skillsInfo[skillTocheck.key]); return}
-    }
+
+        //Si skill dominant
+        if(typeof skill.parent == 'object'){
+          var skillTocheck = [];
+          //Extrait le skill parent
+          branchSkill.slice(0, row).forEach(bottomRow =>{
+            skill.parent.forEach(parentSkill => {
+              var toCkeck = bottomRow.filter(s => s.key == parentSkill);
+              if(toCkeck.length > 0 && toCkeck[0].active == false){
+                skillTocheck.push(toCkeck[0])
+              }
+            });
+          })
+          //Si skill dominant inactive -> refuse
+          if(skillTocheck.length > 0){ changePopover(skillObject, messageSkill.InlineSkillTop+skillsInfo[skillTocheck[0].key]); return}
+        }
 
     //Si skill ligne precedente active -> allume
     if(branchSkill[row-2].filter(s => s.active == true).length > 0){
       //Si derniere ligne
       if(row == 6){ //Si moins de 10 points depense dans la branche -> refuse
-        if(counters[side] < 10){changePopover(skillObject, messageSkill.TenPointSelect+branchName); return} } 
+        if(counters[side] < 10){changePopover(skillObject, messageSkill.TenPointSelect+branchName); return} 
+      } 
       addskill(skillObject,skill, weapon);return}
       else{ changePopover(skillObject, messageSkill.Rowtop); return} 
 
@@ -187,19 +213,23 @@ $('.skill-container').click(function(){
     }
 
     //Si skill dominant
-    if(lines.filter(l => l.col == col && l.row == row && (l.type == "Start" || l.type == "Solid")).length > 0){
+    if(typeof skill.child == 'object'){
       var skillTocheck = [];
-      branchSkill.slice(row, 6).forEach(bottomRow =>{ // recupere le skill dominant
-        var rowToCheck = bottomRow.filter(s => s.col == col)
-        if(rowToCheck.length != 0) {skillTocheck.push(rowToCheck[0])}
+      //Extrait les skills enfants
+      branchSkill.slice(row-1, 6).forEach(bottomRow =>{
+        skill.child.forEach(childskill => {
+          var toCkeck = bottomRow.filter(s => s.key == childskill);
+          if(toCkeck.length > 0 && toCkeck[0].active == true){
+            skillTocheck.push(toCkeck[0])
+          }
+        });
       })
       //Si skill dependant active -> refuse
-      if(skillTocheck[0].active == true){ changePopover(skillObject, messageSkill.InlineSkillTop+skillsInfo[skillTocheck[0].key]); return}
+      if(skillTocheck.length > 0){ changePopover(skillObject, messageSkill.InlineSkillTop+skillsInfo[skillTocheck[0].key]); return}
     }
 
     //Si skills ligne suivante active et pas de skill meme ligne active -> refuse
-    if(branchSkill[row].filter(s => s.active == true).length > 0 && branchSkill[row-1].filter(s => s.active == true).length == 1)
-    {
+    if(branchSkill[row].filter(s => s.active == true).length > 0 && branchSkill[row-1].filter(s => s.active == true).length == 1){
       changePopover(skillObject, messageSkill.RowBottom); 
       return
     }
@@ -210,28 +240,76 @@ $('.skill-container').click(function(){
 })
 
 //fonction pour adjouter le skill
-function addskill(skillObject,skill, weapon){
-  var matchStartLine = globalWeapon.filter(w => w.key == weapon.key)[0].lines[skillObject.attr('side')-1].filter(l => l.col == skill.col && l.row == skillObject.attr('row') && l.type == "Start");
-  if(matchStartLine.length > 0){
-    weapon.selectedMainSkills.push(skill.key)
+function addskill(skillObject, skill, weapon){
+  if(typeof skill.child == 'object' && typeof skill.parent == 'undefined'){
+    var collapse = skillObject.attr('collapse')
+    var side = weapon.branchName[skillObject.attr('side')-1];
+    for (let i = 1; i <= 3; i++) {
+      var ul = $(`#ulMainSkill-${collapse}-${i}`)
+      ul.append(`<li class="w-100"><img collapse="${collapse}" cadre="${i}" skillKey="${skill.key}" class="mainskillli dropdown-item p-0" src="img/${weapon.key}/${side}/${skill.key}.png"/></li>`)
+      addClickEvent(collapse, i)
+    }
   }
   var skillkey = skillObject.attr('skill')
   weapon.counter[0]--; 
   weapon.counter[skillObject.attr('side')]++;
   weapon.skills[skillObject.attr('side')-1][skillObject.attr('row')-1].filter(s => s.key == skillkey)[0].active = true;
-  changeProgress(skillObject.attr('weaponCollapse'), weapon.counter[0])
+  changeProgress(skillObject.attr('collapse'), weapon.counter[0])
   greyscale(skillObject, true)
 }
 
+
 //fonction pour supprimer le skill
 function delSkill(skillObject,skill, weapon){
-  var matchStartLine = globalWeapon.filter(w => w.key == weapon.key)[0].lines[skillObject.attr('side')-1].filter(l => l.col == skill.col && l.row == skillObject.attr('row') && l.type == "Start");
+  if(typeof skill.child == 'object' && typeof skill.parent == 'undefined'){
+    var collapse = skillObject.attr('collapse')
+    var side = weapon.branchName[skillObject.attr('side')-1];
+    $(`.mainskillli[skillKey="${skill.key}"]`).parent().remove()
+    var selected = $(`.mainSkillSelected[skillKey="${skill.key}"]`)
+    if(selected.length > 0){
+      var liBlank = $(`.mainskillli[skillKey=""][collapse="${collapse}"][cadre="${selected.attr('cadre')}"]`)
+      console.log(liBlank);
+      selected.attr('src', liBlank.attr('src'))
+      selected.attr('skillKey', liBlank.attr('skillKey'))
+      liBlank.parent().remove()
+    }
+    var index = globalWeapon.filter(w => w.key == selectedWeapon[collapse-1])[0].selectedMainSkills.indexOf(skill.key)
+    globalWeapon.filter(w => w.key == selectedWeapon[collapse-1])[0].selectedMainSkills[index] = "";
+  }
   var skillkey = skillObject.attr('skill')
   weapon.counter[0]++; 
   weapon.counter[skillObject.attr('side')]--;
   weapon.skills[skillObject.attr('side')-1][skillObject.attr('row')-1].filter(s => s.key == skillkey)[0].active = false;
-  changeProgress(skillObject.attr('weaponCollapse'), weapon.counter[0])
+  changeProgress(skillObject.attr('collapse'), weapon.counter[0])
   greyscale(skillObject, false)
+}
+
+function addClickEvent(collapse, i){
+  $(`.mainskillli[collapse="${collapse}"][cadre="${i}"]`).unbind('click').click(function(){
+    var src = $(this).attr('src')
+    var skillKey = $(this).attr('skillKey');
+    var selected = $(`#mainSkillSelected-${collapse}-${i}`)
+    var srcSelected = selected.attr('src')
+    var skillKeySelected = selected.attr('skillKey')
+    selected.attr('src', src)
+    selected.attr('skillKey', skillKey)
+    $(this).attr('src', srcSelected)
+    $(this).attr('skillKey', skillKeySelected)
+    globalWeapon.filter(w => w.key == selectedWeapon[collapse-1])[0].selectedMainSkills[i-1] = skillKey;
+    if (skillKey !== "") {
+      $(`.mainskillli[skillKey="${skillKey}"]`).parent().remove()
+    }
+    console.log();
+    if (skillKeySelected != "") {
+      for (let c = 1; c <= 3; c++) {
+        if(c !== i){ 
+          var ul = $(`#ulMainSkill-${collapse}-${c}`)
+          ul.append(`<li class="w-100"><img collapse="${collapse}" cadre="${c}" skillKey="${skillKeySelected}" class="mainskillli dropdown-item p-0" src="${srcSelected}"/></li>`)
+          addClickEvent(collapse, c)
+        }
+      }
+    }
+  })
 }
 
 //fonction pour update les popover
@@ -241,9 +319,9 @@ skillObject.popover('show')
 }
 
 //fonction pour update les progresBar
-function changeProgress(weaponCollapse, counter){
-  $('#pointProgres'+weaponCollapse).css('width', (counter*100/19)+'%')
-  $('#pointProgresText'+weaponCollapse).html(messageSkill.RemainingPoint + counter)
+function changeProgress(collapse, counter){
+  $('#pointProgres'+collapse).css('width', (counter*100/19)+'%')
+  $('#pointProgresText'+collapse).html(messageSkill.RemainingPoint + counter)
 }
 
 //fonction pour update les filtres gris
@@ -257,41 +335,39 @@ function greyscale(element, active){
   }
 }
 
-$('#showResult').click(function(){
-  var buildObject = {
-    "title": $('#BuildNameInput').val(),
-    "type": $('#SelectType').children(":selected").val(),
-    "description": $('#DescriptionInput').val()
-  }
-  console.log(buildObject)
-  console.log(globalWeapon.filter(w => w.key == selectedWeapon[0] || w.key == selectedWeapon[1]));
-})  
-
 //Envoyer la build au serveur
-$("#buildform").submit(function() {
+var form = $("#BuildForm")
+form.submit(function(e) {
+  e.preventDefault();
+  textErr.text("")
 
   var buildObject = new Object;
 
-  if($('#BuildNameInput').val().length << 4){
-    buildObject.title = $('#BuildNameInput').val();
-  }else{
-    console.log("Le nom doit avoir plus de 5 caractere");
+  var title = $('#BuildNameInput').val()
+  if(title.length < 8){
+    textErr.text("Le nom doit avoir plus de 8 caractere")
     return;
   }
+  buildObject.title = $('#BuildNameInput').val();
 
   if($('#SelectType').children(":selected").val() == 0){
-    console.log("Le nom doit avoir plus de 5 caractere");
+    textErr.text("Vous devez sélectionnez un type")
     return;
-  
-  }else{
-    buildObject.type = $('#SelectType').children(":selected").val();
   }
+  buildObject.type = $('#SelectType').children(":selected").val();
 
   buildObject.description = $('#DescriptionInput').val();
 
-  buildObject.weapon = globalWeapon.filter(w => w.key == selectedWeapon[0] || w.key == selectedWeapon[1]);
 
-  console.log(buildObject);
+
+  if(selectedWeapon[0] == "" || selectedWeapon[1] == ""){
+    textErr.text("Vous devez sélectionnez 2 arme")
+    return;
+  }
+  
+  // buildObject.weapon = globalWeapon.filter(w => w.key == selectedWeapon[0] || w.key == selectedWeapon[1]);
+
+  // console.log(buildObject);
   
   $.post('submit', JSON.stringify(buildObject), function(data, textStatus, xhr){
     if(xhr.status === 201){
