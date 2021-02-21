@@ -16,12 +16,16 @@
     </head>
 
     <body>
-	
+
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="{{path('app_builds_index')}}">
+      <div class="container-lg">
+            <a class="navbar-brand" href="{{path('app_builds_index')}}">
             <img src="/img/nwicone.png" alt="" width="100" height="100">
         </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -63,9 +67,34 @@
     </div>
     </nav>
 
-    <div class="text-light container p-4" style="background-color:#535353b0">
+    <div class="text-light container-lg mt-4 mb-4">
         {% block body %}{% endblock %}
     </div> 
-    
+
+<div class="footer container-fluid bg-dark text-light">
+    <div class="container-lg p-3">
+        <div class="row">
+            <div class="col">
+                <div class="fs-4">About</div>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                    molestias.
+                </p>
+            </div>
+            <div class="col-3 text-end">
+                <div class="fs-4">Links</div>
+                <ul class="list-unstyled">
+                    <li><a href="">Discord</a></li>
+                </ul>
+            </div>
+            <div class="text-center mt-3">
+                © 2021 // | Tous droits réservés
+            </div>
+        </div>
+</div>
+
+
+
+
+        <script type="text/javascript" src="js/Global.js"></script>
     </body>
 </html>

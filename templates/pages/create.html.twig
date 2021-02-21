@@ -4,7 +4,7 @@
 
 {% block stylesheets %} <link href="css/createBuild.css" rel="stylesheet"> {% endblock %}
 
-{% block javascripts %} <script type="text/javascript" src="js/scriptCreateBuild.js" defer></script> {% endblock %}
+{% block javascripts %} <script type="text/javascript" src="js/CreateEditBuild.js" defer></script> {% endblock %}
 
 {% block body %}
 
@@ -14,11 +14,11 @@
 <form id="BuildForm">
 
 <div class="mb-3 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildName{% endtrans %} :</label>
+    {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildName{% endtrans %} :</label> #}
     <div class="col">
         <input class="form-control" type="text" id="BuildNameInput" placeholder="{% trans into locale %}Create.BuildName{% endtrans %}"/>
     </div>
-    <div class="col-2">
+    <div class="col-3">
         <select type="radio" class="form-select" id="SelectType">
             <option hidden disabled selected value="0">{% trans into locale %}Create.TypeName{% endtrans %}</option>
             <option name="modetype1" id="modetype1" value="1">PVP</option>
@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="mb-4 row">
-    <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildDesc{% endtrans %} :</label>
+    {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}Create.BuildDesc{% endtrans %} :</label> #}
     <div class="col">
         <textarea class="form-control" id="DescriptionInput" placeholder="{% trans into locale %}Create.BuildDesc{% endtrans %}"></textarea>
     </div>
@@ -37,7 +37,7 @@
 
 
 <div class="mb-3 row">
-<label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into locale %}Create.Weapons{% endtrans %} :</label>
+{# <label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into locale %}Create.Weapons{% endtrans %} :</label> #}
 
 {% for select in 1..2 %}
     <div class="col">
@@ -114,7 +114,8 @@
                             </div>
                         </div>
                         <div class="col position-relative">
-                            <button type="button"class="btn btn-outline-light position-absolute top-50 start-50 translate-middle fs-4">{% trans into locale %}Create.Reset{% endtrans %}</button>
+                            <button type="button"class="btn btn-outline-light position-absolute top-50 start-50 
+                            translate-middle fs-4 resetButton" collapse="{{collapse}}">{% trans into locale %}Create.Reset{% endtrans %}</button>
                         </div>
                     </div>
                 </div>
@@ -133,15 +134,5 @@
 </div>
 
 </form>
-
-<script>
-//initialise les popovers
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover({
-        html: true
-    }); 
-});
-</script>
-
 
 {% endblock %}

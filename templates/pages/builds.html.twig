@@ -8,10 +8,17 @@
 
 {% block body %}
 
-<h1>Build : </h1>
-
 {% for build in builds %}
-    <div class="fs-4"><a href="{{ path('app_builds_view', {'id': build.id}) }}">{{build.title}}, {{build.id}}</a></div>
+<div class="card w-100 text-white bg-dark mb-4">
+  <div class="card-body">
+    <h5 class="card-title">{{build.title}}</h5>
+    <p class="card-text">{{build.description|striptags|slice(0, 300)}}...</p>
+    <a href="{{ path('app_builds_view', {'id': build.id}) }}" class="card-link">View</a>
+    <a href="#" class="card-link">Edit</a>
+    <a href="{{ path('app_builds_delete', {'id': build.id}) }}" class="card-link">Delete</a>
+  </div>
+</div>
+
 {% endfor %}
 
 {% endblock %}

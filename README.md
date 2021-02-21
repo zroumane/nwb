@@ -21,10 +21,14 @@ php -S localhost:4444 -t public
 ```
 
 ### Déploiement
- - Dupliquer le dossier
- - Supprimer vendor et var  
- - Passer `APP_ENV` en `prod` dans le fichier `.env` (`composer dump-env prod`) puis :
 ```bash
-sudo rsync -avhb --exclude-from=exclude ./ ubuntu@51.195.45.151:~/www/nwb-syf
-composer install
+(server)
+rm -fr ~/www/nwb-syf/*
+(local)
+sudo rsync -avhb --exclude-from=exclude ./ ubuntu@51.195.45.151:~/www/nwb-syf 
+(server)
+cd ~/www/nwb-syf (server)
+vi .env (server, passer APP_ENV en prod)
+composer update (server)
+sudo chown -R www-data:www-data ~/www/nwb-syf 
 ```

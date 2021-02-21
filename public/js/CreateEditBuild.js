@@ -1,15 +1,6 @@
-//recupere la lang envoyé par le php
-var lang = $('html').attr('lang')
-
-// //fetch les traductions de competences
-var skillsInfo = null;
-var messageSkill = null;
-$.getJSON(`json/${lang}/weaponabilities.json`, function(result){
-  skillsInfo = result;
-});
-$.getJSON(`json/${lang}/messageSkill.json`, function(result){
-  messageSkill = result;
-})
+// fetch les traductions
+$.getJSON(`json/${lang}/weaponabilities.json`, function(result){ skillsInfo = result; });
+$.getJSON(`json/${lang}/messageSkill.json`, function(result){ messageSkill = result; })
 
 //initialise les variables globales
 var weaponObject = $('#WeaponDataContainer').attr('data-weapon')
@@ -19,11 +10,8 @@ if (!weaponObject){
     $('.selectChoixWeapon').prop('selectedIndex', 0);
     $('#SelectType').prop('selectedIndex', 0);
 }else{
-  globalWeapon = weaponObject
-  selectedWeapon  = ["",""]
+  //TODO remplir les chnat en fonction des données récupéré (/edit/{id})
 }
-var textErr = $('#zoneErreur')
-
 
 //executé au click du choix d'armes
 $('.selectChoixWeapon').change(function(){
@@ -49,6 +37,14 @@ $('.selectChoixWeapon').change(function(){
         if(toChange){modifyCollapse(option);} toChange = false;});
   } else {modifyCollapse(option); toChange = false;}
 
+})
+
+//Reset skill
+$('.resetButton').click(function(){
+  var collapse = $(this).attr('collapse')
+  var option = $(`.optionChoixWeapon[collapse = "${collapse}"][value = "${selectedWeapon[collapse-1]}"]`)
+  globalWeapon.splice(globalWeapon.indexOf(globalWeapon.filter(w => w.key == option.attr('value'))[0]), 1)
+  modifyCollapse(option)
 })
 
 //fonction de vidage puis remplissage des collapses en fonction de l'arme
@@ -129,7 +125,6 @@ function setupWeapon(option){
         }
       })
     })
-
     //place les lignes sur le svg
     var bgSVG = $(`#bgSvg-${collapse}-${(indexbranch+1)}`);
     globalWeapon.filter(w => w.key == weaponKey)[0].lines[indexbranch].forEach(line => {
@@ -173,7 +168,6 @@ $('.skill-container').click(function(){
 
     //Si premiere ligne -> allume
     if(row == 1){addskill(skillObject,skill, weapon);return}
-
 
         //Si skill dominant
         if(typeof skill.parent == 'object'){
@@ -284,6 +278,7 @@ function delSkill(skillObject,skill, weapon){
   greyscale(skillObject, false)
 }
 
+//Ajoute la fonction de click sur un skill carré dans la sélection
 function addClickEvent(collapse, i){
   $(`.mainskillli[collapse="${collapse}"][cadre="${i}"]`).unbind('click').click(function(){
     var src = $(this).attr('src')
@@ -296,10 +291,7 @@ function addClickEvent(collapse, i){
     $(this).attr('src', srcSelected)
     $(this).attr('skillKey', skillKeySelected)
     globalWeapon.filter(w => w.key == selectedWeapon[collapse-1])[0].selectedMainSkills[i-1] = skillKey;
-    if (skillKey !== "") {
-      $(`.mainskillli[skillKey="${skillKey}"]`).parent().remove()
-    }
-    console.log();
+    if (skillKey !== "") { $(`.mainskillli[skillKey="${skillKey}"]`).parent().remove()}
     if (skillKeySelected != "") {
       for (let c = 1; c <= 3; c++) {
         if(c !== i){ 
@@ -312,32 +304,18 @@ function addClickEvent(collapse, i){
   })
 }
 
-//fonction pour update les popover
-function changePopover(skillObject, message){
-skillObject.attr('data-bs-content',message)
-skillObject.popover('show')
-}
-
 //fonction pour update les progresBar
 function changeProgress(collapse, counter){
   $('#pointProgres'+collapse).css('width', (counter*100/19)+'%')
   $('#pointProgresText'+collapse).html(messageSkill.RemainingPoint + counter)
 }
 
-//fonction pour update les filtres gris
-function greyscale(element, active){
-  if(!active){
-    element.css('filter', 'grayscale(1)');
-    element.css('-webkit-filter:', 'grayscale(1)');
-  }else{
-    element.css('filter', '');
-    element.css('-webkit-filter:', '');
-  }
-}
-
 //Envoyer la build au serveur
+var textErr = $('#zoneErreur')
 var form = $("#BuildForm")
+
 form.submit(function(e) {
+
   e.preventDefault();
   textErr.text("")
 
@@ -357,7 +335,6 @@ form.submit(function(e) {
   buildObject.type = $('#SelectType').children(":selected").val();
 
   buildObject.description = $('#DescriptionInput').val();
-
 
 
   if(selectedWeapon[0] == "" || selectedWeapon[1] == ""){

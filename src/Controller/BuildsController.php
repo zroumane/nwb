@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 /**
@@ -39,7 +40,7 @@ class BuildsController extends AbstractController{
     }
 
     /**
-     * @Route("/build/{id}")
+     * @Route("/build/{id}", requirements={"id"="\d+"})
      */
     public function view(Request $request, Builds $build) : Response
     {
@@ -135,6 +136,17 @@ class BuildsController extends AbstractController{
     //     }
 
     // }
+
+    /**
+     * @Route("/delete/{id}")
+     */
+    public function delete(Request $request, Builds $build) : RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($build);
+        $em->flush();
+        return $this->redirectToRoute('app_builds_index');
+    }
 
 }
 ?>
