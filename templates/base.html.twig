@@ -39,9 +39,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                {# <li class="nav-item">
                     <a class="nav-link" href="">{% trans into locale %}NavBar.Login{% endtrans %}</a>
-                </li>
+                </li> #}
                 <li class="nav-item dropdown fs-5 d-flex align-items-center">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if locale == 'en' %}English{% endif %}
@@ -74,7 +74,7 @@
 <div class="footer container-fluid bg-dark text-light">
     <div class="container-lg p-3">
         <div class="row">
-            <div class="col">
+            {# <div class="col">
                 <div class="fs-4">About</div>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
                     molestias.
@@ -85,9 +85,9 @@
                 <ul class="list-unstyled">
                     <li><a href="">Discord</a></li>
                 </ul>
-            </div>
-            <div class="text-center mt-3">
-                © 2021 // | Tous droits réservés
+            </div> #}
+            <div class="text-center">
+                © {{ "now"|date("Y") }} <a href="https://www.newworld-builder.com/">NewWorld-Builder.com</a>
             </div>
         </div>
 </div>

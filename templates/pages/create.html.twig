@@ -75,12 +75,12 @@
                     <div class="row p-3 gx-0 collapse{{collapse}}">
                     {% for side in 1..2 %}
                         <div class="col side{{side}}" collapse="{{collapse}}" side="{{side}}">
-                            <div class="row p-3 mb-3 justify-content-center fs-3 fw-bold" id="branchName-{{collapse}}-{{side}}"></div>
+                            <div class="row mb-2 justify-content-center fs-3 fw-bold" id="branchName-{{collapse}}-{{side}}"></div>
                             <div class="ro" style="position:relative">
-                                <div class="row m-0 p-3 svgContainer svgSide{{side}} collapse{{collapse}}">
+                                <div class="row m-0 p-2 svgContainer svgSide{{side}} collapse{{collapse}}">
                                     <svg class="collapse{{collapse}} p-0 bgSvg" id="bgSvg-{{collapse}}-{{side}}"></svg> 
                                 </div>
-                                <div class="row m-0 p-3">
+                                <div class="row m-0 p-2">
                                     {% for row in 1..6 %}
                                         <div class="row gx-0" collapse="{{collapse}}" side="{{side}}" row="{{row}}">
                                         {% for col in 1..5 %}

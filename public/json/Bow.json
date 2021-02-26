@@ -170,7 +170,7 @@
                 {
                     "key" : "SmokeDuration",
                     "col" : "1",
-                    "parent" : ["SmokeDuration"],
+                    "parent" : ["SmokeAoE"],
                     "child": ["SmokeVision"],
                     "active" : false  
                 },
