@@ -1,5 +1,5 @@
 // fetch les traductions
-$.getJSON(`json/${lang}/weaponabilities.json`, function(result){ skillsInfo = result; });
+$.getJSON(`json/${lang}/weaponabilities.json`, function(result){ skillsInfo = result; })
 $.getJSON(`json/${lang}/messageSkill.json`, function(result){ messageSkill = result; })
 
 //initialise les variables globales
@@ -16,26 +16,31 @@ if (!weaponObject){
 //executé au click du choix d'armes
 $('.selectChoixWeapon').change(function(){
 
-  var collapse = $(this).attr('collapse');
-  var option = $(this).children(":selected");
+  var collapse = $(this).attr('collapse')
+  var option = $(this).children(":selected")
 
   //verifie si deja selectionné, si oui break
-  if(selectedWeapon[collapse-1] == option.attr('value')){return}
-  selectedWeapon[collapse-1] = option.attr('value');
+  if(selectedWeapon[collapse-1] == option.attr('value')) return
+  selectedWeapon[collapse-1] = option.attr('value')
 
   //enleve l'arme du menu deroulant deja choisi dans l'autre menu deroulant
   var negCollapse = `[collapse = "${Math.abs(collapse-3)}"]`
-  $(`.optionChoixWeapon${negCollapse}`).css('display', 'block');
-  $(`.optionChoixWeapon${negCollapse}[value = "${option.attr('value')}"]`).css('display', 'none');
+  $(`.optionChoixWeapon${negCollapse}`).css('display', 'block')
+  $(`.optionChoixWeapon${negCollapse}[value = "${option.attr('value')}"]`).css('display', 'none')
   
   //appelle fonction de remplissage et si collapse ouverte attend fin fermeture
   var toChange = true;
   var collapseObject = $('#collapse'+collapse)
   if(collapseObject.hasClass("show")){
-    collapseObject.collapse("hide");
+    collapseObject.collapse("hide")
     collapseObject.on('hidden.bs.collapse', function(){ 
-        if(toChange){modifyCollapse(option);} toChange = false;});
-  } else {modifyCollapse(option); toChange = false;}
+        if(toChange) modifyCollapse(option)
+        toChange = false
+    });
+  }else{
+    modifyCollapse(option) 
+    toChange = false
+  }
 
 })
 
@@ -64,25 +69,25 @@ function modifyCollapse(option){
 function setupWeapon(option){
   //initiale les variables
   var option  
-  var collapse = option.attr('collapse');
+  var collapse = option.attr('collapse')
   var weaponName = option.html()
-  var weaponKey = option.attr('value');
+  var weaponKey = option.attr('value')
 
   //ajoute le nom de l'arme sur le button de collapse correspondant
-  $('#buttonCollapse'+collapse).html(weaponName);
+  $('#buttonCollapse'+collapse).html(weaponName)
   
   //fait appraitre le body de la collapse et enleve le message "pas d'amre"
-  $('.collapseAlert'+collapse).css('display', 'none');
-  $('#weaponCollapse-'+collapse).css('display', 'block');
+  $('.collapseAlert'+collapse).css('display', 'none')
+  $('#weaponCollapse-'+collapse).css('display', 'block')
 
   //reset complet
   $(`.bgSvg.collapse${collapse}`).children().remove();
-  $(`.skill-container[collapse = "${collapse}"]`).attr('fill', 'false').attr('alert', 'false').popover('disable');
-  $(`.skill-container-img[collapse = "${collapse}"]`).attr('src', 'img/emptyCadre.png');
-  $(`.ulMainSkill[collapse = "${collapse}"]`).children().remove();
+  $(`.skill-container[collapse = "${collapse}"]`).attr('fill', 'false').attr('alert', 'false').popover('disable')
+  $(`.skill-container-img[collapse = "${collapse}"]`).attr('src', 'img/emptyCadre.png')
+  $(`.ulMainSkill[collapse = "${collapse}"]`).children().remove()
   $(`.mainSkillSelected[collapse = "${collapse}"]`).attr('src', 'img/CadreSkill.png').attr('skillKey', '')
 
-
+  
   changeProgress(collapse, globalWeapon.filter(w => w.key == weaponKey)[0].counter[0])
 
   globalWeapon.filter(w => w.key == weaponKey)[0].skills.forEach(function (branch, indexbranch) {
@@ -219,7 +224,7 @@ $('.skill-container').click(function(){
         });
       })
       //Si skill dependant active -> refuse
-      if(skillTocheck.length > 0){ changePopover(skillObject, messageSkill.InlineSkillTop+skillsInfo[skillTocheck[0].key]); return}
+      if(skillTocheck.length > 0){ changePopover(skillObject, messageSkill.InlineSkillBottom+skillsInfo[skillTocheck[0].key]); return}
     }
 
     //Si skills ligne suivante active et pas de skill meme ligne active -> refuse
@@ -229,7 +234,9 @@ $('.skill-container').click(function(){
     }
     //Sinon -> allume
     else{
-      delSkill(skillObject,skill, weapon);return}
+      delSkill(skillObject,skill, weapon)
+      return
+    }
   }
 })
 
