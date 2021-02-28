@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
-use App\Entity\Builds;
-use App\Repository\BuildsRepository;
+use App\Entity\Build;
+use App\Repository\BuildRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -25,7 +25,7 @@ class BuildsController extends AbstractController{
     /** 
     * @Route("/")
     */
-    public function index(Request $request, BuildsRepository $repo) : Response
+    public function index(Request $request, BuildRepository $repo) : Response
     {   
 
         $builds = $repo->findAll();
@@ -42,7 +42,7 @@ class BuildsController extends AbstractController{
     /**
      * @Route("/build/{id}", requirements={"id"="\d+"})
      */
-    public function view(Request $request, Builds $build) : Response
+    public function view(Request $request, Build $build) : Response
     {
 
         $this->locale = $request->getLocale();
@@ -77,12 +77,20 @@ class BuildsController extends AbstractController{
 
             if ($content = $request->getContent()) {
                 $buildObject = json_decode($content, true);
+            }else {
+                return $this->json(["message" => "No content"], 403);
             }
 
-            $build = new Builds();
-            $build->setTitle($buildObject['title'])
-            ->setDescription($buildObject['description'])
-            ->setType($buildObject['type']);
+            $datetime = new \DateTime();
+
+            $build = new Build();
+            $build->setName($buildObject['name'])
+                ->setDescription($buildObject['description'])
+                ->setType($buildObject['type'])
+                ->setWeapon($buildObject['weapon'])
+                ->setSkills([])
+                ->setCreatedAt($datetime)
+                ->setUpdatedAt($datetime);
             $em = $this->getDoctrine()->getManager();
             $em->persist($build);
             $em->flush();
@@ -100,7 +108,7 @@ class BuildsController extends AbstractController{
     /**
      * @Route("/edit/{id}")
      */
-    // public function edit(Request $request, Builds $build) : Response
+    // public function edit(Request $request, Build $build) : Response
     // {
     //     $this->locale = $request->getLocale();
 
@@ -115,7 +123,7 @@ class BuildsController extends AbstractController{
     /**
      * @Route("/update/{id}")
      */
-    // public function update(Request $request, Builds $build) : Response
+    // public function update(Request $request, Build $build) : Response
     // {
     //     if($request->isXmlHttpRequest()){
 
@@ -124,15 +132,20 @@ class BuildsController extends AbstractController{
     //             $buildObject = json_decode($content, true);
     //         }
 
-    //         $build->setTitle($buildObject['title'])
-    //         ->setDescription($buildObject['description'])
-    //         ->setType($buildObject['type']);
-    //         $em = $this->getDoctrine()->getManager();
-    //         $em->flush();
+    // $datetime = new \DateTime();
 
-    //         return $this->json('ok');
-    //     }else{
-    //         return $this->json(["code" => 404, "message" => "Not ajax"]);
+            // $build->setName($buildObject['name'])
+            //     ->setDescription($buildObject['description'])
+            //     ->setType($buildObject['type'])
+            //     ->setWeapon($buildObject['weapon'])
+            //     ->setSkills([])
+            //     ->setUpdatedAt($datetime);
+            // $em = $this->getDoctrine()->getManager();
+            // $em->flush();
+
+        //     return $this->json('ok');
+        // }else{
+        //     return $this->json(["code" => 404, "message" => "Not ajax"]);
     //     }
 
     // }
@@ -140,7 +153,7 @@ class BuildsController extends AbstractController{
     /**
      * @Route("/delete/{id}")
      */
-    public function delete(Request $request, Builds $build) : RedirectResponse
+    public function delete(Request $request, Build $build) : RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($build);

@@ -8,17 +8,27 @@
 
 {% block body %}
 
-{% for build in builds %}
-<div class="card w-100 text-white bg-dark mb-4">
-  <div class="card-body">
-    <h5 class="card-title">{{build.title}}</h5>
-    <p class="card-text">{{build.description|striptags|slice(0, 300)}}...</p>
-    <a href="{{ path('app_builds_view', {'id': build.id}) }}" class="card-link">View</a>
-    <a href="#" class="card-link">Edit</a>
-    <a href="{{ path('app_builds_delete', {'id': build.id}) }}" class="card-link">Delete</a>
-  </div>
-</div>
 
-{% endfor %}
+<table class="table table-dark table-striped table-hover text-center">
+   <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Author</th>
+      <th scope="col">Weapon</th>
+      <th scope="col">Type</th>
+    </tr>
+  <tbody>
+  {% for build in builds %}
+      <tr class="clickable" onclick="window.location.href='/build/{{build.id}}'">
+        {# <a href="{{ path('app_builds_view', {'id': build.id}) }}"> #}
+          <td>{{build.name}}</td>
+          <td>//</td>
+          <td>{{build.weapon|join(' / ')}}</td>
+          <td>{{build.type}}</td>
+        {# </a> #}
+    </tr>
+  {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}

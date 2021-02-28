@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Builds;
+use App\Entity\Build;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Builds|null find($id, $lockMode = null, $lockVersion = null)
- * @method Builds|null findOneBy(array $criteria, array $orderBy = null)
- * @method Builds[]    findAll()
- * @method Builds[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Build|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Build|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Build[]    findAll()
+ * @method Build[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BuildsRepository extends ServiceEntityRepository
+class BuildRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Builds::class);
+        parent::__construct($registry, Build::class);
     }
 
     // /**
-    //  * @return Builds[] Returns an array of Builds objects
+    //  * @return Build[] Returns an array of Build objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class BuildsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Builds
+    public function findOneBySomeField($value): ?Build
     {
         return $this->createQueryBuilder('b')
             ->andWhere('b.exampleField = :val')

@@ -50,12 +50,12 @@
     z-index: 10;
 }
 
-.side1{
+#side-1{
     border-right:0.5px white solid; 
     padding-right: 0.5rem;
 }
 
-.side2{
+#side-2{
     border-left: 0.5px white solid;
     padding-left: 0.5rem;
 }
