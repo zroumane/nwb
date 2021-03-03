@@ -14,6 +14,7 @@
                 {
                     "key" : "HealingWave",
                     "col" : "3",
+					"child": ["HealingWave_Mod1"],					
                     "active" : false
                 },
                 {
@@ -26,11 +27,14 @@
                 {
                     "key" : "HolyShield",
                     "col" : "1",
+					"child": ["HolyShield_Mod1"],					
                     "active" : false  
                 },
                 {
                     "key" : "HealingWave_Mod1",
                     "col" : "3",
+					"parent": ["HealingWave"],
+					"child": ["HealingWave_Mod2"],						
                     "active" : false 
                 },
                 {
@@ -43,16 +47,21 @@
                 {
                     "key" : "HolyShield_Mod1",
                     "col" : "1",
+					"parent": ["HolyShield"],
+					"child": ["HolyShield_Mod2"],							
                     "active" : false  
                 },
                 {
                     "key" : "HealingWave_Mod2",
                     "col" : "3",
+					"parent": ["HealingWave_Mod1"],
+					"child": ["HealingWave_Mod3"],					
                     "active" : false   
                 },
                 {
                     "key" : "TouchOfLife",
                     "col" : "5",
+					"child": ["TouchOfLife_Mod1"],	
                     "active" : false  
                 } 
             ],
@@ -60,16 +69,20 @@
                 {
                     "key" : "HolyShield_Mod2",
                     "col" : "1",
+					"parent": ["HolyShield_Mod1"],					
                     "active" : false  
                 },
                 {
                     "key" : "HealingWave_Mod3",
                     "col" : "3",
+					"parent": ["HealingWave_Mod2"],					
                     "active" : false  
                 },
                 {
                     "key" : "TouchOfLife_Mod1",
                     "col" : "5",
+					"parent": ["TouchOfLife"],
+					"child": ["TouchOfLife_Mod2"],
                     "active" : false  
                 }
             ],
@@ -87,6 +100,7 @@
                 {
                     "key" : "TouchOfLife_Mod2",
                     "col" : "5",
+					"parent": ["TouchOfLife_Mod1"],					
                     "active" : false   
                 }
             ],
@@ -108,6 +122,7 @@
                 {
                     "key" : "Siphon",
                     "col" : "3",
+					"child": ["Siphon_Mod1"],					
                     "active" : false 
                 },
                 {
@@ -120,11 +135,14 @@
                 {
                     "key" : "SpeedOfLight",
                     "col" : "1",
+					"child": ["SpeedOfLight_Mod1"],						
                     "active" : false  
                 },
                 {
                     "key" : "Siphon_Mod1",
                     "col" : "3",
+					"parent": ["Siphon"],
+					"child": ["Siphon_Mod2"],					
                     "active" : false  
                 },
                 {
@@ -137,6 +155,8 @@
                 {
                     "key" : "SpeedOfLight_Mod1",
                     "col" : "1",
+					"parent": ["SpeedOfLight"],
+					"child": ["SpeedOfLight_Mod2"],					
                     "active" : false  
                 },
                 {
@@ -147,6 +167,7 @@
                 {
                     "key" : "Smite",
                     "col" : "5",
+					"child": ["Smite_Mod1"],						
                     "active" : false  
                 }
             ],
@@ -155,6 +176,7 @@
                 {
                     "key" : "SpeedOfLight_Mod2",
                     "col" : "1",
+					"parent": ["SpeedOfLight_Mod1"],
                     "active" : false   
                 },
                 {
@@ -165,6 +187,8 @@
                 {
                     "key" : "Smite_Mod1",
                     "col" : "5",
+					"parent": ["Smite"],
+					"child": ["Smite_Mod2"],										
                     "active" : false  
                 }
 
@@ -173,6 +197,8 @@
                 {
                     "key" : "Siphon_Mod2",
                     "col" : "3",
+					"parent": ["Siphon_Mod1"],
+					"child": ["Siphon_Mod3"],					
                     "active" : false 
                 },
                 {
@@ -183,6 +209,7 @@
                 {
                     "key" : "Smite_Mod2",
                     "col" : "5",
+					"parent": ["Smite_Mod1"],					
                     "active" : false  
                 }
             ],
@@ -190,125 +217,22 @@
                 {
                     "key" : "Siphon_Mod3",
                     "col" : "3",
+					"parent": ["Siphon_Mod2"],				
                     "active" : false   
                 }
             ]
         ]
     ],
-    "lines" : [
+     "lines" : [
         [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },
-            {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "2"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "3"
-            },
-            {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "4"
-            },
-            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "4"
-            },
-            {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },
-            {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "5"
-            }
+            [1,2,1,4],
+            [3,1,3,4],
+            [5,3,5,5]
         ],
         [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },
-            {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "2"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "3"
-            },
-            {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "4"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "4"
-            },
-            {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "5"
-            },
-            {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "5"
-            },
-            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "6"
-            }
+            [1,2,1,4],
+            [3,1,3,6],
+            [5,3,5,5]
         ]
     ]
 }
