@@ -32,6 +32,6 @@
     {
         "key" : "Musket",
         "name": "Mousquet",
-        "branch" : ["Fin Tireur", "Trappeur"]
+        "branch" : ["Trappeur", "Fin Tireur"]
     }
 ]
