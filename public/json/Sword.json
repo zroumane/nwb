@@ -14,6 +14,7 @@
                 {
                     "key" : "WhirlingBlade",
                     "col" : "3",
+					"child": ["QuickWhirl"],						
                     "active" : false              
                 },
                 {
@@ -26,11 +27,14 @@
                 {
                     "key" : "ReverseStab",
                     "col" : "1",
+					"child": ["UnstoppableStab"],					
                     "active" : false
                 },
                 {
                     "key" : "QuickWhirl",
                     "col" : "3",
+					"parent": ["WhirlingBlade"],
+					"child": ["SharpenedEdge"],					
                     "active" : false            
                 },
                 {
@@ -43,6 +47,8 @@
                 {
                     "key" : "UnstoppableStab",
                     "col" : "1",
+					"parent": ["ReverseStab"],
+					"child": ["UltimateStab"],					
                     "active" : false                
                 },
                 {
@@ -53,6 +59,7 @@
                 {
                     "key" : "LeapingStrike",
                     "col" : "5",
+					"child": ["ReachingStrike"],						
                     "active" : false
                 }                   
             ],
@@ -65,11 +72,15 @@
                 {
                     "key" : "SharpenedEdge",
                     "col" : "3",
+					"parent": ["QuickWhirl"],
+					"child": ["WhirlingDeath"],						
                     "active" : false            
                 },
                 {
                     "key" : "ReachingStrike",
                     "col" : "5",
+					"parent": ["LeapingStrike"],
+					"child": ["ChargedStrike"],					
                     "active" : false
                 }
             ],
@@ -77,11 +88,13 @@
                 {
                     "key" : "UltimateStab",
                     "col" : "1",
+					"parent": ["UnstoppableStab"],					
                     "active" : false
                 },
                 {
                     "key" : "WhirlingDeath",
                     "col" : "3",
+					"parent": ["SharpenedEdge"],						
                     "active" : false
                 },
                 {
@@ -94,6 +107,7 @@
                 {
                     "key" : "ChargedStrike",
                     "col" : "5",
+					"parent": ["ReachingStrike"],					
                     "active" : false
                 }
             ]
@@ -108,6 +122,7 @@
                 {
                     "key" : "ShieldBash",
                     "col" : "3",
+					"child": ["ConcussiveBash"],						
                     "active" : false
                 },
                 {
@@ -120,11 +135,13 @@
                 {
                     "key" : "ShieldRush",
                     "col" : "1",
+					"child": ["IntimidatingRush"],					
                     "active" : false
                 },
                 {
                     "key" : "ConcussiveBash",
                     "col" : "3",
+					"parent": ["ShieldBash"],					
                     "active" : false
                 },
                 {
@@ -142,6 +159,7 @@
                 {
                     "key" : "LastStand",
                     "col" : "4",
+					"child": ["EnduringStand"],					
                     "active" : false
                 },
                 {
@@ -154,6 +172,8 @@
                 {
                     "key" : "IntimidatingRush",
                     "col" : "1",
+					"parent": ["ShieldRush"],
+					"child": ["RefreshingRush"],						
                     "active" : false
                 },
                 {
@@ -164,6 +184,7 @@
                 {
                     "key" : "EnduringStand",
                     "col" : "4",
+					"parent": ["LastStand"],					
                     "active" : false
                 }
 	
@@ -172,6 +193,7 @@
                 {
                     "key" : "RefreshingRush",
                     "col" : "1",
+					"parent": ["IntimidatingRush"],					
                     "active" : false
                 },
                 {
@@ -194,115 +216,16 @@
             ]
         ]
     ],
-    "lines" : [
+      "lines" : [
         [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },		
-		    {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-		    {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },		
-           {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "2"
-            },
-           {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "3"
-            },		 
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "4"
-            },					
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "4"
-            },	
-           {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },
-           {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "5"
-            },	
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "5"
-            },
-			            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "5"
-            },
-            {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "6"
-            }	
+            [1,2,1,5],
+            [3,1,3,5],
+            [5,3,5,6]
         ],
         [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },		
-		    {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-		    {
-                "type" : "Start",
-                "col" : "4",
-                "row" : "3"
-            },		
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "4"
-            },	
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "5"
-            },
-			            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "2"
-            },
-            {
-                "type" : "Stop",
-                "col" : "4",
-                "row" : "4"
-            }	
+            [1,2,1,5],
+            [3,1,3,2],
+            [4,3,4,4]
         ]
     ]
 }
