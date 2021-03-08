@@ -5,3 +5,4 @@ start.bat
 exclude
 vendor/
 var/
+.idea/
