@@ -3,3 +3,5 @@
 /.idea/
 exclude
 composer.lock
+phpunit.xml.dist
+symfony.lock
