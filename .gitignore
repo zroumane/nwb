@@ -1,6 +1,4 @@
 /var/
 /vendor/
 /.idea/
-composer.lock
 phpunit.xml.dist
-symfony.lock
