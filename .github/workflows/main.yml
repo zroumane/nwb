@@ -1,10 +1,18 @@
 on: [push]
 jobs:
-  rsync:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: RSyncer Action
+    - name: Switch production
+      uses: php-actions/composer@v5
+      with:
+        command: composer dump-env prod
+    - name: Install dependencies
+      uses: php-actions/composer@v5
+      with:
+        command: composer install
+    - name: Rsync Upload
       uses: Pendect/action-rsyncer@v1.1.0
       env:
         DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
