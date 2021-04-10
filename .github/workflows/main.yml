@@ -12,6 +12,6 @@ jobs:
         flags: '-av --delete '
         options: '--exclude-from=exclude'
         src: './'
-        dest: '${{secrets.DEPLOY_SSH_USER}}@${{secrets.DEPLOY_SSH_HOST}}:~/nwb/'
+        dest: 'nwbuser@$51.195.45.151:~/nwb/'
     - name: Display status from deploy
       run: echo "${{ steps.deploy.outputs.status }}"
