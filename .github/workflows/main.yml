@@ -12,6 +12,4 @@ jobs:
         flags: '-av --delete '
         options: '--exclude-from=exclude'
         src: './'
-        dest: 'nwbuser@$51.195.45.151:~/nwb/'
-    - name: Display status from deploy
-      run: echo "${{ steps.deploy.outputs.status }}"
+        dest: 'nwbuser@51.195.45.151:~/nwb/'
