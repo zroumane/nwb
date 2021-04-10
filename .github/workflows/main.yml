@@ -8,9 +8,7 @@ jobs:
 
     - name: Switch production
       uses: php-actions/composer@v5
-      with:
-        command: dump-env prod
-
+      
     - name: Rsync Upload
       uses: Pendect/action-rsyncer@v1.1.0
       env:
