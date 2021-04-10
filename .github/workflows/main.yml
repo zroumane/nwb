@@ -11,8 +11,7 @@ jobs:
       with:
         version: 2
         php_version: 7.3
-        command: dump-env
-        args: prod
+        command: dump-env prod
 
     - name: Rsync Upload
       uses: Pendect/action-rsyncer@v1.1.0
