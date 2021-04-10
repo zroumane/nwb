@@ -7,13 +7,6 @@ jobs:
     - name: RSyncer Action
       uses: Pendect/action-rsyncer@v1.1.0
       env:
-        HOST: ${{secrets.DEPLOY_SSH_HOST}}
-        USER: ${{secrets.DEPLOY_SSH_USER}}
-        KEY: ${{secrets.DEPLOY_SSH_KEY}}
-        TARGET: ~/nwb/
-        ARGS: -av --delete --exclude-from=exclude
-        SOURCE: ./
-      env:
         DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
       with:
         flags: '-av --delete '
