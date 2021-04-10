@@ -1,0 +1,15 @@
+on: [push]
+jobs:
+  rsync:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Action - rsync
+      uses: up9cloud/action-rsync@v1.3
+      env:
+        HOST: ${{secrets.DEPLOY_SSH_HOST}}
+        USER: ${{secrets.DEPLOY_SSH_USER}}
+        KEY: ${{secrets.DEPLOY_SSH_KEY}}
+        TARGET: ~/nwb/
+        ARGS: -av --delete --exclude-from=exclude
+        SOURCE: ./
