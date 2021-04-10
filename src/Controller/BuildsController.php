@@ -47,6 +47,11 @@ class BuildsController extends AbstractController{
 
         $this->locale = $request->getLocale();
 
+        $views = $build->getViews();
+        $build->setViews($views + 1);
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
         return $this->render('pages/build.html.twig', [
             'current_menu' => 'build',
             'locale' => $this->locale,

@@ -52,6 +52,11 @@ class Build
      */
     private $updated_at;
 
+    /**
+     * @ORM\Column(type="bigint")
+     */
+    private $views;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Build
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getViews(): ?string
+    {
+        return $this->views;
+    }
+
+    public function setViews(string $views): self
+    {
+        $this->views = $views;
 
         return $this;
     }

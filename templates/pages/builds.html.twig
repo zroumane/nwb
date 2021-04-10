@@ -16,19 +16,32 @@
       <th scope="col">Author</th>
       <th scope="col">Weapon</th>
       <th scope="col">Type</th>
+      <th scope="col">View</th>
+      <th scope="col">Last Update</th>
     </tr>
   <tbody>
   {% for build in builds %}
-      <tr class="clickable" onclick="window.location.href='/build/{{build.id}}'">
-        {# <a href="{{ path('app_builds_view', {'id': build.id}) }}"> #}
-          <td>{{build.name}}</td>
-          <td>//</td>
-          <td>{{build.weapon|join(' / ')}}</td>
-          <td>{{build.type}}</td>
-        {# </a> #}
+
+    <tr>
+      <td><a href="{{ path('app_builds_view', {'id': build.id}) }}">{{build.name}}</a></td>
+      <td>//</td>
+      <td>{{build.weapon|join(' / ')}}</td>
+      <td> 
+        {% if build.type == 0 %}//{% endif %}
+        {% if build.type == 1 %}PVP{% endif %}
+        {% if build.type == 2 %}PVE{% endif %}
+        {% if build.type == 3 %}PVPVE{% endif %}
+        {% if build.type == 4 %}Siège{% endif %}
+        </td>
+      <td>{{build.views}}</td>
+      <td>
+        {% set distance = date("now").diff(date(build.UpdatedAt)).days %} 
+        il y a {% if distance <= 1 %} 1 jour {% else %} {{ distance }} jours {% endif %}
+      </td>
     </tr>
+
   {% endfor %}
-    </tbody>
+  </tbody>
 </table>
 
 {% endblock %}
