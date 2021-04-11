@@ -7,7 +7,8 @@ NavBar:
   Create: Create
   PatchNote: Patch Note
   Language: Language
-  Login: Log in with Steam
+  Login: Log in
+  Signin: Sign in
   Loged: Logged as %username%
 Create:
   BuildName: Build name

@@ -6,8 +6,8 @@ NavBar:
   Build: Builds
   Create: Créer
   PatchNote: Patch Note
-  Language: Langue
-  Login: Connectez-vous avec Steam
+  Login: Connection
+  Signin: Inscription
   Loged: Connectez en tant que %username%
 Create:
   BuildName: Nom du build

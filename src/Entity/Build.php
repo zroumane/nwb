@@ -55,7 +55,7 @@ class Build
     /**
      * @ORM\Column(type="bigint")
      */
-    private $views;
+    private $views = 0;
 
     public function getId(): ?int
     {
