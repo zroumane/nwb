@@ -5,4 +5,6 @@ start.sh
 .git
 .github
 exclude
+.env
+docker_tag
 /var/
