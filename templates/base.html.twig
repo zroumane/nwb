@@ -39,12 +39,24 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" {% if current_menu == 'signin' %}active{% endif %} href="">{% trans into locale %}NavBar.Signin{% endtrans %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" {% if current_menu == 'login' %}active{% endif %} href="">{% trans into locale %}NavBar.Login{% endtrans %}</a>
-                </li>
+                {% if app.user %}
+                    <li class="nav-item dropdown fs-5 d-flex align-items-center">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.username }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="">Mon Profil</a></li>
+                            <li><a class="dropdown-item" href="{{path('app_security_logout')}}">Logout</a></li>
+                        </ul>
+                    </li>
+                {% else  %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'signin' %}active{% endif %}" href="{{path('app_security_register')}}">{% trans into locale %}NavBar.Signin{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans into locale %}NavBar.Login{% endtrans %}</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item dropdown fs-5 d-flex align-items-center">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if locale == 'en' %}English{% endif %}

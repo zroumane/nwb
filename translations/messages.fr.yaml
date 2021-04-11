@@ -8,6 +8,7 @@ NavBar:
   PatchNote: Patch Note
   Login: Connection
   Signin: Inscription
+  Logout: Deconnexion
   Loged: Connectez en tant que %username%
 Create:
   BuildName: Nom du build

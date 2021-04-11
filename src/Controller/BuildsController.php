@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class BuildsController extends AbstractController{
 
-    private $locale;
     private $kernel;
 
     public function __construct(KernelInterface $kernel){
@@ -30,11 +29,9 @@ class BuildsController extends AbstractController{
 
         $builds = $repo->findAll();
 
-        $this->locale = $request->getLocale();
-
         return $this->render('pages/builds.html.twig', [
             'current_menu' => 'builds',
-            'locale' => $this->locale,
+            'locale' =>$request->getLocale(),
             'builds' => $builds
         ]);
     }
@@ -45,8 +42,6 @@ class BuildsController extends AbstractController{
     public function view(Request $request, Build $build) : Response
     {
 
-        $this->locale = $request->getLocale();
-
         $views = $build->getViews();
         $build->setViews($views + 1);
         $em = $this->getDoctrine()->getManager();
@@ -54,7 +49,7 @@ class BuildsController extends AbstractController{
 
         return $this->render('pages/build.html.twig', [
             'current_menu' => 'build',
-            'locale' => $this->locale,
+            'locale' => $request->getLocale(),
             'build' => $build
         ]);
     }
@@ -64,12 +59,11 @@ class BuildsController extends AbstractController{
      */
     public function create(Request $request) : Response
     {
-        $this->locale = $request->getLocale();
 
         return $this->render('pages/create.html.twig', [
             'current_menu' => 'create',
-            'locale' => $this->locale,
-            'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$this->locale.'/weapon.json'))
+            'locale' => $request->getLocale(),
+            'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$request->getLocale().'/weapon.json'))
         ]);
     }
 
@@ -120,7 +114,7 @@ class BuildsController extends AbstractController{
     //     return $this->render('pages/create.html.twig', [
     //         'current_menu' => 'create',
     //         'locale' => $this->locale,
-    //         'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$this->locale.'/weapon.json')),
+    //         'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$request->getLocale().'/weapon.json')),
     //         'build' => $build
     //     ]);
     // }
@@ -158,7 +152,7 @@ class BuildsController extends AbstractController{
     /**
      * @Route("/delete/{id}")
      */
-    public function delete(Request $request, Build $build) : RedirectResponse
+    public function delete(Build $build) : RedirectResponse
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($build);

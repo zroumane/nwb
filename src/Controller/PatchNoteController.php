@@ -17,11 +17,10 @@ class PatchNoteController extends AbstractController{
     */
     public function index(Request $request) : Response
     {
-        $locale = $request->getLocale();
 
         return $this->render('pages/patch.html.twig', [
             'current_menu' => 'patchnote',
-            'locale' => $locale
+            'locale' => $request->getLocale()
         ]);
     }
 

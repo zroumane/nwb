@@ -25,7 +25,7 @@ jobs:
       env:
         DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
       with:
-        flags: '-av --delete --delete-excluded'
+        flags: '-av --delete'
         options: '--exclude-from=exclude'
         src: './'
         dest: 'nwbuser@51.195.45.151:~/nwb/'
