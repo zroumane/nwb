@@ -6,8 +6,8 @@ NavBar:
   Build: Builds
   Create: Créer
   PatchNote: Patch Note
-  Login: Connection
-  Signin: Inscription
+  Login: Connection 1
+  Signin: Inscription 2
   Loged: Connectez en tant que %username%
 Create:
   BuildName: Nom du build
