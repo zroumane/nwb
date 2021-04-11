@@ -7,4 +7,5 @@ start.sh
 exclude
 .env
 docker_tag
-/var/*
+output.log
+var/*
