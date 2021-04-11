@@ -11,14 +11,12 @@ jobs:
       with:
         version: 2
         php_version: 7.3
-        dev: no
 
     - name: Composer Swtch Production
       uses: php-actions/composer@v5
       with:
         version: 2
         php_version: 7.3
-        dev: no
         command: dump-env
         args: prod
 
