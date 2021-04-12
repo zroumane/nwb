@@ -21,7 +21,5 @@ jobs:
         key: ${{secrets.DEPLOY_SSH_KEY}}
         script: |
           cd ~/nwb/
-          composer update
+          composer update --no-dev
           composer dump-env prod
-          php bin/console cache:clear
-
