@@ -16,7 +16,11 @@ class SetLocalController{
     */ 
     public function index(Request $request, $locale = null)
     {
-        if(in_array($locale, ['de','en','es','fr','it','pl','pt']))
+
+        // $locale_array = ['de','en','es','fr','it','pl','pt'];
+        $locale_array = ['en', 'fr'];
+
+        if(in_array($locale, $locale_array))
         {
             // On enregistre la langue en session
             $request->getSession()->set('_locale', $locale);

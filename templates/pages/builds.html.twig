@@ -1,7 +1,5 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{% trans into locale %}PageTitle.BuildTitle{% endtrans %}{% endblock %}
-
 {% block stylesheets %}{% endblock %}
 
 {% block javascripts %}{% endblock %}
@@ -24,7 +22,7 @@
 
     <tr>
       <td><a href="{{ path('app_builds_view', {'id': build.id}) }}">{{build.name}}</a></td>
-      <td>//</td>
+      <td>{{build.author.username}}</td>
       <td>{{build.weapon|join(' / ')}}</td>
       <td> 
         {% if build.type == 0 %}//{% endif %}

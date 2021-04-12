@@ -1,24 +1,38 @@
-PageTitle:
-  BuildTitle: New World Builders
-  CreateTitle: Créer un Build
-  PatchNote: Patch Note
-NavBar:  
-  Build: Builds
-  Create: Créer
-  PatchNote: Patch Note
-  Login: Connection
-  Signin: Inscription
-  Logout: Deconnexion
-  Loged: Connectez en tant que %username%
-Create:
-  BuildName: Nom du build
-  PlayerName: Nom du joueur
-  BuildDesc: Description
-  TypeName: Type
-  Siege: Siège
-  Weapons: Armes
-  ChooseWeapon: Choisir arme %number%
-  Weapon: Arme %number%
-  WeaponAlert: Veuillez dabord choisir une arme
-  Save: Enregistrer
-  Reset: Réinitialiser
+meta:
+  sitetitle: New World Builder | Build, Database & PatchNote
+
+registration:
+  username: Pseudo
+  email: Email
+  password: Password
+  agreeTerms: Accepter les conditions 
+
+pagetitle:
+  build: Builds
+  create: Créer
+  patchnote: PatchNote
+  login: Connexion
+  signin: Inscription
+
+navbar:  
+  build: Builds
+  create: Créer
+  patchnote: Patch Note
+  login: Connection
+  register: Inscription
+  logout: Deconnexion
+  profil: Profil
+  loged: Connectez en tant que %username%
+
+create:
+  buildname: Nom du build
+  playername: Nom du joueur
+  builddesc: Description
+  typename: Type
+  siege: Siège
+  weapons: Armes
+  chooseweapon: Choisir arme %number%
+  weapon: Arme %number%
+  weaponalert: Veuillez dabord choisir une arme
+  save: Enregistrer
+  reset: Réinitialiser

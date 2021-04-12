@@ -1,25 +1,38 @@
-PageTitle:
-  BuildTitle: New World Builders
-  CreateTitle: Create a Build  Page Title
-  PatchNote: Patch Note
-NavBar:  
-  Build: Builds
-  Create: Create
-  PatchNote: Patch Note
-  Language: Language
-  Login: Log in
-  Signin: Sign in
-  Logout: Logout
-  Loged: Logged as %username%
-Create:
-  BuildName: Build name
-  PlayerName: Player name
-  BuildDesc: Description
-  TypeName: Type
-  Siege: Siege
-  Weapons: Weapons
-  ChooseWeapon: Choose weapon %number%
-  Weapon: Weapon %number%
-  WeaponAlert: Please choose a weapon first
-  Save: Save
-  Reset: Reset
+meta:
+  sitetitle: New World Builder | Build, Database & PatchNote
+
+registration:
+  username: Username
+  email: Email
+  password: Password
+  agreeterms: Accept Terms
+  
+pagetitle:
+  build: Builds
+  create: Create
+  patchnote: PatchNote
+  login: Log in
+  signin: Sign in
+
+navbar:  
+  build: Builds
+  create: Create
+  patchnote: PatchNote
+  login: Login
+  register: Register
+  logout: Logout
+  profil: Profile
+  loged: Logged as %username%
+
+create:
+  buildname: Build name
+  playername: Player name
+  builddesc: Description
+  typename: Type
+  siege: Siege
+  weapons: Weapons
+  chooseweapon: Choose weapon %number%
+  weapon: Weapon %number%
+  weaponalert: Please choose a weapon first
+  save: Save
+  reset: Reset

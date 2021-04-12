@@ -3,7 +3,7 @@
     
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}{% trans into locale %}PageTitle.BuildTitle{% endtrans %}{% endblock %}</title>
+        <title>{% block title %}{% trans into locale %}meta.sitetitle{% endtrans %}{% endblock %}</title>
         <meta name="keywords" locale="'{{ locale }}" content="build, create, newworld, new, world"/>
         <meta name="description" content=""/>
         <link rel="shortcut icon" href="../img/nwicone2.jpg"/>
@@ -17,97 +17,94 @@
 
     <body>
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-lg">
-            <a class="navbar-brand" href="{{path('app_builds_index')}}">
-            <img src="/img/nwicone.png" alt="" width="100" height="100">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {% if current_menu == 'builds' %}active{% endif %}"  href="{{path('app_builds_index')}}">{% trans into locale %}NavBar.Build{% endtrans %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans into locale %}NavBar.Create{% endtrans %}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans into locale %}NavBar.PatchNote{% endtrans %}</a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                {% if app.user %}
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-lg">
+                <a class="navbar-brand" href="{{path('app_builds_index')}}">
+                <img src="/img/nwicone.png" alt="" width="100" height="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'builds' %}active{% endif %}"  href="{{path('app_builds_index')}}">{% trans into locale %}navbar.build{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans into locale %}navbar.create{% endtrans %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans into locale %}navbar.patchnote{% endtrans %}</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    {% if app.user %}
+                        <li class="nav-item dropdown fs-5 d-flex align-items-center">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ app.user.username }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="">{% trans into locale %}navbar.profil{% endtrans %}</a></li>
+                                <li><a class="dropdown-item" href="{{path('app_security_logout')}}">{% trans into locale %}navbar.logout{% endtrans %}</a></li>
+                            </ul>
+                        </li>
+                    {% else  %}
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 {% if current_menu == 'signin' %}active{% endif %}" href="{{path('app_security_register')}}">{% trans into locale %}navbar.register{% endtrans %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans into locale %}navbar.login{% endtrans %}</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item dropdown fs-5 d-flex align-items-center">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ app.user.username }}
+                            {% if locale == 'en' %}English{% endif %}
+                            {% if locale == 'fr' %}Français{% endif %}
+                            {# {% if locale == 'de' %}Deutsche{% endif %}
+                            {% if locale == 'es' %}España{% endif %}
+                            {% if locale == 'it' %}Italiano{% endif %}
+                            {% if locale == 'pl' %}Polskie{% endif %}
+                            {% if locale == 'pt' %}Português{% endif %} #}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="">Mon Profil</a></li>
-                            <li><a class="dropdown-item" href="{{path('app_security_logout')}}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'en'}) }}">English</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a></li>
+                            {# <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'de'}) }}">Deutsche</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
+                            <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li> #}
                         </ul>
                     </li>
-                {% else  %}
-                    <li class="nav-item">
-                        <a class="nav-link {% if current_menu == 'signin' %}active{% endif %}" href="{{path('app_security_register')}}">{% trans into locale %}NavBar.Signin{% endtrans %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans into locale %}NavBar.Login{% endtrans %}</a>
-                    </li>
-                {% endif %}
-                <li class="nav-item dropdown fs-5 d-flex align-items-center">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if locale == 'en' %}English{% endif %}
-                        {% if locale == 'fr' %}Français{% endif %}
-                        {% if locale == 'de' %}Deutsche{% endif %}
-                        {% if locale == 'es' %}España{% endif %}
-                        {% if locale == 'it' %}Italiano{% endif %}
-                        {% if locale == 'pl' %}Polskie{% endif %}
-                        {% if locale == 'pt' %}Português{% endif %}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'en'}) }}">English</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'de'}) }}">Deutsche</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
-                        <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    </nav>
-
-    <div class="text-light container-lg mt-4 mb-4">
-        {% block body %}{% endblock %}
-    </div> 
-
-<div class="footer container-fluid bg-dark text-light">
-    <div class="container-lg p-3">
-        <div class="row">
-            {# <div class="col">
-                <div class="fs-4">About</div>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                    molestias.
-                </p>
-            </div>
-            <div class="col-3 text-end">
-                <div class="fs-4">Links</div>
-                <ul class="list-unstyled">
-                    <li><a href="">Discord</a></li>
                 </ul>
-            </div> #}
-            <div class="text-center">
-                © {{ "now"|date("Y") }} <a href="https://www.newworld-builder.com/">NewWorld-Builder.com</a>
             </div>
         </div>
-</div>
+        </nav>
 
+        <div class="text-light container-lg mt-4 mb-4">
+            {% block body %}{% endblock %}
+        </div> 
 
+        <div class="footer container-fluid bg-dark text-light">
+            <div class="container-lg p-3">
+                <div class="row">
+                    {# <div class="col">
+                        <div class="fs-4">About</div>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                            molestias.
+                        </p>
+                    </div>
+                    <div class="col-3 text-end">
+                        <div class="fs-4">Links</div>
+                        <ul class="list-unstyled">
+                            <li><a href="">Discord</a></li>
+                        </ul>
+                    </div> #}
+                    <div class="text-center">
+                        © {{ "now"|date("Y") }} <a href="https://www.newworld-builder.com/">NewWorld-Builder.com</a>
+                    </div>
+                </div>
+        </div>
 
 
         <script type="text/javascript" src="js/Global.js"></script>
