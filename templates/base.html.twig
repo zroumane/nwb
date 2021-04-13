@@ -50,7 +50,7 @@
                         </li>
                     {% else  %}
                         <li class="nav-item">
-                            <a class="nav-link fs-5 {% if current_menu == 'signin' %}active{% endif %}" href="{{path('app_security_register')}}">{% trans into locale %}navbar.register{% endtrans %}</a>
+                            <a class="nav-link fs-5 {% if current_menu == 'signin' %}active{% endif %}" href="{{path('app_registration_register')}}">{% trans into locale %}navbar.register{% endtrans %}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans into locale %}navbar.login{% endtrans %}</a>

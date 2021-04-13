@@ -20,7 +20,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, [
+            ->add('pseudo', TextType::class, [
                 'label_format' => 'registration.username',
                 'constraints' => [
                     new NotBlank(),
@@ -36,22 +36,26 @@ class RegistrationFormType extends AbstractType
                     new Email()
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                'label_format' => 'registration.password',
+            ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 6,
-                        'max' => 64,
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
                     ]),
                 ],
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'label_format' => 'registration.agreeterms',
+            ->add('plainPassword', PasswordType::class, [
+                // instead of being sencoded in the controller
                 'mapped' => false,
                 'constraints' => [
-                    new IsTrue(),
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'max' => 4096,
+                    ]),
                 ],
             ])
         ;

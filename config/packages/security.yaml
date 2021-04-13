@@ -3,7 +3,6 @@ security:
         App\Entity\User:
             algorithm: bcrypt
             cost: 12
-
     providers:
         app_user_provider:
             entity:
@@ -22,7 +21,6 @@ security:
                     - App\Security\AppAuthenticator
             logout:
                 path: app_security_logout
-
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
