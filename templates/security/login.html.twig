@@ -2,101 +2,118 @@
 
 {% block body %}
 
+  {% if app.user %}
+
+    <div class="fs-3 mb-2">{% trans with {'%pseudo%': app.user.pseudo} %}login.loged{% endtrans %}</div>
+    <button type="button" class="btn-lg btn btn-outline-danger">{% trans %}login.logout{% endtrans %}</button>
+
+  {% else %}
+
+  
     <div class="p-2">
 
-      {% for flashError in app.flashes('verify_email_error') %}
+      {% if app.flashes('login.verify.nocheck') or error and error.messageKey == 'login.verify.nocheck' %}
+        <div class="alert alert-warning mx-2 my-1" role="alert">
+          {% trans %}login.verify.nocheck{% endtrans %}
+        </div>
+      {% endif %}
+
+      {% if app.flashes('login.verify.invalid') %}
+        <div class="alert alert-danger mx-2 my-1" role="alert">
+          {% trans %}login.verify.invalid{% endtrans %}
+        </div>
+      {% endif %}
+
+      {% for flashError in app.flashes('verify_error') %}
         <div class="alert alert-danger mx-2 my-1" role="alert">{{ flashError }}</div>
       {% endfor %}
 
-      {% for flashSucces in app.flashes('success') %}
-        <div class="alert alert-success mx-2 my-1" role="alert">{{ flashSucces }}</div>
-      {% endfor %}
-
     </div>
-  
-
-  <div class="row p-2">
-
-    <div class="col-md m-md-1 mb-4">
-
-      <form method="post" class="border rounded p-2">
-  
-        <div class="fs-1 p-1">
-          Login
-        </div>
-
-        {% if error %}
-        <div class="px-2">
-          <div class="alert alert-danger m-0 my-1">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        </div>
-        {% endif %}
-
-        <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
-
-        <div class="p-2">
-          <label for="inputEmail">Email</label>
-          <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-        </div>
-
-        <div class="p-2">
-          <label for="inputPassword">Password</label>
-          <input type="password" name="password" id="inputPassword" class="form-control" required>
-        </div>
-
-        <div class="p-2">
-            <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="_remember_me"> 
-            <label class="form-check-label" for="flexCheckDefault"> Remember me </label>
-        </div>
-
-        <div class="p-2 mb-2">
-          <button class="btn btn-lg btn-outline-light" type="submit">
-            Login
-          </button>
-        </div> 
-
-      </form>
-      
-    </div>
-
-    <div class="col-md m-md-1">
-
-      {{ form_start(registrationForm, {attr : {"class" : "border rounded p-2"}}) }}
-  
-        <div class="fs-1 p-1">
-          Register
-        </div>
-
-        <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
-        
-        <div class="p-2">
-          {{ form_row(registrationForm.pseudo) }}
-        </div>
-
-
-        <div class="p-2">
-          {{ form_row(registrationForm.email) }}
-        </div>
-
-        <div class="p-2">
-          {{ form_row(registrationForm.plainPassword) }}
-        </div>
-
-        <div class="p-2">
-          {{ form_row(registrationForm.agreeTerms) }}
-        </div>
-
-        <div class="p-2 mb-2">
-          <button class="btn btn-lg btn-outline-light" type="submit">
-            Register
-          </button>
-        </div> 
-
-      {{ form_end(registrationForm) }}
-      
     
+
+    <div class="row p-2">
+
+      <div class="col-lg m-lg-1 mb-4">
+
+        <form method="post" class="border rounded p-2">
+    
+          <div class="fs-1 p-1">
+            {% trans %}login.login{% endtrans %}
+          </div>
+
+          {% if error and error.messageKey != 'login.verify.nocheck' %}
+          <div class="px-2">
+            <div class="alert alert-danger m-0 my-1">{{ error.messageKey|trans }}</div>
+          </div>
+          {% endif %}
+
+          <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
+
+          <div class="p-2">
+            <label for="inputEmail">{% trans %}login.email{% endtrans %}</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+          </div>
+
+          <div class="p-2">
+            <label for="inputPassword">{% trans %}login.password{% endtrans %}</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
+          </div>
+
+          <div class="p-2">
+              <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="_remember_me"> 
+              <label class="form-check-label" for="flexCheckDefault">{% trans %}login.remember{% endtrans %}</label>
+          </div>
+
+          <div class="p-2 mb-2">
+            <button class="btn btn-lg btn-outline-light" type="submit">
+              {% trans %}login.gologin{% endtrans %}
+            </button>
+          </div> 
+
+        </form>
+        
+      </div>
+
+      <div class="col-lg m-lg-1">
+
+        {{ form_start(registrationForm, {attr : {"class" : "border rounded p-2"}}) }}
+    
+          <div class="fs-1 p-1">
+            {% trans %}login.register{% endtrans %}
+          </div>
+
+          <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">
+          
+          <div class="p-2">
+            {{ form_row(registrationForm.pseudo) }}
+          </div>
+
+
+          <div class="p-2">
+            {{ form_row(registrationForm.email) }}
+          </div>
+
+          <div class="p-2">
+            {{ form_row(registrationForm.plainPassword) }}
+          </div>
+
+          <div class="p-2">
+            {{ form_row(registrationForm.agreeTerms) }}
+          </div>
+
+          <div class="p-2 mb-2">
+            <button class="btn btn-lg btn-outline-light" type="submit">
+              {% trans %}login.goregister{% endtrans %}
+            </button>
+          </div> 
+
+        {{ form_end(registrationForm) }}
+        
+      </div>
+
     </div>
 
-  </div>
+  {% endif %}
 
 {% endblock %}
     

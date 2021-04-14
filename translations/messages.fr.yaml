@@ -1,13 +1,6 @@
 meta:
   sitetitle: New World Builder | Build, Database & PatchNote
 
-pagetitle:
-  build: Builds
-  create: Créer
-  patchnote: PatchNote
-  login: Connexion
-  register: Inscription
-
 navbar:  
   build: Builds
   create: Créer
@@ -15,7 +8,9 @@ navbar:
   login: Connexion
   logout: Deconnexion
   profil: Profil
-  loged: Connectez en tant que %username%
+
+builds:
+
 
 create:
   buildname: Nom du build
@@ -29,3 +24,24 @@ create:
   weaponalert: Veuillez dabord choisir une arme
   save: Enregistrer
   reset: Réinitialiser
+
+patchnote:
+
+
+login:
+  login: Connexion
+  register: Inscription
+  gologin: Se connecter
+  goregister: S'inscrire
+  pseudo : Pseudo
+  email : Email
+  password : Password
+  remember: Se souvenir de moi
+  agreeterms: Accepter les termes
+
+
+email:
+  check: Welcome ! Your account has been verified.
+  nocheck: Please verify your account. We just sent you a verification email.
+
+

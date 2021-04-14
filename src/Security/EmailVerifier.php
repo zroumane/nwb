@@ -9,6 +9,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
+use Symfony\Component\Mime\Address;
 
 class EmailVerifier
 {
@@ -23,12 +24,22 @@ class EmailVerifier
         $this->entityManager = $manager;
     }
 
-    public function sendEmailConfirmation(string $verifyEmailRouteName, UserInterface $user, TemplatedEmail $email): void
+    public function sendEmailConfirmation(UserInterface $user): void
     {
+        $user_email = $user->getEmail();
+        $user_id = $user->getId();
+
+        $email = new TemplatedEmail();
+        $email->from(new Address('zephyr@newworld-builder.com', 'NWB contact'));
+        $email->to($user_email);
+        $email->subject('Please Confirm your Email');
+        $email->htmlTemplate('security/confirmation_email.html.twig');
+
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
-            $verifyEmailRouteName,
-            $user->getId(),
-            $user->getEmail()
+            'app_verify_email',
+            $user_id,
+            $user_email,
+            ['id' => $user_id]
         );
 
         $context = $email->getContext();

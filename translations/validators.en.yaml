@@ -1,18 +1,23 @@
-registration:
-  pseudo: 
-    label: Pseudo
-    notblank: Please enter a pseudo
-    min: Your pseudo should be at least {{ limit }} characters
-    max: Your pseudo should be at most {{ limit }} characters
-  password:
-    label: Password
-    notblank: Please enter a password
-    min: Your password should be at least {{ limit }} characters
-    max: Your password should be at most {{ limit }} characters
-  email:
-    label: Email
-    notblank: Please enter a email
-    valid : Please enter a valid email
-  agreeterms: 
-    label: Accept Terms
-    istrue : You should agree to our terms.
+pseudo: 
+  label: Pseudo
+  notblank: Please enter a pseudo
+  min: Your pseudo should be at least {{ limit }} characters
+  max: Your pseudo should be at most {{ limit }} characters
+  regex: Your pseudo should not contain special characters
+  already: This pseudo is already use
+email:
+  label: Email
+  notblank: Please enter a email
+  valid : Please enter a valid email
+  already: This email is already registered
+password:
+  label: Password
+  notblank: Please enter a password
+  min: Your password should be at least {{ limit }} characters
+  max: Your password should be at most {{ limit }} characters
+  upper: One maj
+  lower: One min
+  digit: One digit
+agreeterms: 
+  label: Accept Terms
+  istrue : You should agree to our terms.

@@ -11,35 +11,35 @@
 <form id="BuildForm">
 
 <div class="mb-4 row">
-    {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}create.buildname{% endtrans %} :</label> #}
+    {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans %}create.buildname{% endtrans %} :</label> #}
     <div class="col">
-        <input class="form-control" type="text" id="BuildNameInput" placeholder="{% trans into locale %}create.buildname{% endtrans %}"/>
+        <input class="form-control" type="text" id="BuildNameInput" placeholder="{% trans %}create.buildname{% endtrans %}"/>
     </div>
     <div class="col-3">
         <select type="radio" class="form-select" id="SelectType">
-            <option hidden disabled selected value="0">{% trans into locale %}create.typename{% endtrans %}</option>
+            <option hidden disabled selected value="0">{% trans %}create.typename{% endtrans %}</option>
             <option name="modetype1" id="modetype1" value="1">PVP</option>
             <option name="modetype2" id="modetype2" value="2">PVE</option>
             <option name="modetype3" id="modetype3" value="3">PVPVE</option>
-            <option name="modetype4" id="modetype4" value="4">{% trans into locale %}create.siege{% endtrans %}</option>
+            <option name="modetype4" id="modetype4" value="4">{% trans %}create.siege{% endtrans %}</option>
         </select>   
     </div>
 </div>
 <div class="mb-4 row">
-    {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans into locale %}create.builddesc{% endtrans %} :</label> #}
+    {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans %}create.builddesc{% endtrans %} :</label> #}
     <div class="col">
-        <textarea class="form-control" id="DescriptionInput" placeholder="{% trans into locale %}create.builddesc{% endtrans %}"></textarea>
+        <textarea class="form-control" id="DescriptionInput" placeholder="{% trans %}create.builddesc{% endtrans %}"></textarea>
     </div>
 </div>
 
 
 <div class="mb-4 row">
-{# <label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans into locale %}create.weapons{% endtrans %} :</label> #}
+{# <label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans %}create.weapons{% endtrans %} :</label> #}
 
 {% for select in 1..2 %}
     <div class="col">
         <select class="selectChoixWeapon form-select p-2" collapse="{{ select }}" type="radio" >
-        <option value="0" hidden disabled selected>{% trans with {'%number%': select} into locale %}create.chooseweapon{% endtrans %}</option>
+        <option value="0" hidden disabled selected>{% trans with {'%number%': select} %}create.chooseweapon{% endtrans %}</option>
         {% for weapon in weapons %}
             <option class="optionChoixWeapon" collapse="{{ select }}" value="{{weapon.key}}"
              branch1="{{weapon.branch[0]}}" branch2="{{weapon.branch[1]}}">{{weapon.name}}</option>
@@ -56,11 +56,11 @@
     <div class="accordion-item" collapse="{{collapse}}">
         <h2 class="accordion-header" id="heading-{{collapse}}" collapse="{{collapse}}">
             <button class="accordion-button collapsed fs-4" id="buttonCollapse-{{collapse}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{collapse}}" 
-            aria-expanded="false" aria-controls="collapse{{collapse}}">{% trans with {'%number%': collapse} into locale %}create.weapon{% endtrans %}</button>
+            aria-expanded="false" aria-controls="collapse{{collapse}}">{% trans with {'%number%': collapse} %}create.weapon{% endtrans %}</button>
         </h2>
         <div class="accordion-collapse collapse" id="collapse-{{collapse}}" collapse="{{collapse}}" aria-labelledby="heading-{{collapse}}" data-bs-parent="#accordionWeapon">
             <div class="accordion-body p-0" collapse="{{collapse}}">
-                <div class="row p-3 gx-0 fs-4 collapseAlert" collapse="{{collapse}}">{% trans into locale %}create.weaponalert{% endtrans %}</div>
+                <div class="row p-3 gx-0 fs-4 collapseAlert" collapse="{{collapse}}">{% trans %}create.weaponalert{% endtrans %}</div>
                 <div class="weaponCollapse" id="weaponCollapse-{{collapse}}">
                     <div class="p-2">
                         <div class="progress position-relative" style="height: 40px; background-color:white; border:3px white solid; border-radius: 0.2rem">
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col position-relative">
                             <button type="button"class="btn btn-outline-light position-absolute top-50 start-50 
-                            translate-middle fs-4 resetButton" collapse="{{collapse}}">{% trans into locale %}create.reset{% endtrans %}</button>
+                            translate-middle fs-4 resetButton" collapse="{{collapse}}">{% trans %}create.reset{% endtrans %}</button>
                         </div>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
 </div>
 
 <div class="row p-3 justify-content-center">
-    <button type="submit" class="btn btn-outline-light fs-3">{% trans into locale %}create.save{% endtrans %}</button>
+    <button type="submit" class="btn btn-outline-light fs-3">{% trans %}create.save{% endtrans %}</button>
 </div>
 
 </form>

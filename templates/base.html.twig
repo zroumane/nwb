@@ -5,7 +5,7 @@
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}
-				{% trans into locale %}meta.sitetitle{% endtrans %}
+				{% trans %}meta.sitetitle{% endtrans %}
 			{% endblock %}
 		</title>
 		<meta name="keywords" locale="'{{ locale }}" content="build, create, newworld, new, world"/>
@@ -32,13 +32,13 @@
 				<div class="collapse navbar-collapse fs-4" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link {% if current_menu == 'builds' %}active{% endif %}" href="{{path('app_builds_index')}}">{% trans into locale %}navbar.build{% endtrans %}</a>
+							<a class="nav-link {% if current_menu == 'builds' %}active{% endif %}" href="{{path('app_builds_index')}}">{% trans %}navbar.build{% endtrans %}</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans into locale %}navbar.create{% endtrans %}</a>
+							<a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans %}navbar.create{% endtrans %}</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans into locale %}navbar.patchnote{% endtrans %}</a>
+							<a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans %}navbar.patchnote{% endtrans %}</a>
 						</li>
 					</ul>
 					<ul class="navbar-nav ml-auto">
@@ -49,29 +49,27 @@
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 									<li>
-										<a class="dropdown-item" href="">{% trans into locale %}navbar.profil{% endtrans %}</a>
+										<a class="dropdown-item" href="">{% trans %}navbar.profil{% endtrans %}</a>
 									</li>
 									<li>
-										<a class="dropdown-item" href="{{path('app_security_logout')}}">{% trans into locale %}navbar.logout{% endtrans %}</a>
+										<a class="dropdown-item" href="{{path('app_security_logout')}}">{% trans %}navbar.logout{% endtrans %}</a>
 									</li>
 								</ul>
 							</li>
 						{% else  %}
 							<li class="nav-item">
-								<a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans into locale %}navbar.login{% endtrans %}</a>
+								<a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans %}navbar.login{% endtrans %}</a>
 							</li>
 						{% endif %}
 						<li class="nav-item dropdown fs-5 d-flex align-items-center">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								{% if locale == 'en' %}English
-								{% endif %}
-								{% if locale == 'fr' %}Français
-								{% endif %}
+								{% if locale == 'en' %}English{% endif %}
+								{% if locale == 'fr' %}Français{% endif %}
 								{# {% if locale == 'de' %}Deutsche{% endif %}
-								        {% if locale == 'es' %}España{% endif %}
-								        {% if locale == 'it' %}Italiano{% endif %}
-								        {% if locale == 'pl' %}Polskie{% endif %}
-								        {% if locale == 'pt' %}Português{% endif %} #}
+								{% if locale == 'es' %}España{% endif %}
+								{% if locale == 'it' %}Italiano{% endif %}
+								{% if locale == 'pl' %}Polskie{% endif %}
+								{% if locale == 'pt' %}Português{% endif %} #}
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<li>
@@ -92,7 +90,20 @@
 			</div>
 		</nav>
 
-		<div class="text-light container-lg mt-4 mb-4"> {% block body %}{% endblock %}</div>
+
+		<div class="text-light container-lg mt-4 mb-4"> 
+			{% if app.flashes('login.verify.check') %}
+				<div class="p-2 mb-4">
+					<div class="alert alert-success mx-2 my-1" role="alert">
+						{% trans %}login.verify.check{% endtrans %}
+					</div>
+				</div> 
+			{% endif %}
+
+			{% block body %}{% endblock %}
+		</div>
+
+
 
     <div class="footer container-fluid bg-dark text-light">
       <div class="container-lg p-3">
