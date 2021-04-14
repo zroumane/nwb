@@ -39,7 +39,7 @@ class BuildsController extends AbstractController{
     /**
      * @Route("/build/{id}", requirements={"id"="\d+"})
      */
-    public function view(Request $request, Build $build) : Response
+    public function show(Request $request, Build $build) : Response
     {
 
         $views = $build->getViews();
@@ -109,7 +109,6 @@ class BuildsController extends AbstractController{
 
     }
 
-    
     /**
      * @Route("/edit/{id}")
      */
@@ -160,10 +159,15 @@ class BuildsController extends AbstractController{
      */
     public function delete(Build $build) : RedirectResponse
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($build);
-        $em->flush();
-        return $this->redirectToRoute('app_builds_index');
+        if($this->getUser() == $build->getAuthor()){
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($build);
+            $em->flush();
+            return $this->redirectToRoute('app_builds_index');
+        }else{
+            throw $this->createNotFoundException('You dont have the right to delete this build !');
+        }
+
     }
 
 }

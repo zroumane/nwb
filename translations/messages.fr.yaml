@@ -1,25 +1,18 @@
 meta:
   sitetitle: New World Builder | Build, Database & PatchNote
 
-registration:
-  username: Pseudo
-  email: Email
-  password: Password
-  agreeTerms: Accepter les conditions 
-
 pagetitle:
   build: Builds
   create: Créer
   patchnote: PatchNote
   login: Connexion
-  signin: Inscription
+  register: Inscription
 
 navbar:  
   build: Builds
   create: Créer
   patchnote: Patch Note
-  login: Connection
-  register: Inscription
+  login: Connexion
   logout: Deconnexion
   profil: Profil
   loged: Connectez en tant que %username%

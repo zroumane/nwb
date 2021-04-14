@@ -21,6 +21,8 @@ security:
                     - App\Security\AppAuthenticator
             logout:
                 path: app_security_logout
+            remember_me:
+                secret:   '%kernel.secret%'
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

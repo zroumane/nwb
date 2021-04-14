@@ -21,7 +21,7 @@
   {% for build in builds %}
 
     <tr>
-      <td><a href="{{ path('app_builds_view', {'id': build.id}) }}">{{build.name}}</a></td>
+      <td><a href="{{ path('app_builds_show', {'id': build.id}) }}">{{build.name}}</a></td>
       <td>{{build.author.pseudo}}</td>
       <td>{{build.weapon|join(' / ')}}</td>
       <td> 

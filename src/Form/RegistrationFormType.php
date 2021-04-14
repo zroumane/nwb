@@ -17,54 +17,65 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('pseudo', TextType::class, [
-                'label_format' => 'registration.username',
-                'constraints' => [
-                    new NotBlank(),
-                    new Length([
-                        'min' => 6,
-                        'max' => 64,
-                    ]),
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'label_format' => 'registration.email',
-                'constraints' => [
-                    new Email()
-                ],
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being sencoded in the controller
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
-        ;
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('pseudo', TextType::class, [
+        'label_format' => 'registration.pseudo.label',
+        'constraints' => [
+          new NotBlank([
+            'message' => 'registration.pseudo.notblank'
+          ]),
+          new Length([
+            'min' => 6,
+            'minMessage' => 'registration.pseudo.min',
+            'max' => 64,
+            'maxMessage' => 'registration.pseudo.max'
+          ]),
+        ],
+      ])
+      ->add('email', EmailType::class, [
+        'label_format' => 'registration.email.label',
+        'constraints' => [
+          new NotBlank([
+            'message' => 'registration.email.notblank'
+          ]),
+          new Email([
+            'message' => 'registration.email.valid'
+          ])
+        ],
+      ])
+      ->add('plainPassword', PasswordType::class, [
+        'label_format' => 'registration.password.label',
+        'mapped' => false,
+        'constraints' => [
+          new NotBlank([
+            'message' => 'registration.password.notblank',
+          ]),
+          new Length([
+            'min' => 6,
+            'minMessage' => 'registration.password.min',
+            'max' => 4096,
+            'maxMessage' => 'registration.password.max'
+          ]),
+        ],
+      ])
+      ->add('agreeTerms', CheckboxType::class, [
+        'label_format' => 'registration.agreeterms.label',
+        'mapped' => false,
+        'constraints' => [
+          new IsTrue([
+            'message' => 'registration.agreeterms.istrue',
+          ]),
+        ],
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver)
+  {
+    $resolver->setDefaults([
+      'data_class' => User::class,
+      'translation_domain' => 'validators'
+    ]);
+  }
 }
