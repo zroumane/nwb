@@ -14,7 +14,8 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
+use App\Validator\PasswordContain;
+use App\Validator\PseudoRegex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -25,11 +26,7 @@ class RegistrationFormType extends AbstractType
       ->add('pseudo', TextType::class, [
         'label_format' => 'login.pseudo',
         'constraints' => [
-          new Regex([
-            'pattern' => '[^A-Za-z0-9]',
-            'match' => true,
-            'message' => 'pseudo.regex'
-          ]),
+          new PseudoRegex(),
           new NotBlank([
             'message' => 'pseudo.notblank'
           ]),
@@ -56,21 +53,7 @@ class RegistrationFormType extends AbstractType
         'label_format' => 'login.password',
         'mapped' => false,
         'constraints' => [
-          new Regex([
-            'pattern' => '/[A-Z]/',
-            'match' => false,
-            'message' => 'pseudo.upper'
-          ]),
-          new Regex([
-            'pattern' => '/[a-z]/',
-            'match' => false,
-            'message' => 'pseudo.lower'
-          ]),
-          new Regex([
-            'pattern' => '/[0-9]/',
-            'match' => false,
-            'message' => 'pseudo.digit'
-          ]),
+          new PasswordContain(),
           new NotBlank([
             'message' => 'password.notblank',
           ]),
