@@ -26,7 +26,7 @@ create:
   reset: Reset
 
 patchnote:
-
+  goback: Go back to list
 
 login:
   login: Login

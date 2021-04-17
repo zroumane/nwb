@@ -66,7 +66,6 @@ class SecurityController extends AbstractController
     $lastUsername = $authenticationUtils->getLastUsername();
 
     return $this->render('security/login.html.twig', [
-      'current_menu' => 'login',
       'locale' => $request->getLocale(),
       'registrationForm' => $form->createView(),
       'last_username' => $lastUsername,

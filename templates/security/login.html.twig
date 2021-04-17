@@ -5,8 +5,7 @@
   {% if app.user %}
 
     <div class="fs-3 mb-2">{% trans with {'%pseudo%': app.user.pseudo} %}login.loged{% endtrans %}</div>
-    <button type="button" class="btn-lg btn btn-outline-danger">{% trans %}login.logout{% endtrans %}</button>
-
+    <a class=" fs-3 link-danger" href="{{path('app_security_logout')}}">{% trans %}navbar.logout{% endtrans %}</a>
   {% else %}
     
 
@@ -66,7 +65,6 @@
           <div class="p-2">
             {{ form_row(registrationForm.pseudo) }}
           </div>
-
 
           <div class="p-2">
             {{ form_row(registrationForm.email) }}

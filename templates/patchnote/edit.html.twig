@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ include('admin/_goadmin.html.twig') }}
+
+    <div class="fs-2 mb-3">Edit PatchNote {{patchnote.id}} {{ include('patchnote/_delete_form.html.twig') }} </div> 
+
+    {{ include('patchnote/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

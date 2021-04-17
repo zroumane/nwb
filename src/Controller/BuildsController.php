@@ -30,7 +30,6 @@ class BuildsController extends AbstractController{
         $builds = $repo->findAll();
 
         return $this->render('pages/builds.html.twig', [
-            'current_menu' => 'builds',
             'locale' =>$request->getLocale(),
             'builds' => $builds
         ]);
@@ -48,7 +47,6 @@ class BuildsController extends AbstractController{
         $em->flush();
 
         return $this->render('pages/build.html.twig', [
-            'current_menu' => 'build',
             'locale' => $request->getLocale(),
             'build' => $build
         ]);
@@ -61,7 +59,6 @@ class BuildsController extends AbstractController{
     {
 
         return $this->render('pages/create.html.twig', [
-            'current_menu' => 'create',
             'locale' => $request->getLocale(),
             'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$request->getLocale().'/weapon.json'))
         ]);
@@ -117,7 +114,6 @@ class BuildsController extends AbstractController{
     //     $this->locale = $request->getLocale();
 
     //     return $this->render('pages/create.html.twig', [
-    //         'current_menu' => 'create',
     //         'locale' => $this->locale,
     //         'weapons' => json_decode(file_get_contents($this->kernel->getProjectDir().'/public/json/'.$request->getLocale().'/weapon.json')),
     //         'build' => $build

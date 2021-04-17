@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="fs-2 mb-3">Patchnote Dashboard</div>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Version</th>
+                <th>Update Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for patchnote in patchnotes %}
+            <tr>
+                <td>
+                <a href="{{ path('app_patchnote_show', {'id': patchnote.id}) }}">{{ patchnote.title }}</a></td>
+                <td>{{ patchnote.igVersion }}</td>
+                <td>{{ patchnote.igDate|date("m/d/Y") }}</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-primary" href="{{ path('app_patchnote_edit', {'id': patchnote.id}) }}">edit</a>
+                    {% include "patchnote/_delete_form.html.twig" %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No PatchNote</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-primary" href="{{ path('app_patchnote_new') }}">Create new</a>
+{% endblock %}

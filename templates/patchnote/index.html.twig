@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+  {% if is_granted('ROLE_ADMIN') %}
+		<div class="fs-4 mb-3">
+			<a href="{{path('app_patchnote_admin')}}">Patchnote Dashboard</a>
+		</div>
+  {% endif %}
+
+	{% for patchnote in patchnotes %}
+	<div class="fs-4">
+		{{ patchnote.igVersion }} | <a href="{{ path('app_patchnote_show', {'id': patchnote.id}) }}">{{patchnote.title}}</a>
+		<i class="fs-6">{{ patchnote.igDate|date("m/d/Y") }}</i>
+	</div>
+	{% endfor %}
+
+{% endblock %}
