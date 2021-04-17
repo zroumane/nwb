@@ -39,7 +39,7 @@ jobs:
       with:
         version: 2
         php_version: 7.3
-        args: --no-dev
+        only_args: --no-dev
 
     - name: Composer Switch Production
       uses: php-actions/composer@v5
