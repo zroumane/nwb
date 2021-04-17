@@ -5,3 +5,5 @@ start.sh
 .git
 .github
 exclude
+var
+vendor
