@@ -1,59 +1,29 @@
-# on: [push]
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: Rsync Upload
-#       uses: Pendect/action-rsyncer@v1.1.0
-#       env:
-#         DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
-#       with:
-#         flags: '-av --delete'
-#         options: '--exclude-from=exclude'
-#         src: './'
-#         dest: 'nwbuser@51.195.45.151:~/nwb/'
-#     - name: Composer Setup
-#       uses: appleboy/ssh-action@master
-#       with:
-#         host: '51.195.45.151'
-#         username: 'nwbuser'
-#         key: ${{secrets.DEPLOY_SSH_KEY}}
-#         script: |
-#           cd ~/nwb/
-#           composer update --no-dev
-#           composer dump-env prod
-#           php bin/console cache:clear
-
-
-on: [push]
+on: 
+  push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-
     - uses: actions/checkout@v2
-
-    - name: Composer Install Dependencies
-      uses: php-actions/composer@v5
-      with:
-        version: 2
-        php_version: 7.3
-
-    - name: Composer Switch Production
-      uses: php-actions/composer@v5
-      with:
-        version: 2
-        php_version: 7.3
-        command: dump-env
-        args: prod
-
     - name: Rsync Upload
       uses: Pendect/action-rsyncer@v1.1.0
       env:
         DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
       with:
-        flags: '-rvz --delete --delete-excluded'
+        flags: '-av --delete'
         options: '--exclude-from=exclude'
         src: './'
         dest: 'nwbuser@51.195.45.151:~/nwb/'
+    - name: Composer Setup
+      uses: appleboy/ssh-action@master
+      with:
+        host: '51.195.45.151'
+        username: 'nwbuser'
+        key: ${{secrets.DEPLOY_SSH_KEY}}
+        script: |
+          cd ~/nwb/
+          composer update --no-dev
+          composer dump-env prod
+          php bin/console cache:clear
