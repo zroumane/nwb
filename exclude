@@ -6,4 +6,3 @@ start.sh
 .github
 exclude
 var
-vendor
