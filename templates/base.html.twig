@@ -92,13 +92,42 @@
 
 
 		<div class="text-light container-lg mt-4 mb-4"> 
-			{% if app.flashes('login.verify.check') %}
-				<div class="p-2 mb-4">
-					<div class="alert alert-success mx-2 my-1" role="alert">
-						{% trans %}login.verify.check{% endtrans %}
+
+			<div>
+
+				{% if app.flashes('verify_warning') %}
+					<div class="alert alert-warning mx-2 my-1 mb-3" role="alert">
+						{% trans %}login.verify.nocheck{% endtrans %}
 					</div>
-				</div> 
-			{% endif %}
+				{% endif %}
+
+				{% if app.flashes('verify_succes') %}
+						<div class="alert alert-success mx-2 my-1 mb-3" role="alert">
+							{% trans %}login.verify.check{% endtrans %}
+						</div>
+				{% endif %}
+
+				{% for flashError in app.flashes('verify_error') %}
+					<div class="alert alert-danger mx-2 my-1 mb-3" role="alert">{{ flashError|trans }}</div>
+				{% endfor %}
+
+				{% if error.messageKey is defined %}
+				
+					{% if error.messageKey == 'login.incorrect' %}
+						<div class="px-2">
+							<div class="alert alert-danger m-0 my-1" mb-3>{{ error.messageKey|trans }}</div>
+						</div>
+					{% endif %}
+
+					{% if error.messageKey == 'login.verify.nocheck' %}
+						<div class="alert alert-warning mx-2 my-1 mb-3" role="alert">
+							{% trans %}login.verify.nocheck{% endtrans %}
+						</div>
+					{% endif %}
+
+				{% endif %}
+				
+			</div> 
 
 			{% block body %}{% endblock %}
 		</div>

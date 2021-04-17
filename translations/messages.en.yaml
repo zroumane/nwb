@@ -43,7 +43,7 @@ login:
   incorrect: Invalid credentials
   verify:
     invalid: Unable to verify this account
-    check: Welcome ! Your account has been verified.
+    check: Your account has been verified. Welcome !
     nocheck: Please verify your account. We just sent you a verification email.
-
+    noemail: Invalid Email
 

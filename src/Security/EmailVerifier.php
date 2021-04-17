@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 use Symfony\Component\Mime\Address;
 
@@ -30,9 +31,9 @@ class EmailVerifier
         $user_id = $user->getId();
 
         $email = new TemplatedEmail();
-        $email->from(new Address('zephyr@newworld-builder.com', 'NWB contact'));
+        $email->from(new Address('noreply@newworld-builder.com', 'NewWorld-Builder.com'));
         $email->to($user_email);
-        $email->subject('Please Confirm your Email');
+        $email->subject('Email Verification');
         $email->htmlTemplate('security/confirmation_email.html.twig');
 
         $signatureComponents = $this->verifyEmailHelper->generateSignature(
@@ -46,10 +47,12 @@ class EmailVerifier
         $context['signedUrl'] = $signatureComponents->getSignedUrl();
         $context['expiresAtMessageKey'] = $signatureComponents->getExpirationMessageKey();
         $context['expiresAtMessageData'] = $signatureComponents->getExpirationMessageData();
+        $context['pseudo'] = $user->getPseudo();
 
         $email->context($context);
 
         $this->mailer->send($email);
+
     }
 
     /**

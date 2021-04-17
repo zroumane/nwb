@@ -30,18 +30,20 @@ patchnote:
 
 login:
   login: Connexion
-  register: Inscription
   gologin: Se connecter
+  register: Inscription
   goregister: S'inscrire
-  pseudo : Pseudo
-  email : Email
-  password : Password
-  remember: Se souvenir de moi
-  agreeterms: Accepter les termes
-
-
-email:
-  check: Welcome ! Your account has been verified.
-  nocheck: Please verify your account. We just sent you a verification email.
-
+  loged: Vous êtes connecté en tan que %pseudo%.
+  logout: Déconnexion
+  pseudo: Pseudo
+  email: Email
+  password: Mot de Passe
+  remember: Se souvenir de moi.
+  agreeterms: Accepter les termes et conditions.
+  incorrect: Identifiants invalides.
+  verify:
+    invalid: Impossible de vérifier ce compte
+    check: Votre compte a bien été confirmé. Bienvenue !
+    nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
+    noemail: Email invalide
 

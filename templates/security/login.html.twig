@@ -8,27 +8,6 @@
     <button type="button" class="btn-lg btn btn-outline-danger">{% trans %}login.logout{% endtrans %}</button>
 
   {% else %}
-
-  
-    <div class="p-2">
-
-      {% if app.flashes('login.verify.nocheck') or error and error.messageKey == 'login.verify.nocheck' %}
-        <div class="alert alert-warning mx-2 my-1" role="alert">
-          {% trans %}login.verify.nocheck{% endtrans %}
-        </div>
-      {% endif %}
-
-      {% if app.flashes('login.verify.invalid') %}
-        <div class="alert alert-danger mx-2 my-1" role="alert">
-          {% trans %}login.verify.invalid{% endtrans %}
-        </div>
-      {% endif %}
-
-      {% for flashError in app.flashes('verify_error') %}
-        <div class="alert alert-danger mx-2 my-1" role="alert">{{ flashError }}</div>
-      {% endfor %}
-
-    </div>
     
 
     <div class="row p-2">
@@ -42,9 +21,9 @@
           </div>
 
           {% if error and error.messageKey != 'login.verify.nocheck' %}
-          <div class="px-2">
-            <div class="alert alert-danger m-0 my-1">{{ error.messageKey|trans }}</div>
-          </div>
+            <div class="px-2">
+              <div class="alert alert-danger m-0 my-1">{{ error.messageKey|trans }}</div>
+            </div>
           {% endif %}
 
           <input type="hidden" name="_csrf_token"value="{{ csrf_token('authenticate') }}">

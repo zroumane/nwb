@@ -1,7 +1,10 @@
-<h1>Hi! Please confirm your email!</h1>
+<h1>Welcome {{ pseudo }}!</h1>
 
 <p>
-  Please confirm your email address by clicking the following link: <br><br>
-  <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-  This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    You signed up at <a href="NewWorld-Builder.com">NewWorld-Builder.com</a> with the email: <code>{{ email.to[0].address }}</code>
+</p>
+
+<p>
+    <a href="{{ signedUrl|raw }}">Click here to verofy your account</a>
+    (this link is valid until {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }})
 </p>

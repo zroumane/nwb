@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 
 class SecurityController extends AbstractController
@@ -50,10 +51,15 @@ class SecurityController extends AbstractController
       $entityManager->persist($user);
       $entityManager->flush();
 
-      // generate a signed url and email it to the user
-      $this->emailVerifier->sendEmailConfirmation($user);
-      $this->addFlash('login.verify.nocheck', 'login.verify.nocheck');
-
+      try{
+        $this->emailVerifier->sendEmailConfirmation($user);
+        $this->addFlash('verify_warning', 'login.verify.nocheck');
+      }
+      catch(TransportExceptionInterface $e){
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('verify_error', 'login.verify.noemail');
+      }
     }
 
     $error = $authenticationUtils->getLastAuthenticationError();
@@ -77,14 +83,14 @@ class SecurityController extends AbstractController
     $id = $request->get('id');
 
     if (null === $id) {
-      $this->addFlash('login.verify.invalid', 'login.verify.invalid');
+      $this->addFlash('verify_error', 'login.verify.invalid');
       return $this->redirectToRoute('app_security_login');
     }
 
     $user = $userRepository->find($id);
 
     if (null === $user) {
-      $this->addFlash('login.verify.invalid', 'login.verify.invalid');
+      $this->addFlash('verify_error', 'login.verify.invalid');
       return $this->redirectToRoute('app_security_login');
     }
 
@@ -100,7 +106,7 @@ class SecurityController extends AbstractController
 
     }
 
-    $this->addFlash('login.verify.check', 'login.verify.check');
+    $this->addFlash('verify_succes', 'login.verify.check');
 
     return $guardHandler->authenticateUserAndHandleSuccess(
       $user,
@@ -115,6 +121,6 @@ class SecurityController extends AbstractController
    */
   public function logout()
   {
-    throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    throw new \LogicException();
   }
 }
