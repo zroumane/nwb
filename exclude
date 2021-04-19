@@ -7,5 +7,7 @@ start.sh
 exclude
 var
 vendor
+node_modules
+assets
 docker_tag
 output.log
