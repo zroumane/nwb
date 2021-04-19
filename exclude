@@ -6,5 +6,6 @@ start.sh
 .github
 exclude
 var
+vendor
 docker_tag
 output.log

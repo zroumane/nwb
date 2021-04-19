@@ -1,0 +1,23 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/src/runtime.js",
+        "/src/app.js"
+      ],
+      "css": [
+        "/src/app.css"
+      ]
+    },
+    "create": {
+      "js": [
+        "/src/runtime.js",
+        "/src/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_array-73f440.js",
+        "/src/create.js"
+      ],
+      "css": [
+        "/src/create.css"
+      ]
+    }
+  }
+}

@@ -1,9 +1,14 @@
 {% extends "base.html.twig" %}
 
-{% block stylesheets %} <link href="{{asset('css/createBuild.css')}}" rel="stylesheet"> {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('create') }}
+{% endblock %}
 
-{% block javascripts %} <script type="text/javascript" src="{{asset('js/CreateEditBuild.js')}}" defer></script> {% endblock %}
-
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('create') }}
+{% endblock %}
 {% block body %}
 
 <div id="WeaponDataContainer" style="display:none;" data-weapon="{% if build is defined%}{{ build.skills }}{% endif %}"></div>
