@@ -1,4 +1,5 @@
 import '../css/app.scss';
+import 'bootstrap/js/dist/dropdown'
 
 const $q = document.querySelector.bind(document)
 const $qa = document.querySelectorAll.bind(document)
