@@ -1,6 +1,7 @@
 /var/
 /vendor/
 /.idea/
+/.vscode/
 phpunit.xml.dist
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
