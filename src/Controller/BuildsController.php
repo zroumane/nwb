@@ -71,35 +71,30 @@ class BuildsController extends AbstractController{
     {
         if($user = $this->getUser()){
 
-            if($request->isXmlHttpRequest()){
-
-                if ($content = $request->getContent()) {
-                    $buildObject = json_decode($content, true);
-                }else {
-                    return $this->json(["message" => "No content"], 403);
-                }
-
-                $datetime = new \DateTime();
-
-                $build = new Build();
-                $build->setName($buildObject['name'])
-                    ->setDescription($buildObject['description'])
-                    ->setType($buildObject['type'])
-                    ->setWeapon($buildObject['weapon'])
-                    ->setSkills([])
-                    ->setAuthor($user)
-                    ->setCreatedAt($datetime)
-                    ->setUpdatedAt($datetime);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($build);
-                $em->flush();
-
-                
-                return $this->json(["id" => $build->getId()], 201); 
-
-            }else{
-                return $this->json(["message" => "Not ajax"], 403);
+            if ($content = $request->getContent()) {
+                $buildObject = json_decode($content, true);
+            }else {
+                return $this->json(["message" => "No content"], 403);
             }
+
+            $datetime = new \DateTime();
+
+            $build = new Build();
+            $build->setName($buildObject['name'])
+                ->setDescription($buildObject['description'])
+                ->setType($buildObject['type'])
+                ->setWeapon($buildObject['weapon'])
+                ->setSkills([])
+                ->setAuthor($user)
+                ->setCreatedAt($datetime)
+                ->setUpdatedAt($datetime);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($build);
+            $em->flush();
+
+            
+            return $this->json(["id" => $build->getId()], 201); 
+
         }else{
             return $this->json(["message" => "Not Login"], 403);
         }

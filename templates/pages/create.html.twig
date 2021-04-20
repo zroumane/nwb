@@ -22,7 +22,7 @@
     </div>
     <div class="col-3">
         <select type="radio" class="form-select" id="SelectType">
-            <option hidden disabled selected value="0">{% trans %}create.typename{% endtrans %}</option>
+            <option id="modetype0" hidden disabled selected value="0">{% trans %}create.typename{% endtrans %}</option>
             <option name="modetype1" id="modetype1" value="1">PVP</option>
             <option name="modetype2" id="modetype2" value="2">PVE</option>
             <option name="modetype3" id="modetype3" value="3">PVPVE</option>
@@ -44,7 +44,7 @@
 {% for select in 1..2 %}
     <div class="col">
         <select class="selectChoixWeapon form-select p-2" collapse="{{ select }}" type="radio" >
-        <option value="0" hidden disabled selected>{% trans with {'%number%': select} %}create.chooseweapon{% endtrans %}</option>
+        <option class="optionChoixWeapon" value="0" hidden disabled selected>{% trans with {'%number%': select} %}create.chooseweapon{% endtrans %}</option>
         {% for weapon in weapons %}
             <option class="optionChoixWeapon" collapse="{{ select }}" value="{{weapon.key}}"
              branch1="{{weapon.branch[0]}}" branch2="{{weapon.branch[1]}}">{{weapon.name}}</option>

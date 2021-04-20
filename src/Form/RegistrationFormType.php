@@ -20,67 +20,67 @@ use App\Validator\PseudoRegex;
 class RegistrationFormType extends AbstractType
 {
 
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $builder
-      ->add('pseudo', TextType::class, [
-        'label_format' => 'login.pseudo',
-        'constraints' => [
-          new PseudoRegex(),
-          new NotBlank([
-            'message' => 'pseudo.notblank'
-          ]),
-          new Length([
-            'min' => 5,
-            'minMessage' => 'pseudo.min',
-            'max' => 16,
-            'maxMessage' => 'pseudo.max'
-          ]),
-        ],
-      ])
-      ->add('email', EmailType::class, [
-        'label_format' => 'login.email',
-        'constraints' => [
-          new NotBlank([
-            'message' => 'email.notblank'
-          ]),
-          new Email([
-            'message' => 'email.valid'
-          ]),
-        ],
-      ])
-      ->add('plainPassword', PasswordType::class, [
-        'label_format' => 'login.password',
-        'mapped' => false,
-        'constraints' => [
-          new PasswordContain(),
-          new NotBlank([
-            'message' => 'password.notblank',
-          ]),
-          new Length([
-            'min' => 8,
-            'minMessage' => 'password.min',
-            'max' => 4096,
-            'maxMessage' => 'password.max'
-          ]),
-        ],
-      ])
-      ->add('agreeTerms', CheckboxType::class, [
-        'label_format' => 'login.agreeterms',
-        'mapped' => false,
-        'constraints' => [
-          new IsTrue([
-            'message' => 'agreeterms.istrue',
-          ]),
-        ],
-      ]);
-  }
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('pseudo', TextType::class, [
+                'label_format' => 'login.pseudo',
+                'constraints' => [
+                    new PseudoRegex(),
+                    new NotBlank([
+                        'message' => 'pseudo.notblank'
+                    ]),
+                    new Length([
+                        'min' => 5,
+                        'minMessage' => 'pseudo.min',
+                        'max' => 16,
+                        'maxMessage' => 'pseudo.max'
+                    ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                'label_format' => 'login.email',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'email.notblank'
+                    ]),
+                    new Email([
+                        'message' => 'email.valid'
+                    ]),
+                ],
+            ])
+            ->add('plainPassword', PasswordType::class, [
+                'label_format' => 'login.password',
+                'mapped' => false,
+                'constraints' => [
+                    new PasswordContain(),
+                    new NotBlank([
+                        'message' => 'password.notblank',
+                    ]),
+                    new Length([
+                        'min' => 8,
+                        'minMessage' => 'password.min',
+                        'max' => 4096,
+                        'maxMessage' => 'password.max'
+                    ]),
+                ],
+            ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'label_format' => 'login.agreeterms',
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'agreeterms.istrue',
+                    ]),
+                ],
+            ]);
+    }
 
-  public function configureOptions(OptionsResolver $resolver)
-  {
-    $resolver->setDefaults([
-      'data_class' => User::class,
-      'translation_domain' => 'messages'
-    ]);
-  }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => User::class,
+            'translation_domain' => 'messages'
+        ]);
+    }
 }

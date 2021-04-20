@@ -9,5 +9,8 @@ var
 vendor
 node_modules
 assets
+yarn.lock
+.env
+webpack.config.js
 docker_tag
 output.log

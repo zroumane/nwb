@@ -8,9 +8,9 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/src/')
+    .setOutputPath('public/dist/')
     // public path used by the web server to access the output path
-    .setPublicPath('/src')
+    .setPublicPath('/dist')
 
 
     .addEntry('app', './assets/js/app.js')

@@ -23,90 +23,90 @@ use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class AppAuthenticator extends AbstractFormLoginAuthenticator
 {
-  use TargetPathTrait;
+    use TargetPathTrait;
 
-  public const LOGIN_ROUTE = 'app_security_login';
+    public const LOGIN_ROUTE = 'app_security_login';
 
-  private $entityManager;
-  private $urlGenerator;
-  private $csrfTokenManager;
-  private $encoder;
-  private $emailVerifier;
+    private $entityManager;
+    private $urlGenerator;
+    private $csrfTokenManager;
+    private $encoder;
+    private $emailVerifier;
 
-  public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $encoder, EmailVerifier $emailVerifier)
-  {
-    $this->entityManager = $entityManager;
-    $this->urlGenerator = $urlGenerator;
-    $this->csrfTokenManager = $csrfTokenManager;
-    $this->encoder = $encoder;
-    $this->emailVerifier = $emailVerifier;
-  }
-
-  public function supports(Request $request)
-  {
-
-    return self::LOGIN_ROUTE === $request->attributes->get('_route')
-      && $request->isMethod('POST') && !$request->request->get('registration_form');
-  }
-
-  public function getCredentials(Request $request)
-  {
-
-    $credentials = [
-      'email' => $request->request->get('email'),
-      'password' => $request->request->get('password'),
-      'csrf_token' => $request->request->get('_csrf_token'),
-    ];
-    $request->getSession()->set(
-      Security::LAST_USERNAME,
-      $credentials['email']
-    );
-
-    return $credentials;
-  }
-
-  public function getUser($credentials, UserProviderInterface $userProvider)
-  {
-    $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-    if (!$this->csrfTokenManager->isTokenValid($token)) {
-      throw new InvalidCsrfTokenException();
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $encoder, EmailVerifier $emailVerifier)
+    {
+        $this->entityManager = $entityManager;
+        $this->urlGenerator = $urlGenerator;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->encoder = $encoder;
+        $this->emailVerifier = $emailVerifier;
     }
 
-    $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+    public function supports(Request $request)
+    {
 
-    if (!$user) {
-      // fail authentication with a custom error
-      throw new CustomUserMessageAuthenticationException('login.incorrect');
+        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+            && $request->isMethod('POST') && !$request->request->get('registration_form');
     }
 
-    return $user;
-  }
+    public function getCredentials(Request $request)
+    {
 
-  public function checkCredentials($credentials, UserInterface $user)
-  {
-    if (!$this->encoder->isPasswordValid($user, $credentials['password'])) {
-      throw new BadCredentialsException('login.incorrect');
+        $credentials = [
+            'email' => $request->request->get('email'),
+            'password' => $request->request->get('password'),
+            'csrf_token' => $request->request->get('_csrf_token'),
+        ];
+        $request->getSession()->set(
+            Security::LAST_USERNAME,
+            $credentials['email']
+        );
+
+        return $credentials;
     }
 
-    if (!$user->isVerified()){
-      $this->emailVerifier->sendEmailConfirmation($user);
-      throw new CustomUserMessageAuthenticationException('login.verify.nocheck');
+    public function getUser($credentials, UserProviderInterface $userProvider)
+    {
+        $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+        if (!$this->csrfTokenManager->isTokenValid($token)) {
+            throw new InvalidCsrfTokenException();
+        }
+
+        $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
+
+        if (!$user) {
+            // fail authentication with a custom error
+            throw new CustomUserMessageAuthenticationException('login.incorrect');
+        }
+
+        return $user;
     }
-    
-    return true;
-  }
 
-  public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
-  {
-    if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-      return new RedirectResponse($targetPath);
+    public function checkCredentials($credentials, UserInterface $user)
+    {
+        if (!$this->encoder->isPasswordValid($user, $credentials['password'])) {
+            throw new BadCredentialsException('login.incorrect');
+        }
+
+        if (!$user->isVerified()) {
+            $this->emailVerifier->sendEmailConfirmation($user);
+            throw new CustomUserMessageAuthenticationException('login.verify.nocheck');
+        }
+
+        return true;
     }
 
-    return new RedirectResponse($this->urlGenerator->generate('app_builds_index'));
-  }
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
+    {
+        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
+            return new RedirectResponse($targetPath);
+        }
 
-  protected function getLoginUrl()
-  {
-    return $this->urlGenerator->generate(self::LOGIN_ROUTE);
-  }
+        return new RedirectResponse($this->urlGenerator->generate('app_builds_index'));
+    }
+
+    protected function getLoginUrl()
+    {
+        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+    }
 }
