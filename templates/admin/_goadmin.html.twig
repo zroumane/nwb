@@ -1,8 +1,7 @@
 {% if is_granted('ROLE_ADMIN') %}
-<div class="fs-5 mb-2">
-  <a class="btn btn-sm btn btn-outline-light" href="{{ path('app_admin_index') }}">
-    ← Go back to dashboard
-  </a>
-</div>
+	<div class="fs-5 mb-2">
+		<a class="btn btn-sm btn btn-outline-light" href="{{ path('app_admin_index') }}">
+			← Go back to dashboard
+		</a>
+	</div>
 {% endif %}
-

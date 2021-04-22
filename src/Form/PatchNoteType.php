@@ -12,27 +12,26 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PatchNoteType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('title')
-            ->add('content', TextareaType::class, [
-                'label' => 'Content (HTML included)'
-            ])
-            ->add('igVersion', TextType::class, [
-                'label' => 'In game version'
-            ])
-            ->add('igDate', DateType::class, [
-                'label' => 'In game update date',
-                'widget' => 'single_text',
-            ])
-        ;
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('title')
+      ->add('content', TextareaType::class, [
+        'label' => 'Content (HTML included)'
+      ])
+      ->add('igVersion', TextType::class, [
+        'label' => 'In game version'
+      ])
+      ->add('igDate', DateType::class, [
+        'label' => 'In game update date',
+        'widget' => 'single_text',
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => PatchNote::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver)
+  {
+    $resolver->setDefaults([
+      'data_class' => PatchNote::class,
+    ]);
+  }
 }

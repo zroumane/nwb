@@ -15,25 +15,26 @@
   color: white;
 }
 
-.accordion-button{
-  background-color:#131313;
+.accordion-button {
+  background-color: #131313;
   border-color: black;
-  color:white;
+  color: white;
 }
 
-.accordion-button:focus{
+.accordion-button:focus {
   box-shadow: none;
   border-color: black;
 }
 
-.accordion-button:not(.collapsed){
+.accordion-button:not(.collapsed) {
   border-color: black;
   box-shadow: none;
   color: white;
   background-color: #222020;
 }
 
-.accordion-button::after, .accordion-button:not(.collapsed)::after {
+.accordion-button::after,
+.accordion-button:not(.collapsed)::after {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
@@ -42,10 +43,10 @@
 }
 
 .weaponCollapse {
-/* background-image: url('/src/img/Fond.png'); */
-background-size: 100% 100%;
-background-repeat: no-repeat;
-background-position: center;
+  /* background-image: url('/src/img/Fond.png'); */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .skill-container {
@@ -54,32 +55,32 @@ background-position: center;
   z-index: 10;
 }
 
-#side-1{
-  border-right:0.5px white solid; 
+#side-1 {
+  border-right: 0.5px white solid;
   padding-right: 0.5rem;
 }
 
-#side-2{
+#side-2 {
   border-left: 0.5px white solid;
   padding-left: 0.5rem;
 }
 
-.weaponCollapse{
+.weaponCollapse {
   display: none;
   transition: 1s;
 }
 
-.mainskillbtn, .mainskillbtn:focus {
-outline: 0;
-box-shadow: inherit;
+.mainskillbtn,
+.mainskillbtn:focus {
+  outline: 0;
+  box-shadow: inherit;
 }
 
 .mainskillbtn::after {
   color: white;
 }
 
-
-.mainskillli{
+.mainskillli {
   width: 100%;
 }
 
@@ -91,7 +92,7 @@ box-shadow: inherit;
   left: 0;
 }
 
-.skillLine{
-  stroke:#FFF;
-  stroke-width:2;
+.skillLine {
+  stroke: #fff;
+  stroke-width: 2;
 }

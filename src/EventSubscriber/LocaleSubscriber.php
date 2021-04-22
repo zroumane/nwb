@@ -43,4 +43,3 @@ class LocaleSubscriber implements EventSubscriberInterface
         ];
     }
 }
-?>

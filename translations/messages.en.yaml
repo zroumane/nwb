@@ -1,7 +1,7 @@
 meta:
   sitetitle: New World Builder | Build, Database & PatchNote
 
-navbar:  
+navbar:
   build: Builds
   create: Create
   patchnote: PatchNote
@@ -10,7 +10,6 @@ navbar:
   profil: Profile
 
 builds:
-
 
 create:
   buildname: Build name
@@ -46,4 +45,3 @@ login:
     check: Your account has been verified. Welcome !
     nocheck: Please verify your account. We just sent you a verification email.
     noemail: Invalid Email
-

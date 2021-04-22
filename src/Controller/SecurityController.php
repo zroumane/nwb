@@ -21,101 +21,101 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 class SecurityController extends AbstractController
 {
 
-    private $emailVerifier;
+  private $emailVerifier;
 
-    public function __construct(EmailVerifier $emailVerifier)
-    {
-        $this->emailVerifier = $emailVerifier;
+  public function __construct(EmailVerifier $emailVerifier)
+  {
+    $this->emailVerifier = $emailVerifier;
+  }
+
+  /**
+   * @Route("/login")
+   */
+  public function login(Request $request, UserPasswordEncoderInterface $passwordEncoder, AuthenticationUtils $authenticationUtils): Response
+  {
+
+    $user = new User();
+    $form = $this->createForm(RegistrationFormType::class, $user);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+      // encode the plain password
+      $user->setPassword(
+        $passwordEncoder->encodePassword(
+          $user,
+          $form->get('plainPassword')->getData()
+        )
+      );
+
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->persist($user);
+      $entityManager->flush();
+
+      try {
+        $this->emailVerifier->sendEmailConfirmation($user);
+        $this->addFlash('verify_warning', 'login.verify.nocheck');
+      } catch (TransportExceptionInterface $e) {
+        $entityManager->remove($user);
+        $entityManager->flush();
+        $this->addFlash('verify_error', 'login.verify.noemail');
+      }
     }
 
-    /**
-     * @Route("/login")
-     */
-    public function login(Request $request, UserPasswordEncoderInterface $passwordEncoder, AuthenticationUtils $authenticationUtils): Response
-    {
+    $error = $authenticationUtils->getLastAuthenticationError();
+    $lastUsername = $authenticationUtils->getLastUsername();
 
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+    return $this->render('security/login.html.twig', [
+      'locale' => $request->getLocale(),
+      'registrationForm' => $form->createView(),
+      'last_username' => $lastUsername,
+      'error' => $error
+    ]);
+  }
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+  /**
+   * @Route("/verify/email", name="app_verify_email")
+   */
+  public function verifyUserEmail(Request $request, UserRepository $userRepository, AppAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
+  {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+    $id = $request->get('id');
 
-            try {
-                $this->emailVerifier->sendEmailConfirmation($user);
-                $this->addFlash('verify_warning', 'login.verify.nocheck');
-            } catch (TransportExceptionInterface $e) {
-                $entityManager->remove($user);
-                $entityManager->flush();
-                $this->addFlash('verify_error', 'login.verify.noemail');
-            }
-        }
-
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', [
-            'locale' => $request->getLocale(),
-            'registrationForm' => $form->createView(),
-            'last_username' => $lastUsername,
-            'error' => $error
-        ]);
+    if (null === $id) {
+      $this->addFlash('verify_error', 'login.verify.invalid');
+      return $this->redirectToRoute('app_security_login');
     }
 
-    /**
-     * @Route("/verify/email", name="app_verify_email")
-     */
-    public function verifyUserEmail(Request $request, UserRepository $userRepository, AppAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
-    {
+    $user = $userRepository->find($id);
 
-        $id = $request->get('id');
-
-        if (null === $id) {
-            $this->addFlash('verify_error', 'login.verify.invalid');
-            return $this->redirectToRoute('app_security_login');
-        }
-
-        $user = $userRepository->find($id);
-
-        if (null === $user) {
-            $this->addFlash('verify_error', 'login.verify.invalid');
-            return $this->redirectToRoute('app_security_login');
-        }
-
-        try {
-
-            $this->emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (VerifyEmailExceptionInterface $exception) {
-
-            $this->addFlash('verify_error', $exception->getReason());
-            return $this->redirectToRoute('app_security_login');
-        }
-
-        $this->addFlash('verify_succes', 'login.verify.check');
-
-        return $guardHandler->authenticateUserAndHandleSuccess(
-            $user,
-            $request,
-            $authenticator,
-            'main'
-        );
+    if (null === $user) {
+      $this->addFlash('verify_error', 'login.verify.invalid');
+      return $this->redirectToRoute('app_security_login');
     }
 
-    /**
-     * @Route("/logout")
-     */
-    public function logout()
-    {
-        throw new \LogicException();
+    try {
+
+      $this->emailVerifier->handleEmailConfirmation($request, $user);
+    } catch (VerifyEmailExceptionInterface $exception) {
+
+      $this->addFlash('verify_error', $exception->getReason());
+      return $this->redirectToRoute('app_security_login');
     }
+
+    $this->addFlash('verify_succes', 'login.verify.check');
+
+    return $guardHandler->authenticateUserAndHandleSuccess(
+      $user,
+      $request,
+      $authenticator,
+      'main'
+    );
+  }
+
+  /**
+   * @Route("/logout")
+   */
+  public function logout()
+  {
+    throw new \LogicException();
+  }
 }

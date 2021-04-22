@@ -1,4 +1,4 @@
-pseudo: 
+pseudo:
   label: Pseudo
   notblank: Entrez un pseudo
   min: Votre pseudo doit contenir au moins {{ limit }} caractères
@@ -8,7 +8,7 @@ pseudo:
 email:
   label: Email
   notblank: Entrez une adresse email
-  valid : Entrez une adresse email valide
+  valid: Entrez une adresse email valide
   already: Cet adresse email est déjà utilisée
 password:
   label: Password
@@ -18,6 +18,6 @@ password:
   lower: Votre mot de passe doit contenir une minuscule
   upper: Votre mot de passe doit contenir une majuscule
   digit: Votre mot de passe doit contenir un chiffre
-agreeterms: 
+agreeterms:
   label: Acceptez les termes et conditions
-  istrue : Vous devez acceptez les termes et conditions
+  istrue: Vous devez acceptez les termes et conditions

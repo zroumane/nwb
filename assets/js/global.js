@@ -1,5 +1,4 @@
-const $q = document.querySelector.bind(document)
-const $qa = document.querySelectorAll.bind(document)
+const $q = document.querySelector.bind(document);
+const $qa = document.querySelectorAll.bind(document);
 
-
-export { $qa , $q}
+export { $qa, $q };

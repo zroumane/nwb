@@ -66,9 +66,9 @@
 										<a class="dropdown-item" href="">{% trans %}navbar.profil{% endtrans %}</a>
 									</li>
 									{% if is_granted('ROLE_ADMIN') %}
-									<li>
-										<a class="dropdown-item" href="{{path('app_admin_index')}}">Admin Dashboard</a>
-									</li>
+										<li>
+											<a class="dropdown-item" href="{{path('app_admin_index')}}">Admin Dashboard</a>
+										</li>
 									{% endif %}
 									<li>
 										<a class="dropdown-item" href="{{path('app_security_logout')}}">{% trans %}navbar.logout{% endtrans %}</a>
@@ -82,13 +82,15 @@
 						{% endif %}
 						<li class="nav-item dropdown fs-5 d-flex align-items-center">
 							<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								{% if locale == 'en' %}English{% endif %}
-								{% if locale == 'fr' %}Français{% endif %}
+								{% if locale == 'en' %}English
+								{% endif %}
+								{% if locale == 'fr' %}Français
+								{% endif %}
 								{# {% if locale == 'de' %}Deutsche{% endif %}
-								{% if locale == 'es' %}España{% endif %}
-								{% if locale == 'it' %}Italiano{% endif %}
-								{% if locale == 'pl' %}Polskie{% endif %}
-								{% if locale == 'pt' %}Português{% endif %} #}
+																																{% if locale == 'es' %}España{% endif %}
+																																{% if locale == 'it' %}Italiano{% endif %}
+																																{% if locale == 'pl' %}Polskie{% endif %}
+																																{% if locale == 'pt' %}Português{% endif %} #}
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 								<li>
@@ -98,10 +100,10 @@
 									<a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a>
 								</li>
 								{# <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'de'}) }}">Deutsche</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li> #}
+																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
+																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
+																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
+																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li> #}
 							</ul>
 						</li>
 					</ul>
@@ -110,7 +112,7 @@
 		</nav>
 
 
-		<div class="text-light container-lg mt-4 mb-4"> 
+		<div class="text-light container-lg mt-4 mb-4">
 
 			<div>
 
@@ -121,9 +123,9 @@
 				{% endif %}
 
 				{% if app.flashes('verify_succes') %}
-						<div class="alert alert-success mx-2 my-1 mb-3" role="alert">
-							{% trans %}login.verify.check{% endtrans %}
-						</div>
+					<div class="alert alert-success mx-2 my-1 mb-3" role="alert">
+						{% trans %}login.verify.check{% endtrans %}
+					</div>
 				{% endif %}
 
 				{% for flashError in app.flashes('verify_error') %}
@@ -131,7 +133,7 @@
 				{% endfor %}
 
 				{% if error.messageKey is defined %}
-				
+
 					{% if error.messageKey == 'login.incorrect' %}
 						<div class="px-2">
 							<div class="alert alert-danger m-0 my-1" mb-3>{{ error.messageKey|trans }}</div>
@@ -145,38 +147,37 @@
 					{% endif %}
 
 				{% endif %}
-				
-			</div> 
+
+			</div>
 
 			{% block body %}{% endblock %}
 		</div>
 
 
+		<div class="footer container-fluid bg-dark text-light">
+			<div class="container-lg p-3">
+				<div
+					class="row">
+					{# <div class="col">
+															              <div class="fs-4">About</div>
+															              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+															                  molestias.
+															              </p>
+															          </div>
+															          <div class="col-3 text-end">
+															              <div class="fs-4">Links</div>
+															              <ul class="list-unstyled">
+															                  <li><a href="">Discord</a></li>
+															              </ul>
+															          </div> #}
+					<div class="text-center">
+						©
+						{{ "now"|date("Y") }}
+						<a href="https://www.newworld-builder.com/">NewWorld-Builder.com</a>
+					</div>
+				</div>
+			</div>
 
-    <div class="footer container-fluid bg-dark text-light">
-      <div class="container-lg p-3">
-        <div
-          class="row">
-          {# <div class="col">
-              <div class="fs-4">About</div>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-                  molestias.
-              </p>
-          </div>
-          <div class="col-3 text-end">
-              <div class="fs-4">Links</div>
-              <ul class="list-unstyled">
-                  <li><a href="">Discord</a></li>
-              </ul>
-          </div> #}
-          <div class="text-center">
-            ©
-            {{ "now"|date("Y") }}
-            <a href="https://www.newworld-builder.com/">NewWorld-Builder.com</a>
-          </div>
-        </div>
-      </div>
-
-    </body>
-  </body>
+		</body>
+	</body>
 </html>
