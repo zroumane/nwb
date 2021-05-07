@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BuildRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=BuildRepository::class)
  */
 class Build
@@ -33,16 +37,6 @@ class Build
   private $type;
 
   /**
-   * @ORM\Column(type="json")
-   */
-  private $weapon = [];
-
-  /**
-   * @ORM\Column(type="json")
-   */
-  private $skills = [];
-
-  /**
    * @ORM\Column(type="datetime")
    */
   private $created_at;
@@ -62,6 +56,21 @@ class Build
    * @ORM\JoinColumn(nullable=false)
    */
   private $author;
+
+  /**
+   * @ORM\ManyToMany(targetEntity=Weapon::class)
+   */
+  private $weapons;
+
+  /**
+   * @ORM\Column(type="json")
+   */
+  private $activeSkills = [];
+
+  public function __construct()
+  {
+      $this->weapons = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -100,30 +109,6 @@ class Build
   public function setType(int $type): self
   {
     $this->type = $type;
-
-    return $this;
-  }
-
-  public function getWeapon(): ?array
-  {
-    return $this->weapon;
-  }
-
-  public function setWeapon(?array $weapon): self
-  {
-    $this->weapon = $weapon;
-
-    return $this;
-  }
-
-  public function getSkills(): ?array
-  {
-    return $this->skills;
-  }
-
-  public function setSkills(?array $skills): self
-  {
-    $this->skills = $skills;
 
     return $this;
   }
@@ -174,5 +159,41 @@ class Build
     $this->author = $author;
 
     return $this;
+  }
+
+  /**
+   * @return Collection|Weapon[]
+   */
+  public function getWeapons(): Collection
+  {
+      return $this->weapons;
+  }
+
+  public function addWeapon(Weapon $weapon): self
+  {
+      if (!$this->weapons->contains($weapon)) {
+          $this->weapons[] = $weapon;
+      }
+
+      return $this;
+  }
+
+  public function removeWeapon(Weapon $weapon): self
+  {
+      $this->weapons->removeElement($weapon);
+
+      return $this;
+  }
+
+  public function getActiveSkills(): ?array
+  {
+      return $this->activeSkills;
+  }
+
+  public function setActiveSkills(array $activeSkills): self
+  {
+      $this->activeSkills = $activeSkills;
+
+      return $this;
   }
 }

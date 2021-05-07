@@ -26,7 +26,7 @@
 						<a href="{{ path('app_builds_show', {'id': build.id}) }}">{{build.name}}</a>
 					</td>
 					<td>{{build.author.pseudo}}</td>
-					<td>{{build.weapon|join(' / ')}}</td>
+					<td>{{build.weapons|join(' / ')}}</td>
 					<td>
 						{% if build.type == 0 %}//
 						{% endif %}

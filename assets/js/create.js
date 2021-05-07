@@ -409,7 +409,7 @@ form.addEventListener("submit", function (e) {
   //Type, si pas selectionné => 0 (All)
   buildObject.type = Object.values($q("#SelectType").children).filter((ch) => {
     if (ch.selected == true) return ch;
-  })[0];
+  })[0].value;
 
   //Description
   buildObject.description = $q("#DescriptionInput").value;
