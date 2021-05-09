@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+  {% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('weapon') }}
+  {% endblock %}
+
+  {% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('weapon') }}
+  {% endblock %}
+
+{% block body %}
+
+  <div class="fs-2 mb-3">Weapon Dashboard</div>
+
+
+  <div id="createWeapon" class="row">
+    <div class="col">
+      <div class="fs-6">Update or Create Weapon :</div>
+    </div>
+    <div class="col">
+      <select id="weaponSelect">
+        <option selected value="0">New +</option>
+      </select>
+    </div>
+    <div class="col">
+      <input data-type="wkey" type="text" placeholder="Weapon Key"/>
+    </div>
+    <div class="col">
+      <input data-type="b1key" type="text" placeholder="Branch 1 Key"/>
+    </div>
+    <div class="col">
+      <input data-type="b2key"type="text" placeholder="Branch 2 Key"/>
+    </div>  
+    <div class="col-1">
+      <input class="weaponAction btn btn-primary btn-sm" data-type="submit" type="submit" value="Send">
+    </div>
+    <div class="col-1">
+      <input class="weaponAction btn btn-danger btn-sm" data-type="delete" type="submit" value="Delete">
+    </div>
+  </div>
+
+
+    <div class="row p-1 m-3">
+    {% for side in 1..2 %}
+      <div class="col">
+        <div class="row mb-2 justify-content-center fs-3 fw-bold" id="branchName-{{side}}"></div>
+        <div style="position:relative">
+          <div class="row m-0 p-2 svgContainer" id="svgContainer-{{side}}">
+            <svg class="p-0 bgSvg" id="bgSvg-{{side}}"></svg>
+          </div>
+          <div class="row m-0 p-2">
+            {% for row in 1..6 %}
+              <div class="row gx-0">
+                {% for col in 1..5 %}
+                  <div class="col skill-container" id="skill-{{side}}-{{row}}-{{col}}">
+                    <img class="skill-container-img border border-secondary" src="{{ asset('img/emptyCadre.png') }}"/>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+
+{% endblock %}

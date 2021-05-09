@@ -34,6 +34,15 @@ class Skill
      */
     private $weapon;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $col;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $line;
 
     public function getId(): ?int
     {
@@ -72,6 +81,30 @@ class Skill
     public function setWeapon(?Weapon $weapon): self
     {
         $this->weapon = $weapon;
+
+        return $this;
+    }
+
+    public function getCol(): ?int
+    {
+        return $this->col;
+    }
+
+    public function setCol(int $col): self
+    {
+        $this->col = $col;
+
+        return $this;
+    }
+
+    public function getLine(): ?int
+    {
+        return $this->line;
+    }
+
+    public function setLine(int $line): self
+    {
+        $this->line = $line;
 
         return $this;
     }
