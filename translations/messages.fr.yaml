@@ -23,6 +23,7 @@ create:
   weaponalert: Veuillez dabord choisir une arme
   save: Enregistrer
   reset: Réinitialiser
+  modify: Modifier
   connect: Veuillez vous connecter afin de pouvoir créer un build
 
 patchnote:

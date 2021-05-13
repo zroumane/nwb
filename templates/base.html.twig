@@ -63,7 +63,7 @@
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 									<li>
-										<a class="dropdown-item" href="">{% trans %}navbar.profil{% endtrans %}</a>
+										<a class="dropdown-item" href="{{path('profile')}}">{% trans %}navbar.profil{% endtrans %}</a>
 									</li>
 									{% if is_granted('ROLE_ADMIN') %}
 										<li>
