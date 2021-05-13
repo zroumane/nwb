@@ -6,6 +6,7 @@
 
 		<div class="fs-3 mb-2">{% trans with {'%pseudo%': app.user.pseudo} %}login.loged{% endtrans %}</div>
 		<a class=" fs-3 link-danger" href="{{path('app_security_logout')}}">{% trans %}navbar.logout{% endtrans %}</a>
+		
 	{% else %}
 
 

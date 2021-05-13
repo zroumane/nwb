@@ -1,5 +1,14 @@
 {
-  "tabWidth": 2,
-  "useTabs": false,
-  "printWidth": 140
+	"tabWidth": 2,
+	"useTabs": true,
+	"printWidth": 140,
+	"overrides": [
+		{
+			"files": ["*.php", "*.yaml"],
+			"options": {
+				"tabWidth": 4,
+				"printWidth": 300
+			}
+		}
+	]
 }

@@ -1,229 +1,229 @@
 {
-  "key": "Musket",
-  "counter": [19, 0, 0],
-  "branchName": ["Trapper", "Sharpshooter"],
-  "selectedMainSkills": ["", "", ""],
-  "skills": [
-    [
-      [
-        {
-          "key": "MusketDMGBeast",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "Traps",
-          "col": "3",
-          "child": ["TrapDMG"],
-          "active": false
-        },
-        {
-          "key": "MusketShieldAbsorb",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "HuntersVision",
-          "col": "1",
-          "child": ["TrapVision"],
-          "active": false
-        },
-        {
-          "key": "TrapDMG",
-          "col": "3",
-          "parent": ["Traps"],
-          "child": ["TrapDouble"],
-          "active": false
-        },
-        {
-          "key": "MusketReduceDMG",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "MusketReduceSlow",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "TrapDouble",
-          "col": "3",
-          "parent": ["TrapDMG"],
-          "child": ["TrapThrow"],
-          "active": false
-        },
-        {
-          "key": "StickyBomb",
-          "col": "5",
-          "child": ["StickyDouble"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "TrapVision",
-          "col": "1",
-          "parent": ["HuntersVision"],
-          "active": false
-        },
-        {
-          "key": "TrapThrow",
-          "col": "3",
-          "parent": ["TrapDouble"],
-          "child": ["TrapTriple"],
-          "active": false
-        },
-        {
-          "key": "MusketFirstBlood",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "MusketSacrifice",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "StickyDouble",
-          "col": "5",
-          "parent": ["StickyBomb"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "TrapTriple",
-          "col": "3",
-          "parent": ["TrapThrow"],
-          "active": false
-        }
-      ]
-    ],
-    [
-      [
-        {
-          "key": "MusketSnipe",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "PowerShot",
-          "col": "3",
-          "child": ["PowerLoad"],
-          "active": false
-        },
-        {
-          "key": "Musket10prcntHeadShot",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "Musket10prcntAccuracy",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "PowerLoad",
-          "col": "3",
-          "parent": ["PowerShot"],
-          "child": ["PowerRange"],
-          "active": false
-        },
-        {
-          "key": "ShootersStance",
-          "col": "5",
-          "child": ["ShootMore"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "PlayDead",
-          "col": "1",
-          "child": ["PlayAction"],
-          "active": false
-        },
-        {
-          "key": "PowerRange",
-          "col": "3",
-          "parent": ["PowerLoad"],
-          "child": ["CleanPowder"],
-          "active": false
-        },
-        {
-          "key": "ShootMore",
-          "col": "5",
-          "parent": ["ShootersStance"],
-          "child": ["ShootPower"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "PlayAction",
-          "col": "1",
-          "parent": ["PlayDead"],
-          "child": ["PlayReset"],
-          "active": false
-        },
-        {
-          "key": "MusketDMGHeavyArmor",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "MusketLegShot",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "PlayReset",
-          "col": "1",
-          "parent": ["PlayAction"],
-          "active": false
-        },
-        {
-          "key": "CleanPowder",
-          "col": "3",
-          "parent": ["PowerRange"],
-          "active": false
-        },
-        {
-          "key": "ShootPower",
-          "col": "5",
-          "parent": ["ShootMore"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "MusketSniper",
-          "col": "3",
-          "active": false
-        }
-      ]
-    ]
-  ],
-  "lines": [
-    [
-      [1, 2, 1, 4],
-      [3, 1, 3, 6],
-      [5, 3, 5, 5]
-    ],
-    [
-      [1, 3, 1, 5],
-      [3, 1, 3, 5],
-      [5, 2, 5, 5]
-    ]
-  ]
+	"key": "Musket",
+	"counter": [19, 0, 0],
+	"branchName": ["Trapper", "Sharpshooter"],
+	"selectedMainSkills": ["", "", ""],
+	"skills": [
+		[
+			[
+				{
+					"key": "MusketDMGBeast",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "Traps",
+					"col": "3",
+					"child": ["TrapDMG"],
+					"active": false
+				},
+				{
+					"key": "MusketShieldAbsorb",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "HuntersVision",
+					"col": "1",
+					"child": ["TrapVision"],
+					"active": false
+				},
+				{
+					"key": "TrapDMG",
+					"col": "3",
+					"parent": ["Traps"],
+					"child": ["TrapDouble"],
+					"active": false
+				},
+				{
+					"key": "MusketReduceDMG",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "MusketReduceSlow",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "TrapDouble",
+					"col": "3",
+					"parent": ["TrapDMG"],
+					"child": ["TrapThrow"],
+					"active": false
+				},
+				{
+					"key": "StickyBomb",
+					"col": "5",
+					"child": ["StickyDouble"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "TrapVision",
+					"col": "1",
+					"parent": ["HuntersVision"],
+					"active": false
+				},
+				{
+					"key": "TrapThrow",
+					"col": "3",
+					"parent": ["TrapDouble"],
+					"child": ["TrapTriple"],
+					"active": false
+				},
+				{
+					"key": "MusketFirstBlood",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "MusketSacrifice",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "StickyDouble",
+					"col": "5",
+					"parent": ["StickyBomb"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "TrapTriple",
+					"col": "3",
+					"parent": ["TrapThrow"],
+					"active": false
+				}
+			]
+		],
+		[
+			[
+				{
+					"key": "MusketSnipe",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "PowerShot",
+					"col": "3",
+					"child": ["PowerLoad"],
+					"active": false
+				},
+				{
+					"key": "Musket10prcntHeadShot",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "Musket10prcntAccuracy",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "PowerLoad",
+					"col": "3",
+					"parent": ["PowerShot"],
+					"child": ["PowerRange"],
+					"active": false
+				},
+				{
+					"key": "ShootersStance",
+					"col": "5",
+					"child": ["ShootMore"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "PlayDead",
+					"col": "1",
+					"child": ["PlayAction"],
+					"active": false
+				},
+				{
+					"key": "PowerRange",
+					"col": "3",
+					"parent": ["PowerLoad"],
+					"child": ["CleanPowder"],
+					"active": false
+				},
+				{
+					"key": "ShootMore",
+					"col": "5",
+					"parent": ["ShootersStance"],
+					"child": ["ShootPower"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "PlayAction",
+					"col": "1",
+					"parent": ["PlayDead"],
+					"child": ["PlayReset"],
+					"active": false
+				},
+				{
+					"key": "MusketDMGHeavyArmor",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "MusketLegShot",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "PlayReset",
+					"col": "1",
+					"parent": ["PlayAction"],
+					"active": false
+				},
+				{
+					"key": "CleanPowder",
+					"col": "3",
+					"parent": ["PowerRange"],
+					"active": false
+				},
+				{
+					"key": "ShootPower",
+					"col": "5",
+					"parent": ["ShootMore"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "MusketSniper",
+					"col": "3",
+					"active": false
+				}
+			]
+		]
+	],
+	"lines": [
+		[
+			[1, 2, 1, 4],
+			[3, 1, 3, 6],
+			[5, 3, 5, 5]
+		],
+		[
+			[1, 3, 1, 5],
+			[3, 1, 3, 5],
+			[5, 2, 5, 5]
+		]
+	]
 }

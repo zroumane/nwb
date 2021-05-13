@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-window.onload = function() {
+window.onload = function () {
     manageWebbyDisplay();
 
     new MutationObserver(function (mutations, self) {
@@ -9,9 +9,9 @@ window.onload = function() {
 
         self.disconnect();
 
-        op.querySelector('.opblock-summary').click();
+        op.querySelector(".opblock-summary").click();
         const tryOutObserver = new MutationObserver(function (mutations, self) {
-            const tryOut = op.querySelector('.try-out__btn');
+            const tryOut = op.querySelector(".try-out__btn");
             if (!tryOut) return;
 
             self.disconnect();
@@ -23,7 +23,7 @@ window.onload = function() {
                 reactTriggerChange(inputId);
             }
 
-            for (const input of op.querySelectorAll('.parameters input')) {
+            for (const input of op.querySelectorAll(".parameters input")) {
                 if (input.placeholder in data.queryParameters) {
                     input.value = data.queryParameters[input.placeholder];
                     reactTriggerChange(input);
@@ -31,29 +31,24 @@ window.onload = function() {
             }
 
             // Wait input values to be populated before executing the query
-            setTimeout(function(){
-                op.querySelector('.execute').click();
+            setTimeout(function () {
+                op.querySelector(".execute").click();
                 op.scrollIntoView();
             }, 500);
         });
 
-        tryOutObserver.observe(document, {childList: true, subtree: true});
-    }).observe(document, {childList: true, subtree: true});
+        tryOutObserver.observe(document, { childList: true, subtree: true });
+    }).observe(document, { childList: true, subtree: true });
 
-    const data = JSON.parse(document.getElementById('swagger-data').innerText);
+    const data = JSON.parse(document.getElementById("swagger-data").innerText);
     const ui = SwaggerUIBundle({
         spec: data.spec,
-        dom_id: '#swagger-ui',
+        dom_id: "#swagger-ui",
         validatorUrl: null,
         oauth2RedirectUrl: data.oauth.redirectUrl,
-        presets: [
-            SwaggerUIBundle.presets.apis,
-            SwaggerUIStandalonePreset,
-        ],
-        plugins: [
-            SwaggerUIBundle.plugins.DownloadUrl,
-        ],
-        layout: 'StandaloneLayout',
+        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+        plugins: [SwaggerUIBundle.plugins.DownloadUrl],
+        layout: "StandaloneLayout",
     });
 
     if (data.oauth.enabled) {
@@ -62,8 +57,8 @@ window.onload = function() {
             clientSecret: data.oauth.clientSecret,
             realm: data.oauth.type,
             appName: data.spec.info.title,
-            scopeSeparator: ' ',
-            additionalQueryStringParams: {}
+            scopeSeparator: " ",
+            additionalQueryStringParams: {},
         });
     }
 
@@ -84,14 +79,14 @@ window.onload = function() {
         // React 16
         // Cache artificial value property descriptor.
         // Property doesn't exist in React <16, descriptor is undefined.
-        const descriptor = Object.getOwnPropertyDescriptor(node, 'value');
+        const descriptor = Object.getOwnPropertyDescriptor(node, "value");
 
         // React 0.14: IE9
         // React 15: IE9-IE11
         // React 16: IE9
         // Dispatch focus.
-        const focusEvent = document.createEvent('UIEvents');
-        focusEvent.initEvent('focus', false, false);
+        const focusEvent = document.createEvent("UIEvents");
+        focusEvent.initEvent("focus", false, false);
         node.dispatchEvent(focusEvent);
 
         // React 0.14: IE9
@@ -102,49 +97,49 @@ window.onload = function() {
         // Remove artificial value property.
         // Restore initial value to trigger event with it.
         const initialValue = node.value;
-        node.value = initialValue + '#';
-        deletePropertySafe(node, 'value');
+        node.value = initialValue + "#";
+        deletePropertySafe(node, "value");
         node.value = initialValue;
 
         // React 15: IE11
         // For unknown reason React 15 added listener for propertychange with addEventListener.
         // This doesn't work, propertychange events are deprecated in IE11,
         // but allows us to dispatch fake propertychange which is handled by IE11.
-        const propertychangeEvent = document.createEvent('HTMLEvents');
-        propertychangeEvent.initEvent('propertychange', false, false);
-        propertychangeEvent.propertyName = 'value';
+        const propertychangeEvent = document.createEvent("HTMLEvents");
+        propertychangeEvent.initEvent("propertychange", false, false);
+        propertychangeEvent.propertyName = "value";
         node.dispatchEvent(propertychangeEvent);
 
         // React 0.14: IE10-IE11, non-IE
         // React 15: non-IE
         // React 16: IE10-IE11, non-IE
-        const inputEvent = document.createEvent('HTMLEvents');
-        inputEvent.initEvent('input', true, false);
+        const inputEvent = document.createEvent("HTMLEvents");
+        inputEvent.initEvent("input", true, false);
         node.dispatchEvent(inputEvent);
 
         // React 16
         // Restore artificial value property descriptor.
         if (descriptor) {
-            Object.defineProperty(node, 'value', descriptor);
+            Object.defineProperty(node, "value", descriptor);
         }
     }
 
     function manageWebbyDisplay() {
-        const webby = document.getElementsByClassName('webby')[0];
+        const webby = document.getElementsByClassName("webby")[0];
         if (!webby) return;
 
-        const web = document.getElementsByClassName('web')[0];
-        webby.classList.add('calm');
-        web.classList.add('calm');
-        webby.addEventListener('click', () => {
-            if (webby.classList.contains('frighten')) {
+        const web = document.getElementsByClassName("web")[0];
+        webby.classList.add("calm");
+        web.classList.add("calm");
+        webby.addEventListener("click", () => {
+            if (webby.classList.contains("frighten")) {
                 return;
             }
-            webby.classList.replace('calm', 'frighten');
-            web.classList.replace('calm', 'frighten');
+            webby.classList.replace("calm", "frighten");
+            web.classList.replace("calm", "frighten");
             setTimeout(() => {
-                webby.classList.replace('frighten', 'calm');
-                web.classList.replace('frighten', 'calm');
+                webby.classList.replace("frighten", "calm");
+                web.classList.replace("frighten", "calm");
             }, 10000);
         });
     }

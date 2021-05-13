@@ -4,3 +4,5 @@
 /config/
 /migrations/
 /node_modules/
+/public/dist/
+/public/bundles/

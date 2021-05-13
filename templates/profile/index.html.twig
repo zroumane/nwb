@@ -1,17 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
-
 {% block body %}
-        <h1>Profil utilisateur de {{app.user.pseudo}}</h1>
-        <div class="row">
-            <div class="col-sm-3">{% trans %}create.playername{% endtrans %} : </div>
-            <div class="col-sm-3">{{app.user.pseudo}}</div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">{% trans %}login.email{% endtrans %} : </div>
-            <div class="col-sm-3">{{app.user.email}}</div>
-        </div>
-        <button type="submit" class="btn btn-outline-light fs-3">{% trans %}create.modify{% endtrans %}</button>
+  {% if user is defined %}
+    Profil de
+    {{ user.pseudo }}
+  {% else %}
+    Profil personnel
+  {% endif %}
 
+  {# <h1>Profil utilisateur de
+    {{app.user.pseudo}}</h1>
+  <div class="row">
+    <div class="col-sm-3">{% trans %}create.playername{% endtrans %}
+      :
+    </div>
+    <div class="col-sm-3">{{app.user.pseudo}}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">{% trans %}login.email{% endtrans %}
+      :
+    </div>
+    <div class="col-sm-3">{{app.user.email}}</div>
+  </div>
+  <button type="submit" class="btn btn-outline-light fs-3">{% trans %}create.modify{% endtrans %}</button> #}
 {% endblock %}

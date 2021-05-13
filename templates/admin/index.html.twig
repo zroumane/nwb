@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
-	<div class="fs-2 mb-3">Admin Dashboard</div>
-
-	<div class="fs-4">
-		<a href="{{path('app_patchnote_admin')}}">Patchnote Dashboard</a>
-	</div>
-	<div class="fs-4">
-		<a href="{{path('app_admin_weapon')}}">Weapon Dashboard</a>
+	<div class="fs-2 mb-3">
+		Admin Dashboard
 	</div>
 
+	<div class="fs-4">
+		<a href="{{ path('app_patchnote_admin') }}">Patchnote Dashboard</a>
+	</div>
+	<div class="fs-4">
+		<a href="{{ path('app_admin_weapon') }}">Weapon Dashboard</a>
+	</div>
 {% endblock %}

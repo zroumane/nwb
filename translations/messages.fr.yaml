@@ -1,50 +1,50 @@
 meta:
-  sitetitle: New World Builder | Build, Database & PatchNote
+    sitetitle: New World Builder | Build, Database & PatchNote
 
 navbar:
-  build: Builds
-  create: Créer
-  patchnote: Patch Note
-  login: Connexion
-  logout: Deconnexion
-  profil: Profil
+    build: Builds
+    create: Créer
+    patchnote: Patch Note
+    login: Connexion
+    logout: Deconnexion
+    profil: Profil
 
 builds:
 
 create:
-  buildname: Nom du build
-  playername: Nom du joueur
-  builddesc: Description
-  typename: Type
-  siege: Siège
-  weapons: Armes
-  chooseweapon: Choisir arme %number%
-  weapon: Arme %number%
-  weaponalert: Veuillez dabord choisir une arme
-  save: Enregistrer
-  reset: Réinitialiser
-  modify: Modifier
-  connect: Veuillez vous connecter afin de pouvoir créer un build
+    buildname: Nom du build
+    playername: Nom du joueur
+    builddesc: Description
+    typename: Type
+    siege: Siège
+    weapons: Armes
+    chooseweapon: Choisir arme %number%
+    weapon: Arme %number%
+    weaponalert: Veuillez dabord choisir une arme
+    save: Enregistrer
+    reset: Réinitialiser
+    modify: Modifier
+    connect: Veuillez vous connecter afin de pouvoir créer un build
 
 patchnote:
-  goback: Revenir
+    goback: Revenir
 
 login:
-  login: Connexion
-  gologin: Se connecter
-  register: Inscription
-  goregister: S'inscrire
-  loged: Vous êtes connecté en tan que %pseudo%.
-  logout: Déconnexion
-  pseudo: Pseudo
-  email: Email
-  password: Mot de Passe
-  remember: Se souvenir de moi.
-  agreeterms: Accepter les termes et conditions.
-  incorrect: Identifiants invalides.
-  verify:
-    invalid: Impossible de vérifier ce compte
-    check: Votre compte a bien été confirmé. Bienvenue !
-    nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
-    noemail: Email invalide
-    already: Email déjà vérifié
+    login: Connexion
+    gologin: Se connecter
+    register: Inscription
+    goregister: S'inscrire
+    loged: Vous êtes connecté en tan que %pseudo%.
+    logout: Déconnexion
+    pseudo: Pseudo
+    email: Email
+    password: Mot de Passe
+    remember: Se souvenir de moi.
+    agreeterms: Accepter les termes et conditions.
+    incorrect: Identifiants invalides.
+    verify:
+        invalid: Impossible de vérifier ce compte
+        check: Votre compte a bien été confirmé. Bienvenue !
+        nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
+        noemail: Email invalide
+        already: Email déjà vérifié

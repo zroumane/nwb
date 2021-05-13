@@ -1,37 +1,37 @@
 [
-  {
-    "key": "Bow",
-    "name": "Bow",
-    "branch": ["Bowman", "Huntsman"]
-  },
-  {
-    "key": "FireStaff",
-    "name": "FireStaff",
-    "branch": ["Flame summoner", "Pyromaniac"]
-  },
-  {
-    "key": "LifeStaff",
-    "name": "LifeStaff",
-    "branch": ["Protector", "Life stealer"]
-  },
-  {
-    "key": "Sword",
-    "name": "Sword",
-    "branch": ["Sword", "Shield"]
-  },
-  {
-    "key": "Hatchet",
-    "name": "Hatchet",
-    "branch": ["Berserk", "Throwing"]
-  },
-  {
-    "key": "Warhammer",
-    "name": "Warhammer",
-    "branch": ["Juggernaut", "Crowd crusher"]
-  },
-  {
-    "key": "Musket",
-    "name": "Musket",
-    "branch": ["Sharpshooter", "Trapper"]
-  }
+	{
+		"key": "Bow",
+		"name": "Bow",
+		"branch": ["Bowman", "Huntsman"]
+	},
+	{
+		"key": "FireStaff",
+		"name": "FireStaff",
+		"branch": ["Flame summoner", "Pyromaniac"]
+	},
+	{
+		"key": "LifeStaff",
+		"name": "LifeStaff",
+		"branch": ["Protector", "Life stealer"]
+	},
+	{
+		"key": "Sword",
+		"name": "Sword",
+		"branch": ["Sword", "Shield"]
+	},
+	{
+		"key": "Hatchet",
+		"name": "Hatchet",
+		"branch": ["Berserk", "Throwing"]
+	},
+	{
+		"key": "Warhammer",
+		"name": "Warhammer",
+		"branch": ["Juggernaut", "Crowd crusher"]
+	},
+	{
+		"key": "Musket",
+		"name": "Musket",
+		"branch": ["Sharpshooter", "Trapper"]
+	}
 ]

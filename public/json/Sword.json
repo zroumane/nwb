@@ -1,230 +1,230 @@
 {
-  "key": "Sword",
-  "counter": [19, 0, 0],
-  "branchName": ["Sword", "Shield"],
-  "selectedMainSkills": ["", "", ""],
-  "skills": [
-    [
-      [
-        {
-          "key": "Precision",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "WhirlingBlade",
-          "col": "3",
-          "child": ["QuickWhirl"],
-          "active": false
-        },
-        {
-          "key": "KeenBlade",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "ReverseStab",
-          "col": "1",
-          "child": ["UnstoppableStab"],
-          "active": false
-        },
-        {
-          "key": "QuickWhirl",
-          "col": "3",
-          "parent": ["WhirlingBlade"],
-          "child": ["SharpenedEdge"],
-          "active": false
-        },
-        {
-          "key": "CounterAttack",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "UnstoppableStab",
-          "col": "1",
-          "parent": ["ReverseStab"],
-          "child": ["UltimateStab"],
-          "active": false
-        },
-        {
-          "key": "UltraKeen",
-          "col": "4",
-          "active": false
-        },
-        {
-          "key": "LeapingStrike",
-          "col": "5",
-          "child": ["ReachingStrike"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "FinePrecision",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "SharpenedEdge",
-          "col": "3",
-          "parent": ["QuickWhirl"],
-          "child": ["WhirlingDeath"],
-          "active": false
-        },
-        {
-          "key": "ReachingStrike",
-          "col": "5",
-          "parent": ["LeapingStrike"],
-          "child": ["ChargedStrike"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "UltimateStab",
-          "col": "1",
-          "parent": ["UnstoppableStab"],
-          "active": false
-        },
-        {
-          "key": "WhirlingDeath",
-          "col": "3",
-          "parent": ["SharpenedEdge"],
-          "active": false
-        },
-        {
-          "key": "KillerAdvantage",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "ChargedStrike",
-          "col": "5",
-          "parent": ["ReachingStrike"],
-          "active": false
-        }
-      ]
-    ],
-    [
-      [
-        {
-          "key": "StudyShield",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "ShieldBash",
-          "col": "3",
-          "child": ["ConcussiveBash"],
-          "active": false
-        },
-        {
-          "key": "MinorFortitude",
-          "col": "5",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "ShieldRush",
-          "col": "1",
-          "child": ["IntimidatingRush"],
-          "active": false
-        },
-        {
-          "key": "ConcussiveBash",
-          "col": "3",
-          "parent": ["ShieldBash"],
-          "active": false
-        },
-        {
-          "key": "ElementalResistance",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "BarricadeShield",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "LastStand",
-          "col": "4",
-          "child": ["EnduringStand"],
-          "active": false
-        },
-        {
-          "key": "MajorFortitude",
-          "col": "5",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "IntimidatingRush",
-          "col": "1",
-          "parent": ["ShieldRush"],
-          "child": ["RefreshingRush"],
-          "active": false
-        },
-        {
-          "key": "IncomingResistance",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "EnduringStand",
-          "col": "4",
-          "parent": ["LastStand"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "RefreshingRush",
-          "col": "1",
-          "parent": ["IntimidatingRush"],
-          "active": false
-        },
-        {
-          "key": "Recuperation",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "ReinforcedArmor",
-          "col": "5",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "Leadership",
-          "col": "3",
-          "active": false
-        }
-      ]
-    ]
-  ],
-  "lines": [
-    [
-      [1, 2, 1, 5],
-      [3, 1, 3, 5],
-      [5, 3, 5, 6]
-    ],
-    [
-      [1, 2, 1, 5],
-      [3, 1, 3, 2],
-      [4, 3, 4, 4]
-    ]
-  ]
+	"key": "Sword",
+	"counter": [19, 0, 0],
+	"branchName": ["Sword", "Shield"],
+	"selectedMainSkills": ["", "", ""],
+	"skills": [
+		[
+			[
+				{
+					"key": "Precision",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "WhirlingBlade",
+					"col": "3",
+					"child": ["QuickWhirl"],
+					"active": false
+				},
+				{
+					"key": "KeenBlade",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "ReverseStab",
+					"col": "1",
+					"child": ["UnstoppableStab"],
+					"active": false
+				},
+				{
+					"key": "QuickWhirl",
+					"col": "3",
+					"parent": ["WhirlingBlade"],
+					"child": ["SharpenedEdge"],
+					"active": false
+				},
+				{
+					"key": "CounterAttack",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "UnstoppableStab",
+					"col": "1",
+					"parent": ["ReverseStab"],
+					"child": ["UltimateStab"],
+					"active": false
+				},
+				{
+					"key": "UltraKeen",
+					"col": "4",
+					"active": false
+				},
+				{
+					"key": "LeapingStrike",
+					"col": "5",
+					"child": ["ReachingStrike"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "FinePrecision",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "SharpenedEdge",
+					"col": "3",
+					"parent": ["QuickWhirl"],
+					"child": ["WhirlingDeath"],
+					"active": false
+				},
+				{
+					"key": "ReachingStrike",
+					"col": "5",
+					"parent": ["LeapingStrike"],
+					"child": ["ChargedStrike"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "UltimateStab",
+					"col": "1",
+					"parent": ["UnstoppableStab"],
+					"active": false
+				},
+				{
+					"key": "WhirlingDeath",
+					"col": "3",
+					"parent": ["SharpenedEdge"],
+					"active": false
+				},
+				{
+					"key": "KillerAdvantage",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "ChargedStrike",
+					"col": "5",
+					"parent": ["ReachingStrike"],
+					"active": false
+				}
+			]
+		],
+		[
+			[
+				{
+					"key": "StudyShield",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "ShieldBash",
+					"col": "3",
+					"child": ["ConcussiveBash"],
+					"active": false
+				},
+				{
+					"key": "MinorFortitude",
+					"col": "5",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "ShieldRush",
+					"col": "1",
+					"child": ["IntimidatingRush"],
+					"active": false
+				},
+				{
+					"key": "ConcussiveBash",
+					"col": "3",
+					"parent": ["ShieldBash"],
+					"active": false
+				},
+				{
+					"key": "ElementalResistance",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "BarricadeShield",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "LastStand",
+					"col": "4",
+					"child": ["EnduringStand"],
+					"active": false
+				},
+				{
+					"key": "MajorFortitude",
+					"col": "5",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "IntimidatingRush",
+					"col": "1",
+					"parent": ["ShieldRush"],
+					"child": ["RefreshingRush"],
+					"active": false
+				},
+				{
+					"key": "IncomingResistance",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "EnduringStand",
+					"col": "4",
+					"parent": ["LastStand"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "RefreshingRush",
+					"col": "1",
+					"parent": ["IntimidatingRush"],
+					"active": false
+				},
+				{
+					"key": "Recuperation",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "ReinforcedArmor",
+					"col": "5",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "Leadership",
+					"col": "3",
+					"active": false
+				}
+			]
+		]
+	],
+	"lines": [
+		[
+			[1, 2, 1, 5],
+			[3, 1, 3, 5],
+			[5, 3, 5, 6]
+		],
+		[
+			[1, 2, 1, 5],
+			[3, 1, 3, 2],
+			[4, 3, 4, 4]
+		]
+	]
 }

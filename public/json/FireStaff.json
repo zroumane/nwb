@@ -1,242 +1,242 @@
 {
-  "key": "FireStaff",
-  "counter": [19, 0, 0],
-  "branchName": ["FlameSummoner", "Pyromaniac"],
-  "selectedMainSkills": ["", "", ""],
-  "skills": [
-    [
-      [
-        {
-          "key": "PillarOfFire",
-          "col": "1",
-          "child": ["PillarOfFire_Mod1"],
-          "active": false
-        },
-        {
-          "key": "AdvancedSorcery",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "BurningCharge",
-          "col": "4",
-          "child": ["FireFlare"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "PillarOfFire_Mod1",
-          "col": "1",
-          "parent": ["PillarOfFire"],
-          "child": ["PillarOfFire_Mod2"],
-          "active": false
-        },
-        {
-          "key": "DemonicAscension",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "MeteorStorm",
-          "child": ["MeteorStorm_Mod2"],
-          "col": "5",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "PillarOfFire_Mod2",
-          "col": "1",
-          "parent": ["PillarOfFire_Mod1"],
-          "active": false
-        },
-        {
-          "key": "FireSiege",
-          "col": "3",
-          "child": ["FireSiege_Mod1"],
-          "active": false
-        },
-        {
-          "key": "MeteorStorm_Mod1",
-          "col": "5",
-          "parent": ["MeteorStorm"],
-          "child": ["MeteorStorm_Mod2"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "SummonersGift",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "FireSiege_Mod1",
-          "col": "3",
-          "parent": ["FireSiege"],
-          "child": ["FireSiege_Mod2"],
-          "active": false
-        },
-        {
-          "key": "MeteorStorm_Mod2",
-          "col": "5",
-          "parent": ["MeteorStorm_Mod1"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "FireSiege_Mod2",
-          "col": "3",
-          "parent": ["FireSiege_Mod1"],
-          "child": ["FireSiege_Mod3"],
-          "active": false
-        },
-        {
-          "key": "FireFlare",
-          "col": "4",
-          "parent": ["BurningCharge"],
-          "active": false
-        },
-        {
-          "key": "MeteorStorm_Mod3",
-          "col": "5",
-          "parent": ["MeteorStorm_Mod2"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "FireSiege_Mod3",
-          "col": "3",
-          "parent": ["FireSiege_Mod2"],
-          "active": false
-        }
-      ]
-    ],
-    [
-      [
-        {
-          "key": "FlameThrower",
-          "col": "1",
-          "child": ["FlameThrower_Mod1"],
-          "active": false
-        },
-        {
-          "key": "FireArmor",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "BurningAgony",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "FlameThrower_Mod1",
-          "col": "1",
-          "parent": ["FlameThrower"],
-          "child": ["FlameThrower_Mod2"],
-          "active": false
-        },
-        {
-          "key": "Pyromania",
-          "col": "3",
-          "active": false
-        },
-        {
-          "key": "FastFlame",
-          "col": "5",
-          "child": ["FastFlame_Mod1"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "FlameThrower_Mod2",
-          "col": "1",
-          "parent": ["FlameThrower_Mod1"],
-          "child": ["FlameThrower_Mod3"],
-          "active": false
-        },
-        {
-          "key": "Incinerate",
-          "col": "3",
-          "child": ["Incinerate_Mod1"],
-          "active": false
-        },
-        {
-          "key": "FastFlame_Mod1",
-          "col": "5",
-          "parent": ["FastFlame"],
-          "child": ["FastFlame_Mod2"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "FlameThrower_Mod3",
-          "col": "1",
-          "parent": ["FlameThrower_Mod2"],
-          "active": false
-        },
-        {
-          "key": "Incinerate_Mod1",
-          "col": "3",
-          "parent": ["Incinerate"],
-          "child": ["Incinerate_Mod2"],
-          "active": false
-        },
-        {
-          "key": "FastFlame_Mod2",
-          "col": "5",
-          "parent": ["FastFlame_Mod1"],
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "TrialByFire",
-          "col": "2",
-          "active": false
-        },
-        {
-          "key": "Incinerate_Mod2",
-          "col": "3",
-          "parent": ["Incinerate_Mod1"],
-          "child": ["Incinerate_Mod3"],
-          "active": false
-        },
-        {
-          "key": "ProphetFireGod",
-          "col": "4",
-          "active": false
-        }
-      ],
-      [
-        {
-          "key": "Incinerate_Mod3",
-          "col": "3",
-          "parent": ["Incinerate_Mod2"],
-          "active": false
-        }
-      ]
-    ]
-  ],
-  "lines": [
-    [
-      [1, 1, 1, 3],
-      [3, 3, 3, 6],
-      [4, 1, 4, 5],
-      [5, 2, 5, 5]
-    ],
-    [
-      [1, 1, 1, 4],
-      [3, 3, 3, 6],
-      [5, 2, 5, 4]
-    ]
-  ]
+	"key": "FireStaff",
+	"counter": [19, 0, 0],
+	"branchName": ["FlameSummoner", "Pyromaniac"],
+	"selectedMainSkills": ["", "", ""],
+	"skills": [
+		[
+			[
+				{
+					"key": "PillarOfFire",
+					"col": "1",
+					"child": ["PillarOfFire_Mod1"],
+					"active": false
+				},
+				{
+					"key": "AdvancedSorcery",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "BurningCharge",
+					"col": "4",
+					"child": ["FireFlare"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "PillarOfFire_Mod1",
+					"col": "1",
+					"parent": ["PillarOfFire"],
+					"child": ["PillarOfFire_Mod2"],
+					"active": false
+				},
+				{
+					"key": "DemonicAscension",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "MeteorStorm",
+					"child": ["MeteorStorm_Mod2"],
+					"col": "5",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "PillarOfFire_Mod2",
+					"col": "1",
+					"parent": ["PillarOfFire_Mod1"],
+					"active": false
+				},
+				{
+					"key": "FireSiege",
+					"col": "3",
+					"child": ["FireSiege_Mod1"],
+					"active": false
+				},
+				{
+					"key": "MeteorStorm_Mod1",
+					"col": "5",
+					"parent": ["MeteorStorm"],
+					"child": ["MeteorStorm_Mod2"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "SummonersGift",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "FireSiege_Mod1",
+					"col": "3",
+					"parent": ["FireSiege"],
+					"child": ["FireSiege_Mod2"],
+					"active": false
+				},
+				{
+					"key": "MeteorStorm_Mod2",
+					"col": "5",
+					"parent": ["MeteorStorm_Mod1"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "FireSiege_Mod2",
+					"col": "3",
+					"parent": ["FireSiege_Mod1"],
+					"child": ["FireSiege_Mod3"],
+					"active": false
+				},
+				{
+					"key": "FireFlare",
+					"col": "4",
+					"parent": ["BurningCharge"],
+					"active": false
+				},
+				{
+					"key": "MeteorStorm_Mod3",
+					"col": "5",
+					"parent": ["MeteorStorm_Mod2"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "FireSiege_Mod3",
+					"col": "3",
+					"parent": ["FireSiege_Mod2"],
+					"active": false
+				}
+			]
+		],
+		[
+			[
+				{
+					"key": "FlameThrower",
+					"col": "1",
+					"child": ["FlameThrower_Mod1"],
+					"active": false
+				},
+				{
+					"key": "FireArmor",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "BurningAgony",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "FlameThrower_Mod1",
+					"col": "1",
+					"parent": ["FlameThrower"],
+					"child": ["FlameThrower_Mod2"],
+					"active": false
+				},
+				{
+					"key": "Pyromania",
+					"col": "3",
+					"active": false
+				},
+				{
+					"key": "FastFlame",
+					"col": "5",
+					"child": ["FastFlame_Mod1"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "FlameThrower_Mod2",
+					"col": "1",
+					"parent": ["FlameThrower_Mod1"],
+					"child": ["FlameThrower_Mod3"],
+					"active": false
+				},
+				{
+					"key": "Incinerate",
+					"col": "3",
+					"child": ["Incinerate_Mod1"],
+					"active": false
+				},
+				{
+					"key": "FastFlame_Mod1",
+					"col": "5",
+					"parent": ["FastFlame"],
+					"child": ["FastFlame_Mod2"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "FlameThrower_Mod3",
+					"col": "1",
+					"parent": ["FlameThrower_Mod2"],
+					"active": false
+				},
+				{
+					"key": "Incinerate_Mod1",
+					"col": "3",
+					"parent": ["Incinerate"],
+					"child": ["Incinerate_Mod2"],
+					"active": false
+				},
+				{
+					"key": "FastFlame_Mod2",
+					"col": "5",
+					"parent": ["FastFlame_Mod1"],
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "TrialByFire",
+					"col": "2",
+					"active": false
+				},
+				{
+					"key": "Incinerate_Mod2",
+					"col": "3",
+					"parent": ["Incinerate_Mod1"],
+					"child": ["Incinerate_Mod3"],
+					"active": false
+				},
+				{
+					"key": "ProphetFireGod",
+					"col": "4",
+					"active": false
+				}
+			],
+			[
+				{
+					"key": "Incinerate_Mod3",
+					"col": "3",
+					"parent": ["Incinerate_Mod2"],
+					"active": false
+				}
+			]
+		]
+	],
+	"lines": [
+		[
+			[1, 1, 1, 3],
+			[3, 3, 3, 6],
+			[4, 1, 4, 5],
+			[5, 2, 5, 5]
+		],
+		[
+			[1, 1, 1, 4],
+			[3, 3, 3, 6],
+			[5, 2, 5, 4]
+		]
+	]
 }

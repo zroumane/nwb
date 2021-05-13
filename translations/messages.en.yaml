@@ -1,50 +1,50 @@
 meta:
-  sitetitle: New World Builder | Build, Database & PatchNote
+    sitetitle: New World Builder | Build, Database & PatchNote
 
 navbar:
-  build: Builds
-  create: Create
-  patchnote: PatchNote
-  login: Login
-  logout: Logout
-  profil: Profile
+    build: Builds
+    create: Create
+    patchnote: PatchNote
+    login: Login
+    logout: Logout
+    profil: Profile
 
 builds:
 
 create:
-  buildname: Build name
-  playername: Player name
-  builddesc: Description
-  typename: Type
-  siege: Siege
-  weapons: Weapons
-  chooseweapon: Choose weapon %number%
-  weapon: Weapon %number%
-  weaponalert: Please choose a weapon first
-  save: Save
-  reset: Reset
-  modify: Modify
-  connect: Please login to be able to create a build
+    buildname: Build name
+    playername: Player name
+    builddesc: Description
+    typename: Type
+    siege: Siege
+    weapons: Weapons
+    chooseweapon: Choose weapon %number%
+    weapon: Weapon %number%
+    weaponalert: Please choose a weapon first
+    save: Save
+    reset: Reset
+    modify: Modify
+    connect: Please login to be able to create a build
 
 patchnote:
-  goback: Go back to list
+    goback: Go back to list
 
 login:
-  login: Login
-  gologin: Login
-  register: Registration
-  goregister: Register
-  loged: You are loged as %pseudo%.
-  logout: Logout
-  pseudo: Pseudo
-  email: Email
-  password: Password
-  remember: Remember me
-  agreeterms: Accept terms
-  incorrect: Invalid credentials
-  verify:
-    invalid: Unable to verify this account
-    check: Your account has been verified. Welcome !
-    nocheck: Please verify your account. We just sent you a verification email.
-    noemail: Invalid Email
-    already: Email already verified
+    login: Login
+    gologin: Login
+    register: Registration
+    goregister: Register
+    loged: You are loged as %pseudo%.
+    logout: Logout
+    pseudo: Pseudo
+    email: Email
+    password: Password
+    remember: Remember me
+    agreeterms: Accept terms
+    incorrect: Invalid credentials
+    verify:
+        invalid: Unable to verify this account
+        check: Your account has been verified. Welcome !
+        nocheck: Please verify your account. We just sent you a verification email.
+        noemail: Invalid Email
+        already: Email already verified

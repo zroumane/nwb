@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SkillRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Skill::class);
-    }
+	public function __construct(ManagerRegistry $registry)
+	{
+		parent::__construct($registry, Skill::class);
+	}
 
-    // /**
-    //  * @return Skill[] Returns an array of Skill objects
-    //  */
-    /*
+	// /**
+	//  * @return Skill[] Returns an array of Skill objects
+	//  */
+	/*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('s')
@@ -36,7 +36,7 @@ class SkillRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+	/*
     public function findOneBySomeField($value): ?Skill
     {
         return $this->createQueryBuilder('s')

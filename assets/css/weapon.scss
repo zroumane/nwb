@@ -1,25 +1,26 @@
-#createWeapon{
-  border: 1px white solid;
-  padding: 0.5rem;
+#createWeapon {
+	border: 1px white solid;
+	padding: 0.5rem;
 }
 
-#createWeapon div input,select {
-  width: 100%;
-  height: 100%;
+#createWeapon div input,
+select {
+	width: 100%;
+	height: 100%;
 }
 
 .svgContainer {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 
 .skill-container {
-  background-position: center;
-  background-size: 100%, 100%;
-  z-index: 10;
+	background-position: center;
+	background-size: 100%, 100%;
+	z-index: 10;
 }
 
-.skill-container-img{
-  width: 100%;
+.skill-container-img {
+	width: 100%;
 }

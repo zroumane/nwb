@@ -1,4 +1,18 @@
-<form style="display:inline-block;" method="post" action="{{ path('app_patchnote_delete', {'id': patchnote.id}) }}" onsubmit="return confirm('Are you sure you want to delete patchnote {{patchnote.id}}');">
-	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ patchnote.id) }}">
+<form style="display:inline-block;"
+	method="post"
+	action="{{
+	path(
+		'app_patchnote_delete',
+		{
+			id: patchnote.id
+		}
+	)
+	}}"
+	onsubmit="return confirm('Are you sure you want to delete patchnote {{
+	patchnote.id
+	}}');">
+	<input type="hidden"
+		name="_token"
+		value="{{ csrf_token('delete' ~ patchnote.id) }}" />
 	<button class="btn btn-danger btn-sm">Delete</button>
 </form>

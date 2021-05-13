@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BuildRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry)
-  {
-    parent::__construct($registry, Build::class);
-  }
+	public function __construct(ManagerRegistry $registry)
+	{
+		parent::__construct($registry, Build::class);
+	}
 
-  // /**
-  //  * @return Build[] Returns an array of Build objects
-  //  */
-  /*
+	// /**
+	//  * @return Build[] Returns an array of Build objects
+	//  */
+	/*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
@@ -36,7 +36,7 @@ class BuildRepository extends ServiceEntityRepository
     }
     */
 
-  /*
+	/*
     public function findOneBySomeField($value): ?Build
     {
         return $this->createQueryBuilder('b')

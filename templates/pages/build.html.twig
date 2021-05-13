@@ -1,15 +1,18 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+{% endblock %}
 
-{% block javascripts %}{% endblock %}
-
+{% block javascripts %}
+{% endblock %}
 
 {% block body %}
-
-	<div class="fs-4">{{build.name}}
+	<div class="fs-4">
+		{{ build.name }}
 		||
-		{{build.id}}</div>
-	<div class="fs-6">{{build.description}}</div>
-
+		{{ build.id }}
+	</div>
+	<div class="fs-6">
+		{{ build.description }}
+	</div>
 {% endblock %}
