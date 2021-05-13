@@ -31,9 +31,8 @@ class SecurityController extends AbstractController
 	 */
 	public function login(Request $request, UserPasswordEncoderInterface $passwordEncoder, AuthenticationUtils $authenticationUtils): Response
 	{
-
 		if ($this->getUser()) {
-			return $this->redirectToRoute('app_profile_index');
+			return $this->redirectToRoute("app_profile_index");
 		}
 
 		$user = new User();

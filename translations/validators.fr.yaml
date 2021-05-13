@@ -1,23 +1,23 @@
 pseudo:
-    label: Pseudo
-    notblank: Entrez un pseudo
-    min: Votre pseudo doit contenir au moins {{ limit }} caractères
-    max: Votre pseudo doit contenir au plus {{ limit }} caractères
-    regex: Votre pseudo ne doit pas contenir de caractères spéciaux
-    already: Ce pseudo est déjà utilisé
+  label: Pseudo
+  notblank: Entrez un pseudo
+  min: Votre pseudo doit contenir au moins {{ limit }} caractères
+  max: Votre pseudo doit contenir au plus {{ limit }} caractères
+  regex: Votre pseudo ne doit pas contenir de caractères spéciaux
+  already: Ce pseudo est déjà utilisé
 email:
-    label: Email
-    notblank: Entrez une adresse email
-    valid: Entrez une adresse email valide
-    already: Cet adresse email est déjà utilisée
+  label: Email
+  notblank: Entrez une adresse email
+  valid: Entrez une adresse email valide
+  already: Cet adresse email est déjà utilisée
 password:
-    label: Password
-    notblank: Entrez un mot de passe
-    min: Votre mot de passe doit contenir au moins {{ limit }} caractères
-    max: Votre mot de passe doit contenir au plus {{ limit }} caractères
-    lower: Votre mot de passe doit contenir une minuscule
-    upper: Votre mot de passe doit contenir une majuscule
-    digit: Votre mot de passe doit contenir un chiffre
+  label: Password
+  notblank: Entrez un mot de passe
+  min: Votre mot de passe doit contenir au moins {{ limit }} caractères
+  max: Votre mot de passe doit contenir au plus {{ limit }} caractères
+  lower: Votre mot de passe doit contenir une minuscule
+  upper: Votre mot de passe doit contenir une majuscule
+  digit: Votre mot de passe doit contenir un chiffre
 agreeterms:
-    label: Acceptez les termes et conditions
-    istrue: Vous devez acceptez les termes et conditions
+  label: Acceptez les termes et conditions
+  istrue: Vous devez acceptez les termes et conditions
