@@ -92,6 +92,11 @@ class SecurityController extends AbstractController
       return $this->redirectToRoute('app_security_login');
     }
 
+    if ($user->isVerified()) {
+      $this->addFlash('verify_error', 'login.verify.already');
+      return $this->redirectToRoute('app_security_login');
+    }
+
     try {
 
       $this->emailVerifier->handleEmailConfirmation($request, $user);

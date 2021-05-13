@@ -45,3 +45,4 @@ login:
     check: Votre compte a bien été confirmé. Bienvenue !
     nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
     noemail: Email invalide
+    already: Email déjà vérifié
