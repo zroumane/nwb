@@ -1,15 +1,15 @@
 <h1>Welcome
-	{{ pseudo }}!</h1>
+  {{ pseudo }}!</h1>
 
 <p>
-	You signed up at
-	<a href="NewWorld-Builder.com">NewWorld-Builder.com</a>
-	with the email:
-	<code>{{ email.to[0].address }}</code>
+  You signed up at
+  <a href="NewWorld-Builder.com">NewWorld-Builder.com</a>
+  with the email:
+  <code>{{ email.to[0].address }}</code>
 </p>
 
 <p>
-	<a href="{{ signedUrl|raw }}">Click here to verify your account</a>
-	(this link is valid until
-	{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }})
+  <a href="{{ signedUrl|raw }}">Click here to verify your account</a>
+  (this link is valid until
+  {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }})
 </p>

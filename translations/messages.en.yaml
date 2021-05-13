@@ -47,3 +47,4 @@ login:
     check: Your account has been verified. Welcome !
     nocheck: Please verify your account. We just sent you a verification email.
     noemail: Invalid Email
+    already: Email already verified
