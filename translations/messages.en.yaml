@@ -24,7 +24,7 @@ create:
   save: Save
   reset: Reset
   modify: Modify
-  connect: Please login to be able to create a build
+  connect: Please login to be able to create a build.
 
 patchnote:
   goback: Go back to list

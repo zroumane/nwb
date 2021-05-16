@@ -1,7 +1,7 @@
 {
 	"tabWidth": 2,
 	"useTabs": true,
-	"printWidth": 140,
+	"printWidth": 160,
 	"overrides": [
 		{
 			"files": "**.php",

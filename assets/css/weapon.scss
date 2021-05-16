@@ -1,12 +1,16 @@
-#createWeapon {
+#weaponForm {
 	border: 1px white solid;
 	padding: 0.5rem;
 }
 
-#createWeapon div input,
+.api-form div input,
 select {
 	width: 100%;
 	height: 100%;
+}
+
+.isHidden {
+	display: none;
 }
 
 .svgContainer {
