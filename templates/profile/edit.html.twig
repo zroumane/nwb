@@ -1,16 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="fs-3 mb-2">Profil utilisateur de {{app.user.pseudo}}</div>
-    <div class="row">
-      <div class="col-sm-3">{% trans %}create.playername{% endtrans %} :</div>
-      <div class="col-sm-3">{{ form_widget(form.pseudo) }}</div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">{% trans %}login.email{% endtrans %} :</div>
-      <div class="col-sm-3">{{app.user.email}}</div>
-    </div>
-    <button type="submit" class="btn btn-outline-light">{% trans %}create.save{% endtrans %}</button>
 
+  {{ form_start(editProfileForm, {attr : {"class" : "border rounded p-2"}}) }}
+
+  <div class="fs-3 p-2">{% trans %}profile.edit{% endtrans %}</div>
+
+  {# <div class="p-2">
+    {{ form_row(editProfileForm.email) }}
+  </div> #}
+
+  <div class="p-2">
+    {{ form_row(editProfileForm.pseudo) }}
+  </div>
+
+  <div class="p-2 my-2">
+    <button class="btn btn-lg btn-outline-light" type="submit">
+      {% trans %}profile.save{% endtrans %}
+    </button>
+  </div>
+
+  {{ form_end(editProfileForm) }}
 
 {% endblock %}

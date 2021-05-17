@@ -38,7 +38,7 @@ class ProfileController extends AbstractController
 	}
 
 	/**
-	 * @Route("/profile/edit", name="profile_edit")
+	 * @Route("/profile/edit")
 	 */
 	public function edit(Request $request): Response
 	{
@@ -51,11 +51,11 @@ class ProfileController extends AbstractController
 			$entityManager->persist($user);
 			$entityManager->flush();
 
-			return $this->redirectToRoute("profile");
+			return $this->redirectToRoute("app_profile_index");
 		}
 
 		return $this->render("profile/edit.html.twig", [
-			"form" => $form->createView(),
+			"editProfileForm" => $form->createView(),
 		]);
 	}
 }

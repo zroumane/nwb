@@ -1,27 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	{% if user is defined %}
+		<div class="fs-3 mb-2">
+			{% trans with {'%pseudo%': app.user.pseudo} %}profile.title{% endtrans %}
+		</div>
 
-  {% if user is defined %}
-
-    <div class="fs-3">
-      Profil utilisateur de
-      {{user.pseudo}}
-    </div>
-
-  {% else %}
-
-    <div class="fs-3 mb-2">Profil utilisateur de {{app.user.pseudo}}</div>
-    <div class="row">
-      <div class="col-sm-3">{% trans %}create.playername{% endtrans %}:</div>
-      <div class="col-sm-3">{{app.user.pseudo}}</div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">{% trans %}login.email{% endtrans %}:</div>
-      <div class="col-sm-3">{{app.user.email}}</div>
-    </div>
-    <a href="{{path('profile_edit')}}" class="btn btn-outline-light">{% trans %}create.modify{% endtrans %}</a>
-
-  {% endif %}
-
+		{# TODO : Afficher les build de l'user #}
+	{% else %}
+		<div class="fs-3 mb-2">
+			Profil utilisateur de
+			{{ app.user.pseudo }}
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				{% trans %}create.playername{% endtrans %}:
+			</div>
+			<div class="col-sm-3">
+				{{ app.user.pseudo }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				{% trans %}login.email{% endtrans %}:
+			</div>
+			<div class="col-sm-3">
+				{{ app.user.email }}
+			</div>
+		</div>
+		<a href="{{ path('app_profile_edit') }}" class="btn btn-outline-light">
+			{% trans %}create.modify{% endtrans %}
+		</a>
+	{% endif %}
 {% endblock %}

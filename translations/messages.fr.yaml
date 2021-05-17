@@ -48,3 +48,8 @@ login:
     nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
     noemail: Email invalide
     already: Email déjà vérifié
+
+profile:
+  title: Profil utilisateur de %pseudo%
+  edit: Modifier votre profil
+  save: Enregistrer

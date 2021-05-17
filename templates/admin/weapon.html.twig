@@ -59,8 +59,8 @@
                   {% for row in 1..6 %}
                     <div class="row gx-0">
                       {% for col in 1..5 %}
-                        <div class="col skill-container" id="skill-{{ side }}-{{ row }}-{{col}}">
-                          <img class="skill-container-img border border-secondary" src="{{asset('img/emptyCadre.png')}}"/>
+                        <div class="col skill-container" id="skill-{{ side }}-{{ row }}-{{ col }}">
+                          <img class="skill-container-img border border-secondary" src="{{ asset('img/emptyCadre.png') }}"/>
                         </div>
                       {% endfor %}
                     </div>
@@ -72,7 +72,9 @@
         </div>
       </div>
       <div id="skillForm" class="col api-form isHidden m-2 p-2">
-        <div class="fs-4 my-2">Skill :</div>
+        <div class="fs-4 my-2">
+          Skill :
+        </div>
         <input data-type="skey" type="text" class="w-100 my-2" placeholder="Skill Key"/>
         <input data-type="sikey" type="text" class="w-100 my-2" value="Image name"/>
         <div class="row my-2">
@@ -82,5 +84,4 @@
       </div>
     </div>
   </div>
-
 {% endblock %}
