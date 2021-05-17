@@ -11,7 +11,7 @@
 
   {% else %}
 
-    <div class="fs-3 mb-2">Profil utilisateur de{{app.user.pseudo}}</div>
+    <div class="fs-3 mb-2">Profil utilisateur de {{app.user.pseudo}}</div>
     <div class="row">
       <div class="col-sm-3">{% trans %}create.playername{% endtrans %}:</div>
       <div class="col-sm-3">{{app.user.pseudo}}</div>
@@ -20,7 +20,7 @@
       <div class="col-sm-3">{% trans %}login.email{% endtrans %}:</div>
       <div class="col-sm-3">{{app.user.email}}</div>
     </div>
-    {# Exemple : <a {{path('app_profil_eidt',{id: user.id})}} class="btn btn-outline-light">{% trans %}create.modify{% endtrans %}</a> #}
+    <a href="{{path('profile_edit')}}" class="btn btn-outline-light">{% trans %}create.modify{% endtrans %}</a>
 
   {% endif %}
 
