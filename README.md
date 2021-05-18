@@ -18,7 +18,7 @@ cd nwb
 composer install
 npm install
 npm run build
-php -S 0.0.0.0:4444 -t public
+sh start.sh
 ```
 
 ## Déploiement

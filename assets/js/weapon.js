@@ -11,10 +11,7 @@ const request = async (url, method, body, callback) => {
 	let args = { headers: { "content-Type": "application/json" }, method: method };
 	if (body != undefined) args.body = JSON.stringify(body);
 	let response = await fetch(url, args);
-	if (200 <= response.status && response.status < 300)
-		window.setTimeout(() => {
-			callback();
-		}, 500);
+	if (200 <= response.status && response.status < 300) window.setTimeout(() => callback(), 500);
 	else console.log("Erreur");
 };
 
@@ -44,14 +41,12 @@ getWeapon();
 $weaponSelect.addEventListener("change", () => {
 	var selectedValue = $weaponSelect.value;
 	if (selectedValue == 0) return fillCreateForm(undefined);
-	var selectedWeaponData = window.weapons.filter((w) => w.id == selectedValue)[0];
-	var data = [selectedWeaponData.weaponKey, selectedWeaponData.branch[0], selectedWeaponData.branch[1]];
-	fillCreateForm(data);
+	fillCreateForm(window.weapons.filter((w) => w.id == selectedValue)[0]);
 });
 
 /* Mise a jour du contenu en fonction de l'arme selectionnée */
-const fillCreateForm = (data) => {
-	if (data === undefined) {
+const fillCreateForm = (weapon) => {
+	if (weapon === undefined) {
 		$skillSection.classList.add("isHidden");
 		$weaponForm.querySelector('input[data-type="wkey"]').value = "";
 		$weaponForm.querySelector('input[data-type="b1key"]').value = "";
@@ -59,14 +54,19 @@ const fillCreateForm = (data) => {
 	} else {
 		$skillForm.classList.add("isHidden");
 		$skillSection.classList.remove("isHidden");
-		$weaponForm.querySelector('input[data-type="wkey"]').value = data[0];
-		$weaponForm.querySelector('input[data-type="b1key"]').value = data[1];
-		$weaponForm.querySelector('input[data-type="b2key"]').value = data[2];
-		$q("#branchName-1").innerText = data[1];
-		$q("#branchName-2").innerText = data[2];
-		// TODO : remplir les skills
-	}
-};
+		$weaponForm.querySelector('input[data-type="wkey"]').value = weapon.weaponKey;
+		$weaponForm.querySelector('input[data-type="b1key"]').value = weapon.branch[0];
+		$weaponForm.querySelector('input[data-type="b2key"]').value = weapon.branch[1];
+		$q("#branchName-1").innerText = weapon.branch[0];
+		$q("#branchName-2").innerText = weapon.branch[1];
+		weapon.skills.forEach(skill => {
+			var $skillContainer = $q(`#skill-${skill.side}-${skill.line}-${skill.col}`)
+			console.log($skillContainer);
+			$skillContainer.style.backgroundImage = "url('../newworld_png/abilities_bg2.png')"
+			$skillContainer.firstElementChild.setAttribute('src', "/newworld_png/bowability6_mod2.png")
+		})
+	};
+}
 
 /* Supprimer une arme */
 const $deleteWeaponBtn = $q('.weaponAction[data-type="delete"]');

@@ -2,16 +2,26 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\WeaponRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=WeaponRepository::class)
  */
+#[ApiResource(
+	normalizationContext: ['groups' => 'weapon'],
+	denormalizationContext: ['groups' => 'weapon'],
+	itemOperations: [
+		'get',
+		'patch',
+		'delete'
+	]
+)]
 class Weapon
 {
 	/**
@@ -24,16 +34,19 @@ class Weapon
 	/**
 	 * @ORM\Column(type="string", length=255)
 	 */
+	#[Groups(['weapon'])]
 	private $weaponKey;
 
 	/**
 	 * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="weapon")
 	 */
+	#[ApiSubresource()]
 	private $skills;
 
 	/**
 	 * @ORM\Column(type="json")
 	 */
+	#[Groups(['weapon'])]
 	private $branch = [];
 
 	public function __construct()

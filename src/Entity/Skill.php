@@ -3,15 +3,21 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\SkillRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
- * @ApiResource()
  * @ORM\Entity(repositoryClass=SkillRepository::class)
  */
+#[ApiResource()]
 class Skill
 {
+
 	/**
 	 * @ORM\Id
 	 * @ORM\GeneratedValue
@@ -27,7 +33,7 @@ class Skill
 	/**
 	 * @ORM\Column(type="integer")
 	 */
-	private $branch;
+	private $side;
 
 	/**
 	 * @ORM\ManyToOne(targetEntity=Weapon::class, inversedBy="skills")
@@ -43,6 +49,21 @@ class Skill
 	 * @ORM\Column(type="integer")
 	 */
 	private $line;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="children")
+	 */
+	private $parent;
+
+	/**
+	 * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="parent")
+	 */
+	private $children;
+
+	public function __construct()
+	{
+		$this->children = new ArrayCollection();
+	}
 
 	public function getId(): ?int
 	{
@@ -61,14 +82,14 @@ class Skill
 		return $this;
 	}
 
-	public function getBranch(): ?int
+	public function getSide(): ?int
 	{
-		return $this->branch;
+		return $this->side;
 	}
 
-	public function setBranch(int $branch): self
+	public function setSide(int $side): self
 	{
-		$this->branch = $branch;
+		$this->side = $side;
 
 		return $this;
 	}
@@ -105,6 +126,48 @@ class Skill
 	public function setLine(int $line): self
 	{
 		$this->line = $line;
+
+		return $this;
+	}
+
+	public function getParent(): ?self
+	{
+		return $this->parent;
+	}
+
+	public function setParent(?self $parent): self
+	{
+		$this->parent = $parent;
+
+		return $this;
+	}
+
+	/**
+	 * @return Collection|self[]
+	 */
+	public function getChildren(): Collection
+	{
+		return $this->children;
+	}
+
+	public function addChild(self $child): self
+	{
+		if (!$this->children->contains($child)) {
+			$this->children[] = $child;
+			$child->setParent($this);
+		}
+
+		return $this;
+	}
+
+	public function removeChild(self $child): self
+	{
+		if ($this->children->removeElement($child)) {
+			// set the owning side to null (unless already changed)
+			if ($child->getParent() === $this) {
+				$child->setParent(null);
+			}
+		}
 
 		return $this;
 	}
