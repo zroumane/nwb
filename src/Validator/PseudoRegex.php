@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class PseudoRegex extends Constraint
 {
-	public $message = "pseudo.regex";
+  public $message = "pseudo.regex";
 }

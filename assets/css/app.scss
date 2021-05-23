@@ -2,19 +2,19 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-	padding: 0;
-	background-image: url("../img/nwfond.jpg");
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: cover;
+  padding: 0;
+  background-image: url("../img/nwfond.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 
-	min-height: 100vh;
-	margin: 0;
-	display: grid;
-	grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 .navbar-nav > li {
-	padding-left: 10px;
-	padding-right: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }

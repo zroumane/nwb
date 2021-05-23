@@ -1,230 +1,230 @@
 ﻿{
-	"key": "Bow",
-	"counter": [19, 0, 0],
-	"branchName": ["Huntsman", "Bowman"],
-	"selectedMainSkills": ["", "", ""],
-	"skills": [
-		[
-			[
-				{
-					"key": "ArrowPlus25prcntRange",
-					"col": "2",
-					"active": false
-				},
-				{
-					"key": "RapidShot",
-					"col": "3",
-					"child": ["Rapid2secCDR"],
-					"active": false
-				},
-				{
-					"key": "Bow10prcntHeadShot",
-					"col": "5",
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "JumpBackShot",
-					"col": "1",
-					"child": ["JumpBackKnockback"],
-					"active": false
-				},
-				{
-					"key": "Rapid2secCDR",
-					"col": "3",
-					"parent": ["RapidShot"],
-					"child": ["RapidDMG3shot"],
-					"active": false
-				},
-				{
-					"key": "LootableArrows",
-					"col": "5",
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "JumpBackKnockback",
-					"col": "1",
-					"parent": ["JumpBackShot"],
-					"child": ["JumpBackDistance"],
-					"active": false
-				},
-				{
-					"key": "Bow10prcntAccuracy",
-					"col": "2",
-					"active": false
-				},
+  "key": "Bow",
+  "counter": [19, 0, 0],
+  "branchName": ["Huntsman", "Bowman"],
+  "selectedMainSkills": ["", "", ""],
+  "skills": [
+    [
+      [
+        {
+          "key": "ArrowPlus25prcntRange",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "RapidShot",
+          "col": "3",
+          "child": ["Rapid2secCDR"],
+          "active": false
+        },
+        {
+          "key": "Bow10prcntHeadShot",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "JumpBackShot",
+          "col": "1",
+          "child": ["JumpBackKnockback"],
+          "active": false
+        },
+        {
+          "key": "Rapid2secCDR",
+          "col": "3",
+          "parent": ["RapidShot"],
+          "child": ["RapidDMG3shot"],
+          "active": false
+        },
+        {
+          "key": "LootableArrows",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "JumpBackKnockback",
+          "col": "1",
+          "parent": ["JumpBackShot"],
+          "child": ["JumpBackDistance"],
+          "active": false
+        },
+        {
+          "key": "Bow10prcntAccuracy",
+          "col": "2",
+          "active": false
+        },
 
-				{
-					"key": "PenetratingShot",
-					"col": "4",
-					"child": ["PenetratingDMG"],
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "RapidDMG3shot",
-					"col": "3",
-					"parent": ["Rapid2secCDR"],
-					"active": false
-				},
-				{
-					"key": "PenetratingDMG",
-					"col": "4",
-					"parent": ["PenetratingShot"],
-					"child": ["PenetratingCharge"],
-					"active": false
-				},
-				{
-					"key": "Bow20prcntHeadShot",
-					"col": "5",
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "JumpBackDistance",
-					"col": "1",
-					"parent": ["JumpBackKnockback"],
-					"active": false
-				},
-				{
-					"key": "Bow20prcntAccuracy",
-					"col": "2",
-					"active": false
-				},
-				{
-					"key": "BowLegSlow",
-					"col": "5",
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "PenetratingCharge",
-					"col": "4",
-					"parent": ["PenetratingDMG"],
-					"active": false
-				}
-			]
-		],
-		[
-			[
-				{
-					"key": "ArrowPlus5prcntDMG",
-					"col": "2",
-					"active": false
-				},
-				{
-					"key": "SpreadShot",
-					"col": "3",
-					"child": ["SpreadStartup"],
-					"active": false
-				},
-				{
-					"key": "BowPlus20prcntKnockback",
-					"col": "4",
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "SmokeShot",
-					"col": "1",
-					"child": ["SmokeAoE"],
-					"active": false
-				},
-				{
-					"key": "SpreadStartup",
-					"col": "3",
-					"parent": ["SpreadShot"],
-					"child": ["Spread5Arrows"],
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "SmokeAoE",
-					"col": "1",
-					"parent": ["SmokeShot"],
-					"child": ["SmokeDuration"],
-					"active": false
-				},
-				{
-					"key": "Bow10prcntCDRonKill",
-					"col": "2",
-					"active": false
-				},
-				{
-					"key": "RainOfArrows",
-					"col": "5",
-					"child": ["RainofArrowsAoE"],
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "SmokeDuration",
-					"col": "1",
-					"parent": ["SmokeAoE"],
-					"child": ["SmokeVision"],
-					"active": false
-				},
-				{
-					"key": "Spread5Arrows",
-					"col": "3",
-					"parent": ["SpreadStartup"],
-					"active": false
-				},
-				{
-					"key": "RainofArrowsAoE",
-					"col": "5",
-					"parent": ["RainOfArrows"],
-					"child": ["RainofArrowsSlow"],
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "SmokeVision",
-					"col": "1",
-					"parent": ["SmokeDuration"],
-					"active": false
-				},
-				{
-					"key": "BowCDR10prcnt",
-					"col": "4",
-					"active": false
-				},
-				{
-					"key": "RainofArrowsSlow",
-					"col": "5",
-					"parent": ["RainofArrowsAoE"],
-					"active": false
-				}
-			],
-			[
-				{
-					"key": "BowOneArrowConsume",
-					"col": "3",
-					"active": false
-				}
-			]
-		]
-	],
-	"lines": [
-		[
-			[1, 2, 1, 5],
-			[3, 1, 3, 4],
-			[4, 3, 4, 6]
-		],
-		[
-			[1, 2, 1, 5],
-			[3, 1, 3, 4],
-			[5, 3, 5, 5]
-		]
-	]
+        {
+          "key": "PenetratingShot",
+          "col": "4",
+          "child": ["PenetratingDMG"],
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "RapidDMG3shot",
+          "col": "3",
+          "parent": ["Rapid2secCDR"],
+          "active": false
+        },
+        {
+          "key": "PenetratingDMG",
+          "col": "4",
+          "parent": ["PenetratingShot"],
+          "child": ["PenetratingCharge"],
+          "active": false
+        },
+        {
+          "key": "Bow20prcntHeadShot",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "JumpBackDistance",
+          "col": "1",
+          "parent": ["JumpBackKnockback"],
+          "active": false
+        },
+        {
+          "key": "Bow20prcntAccuracy",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "BowLegSlow",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "PenetratingCharge",
+          "col": "4",
+          "parent": ["PenetratingDMG"],
+          "active": false
+        }
+      ]
+    ],
+    [
+      [
+        {
+          "key": "ArrowPlus5prcntDMG",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "SpreadShot",
+          "col": "3",
+          "child": ["SpreadStartup"],
+          "active": false
+        },
+        {
+          "key": "BowPlus20prcntKnockback",
+          "col": "4",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "SmokeShot",
+          "col": "1",
+          "child": ["SmokeAoE"],
+          "active": false
+        },
+        {
+          "key": "SpreadStartup",
+          "col": "3",
+          "parent": ["SpreadShot"],
+          "child": ["Spread5Arrows"],
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "SmokeAoE",
+          "col": "1",
+          "parent": ["SmokeShot"],
+          "child": ["SmokeDuration"],
+          "active": false
+        },
+        {
+          "key": "Bow10prcntCDRonKill",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "RainOfArrows",
+          "col": "5",
+          "child": ["RainofArrowsAoE"],
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "SmokeDuration",
+          "col": "1",
+          "parent": ["SmokeAoE"],
+          "child": ["SmokeVision"],
+          "active": false
+        },
+        {
+          "key": "Spread5Arrows",
+          "col": "3",
+          "parent": ["SpreadStartup"],
+          "active": false
+        },
+        {
+          "key": "RainofArrowsAoE",
+          "col": "5",
+          "parent": ["RainOfArrows"],
+          "child": ["RainofArrowsSlow"],
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "SmokeVision",
+          "col": "1",
+          "parent": ["SmokeDuration"],
+          "active": false
+        },
+        {
+          "key": "BowCDR10prcnt",
+          "col": "4",
+          "active": false
+        },
+        {
+          "key": "RainofArrowsSlow",
+          "col": "5",
+          "parent": ["RainofArrowsAoE"],
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "BowOneArrowConsume",
+          "col": "3",
+          "active": false
+        }
+      ]
+    ]
+  ],
+  "lines": [
+    [
+      [1, 2, 1, 5],
+      [3, 1, 3, 4],
+      [4, 3, 4, 6]
+    ],
+    [
+      [1, 2, 1, 5],
+      [3, 1, 3, 4],
+      [5, 3, 5, 5]
+    ]
+  ]
 }

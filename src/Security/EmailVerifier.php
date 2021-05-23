@@ -14,51 +14,51 @@ use Symfony\Component\Mime\Address;
 
 class EmailVerifier
 {
-	private $verifyEmailHelper;
-	private $mailer;
-	private $entityManager;
+  private $verifyEmailHelper;
+  private $mailer;
+  private $entityManager;
 
-	public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $manager)
-	{
-		$this->verifyEmailHelper = $helper;
-		$this->mailer = $mailer;
-		$this->entityManager = $manager;
-	}
+  public function __construct(VerifyEmailHelperInterface $helper, MailerInterface $mailer, EntityManagerInterface $manager)
+  {
+    $this->verifyEmailHelper = $helper;
+    $this->mailer = $mailer;
+    $this->entityManager = $manager;
+  }
 
-	public function sendEmailConfirmation(UserInterface $user): void
-	{
-		$user_email = $user->getEmail();
-		$user_id = $user->getId();
+  public function sendEmailConfirmation(UserInterface $user): void
+  {
+    $user_email = $user->getEmail();
+    $user_id = $user->getId();
 
-		$email = new TemplatedEmail();
-		$email->from(new Address("noreply@newworld-builder.com", "NewWorld-Builder.com"));
-		$email->to($user_email);
-		$email->subject("Email Verification");
-		$email->htmlTemplate("security/confirmation_email.html.twig");
+    $email = new TemplatedEmail();
+    $email->from(new Address("noreply@newworld-builder.com", "NewWorld-Builder.com"));
+    $email->to($user_email);
+    $email->subject("Email Verification");
+    $email->htmlTemplate("security/confirmation_email.html.twig");
 
-		$signatureComponents = $this->verifyEmailHelper->generateSignature("app_verify_email", $user_id, $user_email, ["id" => $user_id]);
+    $signatureComponents = $this->verifyEmailHelper->generateSignature("app_verify_email", $user_id, $user_email, ["id" => $user_id]);
 
-		$context = $email->getContext();
-		$context["signedUrl"] = $signatureComponents->getSignedUrl();
-		$context["expiresAtMessageKey"] = $signatureComponents->getExpirationMessageKey();
-		$context["expiresAtMessageData"] = $signatureComponents->getExpirationMessageData();
-		$context["pseudo"] = $user->getPseudo();
+    $context = $email->getContext();
+    $context["signedUrl"] = $signatureComponents->getSignedUrl();
+    $context["expiresAtMessageKey"] = $signatureComponents->getExpirationMessageKey();
+    $context["expiresAtMessageData"] = $signatureComponents->getExpirationMessageData();
+    $context["pseudo"] = $user->getPseudo();
 
-		$email->context($context);
+    $email->context($context);
 
-		$this->mailer->send($email);
-	}
+    $this->mailer->send($email);
+  }
 
-	/**
-	 * @throws VerifyEmailExceptionInterface
-	 */
-	public function handleEmailConfirmation(Request $request, UserInterface $user): void
-	{
-		$this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
+  /**
+   * @throws VerifyEmailExceptionInterface
+   */
+  public function handleEmailConfirmation(Request $request, UserInterface $user): void
+  {
+    $this->verifyEmailHelper->validateEmailConfirmation($request->getUri(), $user->getId(), $user->getEmail());
 
-		$user->setIsVerified(true);
+    $user->setIsVerified(true);
 
-		$this->entityManager->persist($user);
-		$this->entityManager->flush();
-	}
+    $this->entityManager->persist($user);
+    $this->entityManager->flush();
+  }
 }

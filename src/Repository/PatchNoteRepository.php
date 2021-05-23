@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class PatchNoteRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, PatchNote::class);
-	}
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, PatchNote::class);
+  }
 
-	// /**
-	//  * @return PatchNote[] Returns an array of PatchNote objects
-	//  */
-	/*
+  // /**
+  //  * @return PatchNote[] Returns an array of PatchNote objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -36,7 +36,7 @@ class PatchNoteRepository extends ServiceEntityRepository
     }
     */
 
-	/*
+  /*
     public function findOneBySomeField($value): ?PatchNote
     {
         return $this->createQueryBuilder('p')

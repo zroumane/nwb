@@ -17,55 +17,45 @@ function onEditOperationName(newOperationName) {
 }
 
 function updateURL() {
-    var newSearch =
-        "?" +
-        Object.keys(initParameters)
-            .filter(function (key) {
-                return Boolean(initParameters[key]);
-            })
-            .map(function (key) {
-                return encodeURIComponent(key) + "=" + encodeURIComponent(initParameters[key]);
-            })
-            .join("&");
+    var newSearch = '?' + Object.keys(initParameters).filter(function (key) {
+        return Boolean(initParameters[key]);
+    }).map(function (key) {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(initParameters[key]);
+    }).join('&');
     history.replaceState(null, null, newSearch);
 }
 
 function graphQLFetcher(graphQLParams) {
     return fetch(entrypoint, {
-        method: "post",
+        method: 'post',
         headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(graphQLParams),
-        credentials: "include",
-    })
-        .then(function (response) {
-            return response.text();
-        })
-        .then(function (responseBody) {
-            try {
-                return JSON.parse(responseBody);
-            } catch (error) {
-                return responseBody;
-            }
-        });
+        credentials: 'include'
+    }).then(function (response) {
+        return response.text();
+    }).then(function (responseBody) {
+        try {
+            return JSON.parse(responseBody);
+        } catch (error) {
+            return responseBody;
+        }
+    });
 }
 
-window.onload = function () {
-    var data = JSON.parse(document.getElementById("graphiql-data").innerText);
+window.onload = function() {
+    var data = JSON.parse(document.getElementById('graphiql-data').innerText);
     entrypoint = data.entrypoint;
 
     var search = window.location.search;
-    search
-        .substr(1)
-        .split("&")
-        .forEach(function (entry) {
-            var eq = entry.indexOf("=");
-            if (eq >= 0) {
-                initParameters[decodeURIComponent(entry.slice(0, eq))] = decodeURIComponent(entry.slice(eq + 1));
-            }
-        });
+    search.substr(1).split('&').forEach(function (entry) {
+        var eq = entry.indexOf('=');
+        if (eq >= 0) {
+            initParameters[decodeURIComponent(entry.slice(0, eq))] = decodeURIComponent(entry.slice(eq + 1));
+        }
+    });
 
     if (initParameters.variables) {
         try {
@@ -83,8 +73,8 @@ window.onload = function () {
             operationName: initParameters.operationName,
             onEditQuery: onEditQuery,
             onEditVariables: onEditVariables,
-            onEditOperationName: onEditOperationName,
+            onEditOperationName: onEditOperationName
         }),
-        document.getElementById("graphiql")
+        document.getElementById('graphiql')
     );
-};
+}

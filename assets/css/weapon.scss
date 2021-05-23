@@ -1,31 +1,31 @@
 #weaponForm {
-	border: 1px white solid;
-	padding: 0.5rem;
+  border: 1px white solid;
+  padding: 0.5rem;
 }
 
 .api-form div input,
 select {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .isHidden {
-	display: none;
+  display: none;
 }
 
 .svgContainer {
-	position: absolute;
-	width: 100%;
-	height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 .skill-container {
-	background-position: center;
-	// background-image: url('../img/emptyCadre.png');
-	background-size: 100%, 100%;
-	z-index: 10;
+  background-position: center;
+  // background-image: url('../img/emptyCadre.png');
+  background-size: 100%, 100%;
+  z-index: 10;
 }
 
 .skill-container-img {
-	width: 100%;
+  width: 100%;
 }

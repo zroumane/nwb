@@ -11,51 +11,51 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends AbstractController
 {
-	/**
-	 * @Route("/profile")
-	 */
-	public function index(): Response
-	{
-		if ($this->getUser()) {
-			return $this->render("profile/index.html.twig");
-		} else {
-			return $this->redirectToRoute("app_security_login");
-		}
-	}
+  /**
+   * @Route("/profile")
+   */
+  public function index(): Response
+  {
+    if ($this->getUser()) {
+      return $this->render("profile/index.html.twig");
+    } else {
+      return $this->redirectToRoute("app_security_login");
+    }
+  }
 
-	/**
-	 * @Route("/profile/{id}", requirements={"id"="\d+"})
-	 */
-	public function profile(User $user): Response
-	{
-		if ($this->getUser() == $user) {
-			return $this->redirectToRoute("app_profil_index");
-		} else {
-			return $this->render("profile/index.html.twig", [
-				"user" => $user,
-			]);
-		}
-	}
+  /**
+   * @Route("/profile/{id}", requirements={"id"="\d+"})
+   */
+  public function profile(User $user): Response
+  {
+    if ($this->getUser() == $user) {
+      return $this->redirectToRoute("app_profil_index");
+    } else {
+      return $this->render("profile/index.html.twig", [
+        "user" => $user,
+      ]);
+    }
+  }
 
-	/**
-	 * @Route("/profile/edit")
-	 */
-	public function edit(Request $request): Response
-	{
-		$user = $this->getUser();
-		$form = $this->createForm(EditProfileType::class, $user);
-		$form->handleRequest($request);
+  /**
+   * @Route("/profile/edit")
+   */
+  public function edit(Request $request): Response
+  {
+    $user = $this->getUser();
+    $form = $this->createForm(EditProfileType::class, $user);
+    $form->handleRequest($request);
 
-		if ($form->isSubmitted() && $form->isValid()) {
-			$entityManager = $this->getDoctrine()->getManager();
-			$entityManager->persist($user);
-			$entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->persist($user);
+      $entityManager->flush();
 
-			return $this->redirectToRoute("app_profile_index");
-		}
+      return $this->redirectToRoute("app_profile_index");
+    }
 
-		return $this->render("profile/edit.html.twig", [
-			"editProfileForm" => $form->createView(),
-		]);
-	}
+    return $this->render("profile/edit.html.twig", [
+      "editProfileForm" => $form->createView(),
+    ]);
+  }
 }

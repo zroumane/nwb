@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class PasswordContain extends Constraint
 {
-	public $messageLower = "password.lower";
-	public $messageUpper = "password.upper";
-	public $messageDigit = "password.digit";
+  public $messageLower = "password.lower";
+  public $messageUpper = "password.upper";
+  public $messageDigit = "password.digit";
 }

@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class WeaponRepository extends ServiceEntityRepository
 {
-	public function __construct(ManagerRegistry $registry)
-	{
-		parent::__construct($registry, Weapon::class);
-	}
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Weapon::class);
+  }
 
-	// /**
-	//  * @return Weapon[] Returns an array of Weapon objects
-	//  */
-	/*
+  // /**
+  //  * @return Weapon[] Returns an array of Weapon objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('w')
@@ -36,7 +36,7 @@ class WeaponRepository extends ServiceEntityRepository
     }
     */
 
-	/*
+  /*
     public function findOneBySomeField($value): ?Weapon
     {
         return $this->createQueryBuilder('w')

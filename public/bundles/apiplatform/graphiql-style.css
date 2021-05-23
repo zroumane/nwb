@@ -38,9 +38,8 @@ body {
     border-right: 1px solid white;
 }
 
-#graphiql .graphiql-container .doc-explorer-title-bar,
-#graphiql .graphiql-container .history-title-bar {
-    background: #3caab5;
+#graphiql .graphiql-container .doc-explorer-title-bar, #graphiql .graphiql-container .history-title-bar {
+    background: #3CAAB5;
     height: 69px;
     display: flex;
     align-items: center;
@@ -52,8 +51,7 @@ body {
     margin: 0;
 }
 
-#graphiql .graphiql-container .doc-explorer-title,
-#graphiql .graphiql-container .history-title {
+#graphiql .graphiql-container .doc-explorer-title, #graphiql .graphiql-container .history-title {
     text-transform: uppercase;
     color: white;
 }
@@ -62,8 +60,7 @@ body {
     background-color: #288690;
 }
 
-#graphiql .graphiql-container .history-contents,
-#graphiql .graphiql-container .doc-explorer-contents {
+#graphiql .graphiql-container .history-contents, #graphiql .graphiql-container .doc-explorer-contents {
     top: 69px;
     box-sizing: border-box;
 }
@@ -88,8 +85,7 @@ body {
     border-top: 2px solid #85cdd4;
 }
 
-#graphiql .graphiql-container .field-name,
-#graphiql .cm-property {
+#graphiql .graphiql-container .field-name, #graphiql .cm-property {
     color: #28858f;
 }
 
@@ -110,14 +106,14 @@ body {
     background: white;
 }
 
-#graphiql .graphiql-container .execute-options > li.selected,
-#graphiql .graphiql-container .toolbar-menu-items > li.hover,
-#graphiql.graphiql-container .toolbar-menu-items > li:active,
-#graphiql .graphiql-container .toolbar-menu-items > li:hover,
-#graphiql.graphiql-container .toolbar-select-options > li.hover,
-#graphiql .graphiql-container .toolbar-select-options > li:active,
-#graphiql .graphiql-container .toolbar-select-options > li:hover,
-#graphiql .graphiql-container .history-contents > p:hover,
-#graphiql .graphiql-container .history-contents > p:active {
+#graphiql .graphiql-container .execute-options>li.selected,
+#graphiql .graphiql-container .toolbar-menu-items>li.hover,
+#graphiql.graphiql-container .toolbar-menu-items>li:active,
+#graphiql .graphiql-container .toolbar-menu-items>li:hover,
+#graphiql.graphiql-container .toolbar-select-options>li.hover,
+#graphiql .graphiql-container .toolbar-select-options>li:active,
+#graphiql .graphiql-container .toolbar-select-options>li:hover,
+#graphiql .graphiql-container .history-contents>p:hover,
+#graphiql .graphiql-container .history-contents>p:active {
     background: #288690;
 }
