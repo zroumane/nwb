@@ -53,3 +53,4 @@ profile:
   title: Profil utilisateur de %pseudo%
   edit: Modifier votre profil
   save: Enregistrer
+  resetpass: Modifier votre mot de passe
