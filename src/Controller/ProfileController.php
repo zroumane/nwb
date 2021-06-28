@@ -36,26 +36,4 @@ class ProfileController extends AbstractController
       ]);
     }
   }
-
-  /**
-   * @Route("/profile/edit")
-   */
-  public function edit(Request $request): Response
-  {
-    $user = $this->getUser();
-    $form = $this->createForm(EditProfileType::class, $user);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-      $entityManager = $this->getDoctrine()->getManager();
-      $entityManager->persist($user);
-      $entityManager->flush();
-
-      return $this->redirectToRoute("app_profile_index");
-    }
-
-    return $this->render("profile/edit.html.twig", [
-      "editProfileForm" => $form->createView(),
-    ]);
-  }
 }
