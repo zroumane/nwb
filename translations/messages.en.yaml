@@ -42,6 +42,7 @@ login:
   remember: Remember me
   agreeterms: Accept terms
   incorrect: Invalid credentials
+  resetpass: Forgot your password ?
   verify:
     invalid: Unable to verify this account
     check: Your account has been verified. Welcome !

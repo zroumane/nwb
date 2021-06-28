@@ -41,7 +41,11 @@
             <label class="form-check-label" for="flexCheckDefault">
               {% trans %}login.remember{% endtrans %}
             </label>
+            <a href="{{ path('app_forgot_password_request') }}">
+              {% trans %}login.resetpass{% endtrans %}
+            </a>
           </div>
+
 
           <div class="p-2 mb-2">
             <button class="btn btn-lg btn-outline-light" type="submit">

@@ -42,6 +42,7 @@ login:
   remember: Se souvenir de moi.
   agreeterms: Accepter les termes et conditions.
   incorrect: Identifiants invalides.
+  resetpass: Mot de passe oublié ?
   verify:
     invalid: Impossible de vérifier ce compte
     check: Votre compte a bien été confirmé. Bienvenue !
