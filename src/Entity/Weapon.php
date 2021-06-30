@@ -9,17 +9,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=WeaponRepository::class)
  */
 #[ApiResource(
 	normalizationContext: ['groups' => 'weapon'],
-	denormalizationContext: ['groups' => 'weapon'],
+	collectionOperations: [
+		'get',
+		'post' => ['security' => 'is_granted("ROLE_ADMIN")']
+	],
 	itemOperations: [
 		'get',
-		'patch',
-		'delete'
+		'patch' => ['security' => 'is_granted("ROLE_ADMIN")'],
+		'delete' => ['security' => 'is_granted("ROLE_ADMIN")']
 	]
 )]
 class Weapon
@@ -29,6 +33,7 @@ class Weapon
 	 * @ORM\GeneratedValue
 	 * @ORM\Column(type="integer")
 	 */
+	#[Groups(['weapon'])]
 	private $id;
 
 	/**

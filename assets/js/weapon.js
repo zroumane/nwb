@@ -5,6 +5,11 @@ const $weaponSelect = $q("#weaponSelect");
 const $weaponForm = $q("#weaponForm");
 const $skillSection = $q("#skillSection");
 const $skillForm = $q("#skillForm");
+const $deleteWeaponBtn = $q('.weaponAction[data-type="delete"]');
+const $sendWeaponBtn = $q('.weaponAction[data-type="submit"]');
+const $deleteSkillBtn = $q('.skillAction[data-type="delete"]');
+const $sendSkillBtn = $q('.skillAction[data-type="submit"]');
+
 
 /* Fonction de Request adaptative */
 const request = async (url, method, body, callback) => {
@@ -37,6 +42,28 @@ const getWeapon = () => {
 };
 getWeapon();
 
+/* Fonction de mise a jour des skills */
+const getSkills = () => {
+  fetch(`/api/weapons/${window.currentWeapon}/skills`)
+  .then((response) => response.json())
+  .then((data) => {
+    window.currentSkills = data["hydra:member"]
+    $qa(".skill-container").forEach((c) => {
+      var d = c.id.split("-")
+      var match = window.currentSkills.filter(s => s.side == d[1] && s.line == d[2] && s.col == d[3])[0]
+      if(match){
+        c.style.backgroundImage = `url('')`;
+        c.firstElementChild.setAttribute("src", `${match.skillKey}.png`);
+        c.setAttribute('skill-id', match.id)
+      }else{
+        c.style.backgroundImage = `url('')`;
+        c.firstElementChild.setAttribute("src", "../img/emptyCadre.png");
+        c.setAttribute('skill-id', 0)
+      }
+    });
+  });
+};
+
 /* Au changement d'arme */
 $weaponSelect.addEventListener("change", () => {
   var selectedValue = $weaponSelect.value;
@@ -59,24 +86,27 @@ const fillCreateForm = (weapon) => {
     $weaponForm.querySelector('input[data-type="b2key"]').value = weapon.branch[1];
     $q("#branchName-1").innerText = weapon.branch[0];
     $q("#branchName-2").innerText = weapon.branch[1];
-    weapon.skills.forEach((skill) => {
-      var $skillContainer = $q(`#skill-${skill.side}-${skill.line}-${skill.col}`);
-      console.log($skillContainer);
-      $skillContainer.style.backgroundImage = "url('../newworld_png/abilities_bg2.png')";
-      $skillContainer.firstElementChild.setAttribute("src", "/newworld_png/bowability6_mod2.png");
-    });
+    window.currentWeapon = weapon.id
+    getSkills()
   }
 };
 
 /* Supprimer une arme */
-const $deleteWeaponBtn = $q('.weaponAction[data-type="delete"]');
 $deleteWeaponBtn.addEventListener("click", () => {
   if ($weaponSelect.value == 0) return;
   request(`/api/weapons/${$weaponSelect.value}`, "delete", undefined, getWeapon);
 });
 
+
+/* Supprimer un skill */
+$deleteSkillBtn.addEventListener("click", () => {
+  var skillId = $skillForm.querySelector('[data-type="sid"]').value
+  if (skillId == 0) return;
+  request(`/api/skills/${skillId}`, "delete", undefined, getSkills);
+});
+
+
 /* Ajouter / Mettre a jour une arme */
-const $sendWeaponBtn = $q('.weaponAction[data-type="submit"]');
 $sendWeaponBtn.addEventListener("click", () => {
   var method,
     body,
@@ -93,10 +123,16 @@ $sendWeaponBtn.addEventListener("click", () => {
 /* Au click d'un contenaire skill */
 $qa(".skill-container").forEach((skillContainer) => {
   skillContainer.addEventListener("click", () => {
+    console.log("aa")
     var data = skillContainer.id.split("-");
     var side = data[1];
     var row = data[2];
     var col = data[3];
+    var skillId = skillContainer.getAttribute('skill-id')
     $skillForm.classList.remove("isHidden");
+    var match = window.currentSkills.filter(s => s.id == skillId)[0]
+    $skillForm.querySelector('[data-type="skey"]').value = match ? match.skillKey : ''
+    $skillForm.querySelector('[data-type="sikey"]').value = match ? match.skillKey : ''
+    $skillForm.querySelector('[data-type="sid"]').value = skillId
   });
 });

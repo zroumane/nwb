@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\SkillRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -14,7 +13,16 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 /**
  * @ORM\Entity(repositoryClass=SkillRepository::class)
  */
-#[ApiResource()]
+#[ApiResource(
+  collectionOperations: [
+    'post' => ['security' => 'is_granted("ROLE_ADMIN")']
+  ],
+  itemOperations: [
+    'get',
+    'patch' => ['security' => 'is_granted("ROLE_ADMIN")'],
+    'delete' => ['security' => 'is_granted("ROLE_ADMIN")']
+  ]
+)]
 class Skill
 {
   /**
@@ -51,6 +59,7 @@ class Skill
 
   /**
    * @ORM\ManyToOne(targetEntity=Skill::class, inversedBy="children")
+   * @ORM\JoinColumn(onDelete="SET NULL")
    */
   private $parent;
 
@@ -58,6 +67,7 @@ class Skill
    * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="parent")
    */
   private $children;
+
 
   public function __construct()
   {
