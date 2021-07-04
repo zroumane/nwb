@@ -2,7 +2,7 @@
 
 Website : newworld-builder.com
 
-Dev Demo : http://51.195.45.151:4444
+Dev Demo : https://nwb.zph.ovh
 
 ## Requis
 
