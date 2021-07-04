@@ -1,7 +1,7 @@
 meta:
   sitetitle: New World Builder | Build, Database & PatchNote
 
-navbar:  
+navbar:
   build: Builds
   create: Create
   patchnote: PatchNote
@@ -10,7 +10,6 @@ navbar:
   profil: Profile
 
 builds:
-
 
 create:
   buildname: Build name
@@ -24,6 +23,8 @@ create:
   weaponalert: Please choose a weapon first
   save: Save
   reset: Reset
+  modify: Modify
+  connect: Please login to be able to create a build.
 
 patchnote:
   goback: Go back to list
@@ -41,9 +42,16 @@ login:
   remember: Remember me
   agreeterms: Accept terms
   incorrect: Invalid credentials
+  resetpass: Forgot your password ?
   verify:
     invalid: Unable to verify this account
     check: Your account has been verified. Welcome !
     nocheck: Please verify your account. We just sent you a verification email.
     noemail: Invalid Email
+    already: Email already verified
 
+profile:
+  title: User profile of %pseudo%
+  edit: Modify your profile
+  save: Save
+  resetpass: Modify password

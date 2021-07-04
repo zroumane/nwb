@@ -1,7 +1,7 @@
 meta:
   sitetitle: New World Builder | Build, Database & PatchNote
 
-navbar:  
+navbar:
   build: Builds
   create: Créer
   patchnote: Patch Note
@@ -10,7 +10,6 @@ navbar:
   profil: Profil
 
 builds:
-
 
 create:
   buildname: Nom du build
@@ -24,6 +23,8 @@ create:
   weaponalert: Veuillez dabord choisir une arme
   save: Enregistrer
   reset: Réinitialiser
+  modify: Modifier
+  connect: Veuillez vous connecter afin de pouvoir créer un build.
 
 patchnote:
   goback: Revenir
@@ -41,9 +42,16 @@ login:
   remember: Se souvenir de moi.
   agreeterms: Accepter les termes et conditions.
   incorrect: Identifiants invalides.
+  resetpass: Mot de passe oublié ?
   verify:
     invalid: Impossible de vérifier ce compte
     check: Votre compte a bien été confirmé. Bienvenue !
     nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
     noemail: Email invalide
+    already: Email déjà vérifié
 
+profile:
+  title: Profil utilisateur de %pseudo%
+  edit: Modifier votre profil
+  save: Enregistrer
+  resetpass: Modifier votre mot de passe

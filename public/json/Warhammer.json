@@ -1,326 +1,327 @@
 {
-    "key" : "Warhammer",
-    "counter": [19, 0, 0],
-    "branchName" : ["Juggernaut", "CrowdCrusher"],
-    "selectedMainSkills" : ["", "", ""],
-    "skills" : [
-        [
-            [
-                {
-                    "key" : "BlockBreaker",
-                    "col" : "1",
-                    "active" : false              
-                },
-                {
-                    "key" : "Tree0Passive1",
-                    "col" : "2",
-                    "active" : false              
-                },
-                {
-                    "key" : "Tree0Passive4",
-                    "col" : "4",
-                    "active" : false              
-                }
-            ],
-            [
-                {
-                    "key" : "BlockBreaker_Mod1",
-                    "col" : "1",
-                    "active" : false
-                },
-                {
-                    "key" : "MightyGavel",
-                    "col" : "3",
-                    "active" : false            
-                },
-                {
-                    "key" : "Tree0Passive5",
-                    "col" : "4",
-                    "active" : false            
-                }                       
-            ],
-            [
-                {
-                    "key" : "Tree0Passive2",
-                    "col" : "2",
-                    "active" : false                
-                },
-                {
-                    "key" : "MightyGavel_Mod1",
-                    "col" : "3",
-                    "active" : false
-                },
-                {
-                    "key" : "WreckingBall",
-                    "col" : "5",
-                    "active" : false
-                }                   
-            ],
-            [
-                {
-                    "key" : "Tree0Passive3",
-                    "col" : "2",
-                    "active" : false                
-                },
-                {
-                    "key" : "MightyGavel_Mod2",
-                    "col" : "3",
-                    "active" : false            
-                },
-                {
-                    "key" : "WreckingBall_Mod1",
-                    "col" : "5",
-                    "active" : false
-                }
-            ],
-            [
-                {
-                    "key" : "BlockBreaker_Mod2",
-                    "col" : "1",
-                    "active" : false
-                },
-                {
-                    "key" : "MightyGavel_Mod3",
-                    "col" : "3",
-                    "active" : false
-                },
-                {
-                    "key" : "DemolitionExpert",
-                    "col" : "5",
-                    "active" : false
-                }
-            ],
-            [
-                {
-                    "key" : "JusticeForAll",
-                    "col" : "3",
-                    "active" : false
-                }
-            ]
-        ],
-        [
-            [
-                {
-                    "key" : "Tree1Passive1",
-                    "col" : "2",
-                    "active" : false
-                },
-                {
-                    "key" : "ClearOut",
-                    "col" : "3",
-                    "active" : false
-                },
-                {
-                    "key" : "Tree1Passive3",
-                    "col" : "4",
-                    "active" : false
-                }
-            ],
-            [
-                {
-                    "key" : "Shockwave",
-                    "col" : "1",
-                    "active" : false
-                },
-                {
-                    "key" : "ClearOut_Mod1",
-                    "col" : "3",
-                    "active" : false
-                },
-                {
-                    "key" : "Tree1Passive4",
-                    "col" : "4",
-                    "active" : false
-                } 
-            ],
-            [
-                {
-                    "key" : "Shockwave_Mod1",
-                    "col" : "1",
-                    "active" : false
-                },
-                {
-                    "key" : "Tree1Passive2",
-                    "col" : "2",
-                    "active" : false
-                },
-                {
-                    "key" : "PathOfDestiny",
-                    "col" : "5",
-                    "active" : false
-                }
-            ],
-            [
-                {
-                    "key" : "ClearOut_Mod4",
-                    "col" : "2",
-                    "active" : false
-                },
-                {
-                    "key" : "ClearOut_Mod3",
-                    "col" : "3",
-                    "active" : false
-                },
-                {
-                    "key" : "PathOfDestiny_Mod1",
-                    "col" : "5",
-                    "active" : false
-                }
-	
-            ],
-            [
-                {
-                    "key" : "Shockwave_Mod2",
-                    "col" : "1",
-                    "active" : false
-                },
-                {
-                    "key" : "ClearOut_Mod2",
-                    "col" : "3",
-                    "active" : false
-                },
-                {
-                    "key" : "PathOfDestiny_Mod2",
-                    "col" : "5",
-                    "active" : false
-                } 
-            ],
-            [
-                {
-                    "key" : "Shockwave_Mod3",
-                    "col" : "3",
-                    "active" : false
-                }
-            ]
-        ]
+  "key": "Warhammer",
+  "counter": [19, 0, 0],
+  "branchName": ["Juggernaut", "CrowdCrusher"],
+  "selectedMainSkills": ["", "", ""],
+  "skills": [
+    [
+      [
+        {
+          "key": "BlockBreaker",
+          "col": "1",
+          "active": false
+        },
+        {
+          "key": "Tree0Passive1",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "Tree0Passive4",
+          "col": "4",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "BlockBreaker_Mod1",
+          "col": "1",
+          "active": false
+        },
+        {
+          "key": "MightyGavel",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "Tree0Passive5",
+          "col": "4",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "Tree0Passive2",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "MightyGavel_Mod1",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "WreckingBall",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "Tree0Passive3",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "MightyGavel_Mod2",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "WreckingBall_Mod1",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "BlockBreaker_Mod2",
+          "col": "1",
+          "active": false
+        },
+        {
+          "key": "MightyGavel_Mod3",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "DemolitionExpert",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "JusticeForAll",
+          "col": "3",
+          "active": false
+        }
+      ]
     ],
-    "lines" : [
-        [
-            {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "1"
-            },		
-		    {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "2"
-            },
-		    {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },		
-           {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "3"
-            },		 
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "4"
-            },	
-            { 
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "5"
-            },			
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "2"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },	            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "4"
-            },	
-           {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "5"
-            },
-			            {
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "6"
-            },
-            {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "5"
-            }	
-        ],
-        [
-            {
-                "type" : "Start",
-                "col" : "3",
-                "row" : "1"
-            },		
-		    {
-                "type" : "Start",
-                "col" : "1",
-                "row" : "2"
-            },
-		    {
-                "type" : "Start",
-                "col" : "5",
-                "row" : "3"
-            },		
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "3"
-            },
-            {
-                "type" : "Solid",
-                "col" : "1",
-                "row" : "4"
-            },	
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "2"
-            },
-            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "3"
-            },				            {
-                "type" : "Solid",
-                "col" : "3",
-                "row" : "4"
-            },
-            {
-                "type" : "Solid",
-                "col" : "5",
-                "row" : "4"
-            },				
-            {
-                "type" : "Stop",
-                "col" : "1",
-                "row" : "5"
-            },
-			{
-                "type" : "Stop",
-                "col" : "3",
-                "row" : "5"
-            },
-            {
-                "type" : "Stop",
-                "col" : "5",
-                "row" : "5"
-            }	
-        ]
+    [
+      [
+        {
+          "key": "Tree1Passive1",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "ClearOut",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "Tree1Passive3",
+          "col": "4",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "Shockwave",
+          "col": "1",
+          "active": false
+        },
+        {
+          "key": "ClearOut_Mod1",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "Tree1Passive4",
+          "col": "4",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "Shockwave_Mod1",
+          "col": "1",
+          "active": false
+        },
+        {
+          "key": "Tree1Passive2",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "PathOfDestiny",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "ClearOut_Mod4",
+          "col": "2",
+          "active": false
+        },
+        {
+          "key": "ClearOut_Mod3",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "PathOfDestiny_Mod1",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "Shockwave_Mod2",
+          "col": "1",
+          "active": false
+        },
+        {
+          "key": "ClearOut_Mod2",
+          "col": "3",
+          "active": false
+        },
+        {
+          "key": "PathOfDestiny_Mod2",
+          "col": "5",
+          "active": false
+        }
+      ],
+      [
+        {
+          "key": "Shockwave_Mod3",
+          "col": "3",
+          "active": false
+        }
+      ]
     ]
+  ],
+  "lines": [
+    [
+      {
+        "type": "Start",
+        "col": "1",
+        "row": "1"
+      },
+      {
+        "type": "Start",
+        "col": "3",
+        "row": "2"
+      },
+      {
+        "type": "Start",
+        "col": "5",
+        "row": "3"
+      },
+      {
+        "type": "Solid",
+        "col": "3",
+        "row": "3"
+      },
+      {
+        "type": "Solid",
+        "col": "3",
+        "row": "4"
+      },
+      {
+        "type": "Solid",
+        "col": "3",
+        "row": "5"
+      },
+      {
+        "type": "Solid",
+        "col": "1",
+        "row": "2"
+      },
+      {
+        "type": "Solid",
+        "col": "1",
+        "row": "3"
+      },
+      {
+        "type": "Solid",
+        "col": "1",
+        "row": "4"
+      },
+      {
+        "type": "Solid",
+        "col": "5",
+        "row": "4"
+      },
+      {
+        "type": "Stop",
+        "col": "1",
+        "row": "5"
+      },
+      {
+        "type": "Stop",
+        "col": "3",
+        "row": "6"
+      },
+      {
+        "type": "Stop",
+        "col": "5",
+        "row": "5"
+      }
+    ],
+    [
+      {
+        "type": "Start",
+        "col": "3",
+        "row": "1"
+      },
+      {
+        "type": "Start",
+        "col": "1",
+        "row": "2"
+      },
+      {
+        "type": "Start",
+        "col": "5",
+        "row": "3"
+      },
+      {
+        "type": "Solid",
+        "col": "1",
+        "row": "3"
+      },
+      {
+        "type": "Solid",
+        "col": "1",
+        "row": "4"
+      },
+      {
+        "type": "Solid",
+        "col": "3",
+        "row": "2"
+      },
+      {
+        "type": "Solid",
+        "col": "3",
+        "row": "3"
+      },
+      {
+        "type": "Solid",
+        "col": "3",
+        "row": "4"
+      },
+      {
+        "type": "Solid",
+        "col": "5",
+        "row": "4"
+      },
+      {
+        "type": "Stop",
+        "col": "1",
+        "row": "5"
+      },
+      {
+        "type": "Stop",
+        "col": "3",
+        "row": "5"
+      },
+      {
+        "type": "Stop",
+        "col": "5",
+        "row": "5"
+      }
+    ]
+  ]
 }

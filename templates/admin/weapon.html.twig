@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('weapon') }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ encore_entry_script_tags('weapon') }}
+{% endblock %}
+
+{% block body %}
+  <div class="fs-2 mb-3">
+    Weapon Dashboard
+  </div>
+
+  <div id="weaponForm" class="row api-form">
+    <div class="col">
+      <div class="fs-6">
+        Update or Create Weapon :
+      </div>
+    </div>
+    <div class="col">
+      <select id="weaponSelect">
+        <option selected="selected" value="0">
+          New +
+        </option>
+      </select>
+    </div>
+    <div class="col">
+      <input data-type="wkey" type="text" placeholder="Weapon Key"/>
+    </div>
+    <div class="col">
+      <input data-type="b1key" type="text" placeholder="Branch 1 Key"/>
+    </div>
+    <div class="col">
+      <input data-type="b2key" type="text" placeholder="Branch 2 Key"/>
+    </div>
+    <div class="col-1">
+      <input class="weaponAction btn btn-primary btn-sm" data-type="submit" type="submit" value="Send"/>
+    </div>
+    <div class="col-1">
+      <input class="weaponAction btn btn-danger btn-sm" data-type="delete" type="submit" value="Delete"/>
+    </div>
+  </div>
+  <div id="skillSection" class="isHidden">
+    <div class="row">
+      <div class="col-9">
+        <div class="row p-1 m-2">
+          {% for side in 1..2 %}
+            <div class="col">
+              <div class="row mb-2 justify-content-center fs-3 fw-bold" id="branchName-{{ side }}"></div>
+              <div style="position:relative">
+                <div class="row m-0 p-2 svgContainer" id="svgContainer-{{ side }}">
+                  <svg class="p-0 bgSvg" id="bgSvg-{{ side }}"></svg>
+                </div>
+                <div class="row m-0 p-2 opacity-90">
+                  {% for row in 1..6 %}
+                    <div class="row gx-0">
+                      {% for col in 1..5 %}
+                        <div draggable="true" ondragstart="window.$draggedSkill=this" class="col skill-container" id="skill-{{ side }}-{{ row }}-{{ col }}" data-id="0">
+                          <img class="skill-container-img border border-secondary" src="{{ asset('img/emptyCadre.png') }}"/>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div id="skillForm" class="col isHidden m-3 p-2">
+        
+        <label class="fs-5">Skill Key : </label>
+        <input data-type="skey" type="text" class="w-100 my-2"/>
+        
+        <div class="my-2">
+          <label class="fs-5">Background : </label>
+          <div class="d-flex flex-row justify-content-around my-1">
+            <span class="form-check-label">Circle</span>
+            <div class="form-check form-switch"><input id="skillFormBgShape" class="form-check-input" type="checkbox" checked></div>
+            <span class="form-check-label">Sqare</span>
+          </div>
+          <div id="skillFormBgColor" class="d-flex flex-row flex-wrap justify-content-around">
+            <div>       
+              <input class="form-check-input" type="radio" name="colorpick" value="1">
+              <input type="color" name="head" value="#d7c816" data-value="1" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="2">
+              <input type="color" name="head" value="#d64447" data-value="2" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="3">
+              <input type="color" name="head" value="#008aad" data-value="3" disabled>
+            </div>
+            <div>       
+              <input class="form-check-input" type="radio" name="colorpick" value="4">
+              <input type="color" name="head" value="#8130aa" data-value="4" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="5">
+              <input type="color" name="head" value="#c19680" data-value="5" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="6">
+              <input type="color" name="head" value="#00996b" data-value="6" disabled>
+            </div>
+          </div>
+        </div>
+
+        <label class="fs-5">Parent (drop) : </label>
+        <img id="skillFormParent" class="w-25 border border-secondary" data-id="0" src="{{ asset('img/emptyCadre.png') }}"></img>
+        <span id="skillFormParentDelete" class="p-1 mx-1 fs-6">X</span>
+
+        <input data-type="sid" type="hidden" value="0" data-side="0" data-row="0" data-col"0"/>
+
+        <div class="row my-2">
+          <input class="skillAction btn btn-primary btn-sm col mx-3 fs-5" data-type="submit" type="submit" value="Send"/>
+          <input class="skillAction btn btn-danger btn-sm col mx-3 fs-5" data-type="delete" type="submit" value="Delete"/>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

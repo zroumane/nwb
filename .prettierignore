@@ -1,0 +1,8 @@
+/var/
+/vendor/
+/bin/
+/config/
+/migrations/
+/node_modules/
+/public/dist/
+/public/bundles/
