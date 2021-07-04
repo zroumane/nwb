@@ -10,4 +10,5 @@ use Symfony\Component\Validator\Constraint;
 class JsonArrayLenght extends Constraint
 {
   public $message = "This json array has not the valid lenght.";
+  public $messageblank = "The values should not be blank.";
 }

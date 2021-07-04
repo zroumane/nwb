@@ -18,5 +18,11 @@ class JsonArrayLenghtValidator extends ConstraintValidator
     if (count($value) != 2) {
       $this->context->buildViolation($constraint->message)->addViolation();
     }
+
+    foreach ($value as $key) {
+      if ($key == "") {
+        $this->context->buildViolation($constraint->messageblank)->addViolation();
+      }
+    }
   }
 }

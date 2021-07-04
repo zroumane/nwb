@@ -88,6 +88,13 @@ class Skill
   #[Groups(['read:skill'])]
   private $children;
 
+  /**
+   * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank
+   */
+  #[Groups(['read:skill', 'write:skill'])]
+  private $bgName;
+
 
   public function __construct()
   {
@@ -197,6 +204,18 @@ class Skill
         $child->setParent(null);
       }
     }
+
+    return $this;
+  }
+
+  public function getBgName(): ?string
+  {
+    return $this->bgName;
+  }
+
+  public function setBgName(string $bgName): self
+  {
+    $this->bgName = $bgName;
 
     return $this;
   }
