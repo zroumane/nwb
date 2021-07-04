@@ -9,13 +9,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\JsonArrayLenght;
 
 /**
  * @ORM\Entity(repositoryClass=WeaponRepository::class)
  */
 #[ApiResource(
-	normalizationContext: ['groups' => 'weapon'],
+	normalizationContext: ['groups' => 'read:weapon'],
+	denormalizationContext: ['groups' => 'write:weapon'],
 	collectionOperations: [
 		'get',
 		'post' => ['security' => 'is_granted("ROLE_ADMIN")']
@@ -33,25 +35,28 @@ class Weapon
 	 * @ORM\GeneratedValue
 	 * @ORM\Column(type="integer")
 	 */
-	#[Groups(['weapon'])]
+	#[Groups(['read:weapon'])]
 	private $id;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+	 * @Assert\NotBlank
 	 */
-	#[Groups(['weapon'])]
+	#[Groups(['read:weapon', 'write:weapon'])]
 	private $weaponKey;
 
 	/**
-	 * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="weapon")
+	 * @ORM\OneToMany(targetEntity=Skill::class, mappedBy="weapon", cascade={"remove"})
 	 */
 	#[ApiSubresource()]
 	private $skills;
 
 	/**
 	 * @ORM\Column(type="json")
+	 * @JsonArrayLenght
+	 * @Assert\NotBlank
 	 */
-	#[Groups(['weapon'])]
+	#[Groups(['read:weapon', 'write:weapon'])]
 	private $branch = [];
 
 	public function __construct()
