@@ -196,7 +196,7 @@ function setupWeapon(option) {
           });
           bgSVG.innerHTML += `<line class="skillLine" 
           x1="${coordinates[0]}%" y1="${coordinates[1]}%" 
-          x2="${coordinates[2]}%" y2="${coordinates[3]}%"/>`;
+          x2="${coordinates[2]}%" y2="${coordinates[3]}%"/>`
         });
       var svgContainer = $q(`#svgContainer-${collapse}-${indexbranch + 1}`);
       svgContainer.innerHTML = svgContainer.innerHTML;
