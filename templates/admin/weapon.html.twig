@@ -72,35 +72,46 @@
         </div>
       </div>
       <div id="skillForm" class="col isHidden m-3 p-2">
-        <label>Skill Key : </label>
+        
+        <label class="fs-5">Skill Key : </label>
         <input data-type="skey" type="text" class="w-100 my-2"/>
-        <label>Background : </label>
-        <div class="d-flex flex-row justify-content-around">
-          <span class="form-check-label">Circle</span>
-          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div>
-          <span class="form-check-label">Sqare</span>
+        
+        <div class="my-2">
+          <label class="fs-5">Background : </label>
+          <div class="d-flex flex-row justify-content-around my-1">
+            <span class="form-check-label">Circle</span>
+            <div class="form-check form-switch"><input id="skillFormBgShape" class="form-check-input" type="checkbox" checked></div>
+            <span class="form-check-label">Sqare</span>
+          </div>
+          <div id="skillFormBgColor" class="d-flex flex-row flex-wrap justify-content-around">
+            <div>       
+              <input class="form-check-input" type="radio" name="colorpick" value="1">
+              <input type="color" name="head" value="#d7c816" data-value="1" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="2">
+              <input type="color" name="head" value="#d64447" data-value="2" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="3">
+              <input type="color" name="head" value="#008aad" data-value="3" disabled>
+            </div>
+            <div>       
+              <input class="form-check-input" type="radio" name="colorpick" value="4">
+              <input type="color" name="head" value="#8130aa" data-value="4" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="5">
+              <input type="color" name="head" value="#c19680" data-value="5" disabled>
+              <input class="form-check-input" type="radio" name="colorpick" value="6">
+              <input type="color" name="head" value="#00996b" data-value="6" disabled>
+            </div>
+          </div>
         </div>
-        <div class="justify-content-around text-center">
-          <input class="form-check-input" type="radio" name="colorpick" value="1">
-          <input type="color" name="head" value="#adaa00" data-value="1" disabled>
-          <input class="form-check-input" type="radio" name="colorpick" value="2">
-          <input type="color" name="head" value="#d64447" data-value="2" disabled>
-          <input class="form-check-input" type="radio" name="colorpick" value="3">
-          <input type="color" name="head" value="#008aad" data-value="3" disabled>
-          <input class="form-check-input" type="radio" name="colorpick" value="4">
-          <input type="color" name="head" value="#8130aa" data-value="4" disabled>
-          <input class="form-check-input" type="radio" name="colorpick" value="5">
-          <input type="color" name="head" value="#c19680" data-value="5" disabled>
-          <input class="form-check-input" type="radio" name="colorpick" value="6">
-          <input type="color" name="head" value="#00996b" data-value="6" disabled>
-        </div>
-        <input data-type="sikey" type="text" class="w-100 my-2" />
-        <label>Parent (drop) : </label>
-        <input data-type="sparent" type="text" class="w-100 my-2" readonly/>
+
+        <label class="fs-5">Parent (drop) : </label>
+        <img id="skillFormParent" class="w-25 border border-secondary" data-id="0" src="{{ asset('img/emptyCadre.png') }}"></img>
+        <span id="skillFormParentDelete" class="p-1 mx-1 fs-6">X</span>
+
         <input data-type="sid" type="hidden" value="0" data-side="0" data-row="0" data-col"0"/>
+
         <div class="row my-2">
-          <input class="skillAction btn btn-primary btn-sm col mx-3" data-type="submit" type="submit" value="Send"/>
-          <input class="skillAction btn btn-danger btn-sm col mx-3" data-type="delete" type="submit" value="Delete"/>
+          <input class="skillAction btn btn-primary btn-sm col mx-3 fs-5" data-type="submit" type="submit" value="Send"/>
+          <input class="skillAction btn btn-danger btn-sm col mx-3 fs-5" data-type="delete" type="submit" value="Delete"/>
         </div>
       </div>
     </div>

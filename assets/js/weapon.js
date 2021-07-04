@@ -13,8 +13,10 @@ const $skillSection = $q("#skillSection");
 const $skillForm = $q("#skillForm");
 const $skillFormId = $skillForm.querySelector('[data-type="sid"]')
 const $skillFormKey = $skillForm.querySelector('[data-type="skey"]')
-const $skillFormImage = $skillForm.querySelector('[data-type="sikey"]')
-const $skillFormParent = $skillForm.querySelector('[data-type="sparent"]')
+const $skillFormBgShape = $skillForm.querySelector('#skillFormBgShape')
+const $skillFormBgColor = $skillForm.querySelector('#skillFormBgColor')
+const $skillFormParent = $skillForm.querySelector('#skillFormParent')
+const $skillFormParentDelete = $skillForm.querySelector('#skillFormParentDelete')
 const $sendSkillBtn = $q('.skillAction[data-type="submit"]');
 const $deleteSkillBtn = $q('.skillAction[data-type="delete"]');
 
@@ -26,7 +28,7 @@ const request = async (url, method, body, callback) => {
   if (body != undefined) args.body = JSON.stringify(body);
   let response = await fetch(url, args);
   if (200 <= response.status && response.status < 300) window.setTimeout(() => callback(), 500);
-  else console.log("Erreur");
+  else response.json().then(d => alert(d['hydra:description']))
 };
 
 const postEntity = (type, id, body, callback) => {
@@ -56,17 +58,24 @@ $sendSkillBtn.addEventListener("click", () => {
     weapon: `/api/weapons/${window.currentWeapon}`,
     side: parseInt($skillFormId.dataset.side),
     line: parseInt($skillFormId.dataset.row),
-    col: parseInt($skillFormId.dataset.col)
+    col: parseInt($skillFormId.dataset.col),
+    bgName: `abilities_bg${!$skillFormBgShape.checked ? "_passive" : ""}${$skillFormBgColor.querySelector('[type="radio"]:checked').value}.png`,
+    parent: $skillFormParent.dataset.id != 0 ? `/api/skills/${$skillFormParent.dataset.id}` : null
   }
-  if($skillFormParent.value != 0) body.parent = `/api/skills/${$skillFormParent.value}`
+  if($skillFormParent.dataset.id != 0) body.parent = `/api/skills/${$skillFormParent.dataset.id}`
   postEntity('skills', $skillFormId.value, body, getSkills)
 });
 
 $skillFormParent.addEventListener("dragover", event => event.preventDefault());
 $skillFormParent.addEventListener("drop", event => {
   event.preventDefault();
-  if(window.$draggedSkill.id == "0" || window.$draggedSkill.dataset.id == $skillFormId.value) return
-  $skillFormParent.value = window.$draggedSkill.dataset.id == 0 ? '' : window.$draggedSkill.dataset.id
+  if(window.$draggedSkill.dataset.id == 0 || window.$draggedSkill.dataset.id == $skillFormId.value) return
+  $skillFormParent.dataset.id = window.$draggedSkill.dataset.id
+  $skillFormParent.src = window.$draggedSkill.firstElementChild.src
+})
+$skillFormParentDelete.addEventListener("click", () => {
+  $skillFormParent.dataset.id = 0
+  $skillFormParent.src = "/img/emptyCadre.png"
 })
 
 /* Supprimer un skill */
@@ -113,7 +122,7 @@ const getSkills = () => {
       let d = c.id.split("-")
       let match = window.currentSkills.filter(s => s.side == d[1] && s.line == d[2] && s.col == d[3])[0]
       if(match){
-        c.style.backgroundImage = `url('')`;
+        c.style.backgroundImage = `url('/newworld_png/${match.bgName}')`;
         c.firstElementChild.setAttribute("src", `/newworld_png/${match.skillKey}.png`)
         c.dataset.id =  match.id
         if(match.parent != undefined){
@@ -171,8 +180,10 @@ $qa(".skill-container").forEach((skillContainer) => {
     $skillForm.classList.remove("isHidden");
     let match = window.currentSkills.filter(s => s.id == skillId)[0]
     $skillFormKey.value = match ? match.skillKey : ''
-    $skillFormImage.value = match ? match.skillKey : ''
-    $skillFormParent.value = (match && match.parent) ? match.parent.split('/').reverse()[0] : ''
+    $skillFormBgShape.checked = match == undefined ? false : match.bgName.includes('_passive') ? false : true
+    $skillFormBgColor.querySelector(`input[value="${match ? match.bgName.replace(/\D/g, "") : 1}"]`).checked = true
+    $skillFormParent.dataset.id = (match && match.parent) ? match.parent.split('/').reverse()[0] : ''
+    $skillFormParent.src = (match && match.parent) ? `/newworld_png/${window.currentSkills.filter(s => s['@id'] == match.parent)[0].skillKey}.png` : "/img/emptyCadre.png"
     $skillFormId.value = skillId
     $skillFormId.dataset.side = data[1]
     $skillFormId.dataset.row = data[2]
