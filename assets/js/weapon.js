@@ -24,18 +24,25 @@ const $skillFormParentDelete = $skillForm.querySelector('#skillFormParentDelete'
 const $skillFormSide = $skillForm.querySelector('#skillFormSide')
 const $skillFormRow = $skillForm.querySelector('#skillFormRow')
 const $skillFormCol = $skillForm.querySelector('#skillFormCol')
-
-
 const $skillFormSend = $q('.skillAction[data-type="submit"]');
 const $skillFormDelete = $q('.skillAction[data-type="delete"]');
 
 
+/**
+ * Retire l'outline de l'ancien skill selectionné
+ */
 const clearSkillOutline = () => {
   let lastSkill = $q(`#skill-${$skillFormSide.value}-${$skillFormRow.value}-${$skillFormCol.value}`)
   if (lastSkill) lastSkill.style.outline = ""
 }
 
-/* Fonction de Requete adaptative */
+/**
+ * Requete adaptative
+ * @param {string} url 
+ * @param {string} method 
+ * @param {object} body 
+ * @param {void} callback 
+ */
 const request = async (url, method, body, callback) => {
   let args = { headers: { "Content-Type": "application/json" }, method: method };
   if (body != undefined) args.body = JSON.stringify(body);
@@ -44,6 +51,13 @@ const request = async (url, method, body, callback) => {
   else response.json().then(d => alert(d['hydra:description']))
 };
 
+/**
+ * Ajout / Update skill
+ * @param {string} type 
+ * @param {number} id 
+ * @param {object} body 
+ * @param {void} callback 
+ */
 const postEntity = (type, id, body, callback) => {
   let method
   if (id == 0) method = "POST"
@@ -52,7 +66,9 @@ const postEntity = (type, id, body, callback) => {
 }
 
 
-/* Fonction de mise a jour de la liste d'arme */
+/** 
+ * Mise a jour de la liste d'arme
+ */
 const getWeapon = () => {
   fetch("/api/weapons")
     .then((response) => response.json())
@@ -68,13 +84,15 @@ const getWeapon = () => {
         $weaponSelect.appendChild($weaponOption)
       });
       Array.from($weaponSelect.children).filter((c) => c.value == 0)[0].selected = true
-      fillCreateForm(undefined);
+      updateWeaponForm(undefined);
     })
 }
 getWeapon() 
 
-/* Mise a jour du contenu en fonction de l'arme selectionnée */
-const fillCreateForm = (weapon) => {
+/**
+ * Mise a jour du contenu en fonction de l'arme selectionnée 
+ */
+const updateWeaponForm = (weapon) => {
   $skillForm.classList.add("isHidden")
   $weaponFormKey.value = weapon ? weapon.weaponKey : ""
   $weaponFormB1.value = weapon ? weapon.branch[0] : ""
@@ -87,12 +105,16 @@ const fillCreateForm = (weapon) => {
   }
 };
 
-/* Ajouter / Mettre a jour une arme */
+/**
+ * Event bouton Ajouter / Mettre a jour une arme 
+ */
 $sendWeaponBtn.addEventListener("click", () => {
   postEntity('weapons', $weaponSelect.value, {weaponKey: $weaponFormKey.value, branch: [$weaponFormB1.value, $weaponFormB2.value]}, getWeapon)
 });
 
-/* Supprimer une arme */
+/**
+ *  Event boutton Supprimer une arme 
+ */
 $deleteWeaponBtn.addEventListener("click", () => {
   if ($weaponSelect.value == 0) return
   if (window.confirm(`Delete weapon "${$weaponSelect.options[$weaponSelect.selectedIndex].innerText}" ?`)) {
@@ -100,9 +122,21 @@ $deleteWeaponBtn.addEventListener("click", () => {
   }  
 });
 
+/**
+ * Event changement d'arme 
+ */
+$weaponSelect.addEventListener("change", () => {
+  $skillSection.classList.add("isHidden")
+  let selectedValue = $weaponSelect.value;
+  if (selectedValue == 0) return updateWeaponForm(undefined);
+  updateWeaponForm(window.weapons.filter((w) => w.id == selectedValue)[0]);
+});
 
 
-/* Fonction de mise a jour des skills */
+
+/**
+ * Mise a jour des skills 
+ */
 const getSkills = () => {
   fetch(`/api/weapons/${window.currentWeapon}/skills`)
   .then((response) => response.json())
@@ -138,9 +172,10 @@ const getSkills = () => {
   });
 };
 
-/* Ajouter / Mettre a jour un skill */
+/**
+ * Event Ajouter / Mettre a jour un skill 
+ */
 $skillFormSend.addEventListener("click", () => {
-  //TODO: verif
   let body = {
     skillKey: $skillFormSkillKey.value,
     weapon: `/api/weapons/${window.currentWeapon}`,
@@ -154,7 +189,20 @@ $skillFormSend.addEventListener("click", () => {
   postEntity('skills', $skillFormId.value, body, getSkills)
 });
 
-/** Drap and drop event parent skill */
+/**
+ * Event supprimer un skill 
+ */
+ $skillFormDelete.addEventListener("click", () => {
+  let skillId = $skillFormId.value
+  if (skillId == 0) return
+  if (window.confirm(`Delete skill "${window.currentSkills.filter(s => s.id == skillId)[0].skillKey}" ?`)) {
+    request(`/api/skills/${skillId}`, "DELETE", undefined, getSkills)
+  }
+});
+
+/**
+ * Event drap and drop skill parent
+ */
 $skillFormParent.addEventListener("dragover", event => event.preventDefault());
 $skillFormParent.addEventListener("drop", event => {
   event.preventDefault();
@@ -167,29 +215,13 @@ $skillFormParentDelete.addEventListener("click", () => {
   $skillFormParent.src = "/img/emptyCadre.png"
 })
 
-/* Supprimer un skill */
-$skillFormDelete.addEventListener("click", () => {
-  let skillId = $skillFormId.value
-  if (skillId == 0) return
-  if (window.confirm(`Delete skill "${window.currentSkills.filter(s => s.id == skillId)[0].skillKey}" ?`)) {
-    request(`/api/skills/${skillId}`, "DELETE", undefined, getSkills)
-  }
-});
-
-
-/* Au changement d'arme */
-$weaponSelect.addEventListener("change", () => {
-  $skillSection.classList.add("isHidden")
-  let selectedValue = $weaponSelect.value;
-  if (selectedValue == 0) return fillCreateForm(undefined);
-  fillCreateForm(window.weapons.filter((w) => w.id == selectedValue)[0]);
-});
-
 
 
 $qa(".skill-container").forEach((skillContainer) => {
 
-  /* Au click d'un contenaire skill */
+  /**
+   * Event click sur un skill container
+   */
   skillContainer.addEventListener("click", async () => {
     await clearSkillOutline()
     skillContainer.style.outline = "3px blue solid"
@@ -215,7 +247,9 @@ $qa(".skill-container").forEach((skillContainer) => {
     $skillForm.classList.remove("isHidden");
   });
 
-  /* Au drop d'un contenaire skill */
+  /**
+   * Event drag et drop skill container
+   */
   skillContainer.addEventListener("dragover", event => event.preventDefault());
   skillContainer.addEventListener("dragenter", event => event.target.style.outline = "3px red solid");
   skillContainer.addEventListener("dragleave", event => event.target.style.outline = "");
