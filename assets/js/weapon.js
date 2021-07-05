@@ -10,17 +10,30 @@ const $sendWeaponBtn = $q('.weaponAction[data-type="submit"]');
 const $deleteWeaponBtn = $q('.weaponAction[data-type="delete"]');
 
 const $skillSection = $q("#skillSection");
+const $svgContainer = $qa(".svgContainer")
+
 const $skillForm = $q("#skillForm");
-const $skillFormId = $skillForm.querySelector('[data-type="sid"]')
-const $skillFormKey = $skillForm.querySelector('[data-type="skey"]')
+const $skillFormTitle = $skillForm.querySelector('#skillFormTitle')
+const $skillFormTitleId = $skillForm.querySelector('#skillFormTitleId')
+const $skillFormId = $skillForm.querySelector('#skillFormId')
+const $skillFormSkillKey = $skillForm.querySelector('#skillFormSkillKey')
 const $skillFormBgShape = $skillForm.querySelector('#skillFormBgShape')
 const $skillFormBgColor = $skillForm.querySelector('#skillFormBgColor')
 const $skillFormParent = $skillForm.querySelector('#skillFormParent')
 const $skillFormParentDelete = $skillForm.querySelector('#skillFormParentDelete')
-const $sendSkillBtn = $q('.skillAction[data-type="submit"]');
-const $deleteSkillBtn = $q('.skillAction[data-type="delete"]');
+const $skillFormSide = $skillForm.querySelector('#skillFormSide')
+const $skillFormRow = $skillForm.querySelector('#skillFormRow')
+const $skillFormCol = $skillForm.querySelector('#skillFormCol')
 
-const $svgContainer = $qa(".svgContainer")
+
+const $skillFormSend = $q('.skillAction[data-type="submit"]');
+const $skillFormDelete = $q('.skillAction[data-type="delete"]');
+
+
+const clearSkillOutline = () => {
+  let lastSkill = $q(`#skill-${$skillFormSide.value}-${$skillFormRow.value}-${$skillFormCol.value}`)
+  if (lastSkill) lastSkill.style.outline = ""
+}
 
 /* Fonction de Requete adaptative */
 const request = async (url, method, body, callback) => {
@@ -38,54 +51,6 @@ const postEntity = (type, id, body, callback) => {
   request(`/api/${type}${id == 0 ? "" : '/'+id}`, method, body, callback);
 }
 
-/* Ajouter / Mettre a jour une arme */
-$sendWeaponBtn.addEventListener("click", () => {
-  postEntity('weapons', $weaponSelect.value, {weaponKey: $weaponFormKey.value, branch: [$weaponFormB1.value, $weaponFormB2.value]}, getWeapon)
-});
-
-/* Supprimer une arme */
-$deleteWeaponBtn.addEventListener("click", () => {
-  if ($weaponSelect.value == 0) return
-  if (window.confirm(`Delete weapon "${$weaponSelect.options[$weaponSelect.selectedIndex].innerText}" ?`)) {
-    request(`/api/weapons/${$weaponSelect.value}`, "DELETE", undefined, getWeapon);
-  }  
-});
-
-/* Ajouter / Mettre a jour un skill */
-$sendSkillBtn.addEventListener("click", () => {
-  let body = {
-    skillKey: $skillFormKey.value,
-    weapon: `/api/weapons/${window.currentWeapon}`,
-    side: parseInt($skillFormId.dataset.side),
-    line: parseInt($skillFormId.dataset.row),
-    col: parseInt($skillFormId.dataset.col),
-    bgName: `abilities_bg${!$skillFormBgShape.checked ? "_passive" : ""}${$skillFormBgColor.querySelector('[type="radio"]:checked').value}.png`,
-    parent: $skillFormParent.dataset.id != 0 ? `/api/skills/${$skillFormParent.dataset.id}` : null
-  }
-  if($skillFormParent.dataset.id != 0) body.parent = `/api/skills/${$skillFormParent.dataset.id}`
-  postEntity('skills', $skillFormId.value, body, getSkills)
-});
-
-$skillFormParent.addEventListener("dragover", event => event.preventDefault());
-$skillFormParent.addEventListener("drop", event => {
-  event.preventDefault();
-  if(window.$draggedSkill.dataset.id == 0 || window.$draggedSkill.dataset.id == $skillFormId.value) return
-  $skillFormParent.dataset.id = window.$draggedSkill.dataset.id
-  $skillFormParent.src = window.$draggedSkill.firstElementChild.src
-})
-$skillFormParentDelete.addEventListener("click", () => {
-  $skillFormParent.dataset.id = 0
-  $skillFormParent.src = "/img/emptyCadre.png"
-})
-
-/* Supprimer un skill */
-$deleteSkillBtn.addEventListener("click", () => {
-  let skillId = $skillFormId.value
-  if (skillId == 0) return
-  if (window.confirm(`Delete skill "${window.currentSkills.filter(s => s.id == skillId)[0].skillKey}" ?`)) {
-    request(`/api/skills/${skillId}`, "DELETE", undefined, getSkills)
-  }
-});
 
 /* Fonction de mise a jour de la liste d'arme */
 const getWeapon = () => {
@@ -107,6 +72,33 @@ const getWeapon = () => {
     })
 }
 getWeapon() 
+
+/* Mise a jour du contenu en fonction de l'arme selectionnée */
+const fillCreateForm = (weapon) => {
+  $skillForm.classList.add("isHidden")
+  $weaponFormKey.value = weapon ? weapon.weaponKey : ""
+  $weaponFormB1.value = weapon ? weapon.branch[0] : ""
+  $weaponFormB2.value = weapon ? weapon.branch[1] : ""
+  $q("#branchName-1").innerText = weapon ? weapon.branch[0] : ""
+  $q("#branchName-2").innerText = weapon ? weapon.branch[1] : ""
+  if(weapon != undefined){
+    window.currentWeapon = weapon.id
+    getSkills()
+  }
+};
+
+/* Ajouter / Mettre a jour une arme */
+$sendWeaponBtn.addEventListener("click", () => {
+  postEntity('weapons', $weaponSelect.value, {weaponKey: $weaponFormKey.value, branch: [$weaponFormB1.value, $weaponFormB2.value]}, getWeapon)
+});
+
+/* Supprimer une arme */
+$deleteWeaponBtn.addEventListener("click", () => {
+  if ($weaponSelect.value == 0) return
+  if (window.confirm(`Delete weapon "${$weaponSelect.options[$weaponSelect.selectedIndex].innerText}" ?`)) {
+    request(`/api/weapons/${$weaponSelect.value}`, "DELETE", undefined, getWeapon);
+  }  
+});
 
 
 
@@ -141,60 +133,96 @@ const getSkills = () => {
         c.dataset.id = 0
       }
     });
+    clearSkillOutline()
     $skillSection.classList.remove("isHidden")
   });
 };
 
+/* Ajouter / Mettre a jour un skill */
+$skillFormSend.addEventListener("click", () => {
+  //TODO: verif
+  let body = {
+    skillKey: $skillFormSkillKey.value,
+    weapon: `/api/weapons/${window.currentWeapon}`,
+    side: parseInt($skillFormSide.value),
+    line: parseInt($skillFormRow.value),
+    col: parseInt($skillFormCol.value),
+    bgName: `abilities_bg${!$skillFormBgShape.checked ? "_passive" : ""}${$skillFormBgColor.querySelector('[type="radio"]:checked').value}.png`,
+    parent: $skillFormParent.dataset.parentId != 0 ? `/api/skills/${$skillFormParent.dataset.parentId}` : null
+  }
+  if($skillFormParent.dataset.parentId != 0) body.parent = `/api/skills/${$skillFormParent.dataset.parentId}`
+  postEntity('skills', $skillFormId.value, body, getSkills)
+});
+
+/** Drap and drop event parent skill */
+$skillFormParent.addEventListener("dragover", event => event.preventDefault());
+$skillFormParent.addEventListener("drop", event => {
+  event.preventDefault();
+  if(window.$draggedSkill.dataset.id == 0 || window.$draggedSkill.dataset.id == $skillFormId.value) return
+  $skillFormParent.dataset.parentId = window.$draggedSkill.dataset.id
+  $skillFormParent.src = window.$draggedSkill.firstElementChild.src
+})
+$skillFormParentDelete.addEventListener("click", () => {
+  $skillFormParent.dataset.parentId = 0
+  $skillFormParent.src = "/img/emptyCadre.png"
+})
+
+/* Supprimer un skill */
+$skillFormDelete.addEventListener("click", () => {
+  let skillId = $skillFormId.value
+  if (skillId == 0) return
+  if (window.confirm(`Delete skill "${window.currentSkills.filter(s => s.id == skillId)[0].skillKey}" ?`)) {
+    request(`/api/skills/${skillId}`, "DELETE", undefined, getSkills)
+  }
+});
+
+
 /* Au changement d'arme */
 $weaponSelect.addEventListener("change", () => {
+  $skillSection.classList.add("isHidden")
   let selectedValue = $weaponSelect.value;
   if (selectedValue == 0) return fillCreateForm(undefined);
   fillCreateForm(window.weapons.filter((w) => w.id == selectedValue)[0]);
 });
 
-/* Mise a jour du contenu en fonction de l'arme selectionnée */
-const fillCreateForm = (weapon) => {
-  if (weapon === undefined) {
-    $skillSection.classList.add("isHidden")
-    $weaponFormKey.value = ""
-    $weaponFormB1.value = ""
-    $weaponFormB2.value = ""
-  } else {
-    $skillForm.classList.add("isHidden")
-    $weaponFormKey.value = weapon.weaponKey
-    $weaponFormB1.value = weapon.branch[0]
-    $weaponFormB2.value = weapon.branch[1]
-    $q("#branchName-1").innerText = weapon.branch[0]
-    $q("#branchName-2").innerText = weapon.branch[1]
-    window.currentWeapon = weapon.id
-    getSkills()
-  }
-};
+
 
 $qa(".skill-container").forEach((skillContainer) => {
 
   /* Au click d'un contenaire skill */
-  skillContainer.addEventListener("click", () => {
+  skillContainer.addEventListener("click", async () => {
+    await clearSkillOutline()
+    skillContainer.style.outline = "3px blue solid"
     let data = skillContainer.id.split('-')
     let skillId = skillContainer.dataset.id
-    $skillForm.classList.remove("isHidden");
+    if (skillId == 0) {
+      $skillFormTitle.innerText = "Create Skill"
+      $skillFormTitleId.innerText = ""
+    }else{
+      $skillFormTitle.innerText = "Update Skill "
+      $skillFormTitleId.innerText = skillId
+    }
     let match = window.currentSkills.filter(s => s.id == skillId)[0]
-    $skillFormKey.value = match ? match.skillKey : ''
+    $skillFormSkillKey.value = match ? match.skillKey : ''
     $skillFormBgShape.checked = match == undefined ? false : match.bgName.includes('_passive') ? false : true
     $skillFormBgColor.querySelector(`input[value="${match ? match.bgName.replace(/\D/g, "") : 1}"]`).checked = true
-    $skillFormParent.dataset.id = (match && match.parent) ? match.parent.split('/').reverse()[0] : ''
+    $skillFormParent.dataset.parentId = (match && match.parent) ? match.parent.split('/').reverse()[0] : ''
     $skillFormParent.src = (match && match.parent) ? `/newworld_png/${window.currentSkills.filter(s => s['@id'] == match.parent)[0].skillKey}.png` : "/img/emptyCadre.png"
     $skillFormId.value = skillId
-    $skillFormId.dataset.side = data[1]
-    $skillFormId.dataset.row = data[2]
-    $skillFormId.dataset.col = data[3]
+    $skillFormSide.value = data[1]
+    $skillFormRow.value = data[2]
+    $skillFormCol.value = data[3]
+    $skillForm.classList.remove("isHidden");
   });
 
   /* Au drop d'un contenaire skill */
   skillContainer.addEventListener("dragover", event => event.preventDefault());
+  skillContainer.addEventListener("dragenter", event => event.target.style.outline = "3px red solid");
+  skillContainer.addEventListener("dragleave", event => event.target.style.outline = "");
   skillContainer.addEventListener("drop", event => {
     event.preventDefault();
     if (!event.target.classList.contains('skill-container-img')) return
+    event.target.style.outline = ""
     if (event.target.parentElement == window.$draggedSkill) return
     let match = window.currentSkills.filter(s => s.id == window.$draggedSkill.dataset.id)[0]
     if(match == undefined) return
