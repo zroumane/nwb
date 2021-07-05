@@ -12,9 +12,9 @@ Encore
   // public path used by the web server to access the output path
   .setPublicPath("/dist")
 
-  .addEntry("app", "./assets/js/app.js")
-  .addEntry("create", "./assets/js/create.js")
-  .addEntry("weapon", "./assets/js/weapon.js")
+  .addEntry("App", "./assets/js/App.js")
+  .addEntry("CreateBuild", "./assets/js/CreateBuild.js")
+  .addEntry("WeaponDashboard", "./assets/js/WeaponDashboard.js")
 
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()

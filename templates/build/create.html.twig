@@ -2,12 +2,12 @@
 
 {% block stylesheets %}
   {{ parent() }}
-  {{ encore_entry_link_tags('create') }}
+  {{ encore_entry_link_tags('CreateBuild') }}
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
-  {{ encore_entry_script_tags('create') }}
+  {{ encore_entry_script_tags('CreateBuild') }}
 {% endblock %}
 {% block body %}
   {% if app.user %}

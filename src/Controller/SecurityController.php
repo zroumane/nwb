@@ -69,9 +69,9 @@ class SecurityController extends AbstractController
   }
 
   /**
-   * @Route("/verify/email", name="app_verify_email")
+   * @Route("/verify-email")
    */
-  public function verifyUserEmail(Request $request, UserRepository $userRepository, AppAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
+  public function verify_email(Request $request, UserRepository $userRepository, AppAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
   {
     $id = $request->get("id");
 

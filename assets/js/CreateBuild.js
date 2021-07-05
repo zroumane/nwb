@@ -1,7 +1,7 @@
-import "../css/create.scss";
+import "../css/CreateBuild.scss";
 import Popover from "bootstrap/js/dist/popover";
 import Collapse from "bootstrap/js/dist/collapse";
-import { $q, $qa } from "./global";
+import { $q, $qa } from "./Global";
 
 //initialise les popovers
 var popoverTriggerList = [].slice.call($qa('[data-toggle="popover"]'));

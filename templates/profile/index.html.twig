@@ -28,8 +28,8 @@
 				{{ app.user.email }}
 			</div>
 		</div>
-		<a href="#" class="btn btn-outline-light">
-			{% trans %}profile.resetpass{% endtrans %}
+		<a href="{{ path('app_password_forgot') }}">
+			{% trans %}login.resetpass{% endtrans %}
 		</a>
 	{% endif %}
 {% endblock %}

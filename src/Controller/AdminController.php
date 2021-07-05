@@ -15,12 +15,4 @@ class AdminController extends AbstractController
   {
     return $this->render("admin/index.html.twig");
   }
-
-  /**
-   * @Route("/admin/weapon")
-   */
-  public function weapon(): Response
-  {
-    return $this->render("admin/weapon.html.twig");
-  }
 }

@@ -34,9 +34,9 @@ class EmailVerifier
     $email->from(new Address("noreply@newworld-builder.com", "NewWorld-Builder.com"));
     $email->to($user_email);
     $email->subject("Email Verification");
-    $email->htmlTemplate("security/confirmation_email.html.twig");
+    $email->htmlTemplate("security/mail.confirm.twig");
 
-    $signatureComponents = $this->verifyEmailHelper->generateSignature("app_verify_email", $user_id, $user_email, ["id" => $user_id]);
+    $signatureComponents = $this->verifyEmailHelper->generateSignature("app_security_verify_email", $user_id, $user_email, ["id" => $user_id]);
 
     $context = $email->getContext();
     $context["signedUrl"] = $signatureComponents->getSignedUrl();

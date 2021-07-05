@@ -33,17 +33,17 @@
             <label for="inputPassword">
               {% trans %}login.password{% endtrans %}
             </label>
-            <input type="password" name="password" id="inputPassword" class="form-control" required="required"/>
+            <input type="password" name="password" id="inputPassword" class="form-control mb-1" required="required"/>
+            <a href="{{ path('app_password_forgot') }}">
+              {% trans %}login.resetpass{% endtrans %}
+            </a>
           </div>
 
           <div class="p-2">
             <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="_remember_me"/>
             <label class="form-check-label" for="flexCheckDefault">
               {% trans %}login.remember{% endtrans %}
-            </label>
-            <a href="{{ path('app_forgot_password_request') }}">
-              {% trans %}login.resetpass{% endtrans %}
-            </a>
+            </label><br>
           </div>
 
 

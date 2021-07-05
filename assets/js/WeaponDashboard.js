@@ -1,5 +1,5 @@
-import "../css/weapon.scss";
-import { $q, $qa, MAX_ROW, MAX_COL } from "./global";
+import "../css/WeaponDashboard.scss";
+import { $q, $qa, MAX_ROW, MAX_COL } from "./Global";
 
 const $weaponSelect = $q("#weaponSelect");
 const $weaponForm = $q("#weaponForm");
