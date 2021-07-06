@@ -3,10 +3,8 @@
 
 body {
   padding: 0;
-  background-image: url("../img/nwfond.jpg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+  background: rgb(41, 40, 38);
+  background: linear-gradient(180deg, rgba(41, 40, 38, 1) 80%, rgb(61, 54, 46) 100%);
 
   min-height: 100vh;
   margin: 0;

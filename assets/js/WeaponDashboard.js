@@ -159,7 +159,7 @@ const getSkills = () => {
             }
           }
         } else {
-          c.style.backgroundImage = `url('/img/emptyCadre.png')`;
+          c.style.backgroundImage = `url('/img/CadreSkill.png')`;
           c.firstElementChild.setAttribute("src", "/img/emptyCadre.png");
           c.dataset.id = 0;
         }

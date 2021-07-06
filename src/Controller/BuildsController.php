@@ -43,6 +43,14 @@ class BuildsController extends AbstractController
   }
 
   /**
+   * @Route("/admin/build")
+   */
+  public function admin(): Response
+  {
+    return $this->render("build/admin.html.twig");
+  }
+
+  /**
    * @Route("/build/{id}", requirements={"id"="\d+"})
    */
   public function show(Request $request, Build $build): Response

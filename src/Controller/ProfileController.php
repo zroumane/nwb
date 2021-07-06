@@ -37,4 +37,12 @@ class ProfileController extends AbstractController
       ]);
     }
   }
+
+  /**
+   * @Route("/admin/profile")
+   */
+  public function admin(): Response
+  {
+    return $this->render("profile/admin.html.twig");
+  }
 }

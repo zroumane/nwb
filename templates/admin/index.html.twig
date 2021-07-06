@@ -2,13 +2,21 @@
 
 {% block body %}
 	<div class="fs-2 mb-3">
-		Admin Dashboard
+		Admin Dashboard : 
 	</div>
 
-	<div class="fs-4">
-		<a href="{{ path('app_patchnote_admin') }}">Patchnote Dashboard</a>
-	</div>
-	<div class="fs-4">
-		<a href="{{ path('app_builds_weapon') }}">Weapon Dashboard</a>
-	</div>
+	<ul class="fs-4">
+		<li>
+			<a href="{{ path('app_builds_admin') }}">Build</a>
+		</li>
+		<li>
+			<a href="{{ path('app_builds_weapon') }}">Weapon</a>
+		</li>
+		<li>
+			<a href="{{ path('app_patchnote_admin') }}">PatchNote</a>
+		</li>
+		<li>
+			<a href="{{ path('app_profile_admin') }}">Profile</a>
+		</li>
+	</ul>
 {% endblock %}
