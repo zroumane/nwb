@@ -1,37 +1,48 @@
-[
-  {
-    "key": "Bow",
-    "name": "Bow",
-    "branch": ["Bowman", "Huntsman"]
-  },
-  {
-    "key": "FireStaff",
-    "name": "FireStaff",
-    "branch": ["Flame summoner", "Pyromaniac"]
-  },
-  {
-    "key": "LifeStaff",
-    "name": "LifeStaff",
-    "branch": ["Protector", "Life stealer"]
-  },
-  {
-    "key": "Sword",
-    "name": "Sword",
-    "branch": ["Sword", "Shield"]
-  },
-  {
-    "key": "Hatchet",
-    "name": "Hatchet",
-    "branch": ["Berserk", "Throwing"]
-  },
-  {
-    "key": "Warhammer",
-    "name": "Warhammer",
-    "branch": ["Juggernaut", "Crowd crusher"]
-  },
-  {
-    "key": "Musket",
-    "name": "Musket",
-    "branch": ["Sharpshooter", "Trapper"]
-  }
-]
+{
+  "sword" : "Sword",
+  "swordmaster" : "Swordmaster",
+  "defender" : "Defender",
+  
+  "rapier" : "Rapier",
+  "blood" : "Blood",
+  "grace" : "Grace",
+
+  "hatchet" : "Hatchet",
+  "berserker" : "Berserker",
+  "throwing" : "Throwing",
+  
+
+  "spear" : "Spear",
+  "zoner": "Zoner",
+  "impaler" : "Impaler",
+
+  "greatAxe" : "Great Axe",
+  "reaper": "Reaper",
+  "mauler" : "Mauler",
+
+  "warHammer" : "War Hammer",
+  "huggernaut": "Juggernaut",
+  "crowdCrusher" : "Crowd crusher",
+  
+
+  "bow" : "Bow",
+  "skirmisher": "Skirmisher",
+  "hunter": "Hunter",
+
+  "musket" : "Mousquet",
+  "sharpshooter" : "Sharpshooter",
+  "trapper" : "Trapper",
+
+
+  "fireStaff" : "Fire Staff",
+  "fireMage" : "Fire Mage",
+  "pyromancer": "Pyromancer",
+
+  "lifeStaff" : "Life Staff",
+  "healing" : "Healing",
+  "protector" : "Protector",
+
+  "iceGauntlet" : "Ice Gauntlet",
+  "iceTempest" : "Ice Tempest",
+  "builder" : "Builder"
+}

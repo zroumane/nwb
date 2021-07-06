@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class BuildsController extends AbstractController
 {
-
-
   public function __construct(KernelInterface $kernel)
   {
     $this->kernel = $kernel;
@@ -70,5 +68,4 @@ class BuildsController extends AbstractController
       "weapons" => json_decode(file_get_contents($this->kernel->getProjectDir() . "/public/json/" . $request->getLocale() . "/weapon.json")),
     ]);
   }
-
 }

@@ -69,7 +69,7 @@ password:
     reset: Reset
   request:
     send: Send email
-    description: Enter your email address and we we will send you a link to reset your password. 
+    description: Enter your email address and we we will send you a link to reset your password.
     issend: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-    noreceive:  If you don't receive an email please check your spam folder or
+    noreceive: If you don't receive an email please check your spam folder or
     tryagain: try again

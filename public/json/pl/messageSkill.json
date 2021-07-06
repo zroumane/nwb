@@ -1,9 +1,0 @@
-{
-  "RemainingPoint": "Remaining Point(s) : ",
-  "NoMorePoint": "Vous ne pouvez pas dépenser plus de 19 points.",
-  "TenPointSelect": "To unlock this skill, spend 10 points distributed in the branch ",
-  "InlineSkillTop": "To unlock this skill, you must unlock the skill ",
-  "InlineSkillBottom": "To deselect this skill, you must deselect the skill ",
-  "Rowtop": "To unlock this skill, spend at least one point in each of the previous rows.",
-  "RowBottom": "To deselect this skill, you must deselect the skills below."
-}

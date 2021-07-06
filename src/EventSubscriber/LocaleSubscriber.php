@@ -19,7 +19,7 @@ class LocaleSubscriber implements EventSubscriberInterface
   {
     $request = $event->getRequest();
     if (!$request->hasPreviousSession()) {
-      if (array_key_exists('HTTP_ACCEPT_LANGUAGE', $_SERVER)) {
+      if (array_key_exists("HTTP_ACCEPT_LANGUAGE", $_SERVER)) {
         $locale = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
 
         // $locale_array = ['de','en','es','fr','it','pl','pt'];

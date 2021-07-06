@@ -59,7 +59,6 @@ login:
     noemail: Email invalide
     already: Email déjà vérifié
 
-
 password:
   resetpass: Mot de passe oublié ?
   modifypass: Modifier votre mot de passe
@@ -70,11 +69,11 @@ password:
     reset: Réinitialiser
   email:
     send: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-    noreceive:  If you don't receive an email please check your spam folder or
+    noreceive: If you don't receive an email please check your spam folder or
     tryagain: réessayer
   request:
     send: Envoyer l'email
     description: Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
     issend: Si un compte correspond à cette adresse email, un email contenant un lien pour réinitialiser votre mot de passe vous a été envoyé.
-    noreceive:  Si vous ne recevez pas d'email, regarder dans votre dossier spam ou
+    noreceive: Si vous ne recevez pas d'email, regarder dans votre dossier spam ou
     tryagain: réessayer

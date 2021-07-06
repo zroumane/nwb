@@ -1,4 +1,5 @@
-#weaponForm, #skillForm {
+#weaponForm,
+#skillForm {
   border: 1px white solid;
   padding: 0.5rem;
 }
@@ -34,7 +35,7 @@ select {
   width: 100%;
 }
 
-input[type="color"]{
+input[type="color"] {
   border: 0;
   appearance: none;
   padding: 0;
@@ -42,7 +43,7 @@ input[type="color"]{
   margin-right: 10px;
 }
 
-#skillFormParentDelete{
+#skillFormParentDelete {
   background-color: white;
   color: black;
   border-radius: 50%;

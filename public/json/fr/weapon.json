@@ -1,37 +1,48 @@
-[
-  {
-    "key": "Bow",
-    "name": "Arc",
-    "branch": ["Chasseur", "Archer"]
-  },
-  {
-    "key": "FireStaff",
-    "name": "Bâton de feu",
-    "branch": ["Invocateur De Flamme", "Pyromane"]
-  },
-  {
-    "key": "LifeStaff",
-    "name": "Bâton de vie",
-    "branch": ["Protecteur", "Voleur De Vie"]
-  },
-  {
-    "key": "Sword",
-    "name": "Epée",
-    "branch": ["Epée", "Bouclier"]
-  },
-  {
-    "key": "Hatchet",
-    "name": "Hâche de jet",
-    "branch": ["Lancer", "Rage"]
-  },
-  {
-    "key": "Warhammer",
-    "name": "Marteau de guerre",
-    "branch": ["Mastodonte", "Ecrase Foule"]
-  },
-  {
-    "key": "Musket",
-    "name": "Mousquet",
-    "branch": ["Trappeur", "Fin Tireur"]
-  }
-]
+{
+  "sword" : "Epée",
+  "swordmaster" : "Swordmaster",
+  "defender" : "Defender",
+  
+  "rapier" : "Rapier",
+  "blood" : "Blood",
+  "grace" : "Grace",
+
+  "hatchet" : "Hâche de jet",
+  "berserker" : "Rage",
+  "throwing" : "Lancer",
+  
+
+  "spear" : "Spear",
+  "zoner": "Zoner",
+  "impaler" : "Impaler",
+
+  "greatAxe" : "Great Axe",
+  "reaper": "Reaper",
+  "mauler" : "Mauler",
+
+  "warHammer" : "Marteau de guerre",
+  "huggernaut": "Mastodonte",
+  "crowdCrusher" : "Ecrase Foule",
+  
+
+  "bow" : "Bow",
+  "skirmisher": "Skirmisher",
+  "hunter": "Chasseur",
+
+  "musket" : "Mousquet",
+  "sharpshooter" : "Fin Tireur",
+  "trapper" : "Trappeur",
+
+
+  "fireStaff" : "Fire Staff",
+  "fireMage" : "Invocateur De Flamme",
+  "pyromancer": "Pyromane",
+
+  "lifeStaff" : "Life Staff",
+  "healing" : "Soigneur",
+  "protector" : "Protecteur",
+
+  "iceGauntlet" : "Ice Gauntlet",
+  "iceTempest" : "Ice Tempest",
+  "builder" : "Builder"
+}
