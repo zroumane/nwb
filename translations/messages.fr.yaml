@@ -9,7 +9,13 @@ navbar:
   logout: Deconnexion
   profil: Profil
 
-builds:
+build:
+  name: Nom
+  author: Auteur
+  weapon: Armes
+  type: Type
+  view: Vue
+  update: Mise à jour
 
 create:
   buildname: Nom du build
@@ -29,29 +35,46 @@ create:
 patchnote:
   goback: Revenir
 
+profile:
+  title: Builds de %pseudo%
+  yourbuild: Vos builds
+
 login:
   login: Connexion
   gologin: Se connecter
   register: Inscription
   goregister: S'inscrire
-  loged: Vous êtes connecté en tan que %pseudo%.
+  loged: Vous êtes connecté en tant que %pseudo%.
   logout: Déconnexion
   pseudo: Pseudo
   email: Email
   password: Mot de Passe
-  remember: Se souvenir de moi.
-  agreeterms: Accepter les termes et conditions.
-  incorrect: Identifiants invalides.
-  resetpass: Mot de passe oublié ?
+  remember: Se souvenir de moi
+  agreeterms: Accepter les termes et conditions
+  incorrect: Identifiants invalides
   verify:
     invalid: Impossible de vérifier ce compte
-    check: Votre compte a bien été confirmé. Bienvenue !
+    check: Votre compte a bien été vérifié. Bienvenue !
     nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
     noemail: Email invalide
     already: Email déjà vérifié
 
-profile:
-  title: Profil utilisateur de %pseudo%
-  edit: Modifier votre profil
-  save: Enregistrer
-  resetpass: Modifier votre mot de passe
+
+password:
+  resetpass: Mot de passe oublié ?
+  modifypass: Modifier votre mot de passe
+  reset:
+    title: Réinitialiser votre mot de passe
+    new: Nouveau mot de passe
+    repeat: Répéter le mot de passe
+    reset: Réinitialiser
+  email:
+    send: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+    noreceive:  If you don't receive an email please check your spam folder or
+    tryagain: réessayer
+  request:
+    send: Envoyer l'email
+    description: Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+    issend: Si un compte correspond à cette adresse email, un email contenant un lien pour réinitialiser votre mot de passe vous a été envoyé.
+    noreceive:  Si vous ne recevez pas d'email, regarder dans votre dossier spam ou
+    tryagain: réessayer

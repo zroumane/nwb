@@ -2,34 +2,35 @@
 
 {% block body %}
 	{% if user is defined %}
+		
+		<input type="hidden" id="userId" value="{{ user.id }}">	
+		
 		<div class="fs-3 mb-2">
-			{% trans with {'%pseudo%': app.user.pseudo} %}profile.title{% endtrans %}
+			{% trans with {'%pseudo%': user.pseudo} %}profile.title{% endtrans %} :
 		</div>
 
-		{# TODO : Afficher les build de l'user #}
+
 	{% else %}
-		<div class="fs-3 mb-2">
-			Profil utilisateur de
-			{{ app.user.pseudo }}
+
+		<input type="hidden" id="userId" value="{{ app.user.id }}">	
+
+		<div class="mb-4">
+			<div class="fs-3">{% trans with {'%pseudo%' : app.user.pseudo} %}login.loged{% endtrans %}</div>
+			<span>
+				<a href="{{ path('app_password_forgot') }}">
+					{% trans %}password.modifypass{% endtrans %}
+				</a>
+			</span>
 		</div>
-		<div class="row">
-			<div class="col-sm-3">
-				{% trans %}create.playername{% endtrans %}:
-			</div>
-			<div class="col-sm-3">
-				{{ app.user.pseudo }}
-			</div>
+
+
+		<div class="fs-4 mb-2">
+			{% trans %}profile.yourbuild{% endtrans %} :
 		</div>
-		<div class="row">
-			<div class="col-sm-3">
-				{% trans %}login.email{% endtrans %}:
-			</div>
-			<div class="col-sm-3">
-				{{ app.user.email }}
-			</div>
-		</div>
-		<a href="{{ path('app_password_forgot') }}">
-			{% trans %}login.resetpass{% endtrans %}
-		</a>
+
 	{% endif %}
+
+		{# TODO : Afficher les build de l'user #}
+
+
 {% endblock %}

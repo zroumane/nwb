@@ -35,7 +35,7 @@
             </label>
             <input type="password" name="password" id="inputPassword" class="form-control mb-1" required="required"/>
             <a href="{{ path('app_password_forgot') }}">
-              {% trans %}login.resetpass{% endtrans %}
+              {% trans %}password.resetpass{% endtrans %}
             </a>
           </div>
 
@@ -56,44 +56,35 @@
       </div>
 
       <div class="col-lg m-lg-1">
-        {{
-					form_start(
-						registrationForm,
-						{
-							attr: {
-								class: 'border rounded p-2'
-							}
-						}
-					)
-				}}
+        {{form_start(registrationForm,{attr: {class: 'border rounded p-2'}})}}
 
-        <div class="fs-1 p-1">
-          {% trans %}login.register{% endtrans %}
-        </div>
+          <div class="fs-1 p-1">
+            {% trans %}login.register{% endtrans %}
+          </div>
 
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
-        <div class="p-2">
-          {{ form_row(registrationForm.pseudo) }}
-        </div>
+          <div class="p-2">
+            {{ form_row(registrationForm.pseudo) }}
+          </div>
 
-        <div class="p-2">
-          {{ form_row(registrationForm.email) }}
-        </div>
+          <div class="p-2">
+            {{ form_row(registrationForm.email) }}
+          </div>
 
-        <div class="p-2">
-          {{ form_row(registrationForm.plainPassword) }}
-        </div>
+          <div class="p-2">
+            {{ form_row(registrationForm.plainPassword) }}
+          </div>
 
-        <div class="p-2">
-          {{ form_row(registrationForm.agreeTerms) }}
-        </div>
+          <div class="p-2">
+            {{ form_row(registrationForm.agreeTerms) }}
+          </div>
 
-        <div class="p-2 mb-2">
-          <button class="btn btn-lg btn-outline-light" type="submit">
-            {% trans %}login.goregister{% endtrans %}
-          </button>
-        </div>
+          <div class="p-2 mb-2">
+            <button class="btn btn-lg btn-outline-light" type="submit">
+              {% trans %}login.goregister{% endtrans %}
+            </button>
+          </div>
 
         {{ form_end(registrationForm) }}
       </div>

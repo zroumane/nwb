@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -21,6 +22,7 @@ class User implements UserInterface
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
    */
+  #[Groups(['read:build'])]
   private $id;
 
   /**
@@ -42,6 +44,7 @@ class User implements UserInterface
   /**
    * @ORM\Column(type="string", length=255, unique=true)
    */
+  #[Groups(['read:build'])]
   private $pseudo;
 
   /**

@@ -7,10 +7,24 @@ use App\Repository\BuildRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=BuildRepository::class)
  */
+#[ApiResource(
+  normalizationContext: ['groups' => 'read:build'],
+  denormalizationContext: ['groups' => 'write:build'],
+  collectionOperations: [
+    'get',
+    'post' => ['security' => 'is_granted("ROLE_ADMIN")']
+  ],
+  itemOperations: [
+    'get',
+    'put' => ['security' => 'is_granted("ROLE_ADMIN")'],
+    'delete' => ['security' => 'is_granted("ROLE_ADMIN")']
+  ]
+)]
 class Build
 {
   /**
@@ -18,52 +32,62 @@ class Build
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
    */
+  #[Groups(['read:build'])]
   private $id;
 
   /**
    * @ORM\Column(type="string", length=255)
    */
+  #[Groups(['read:build', 'write:build'])]
   private $name;
 
   /**
    * @ORM\Column(type="text", nullable=true)
    */
+  #[Groups(['read:build', 'write:build'])]
   private $description;
 
   /**
    * @ORM\Column(type="integer")
    */
+  #[Groups(['read:build', 'write:build'])]
   private $type;
 
   /**
    * @ORM\Column(type="datetime")
    */
+  #[Groups(['read:build'])]
   private $created_at;
 
   /**
    * @ORM\Column(type="datetime")
    */
+  #[Groups(['read:build'])]
   private $updated_at;
 
   /**
    * @ORM\Column(type="bigint")
    */
+  #[Groups(['read:build'])]
   private $views = 0;
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class, inversedBy="builds")
    * @ORM\JoinColumn(nullable=false)
    */
+  #[Groups(['read:build'])]
   private $author;
 
   /**
    * @ORM\ManyToMany(targetEntity=Weapon::class)
    */
+  #[Groups(['read:build', 'write:build'])]
   private $weapons;
 
   /**
    * @ORM\Column(type="json")
    */
+  #[Groups(['read:build', 'write:build'])]
   private $activeSkills = [];
 
   public function __construct()

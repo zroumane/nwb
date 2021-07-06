@@ -9,7 +9,13 @@ navbar:
   logout: Logout
   profil: Profile
 
-builds:
+build:
+  name: Name
+  author: Author
+  weapon: Weapons
+  type: Type
+  view: View
+  update: Last Update
 
 create:
   buildname: Build name
@@ -29,6 +35,10 @@ create:
 patchnote:
   goback: Go back to list
 
+profile:
+  title: Builds of %pseudo%
+  yourbuild: Your builds
+
 login:
   login: Login
   gologin: Login
@@ -42,7 +52,6 @@ login:
   remember: Remember me
   agreeterms: Accept terms
   incorrect: Invalid credentials
-  resetpass: Forgot your password ?
   verify:
     invalid: Unable to verify this account
     check: Your account has been verified. Welcome !
@@ -50,8 +59,17 @@ login:
     noemail: Invalid Email
     already: Email already verified
 
-profile:
-  title: User profile of %pseudo%
-  edit: Modify your profile
-  save: Save
-  resetpass: Modify password
+password:
+  resetpass: Forgot your password ?
+  modifypass: Modify password
+  reset:
+    title: Reset your password
+    new: New password
+    repeat: Repeat password
+    reset: Reset
+  request:
+    send: Send email
+    description: Enter your email address and we we will send you a link to reset your password. 
+    issend: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
+    noreceive:  If you don't receive an email please check your spam folder or
+    tryagain: try again

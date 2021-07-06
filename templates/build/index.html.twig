@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-
+	
 {% endblock %}
 
 {% block javascripts %}
@@ -13,39 +13,30 @@
 		<thead>
 			<tr>
 				<th scope="col">
-					Name
+					{% trans %}build.name{% endtrans %}
 				</th>
 				<th scope="col">
-					Author
+					{% trans %}build.author{% endtrans %}
 				</th>
 				<th scope="col">
-					Weapon
+					{% trans %}build.weapon{% endtrans %}
 				</th>
 				<th scope="col">
-					Type
+					{% trans %}build.type{% endtrans %}
 				</th>
 				<th scope="col">
-					View
+					{% trans %}build.view{% endtrans %}
 				</th>
 				<th scope="col">
-					Update
+					{% trans %}build.update{% endtrans %}
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for build in builds %}
+			{# {% for build in builds %}
 				<tr>
 					<td>
-						<a href="{{
-							path(
-								'app_builds_show',
-								{
-									id: build.id
-								}
-							)
-							}}">
-							{{ build.name }}
-						</a>
+						<a href="{{path('app_builds_show',{: build.id})}}">{{ build.name }}</a>
 					</td>
 					<td>
 						{{ build.author.pseudo }}
@@ -75,7 +66,7 @@
 						{% endif %}
 					</td>
 				</tr>
-			{% endfor %}
+			{% endfor %} #}
 		</tbody>
 	</table>
 {% endblock %}

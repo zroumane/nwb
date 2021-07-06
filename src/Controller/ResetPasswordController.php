@@ -34,8 +34,13 @@ class ResetPasswordController extends AbstractController
      * Display & process form to request a password reset.
      */
     #[Route('', name: 'app_password_forgot')]
-    public function request(Request $request, MailerInterface $mailer): Response
+    public function request(Request $request, MailerInterface $mailer, $send = false): Response
     {
+
+        if($request->query->get('send') == 1){
+            $send = true;
+        }
+
         $form = $this->createForm(ResetPasswordRequestFormType::class);
         $form->handleRequest($request);
 
@@ -48,25 +53,7 @@ class ResetPasswordController extends AbstractController
 
         return $this->render('security/pass.request.html.twig', [
             'requestForm' => $form->createView(),
-            'send' => false
-        ]);
-    }
-
-    /**
-     * Confirmation page after a user has requested a password reset.
-     */
-    #[Route('/check-email', name: 'app_password_check_email')]
-    public function checkEmail(): Response
-    {
-        // Generate a fake token if the user does not exist or someone hit this page directly.
-        // This prevents exposing whether or not a user was found with the given email address or not
-        if (null === ($resetToken = $this->getTokenObjectFromSession())) {
-            $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
-        }
-
-        return $this->render('security/pass.request.html.twig', [
-            'resetToken' => $resetToken,
-            'send' => true
+            'send' => $send
         ]);
     }
 
@@ -136,22 +123,13 @@ class ResetPasswordController extends AbstractController
 
         // Do not reveal whether a user account was found or not.
         if (!$user) {
-            return $this->redirectToRoute('app_password_check_email');
+            return $this->redirectToRoute('app_password_forgot', ["send" => true]);
         }
 
         try {
             $resetToken = $this->resetPasswordHelper->generateResetToken($user);
         } catch (ResetPasswordExceptionInterface $e) {
-            // If you want to tell the user why a reset email was not sent, uncomment
-            // the lines below and change the redirect to 'app_password_forgot'.
-            // Caution: This may reveal if a user is registered or not.
-            //
-            // $this->addFlash('reset_password_error', sprintf(
-            //     'There was a problem handling your password reset request - %s',
-            //     $e->getReason()
-            // ));
-
-            return $this->redirectToRoute('app_password_check_email');
+            return $this->redirectToRoute('app_password_forgot');
         }
 
         $email = (new TemplatedEmail())
@@ -169,6 +147,6 @@ class ResetPasswordController extends AbstractController
         // Store the token object in session for retrieval in check-email route.
         $this->setTokenObjectInSession($resetToken);
 
-        return $this->redirectToRoute('app_password_check_email');
+        return $this->redirectToRoute('app_password_forgot', ["send" => true]);
     }
 }

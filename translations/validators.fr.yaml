@@ -18,6 +18,7 @@ password:
   lower: Votre mot de passe doit contenir une minuscule
   upper: Votre mot de passe doit contenir une majuscule
   digit: Votre mot de passe doit contenir un chiffre
+  mustmatch: Les mots de passe doivent correspondre
 agreeterms:
   label: Acceptez les termes et conditions
   istrue: Vous devez acceptez les termes et conditions

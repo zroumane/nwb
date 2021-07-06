@@ -33,7 +33,7 @@ class EmailVerifier
     $email = new TemplatedEmail();
     $email->from(new Address("noreply@newworld-builder.com", "NewWorld-Builder.com"));
     $email->to($user_email);
-    $email->subject("Email Verification");
+    $email->subject("NewWorld-Builder.com Email Verification");
     $email->htmlTemplate("security/mail.confirm.twig");
 
     $signatureComponents = $this->verifyEmailHelper->generateSignature("app_security_verify_email", $user_id, $user_email, ["id" => $user_id]);

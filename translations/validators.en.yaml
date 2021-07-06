@@ -18,6 +18,7 @@ password:
   lower: Your password must contain a lowercase
   upper: Your password must contain a capital letter
   digit: Your password must contain a number
+  mustmatch: The passwords must match
 agreeterms:
   label: Accept Terms
   istrue: You must agree to our terms.
