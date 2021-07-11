@@ -11,133 +11,121 @@
 {% endblock %}
 {% block body %}
   {% if app.user %}
-    <div id="WeaponDataContainer" style="display:none;" data-weapon="{% if build is defined%}{{ build.skills }}{% endif %}"></div>
 
-    <form id="BuildForm">
 
-      <div class="mb-4 row">
-        {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans %}create.buildname{% endtrans %} :</label> #}
-        <div class="col">
-          <input class="form-control" type="text" id="BuildNameInput" placeholder="{% trans %}create.buildname{% endtrans %}"/>
-        </div>
-        <div class="col-3">
-          <select type="radio" class="form-select" id="SelectType">
-            <option id="modetype0" hidden="hidden" disabled="disabled" selected="selected" value="0">{% trans %}create.typename{% endtrans %}</option>
-            <option name="modetype1" id="modetype1" value="1">PVP</option>
-            <option name="modetype2" id="modetype2" value="2">PVE</option>
-            <option name="modetype3" id="modetype3" value="3">PVPVE</option>
-            <option name="modetype4" id="modetype4" value="4">{% trans %}create.siege{% endtrans %}</option>
+  <nav>
+    <div class="nav nav-tabs nav-fill navbar-light bg-dark">
+      <button class="fs-5 nav-link active" data-bs-toggle="tab" data-bs-target="#tab-weapon-1" type="button">Weapon 1</button>
+      <button class="fs-5 nav-link" data-bs-toggle="tab" data-bs-target="#tab-weapon-2" type="button">Weapon 2</button>
+      <button class="fs-5 nav-link" data-bs-toggle="tab" data-bs-target="#tab-gears" type="button">Gears</button>
+      <button class="fs-5 nav-link" data-bs-toggle="tab" data-bs-target="#tab-stats" type="button">Stats</button>
+    </div>
+  </nav>
+  <div class="tab-content p-2 p-lg-0">
+
+    {% for weapon in 1..2 %}
+
+
+    <div class="tab-pane fade {% if weapon == 1 %}show active{% endif %}" id="tab-weapon-{{weapon}}">
+      
+      <div class="my-4 row">
+
+        <div class="col-12 col-lg-3 p-2">
+          <select class="weaponSelect form-select my-2">
+            <option hidden selected>Select Weapon {{weapon}}</option>
           </select>
-        </div>
-      </div>
-      <div class="mb-4 row">
-        {# <label class="col-sm-3 col-form-label col-form-label-lg">{% trans %}create.builddesc{% endtrans %} :</label> #}
-        <div class="col">
-          <textarea class="form-control" id="DescriptionInput" placeholder="{% trans %}create.builddesc{% endtrans %}"></textarea>
-        </div>
-      </div>
+            
+          <div class="text-center mt-4 d-none spinner{{weapon}}">
+            <div class="spinner-border"></div>
+          </div>
+          
+          <div class="weaponSidebar d-none">
 
-      <div class="mb-4 row">
-        {# <label class="col-sm-3 col-form-label col-form-label-lg" id="weapon">{% trans %}create.weapons{% endtrans %} :</label> #}
 
-        {% for select in 1..2 %}
-          <div class="col">
-            <select class="selectChoixWeapon form-select p-2" collapse="{{ select }}" type="radio">
-              <option class="optionChoixWeapon" value="0" hidden="hidden" disabled="disabled" selected="selected">{% trans with {
-                  '%number%' : select
-                } %}create.chooseweapon{% endtrans %}</option>
-              {% for weapon in weapons %}
-                <option class="optionChoixWeapon" collapse="{{ select }}" value="{{weapon.key}}" branch1="{{weapon.branch[0]}}" branch2="{{weapon.branch[1]}}">{{weapon.name}}</option>
+            <div class="progress position-relative mt-4">
+              <div class="progress-bar" id="pointProgres-{{weapon}}" role="progressbar"></div>
+              <div class="pointProgresText justify-content-center d-flex position-absolute w-100 fs-5 m-0">Points Restant : 15</div>
+            </div>
+        
+            <div class="row px-3 mt-4">
+              {% for cadre in 1..3 %}
+                <div class="col p-1">
+                  <div class="dropdown dropup">
+                    <button class="mainskillbtn btn dropdown-toggle w-100 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                      <img class="dropdown-item p-0 mainSkillSelected" data-id="0" src="{{asset("img/mainSkill.png")}}"/>
+                    </button>
+                    <ul class="dropdown-menu p-0 mainskillul" weapon="{{weapon}}" id="ulMainSkill-{{weapon}}-{{cadre}}" aria-labelledby="dropdownMenuButton">
+                      {% for li in 1..7 %}
+                        <li class="w-100">
+                          <img class="mainskillli dropdown-item p-0 d-none" src="{{asset("img/mainSkill.png")}}" data-id="0"/>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
               {% endfor %}
-            </select>
+            </div>
+
+
+            <div class="p-2 mt-4">
+            <button type="button" class="btn btn-outline-danger w-100 resetButton">{% trans %}create.reset{% endtrans %}</button>
           </div>
 
-        {% endfor %}
-
+        </div>
       </div>
 
-      <div class="accordion" id="accordionWeapon">
-        {% for collapse in 1..2 %}
-          <div class="accordion-item" collapse="{{collapse}}">
-            <h2 class="accordion-header" id="heading-{{collapse}}" collapse="{{collapse}}">
-              <button class="accordion-button collapsed fs-4" id="buttonCollapse-{{collapse}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{collapse}}" aria-expanded="false" aria-controls="collapse{{collapse}}">{% trans with {
-                  '%number%' : collapse
-                } %}create.weapon{% endtrans %}</button>
-            </h2>
-            <div class="accordion-collapse collapse" id="collapse-{{collapse}}" collapse="{{collapse}}" aria-labelledby="heading-{{collapse}}" data-bs-parent="#accordionWeapon">
-              <div class="accordion-body p-0" collapse="{{collapse}}">
-                <div class="row p-3 gx-0 fs-4 collapseAlert" collapse="{{collapse}}">{% trans %}create.weaponalert{% endtrans %}</div>
-                <div class="weaponCollapse" id="weaponCollapse-{{collapse}}">
-                  <div class="p-2">
-                    <div class="progress position-relative" style="height: 40px; background-color:white; border:3px white solid; border-radius: 0.2rem">
-                      <div class="progress-bar" id="pointProgres{{collapse}}" role="progressbar" style="width: 100%; background-color:#ffc107; border-radius: 0.2rem" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      <div class="justify-content-center d-flex position-absolute w-100 h4 m-0" id="pointProgresText{{collapse}}" style="color:black;height:100%"></div>
-                    </div>
-                  </div>
-                  <div class="row p-3 gx-0">
-                    {% for side in 1..2 %}
-                      <div class="col" id="side-{{side}}">
-                        <div class="row mb-2 justify-content-center fs-3 fw-bold" id="branchName-{{collapse}}-{{side}}"></div>
-                        <div style="position:relative">
-                          <div class="row m-0 p-2 svgContainer" id="svgContainer-{{collapse}}-{{side}}">
-                            <svg class="p-0 bgSvg" collapse="{{collapse}}" id="bgSvg-{{collapse}}-{{side}}"></svg>
-                          </div>
-                          <div class="row m-0 p-2">
-                            {% for row in 1..6 %}
-                              <div class="row gx-0" collapse="{{collapse}}" side="{{side}}" row="{{row}}">
-                                {% for col in 1..5 %}
-                                  <div class="col skill-container" collapse="{{collapse}}" side="{{side}}" row="{{row}}" id="skill-{{collapse}}-{{side}}-{{row}}-{{col}}" title="Popver" data-toggle="popover" data-bs-trigger="hover" data-bs-content="Popover description" alert="false">
-                                    <img class="skill-container-img" collapse="{{collapse}}" src="img/emptyCadre.png"/>
-                                  </div>
-                                {% endfor %}
-                              </div>
-                            {% endfor %}
+      <div class="col-12 col-lg-9 p-1">
+        <div class="text-center mt-4 d-none spinner{{weapon}}">
+          <div class="spinner-border"></div>
+        </div>
+        <div class="row py-3 gx-0 skillSection d-none">
+          {% for side in 1..2 %}
+            <div class="col" id="side-{{side}}">
+              <div class="row mb-2 justify-content-center fs-3 fw-bold branchName{{weapon}}"></div>
+              <div class="position-relative">
+                <div class="row m-0 p-2 svgContainer svgContainer{{weapon}}">
+                  <svg class="p-0 bgSvg" id="bgSvg-{{weapon}}-{{side}}"></svg>
+                </div>
+                <div class="row m-0 p-2">
+                  {% for row in 1..6 %}
+                    <div class="row gx-0">
+                      {% for col in 1..5 %}
+                        <div class="col skill-container skill-container{{weapon}}" id="skill-{{weapon}}-{{side}}-{{row}}-{{col}}" data-id="0">
+                          <div class="skill-container-icon">
+                            <img class="w-100" src="{{asset("img/emptyCadre.png")}}"/>
                           </div>
                         </div>
-                      </div>
-                    {% endfor %}
-                  </div>
-                  <div class="row p-3 justify-content-center" collapse="{{collapse}}">
-                    <div class="col">
-                      <div class="row gx-1 justify-content-center">
-                        {% for cadre in 1..3 %}
-                          <div class="col-2">
-                            <div class="dropdown dropup">
-                              <button class="mainskillbtn btn dropdown-toggle w-100 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img class="dropdown-item p-0 mainSkillSelected" collapse="{{collapse}}" cadre="{{cadre}}" skillkey="" src="img/CadreSkill.png"/>
-                              </button>
-                              <ul class="dropdown-menu p-0 ulMainSkill" collapse="{{collapse}}" id="ulMainSkill-{{collapse}}-{{cadre}}" aria-labelledby="dropdownMenuButton" style="width:100%; max-width:inherit;min-width:inherit">
-                                {% for li in 1..7 %}
-                                  <li class="w-100">
-                                    <img class="mainskillli dropdown-item p-0 {% if li == 7 %}d-none{% endif %}" li="{{li}}" collapse="{{collapse}}" cadre="{{cadre}}" skillkey="" src="img/CadreSkill.png"/>
-                                  </li>
-                                {% endfor %}
-                              </ul>
-                            </div>
-                          </div>
-                        {% endfor %}
-                      </div>
+                      {% endfor %}
                     </div>
-                    <div class="col position-relative">
-                      <button type="button" class="btn btn-outline-light position-absolute top-50 start-50 translate-middle fs-4 resetButton" collapse="{{collapse}}">{% trans %}create.reset{% endtrans %}</button>
-                    </div>
-                  </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
 
-      <div class="mt-3 m-3 row fs-5">
-        <span id="zoneErreur" class="justify-content-center" style="background-color:red"></span>
       </div>
+    </div>
+    {% endfor %}
 
-      <div class="row p-3 justify-content-center">
-        <button type="submit" class="btn btn-outline-light fs-3">{% trans %}create.save{% endtrans %}</button>
+    <div class="tab-pane fade" id="tab-stats">
+      <div class="my-4 fs-3 text-center">
+        Comming Soon
       </div>
+    </div>
 
-    </form>
+    <div class="tab-pane fade" id="tab-gears">
+      <div class="my-4 fs-3 text-center">
+        Comming Soon
+      </div>
+    </div>
+
+  </div>
+
+
+
+
   {% else %}
     <div class="p-3 justify-content-center text-center">
       <div class="fs-4 mb-4 text-center">{% trans %}create.connect{% endtrans %}</div>

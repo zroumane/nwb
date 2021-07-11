@@ -1,5 +1,6 @@
 import "../css/WeaponDashboard.scss";
 import { $q, $qa, MAX_ROW, MAX_COL } from "./Global";
+import { getMethod } from "./utils/getMethod";
 
 const $weaponSelect = $q("#weaponSelect");
 const $weaponForm = $q("#weaponForm");
@@ -17,7 +18,7 @@ const $skillFormTitle = $skillForm.querySelector("#skillFormTitle");
 const $skillFormTitleId = $skillForm.querySelector("#skillFormTitleId");
 const $skillFormId = $skillForm.querySelector("#skillFormId");
 const $skillFormSkillKey = $skillForm.querySelector("#skillFormSkillKey");
-const $skillFormBgShape = $skillForm.querySelector("#skillFormBgShape");
+const $skillFormType = $skillForm.querySelector("#skillFormType");
 const $skillFormBgColor = $skillForm.querySelector("#skillFormBgColor");
 const $skillFormParent = $skillForm.querySelector("#skillFormParent");
 const $skillFormParentDelete = $skillForm.querySelector("#skillFormParentDelete");
@@ -67,23 +68,20 @@ const postEntity = (type, id, body, callback) => {
 /**
  * Mise a jour de la liste d'arme
  */
-const getWeapon = () => {
-  fetch("/api/weapons")
-    .then((response) => response.json())
-    .then((data) => {
-      Array.from($weaponSelect.children)
-        .filter((c) => c.value != 0)
-        .forEach((c) => c.remove());
-      window.weapons = data["hydra:member"];
-      window.weapons.forEach((weapon) => {
-        let $weaponOption = document.createElement("option");
-        $weaponOption.value = weapon.id;
-        $weaponOption.innerText = weapon.weaponKey;
-        $weaponSelect.appendChild($weaponOption);
-      });
-      Array.from($weaponSelect.children).filter((c) => c.value == 0)[0].selected = true;
-      updateWeaponForm(undefined);
-    });
+const getWeapon = async () => {
+  let data = await getMethod("/api/weapons");
+  window.weapons = data["hydra:member"];
+  Array.from($weaponSelect.children)
+    .filter((c) => c.value != 0)
+    .forEach((c) => c.remove());
+  window.weapons.forEach((weapon) => {
+    let $weaponOption = document.createElement("option");
+    $weaponOption.value = weapon.id;
+    $weaponOption.innerText = weapon.weaponKey;
+    $weaponSelect.appendChild($weaponOption);
+  });
+  Array.from($weaponSelect.children).filter((c) => c.value == 0)[0].selected = true;
+  updateWeaponForm(undefined);
 };
 getWeapon();
 
@@ -135,51 +133,53 @@ $weaponSelect.addEventListener("change", () => {
 /**
  * Mise a jour des skills
  */
-const getSkills = () => {
-  fetch(`/api/weapons/${window.currentWeapon}/skills`)
-    .then((response) => response.json())
-    .then((data) => {
-      $skillForm.classList.add("isHidden");
-      window.currentSkills = data["hydra:member"];
-      $svgContainer.forEach((el) => (el.firstElementChild.innerHTML = ""));
-      $qa(".skill-container").forEach((c) => {
-        let d = c.id.split("-");
-        let match = window.currentSkills.filter((s) => s.side == d[1] && s.line == d[2] && s.col == d[3])[0];
-        if (match) {
-          c.style.backgroundImage = `url('/img/nwpng/${match.bgName}')`;
-          c.firstElementChild.setAttribute("src", `/img/nwpng/${match.skillKey}.png`);
-          c.dataset.id = match.id;
-          if (match.parent != undefined) {
-            let parentMatch = window.currentSkills.filter((s) => s["@id"] == match.parent)[0];
-            if (parentMatch) {
-              let bgSVG = $svgContainer[match.side - 1].firstElementChild;
-              bgSVG.innerHTML += `<line class="skillLine" 
+const getSkills = async () => {
+  $skillForm.classList.add("isHidden");
+  let data = await getMethod(`/api/weapons/${window.currentWeapon}/skills`);
+  window.currentSkills = data["hydra:member"];
+  $svgContainer.forEach((el) => (el.firstElementChild.innerHTML = ""));
+  $qa(".skill-container").forEach((c) => {
+    let d = c.id.split("-");
+    let match = window.currentSkills.filter((s) => s.side == d[1] && s.line == d[2] && s.col == d[3])[0];
+    if (match) {
+      c.style.backgroundImage = `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')`;
+      c.style.backgroundSize = [1, 3].includes(match.type) ? "90% 90%" : "70% 70%";
+      c.firstElementChild.style.backgroundImage = `url(/img/nwpng/${match.skillKey}.png)`;
+      c.firstElementChild.style.backgroundSize = [1, 3].includes(match.type) ? "90% 90%" : "70% 70%";
+
+      c.dataset.id = match.id;
+      if (match.parent != undefined) {
+        let parentMatch = window.currentSkills.filter((s) => s["@id"] == match.parent)[0];
+        if (parentMatch) {
+          let bgSVG = $svgContainer[match.side - 1].firstElementChild;
+          bgSVG.innerHTML += `<line class="skillLine" 
             x1="${(parentMatch.col * 100) / MAX_COL - 10}%" y1="${(parentMatch.line * 100) / MAX_ROW - 10}%" 
             x2="${(match.col * 100) / MAX_COL - 10}%" y2="${(match.line * 100) / MAX_ROW - 10}%"/>`;
-            }
-          }
-        } else {
-          c.style.backgroundImage = `url('/img/CadreSkill.png')`;
-          c.firstElementChild.setAttribute("src", "/img/emptyCadre.png");
-          c.dataset.id = 0;
         }
-      });
-      clearSkillOutline();
-      $skillSection.classList.remove("isHidden");
-    });
+      }
+    } else {
+      c.style.backgroundImage = "";
+      c.firstElementChild.style.backgroundImage = "";
+      c.dataset.id = 0;
+    }
+  });
+  clearSkillOutline();
+  $skillSection.classList.remove("isHidden");
 };
 
 /**
  * Event Ajouter / Mettre a jour un skill
  */
 $skillFormSend.addEventListener("click", () => {
+  var type = parseInt($skillFormType.querySelector('[type="radio"]:checked').value);
   let body = {
     skillKey: $skillFormSkillKey.value,
     weapon: `/api/weapons/${window.currentWeapon}`,
     side: parseInt($skillFormSide.value),
     line: parseInt($skillFormRow.value),
     col: parseInt($skillFormCol.value),
-    bgName: `abilities_bg${!$skillFormBgShape.checked ? "_passive" : ""}${$skillFormBgColor.querySelector('[type="radio"]:checked').value}.png`,
+    bgColor: type == 4 ? 0 : parseInt($skillFormBgColor.querySelector('[type="radio"]:checked').value),
+    type: type,
     parent: $skillFormParent.dataset.parentId != 0 ? `/api/skills/${$skillFormParent.dataset.parentId}` : null,
   };
   if ($skillFormParent.dataset.parentId != 0) body.parent = `/api/skills/${$skillFormParent.dataset.parentId}`;
@@ -230,8 +230,8 @@ $qa(".skill-container").forEach((skillContainer) => {
     }
     let match = window.currentSkills.filter((s) => s.id == skillId)[0];
     $skillFormSkillKey.value = match ? match.skillKey : "";
-    $skillFormBgShape.checked = match == undefined ? false : match.bgName.includes("_passive") ? false : true;
-    $skillFormBgColor.querySelector(`input[value="${match ? match.bgName.replace(/\D/g, "") : 1}"]`).checked = true;
+    $skillFormType.querySelector(`input[value="${match ? match.type : 1}"]`).checked = true;
+    $skillFormBgColor.querySelector(`input[value="${!match ? 1 : match.bgColor == 0 ? 1 : match.bgColor}"]`).checked = true;
     $skillFormParent.dataset.parentId = match && match.parent ? match.parent.split("/").reverse()[0] : "";
     $skillFormParent.src = match && match.parent ? `/img/nwpng/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png` : "/img/emptyCadre.png";
     $skillFormId.value = skillId;
@@ -249,8 +249,8 @@ $qa(".skill-container").forEach((skillContainer) => {
   skillContainer.addEventListener("dragleave", (event) => (event.target.style.outline = ""));
   skillContainer.addEventListener("drop", (event) => {
     event.preventDefault();
-    if (!event.target.classList.contains("skill-container-img")) return;
     event.target.style.outline = "";
+    if (!event.target.classList.contains("skill-container-img")) return;
     if (event.target.parentElement == window.$draggedSkill) return;
     let match = window.currentSkills.filter((s) => s.id == window.$draggedSkill.dataset.id)[0];
     if (match == undefined) return;

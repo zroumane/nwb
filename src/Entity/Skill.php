@@ -89,11 +89,18 @@ class Skill
   private $children;
 
   /**
-   * @ORM\Column(type="string", length=255)
-   * @Assert\NotBlank
+   * @ORM\Column(type="integer", length=255)
+   * @Assert\Range(min = 0, max = 6)
    */
   #[Groups(['read:skill', 'write:skill'])]
-  private $bgName;
+  private $bgColor;
+
+  /**
+   * @ORM\Column(type="integer")
+   * @Assert\Range(min = 1, max = 4)
+   */
+  #[Groups(['read:skill', 'write:skill'])]
+  private $type;
 
 
   public function __construct()
@@ -208,15 +215,27 @@ class Skill
     return $this;
   }
 
-  public function getBgName(): ?string
+  public function getBgColor(): ?string
   {
-    return $this->bgName;
+    return $this->bgColor;
   }
 
-  public function setBgName(string $bgName): self
+  public function setBgColor(string $bgColor): self
   {
-    $this->bgName = $bgName;
+    $this->bgColor = $bgColor;
 
     return $this;
+  }
+
+  public function getType(): ?int
+  {
+      return $this->type;
+  }
+
+  public function setType(int $type): self
+  {
+      $this->type = $type;
+
+      return $this;
   }
 }
