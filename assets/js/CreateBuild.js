@@ -53,12 +53,10 @@ $weaponSelects.forEach(($weaponSelect, index) => {
       $skillContainer.style.filter = `brightness(1)`;
       let data = $skillContainer.id.split("-");
       let match = weapon.skills.filter((s) => s.side == data[2] && s.line == data[3] && s.col == data[4])[0];
-
       $skillContainer.style.backgroundImage = match ? `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')` : "";
       $skillContainer.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
       $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/nwpng/${match.skillKey}.png)` : "";
       $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
-
       $skillContainer.dataset.id = match ? match.id : 0;
       if (match) {
         if (match.active == undefined) match.active = false;

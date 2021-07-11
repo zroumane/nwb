@@ -205,11 +205,11 @@ $skillFormParent.addEventListener("drop", (event) => {
   event.preventDefault();
   if (window.$draggedSkill.dataset.id == 0 || window.$draggedSkill.dataset.id == $skillFormId.value) return;
   $skillFormParent.dataset.parentId = window.$draggedSkill.dataset.id;
-  $skillFormParent.src = window.$draggedSkill.firstElementChild.src;
+  $skillFormParent.style.backgroundImage = window.$draggedSkill.firstElementChild.style.backgroundImage;
 });
 $skillFormParentDelete.addEventListener("click", () => {
   $skillFormParent.dataset.parentId = 0;
-  $skillFormParent.src = "/img/emptyCadre.png";
+  $skillFormParent.style.backgroundImage = "";
 });
 
 $qa(".skill-container").forEach((skillContainer) => {
@@ -233,7 +233,7 @@ $qa(".skill-container").forEach((skillContainer) => {
     $skillFormType.querySelector(`input[value="${match ? match.type : 1}"]`).checked = true;
     $skillFormBgColor.querySelector(`input[value="${!match ? 1 : match.bgColor == 0 ? 1 : match.bgColor}"]`).checked = true;
     $skillFormParent.dataset.parentId = match && match.parent ? match.parent.split("/").reverse()[0] : "";
-    $skillFormParent.src = match && match.parent ? `/img/nwpng/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png` : "/img/emptyCadre.png";
+    $skillFormParent.style.backgroundImage = match && match.parent ? `url("/img/nwpng/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png")` : "";
     $skillFormId.value = skillId;
     $skillFormSide.value = data[1];
     $skillFormRow.value = data[2];
@@ -250,12 +250,14 @@ $qa(".skill-container").forEach((skillContainer) => {
   skillContainer.addEventListener("drop", (event) => {
     event.preventDefault();
     event.target.style.outline = "";
-    if (!event.target.classList.contains("skill-container-img")) return;
-    if (event.target.parentElement == window.$draggedSkill) return;
+    var target = event.target.parentElement;
+    console.log(target);
+    if (!target.classList.contains("skill-container-icon")) return;
+    if (target.parentElement == window.$draggedSkill) return;
     let match = window.currentSkills.filter((s) => s.id == window.$draggedSkill.dataset.id)[0];
     if (match == undefined) return;
-    let data = event.target.parentElement.id.split("-");
-    if (event.target.parentElement.dataset.id != "0") {
+    let data = target.parentElement.id.split("-");
+    if (target.parentElement.dataset.id != "0") {
       window.alert("There is already a skill at this place");
       return;
     }
