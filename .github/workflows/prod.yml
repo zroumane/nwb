@@ -28,4 +28,4 @@ jobs:
             local_source_dir: "./"
             dist_target_dir: "www/"
             delete: "true"
-            exclude: "'^.git/' '^.github/' '^node_modules/' '^assets/' '^var/' '^migrations/' '^public/bundles/apiplatform/' '^.env' '^.gitignore' '^.prettierignore' '^.prettierrc''^composer.lock' '^exclude' '^package-lock.json' '^package.json' '^postcss.config.js' '^README.md' '^start.bat' '^start.sh' '^symfony.lock' '^webpack.config.js' '^yarn.lock'"
+            exclude: "'^.git/' '^.github/' '^node_modules/' '^assets/' '^var/' '^migrations/' '^public/bundles/apiplatform/' '^.env' '^.gitignore' '^.prettierignore' '^.prettierrc' '^composer.lock' '^exclude' '^package-lock.json' '^package.json' '^postcss.config.js' '^README.md' '^start.bat' '^start.sh' '^symfony.lock' '^webpack.config.js' '^yarn.lock'"
