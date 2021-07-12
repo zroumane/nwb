@@ -20,12 +20,12 @@ jobs:
         - run: npm install
         - run: npm run build
             
-        - uses: sand4rt/ftp-deployer@v1.3
+        - uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
           with:
-            host: ${{ secrets.FTP_SERVER }} # e.g. ftp.host.com or sftp.host.com (without ftp:// or ftps://)
-            username: ${{ secrets.FTP_USERNAME }} # FTP username
-            password: ${{ secrets.FTP_PASSWORD }} # FTP password
-            remote_folder: www/
-            local_folder: ./
-            cleanup: false
-            exclude: '[".git/**", ".github/**", "node_modules/**", "assets/**", "var/**", "migrations/", "public/bundles/apiplatform/**", ".env", ".gitignore", ".prettierignore", ".prettierrc", "composer.json", "composer.lock", "exclude", "package", "postcss.config.js", "README.md", "start.bat", "start.sh", "symfony.lock", "webpack.config.js", "yarn.lock"]'
+            ftp_host: ${{ secrets.FTP_SERVER }}
+            ftp_username: ${{ secrets.FTP_USERNAME }}
+            ftp_password: ${{ secrets.FTP_USERNAME }}
+            local_source_dir: "./"
+            dist_target_dir: "www/"
+            delete: "true"
+            exclude: "['^.git/' '^.github/' '^node_modules/' '^assets/' '^var/' '^migrations/' '^public/bundles/apiplatform/' '^.env' '^.gitignore' '^.prettierignore' '^.prettierrc' '^composer.json' '^composer.lock' '^exclude' '^package' '^postcss.config.js' '^README.md' '^start.bat' '^start.sh' '^symfony.lock' '^webpack.config.js' '^yarn.lock']"
