@@ -11,7 +11,7 @@ jobs:
             command: update --no-dev --no-cache
         - uses: baschny/php-composer-action@v1
           with:
-            command: dump-env prod --no-cache
+            command: dump-env prod
         - uses: actions/setup-node@v1
           with:
             node-version: 10
