@@ -77,6 +77,17 @@
       "App\\Tests\\": "tests/"
     }
   },
+
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    },
+    "post-install-cmd": [
+    ],
+    "post-update-cmd": [
+    ]
+  },
   "replace": {
     "symfony/polyfill-ctype": "*",
     "symfony/polyfill-iconv": "*",
