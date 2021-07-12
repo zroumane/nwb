@@ -27,25 +27,25 @@ jobs:
             password: ${{ secrets.ftp_password }}
             server-dir: www/
             exclude:
-              - **/.git*
-              - **/.git*/**
-              - /node_modules/**
-              - /assets/**
-              - /var/**
-              - /migrations/**
-              - /public/bundles/apiplatform/**
-              - .env
-              - .gitignore
-              - .prettierignore
-              - .prettierrc
-              - composer.json
-              - composer.lock
-              - exclude
-              - package
-              - postcss.config.js
-              - README.md
-              - start.bat
-              - start.sh
-              - symfony.lock
-              - webpack.config.js
-              - yarn.lock
+              -**/.git*
+              -**/.git*/**
+              -/node_modules/**
+              -/assets/**
+              -/var/**
+              -/migrations/**
+              -/public/bundles/apiplatform/**
+              -.env
+              -.gitignore
+              -.prettierignore
+              -.prettierrc
+              -composer.json
+              -composer.lock
+              -exclude
+              -package
+              -postcss.config.js
+              -README.md
+              -start.bat
+              -start.sh
+              -symfony.lock
+              -webpack.config.js
+              -yarn.lock
