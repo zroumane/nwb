@@ -1,6 +1,6 @@
 import "../css/WeaponDashboard.scss";
 import { $q, $qa, MAX_ROW, MAX_COL } from "./Global";
-import { getMethod } from "./utils/getMethod";
+import { getMethod } from "./Utils";
 
 const $weaponSelect = $q("#weaponSelect");
 const $weaponForm = $q("#weaponForm");

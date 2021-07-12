@@ -73,7 +73,18 @@ class BuildsController extends AbstractController
   {
     return $this->render("build/create.html.twig", [
       "locale" => $request->getLocale(),
-      "weapons" => json_decode(file_get_contents($this->kernel->getProjectDir() . "/public/json/" . $request->getLocale() . "/weapon.json")),
     ]);
+  }
+
+  /**
+   * @Route("/edit/{id}", requirements={"id"="\d+"})
+   */
+  public function edit(Request $request, Build $build): Response
+  {
+    if($build){
+      return $this->render("build/create.html.twig", [
+        "locale" => $request->getLocale(),
+      ]);
+    }
   }
 }

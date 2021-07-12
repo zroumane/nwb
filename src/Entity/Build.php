@@ -90,6 +90,13 @@ class Build
   #[Groups(['read:build', 'write:build'])]
   private $activeSkills = [];
 
+  /**
+   * @ORM\Column(type="array")
+   */
+  #[Groups(['read:build', 'write:build'])]
+  private $mainSkills = [];
+
+
   public function __construct()
   {
     $this->weapons = new ArrayCollection();
@@ -218,5 +225,17 @@ class Build
     $this->activeSkills = $activeSkills;
 
     return $this;
+  }
+
+  public function getMainSkills(): ?array
+  {
+      return $this->mainSkills;
+  }
+
+  public function setMainSkills(array $mainSkills): self
+  {
+      $this->mainSkills = $mainSkills;
+
+      return $this;
   }
 }

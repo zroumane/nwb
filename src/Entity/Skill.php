@@ -102,7 +102,6 @@ class Skill
   #[Groups(['read:skill', 'write:skill'])]
   private $type;
 
-
   public function __construct()
   {
     $this->children = new ArrayCollection();
