@@ -6,6 +6,13 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
+        - uses: nick-zh/composer-php@master
+          with:
+            action: 'update --no-dev --no-cache -oa'
+        - uses: nick-zh/composer-php@master
+          with:
+            action: 'dump-env prod --no-cache'
+              
         - uses: baschny/php-composer-action@v1
           with:
             command: update --no-dev --no-cache
