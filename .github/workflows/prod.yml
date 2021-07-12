@@ -20,10 +20,13 @@ jobs:
         - run: npm install
         - run: npm run build
             
-        - uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        - uses: sand4rt/ftp-deployer@v1.3
           with:
-            server: ${{ secrets.FTP_SERVER }}
-            username: ${{ secrets.FTP_USERNAME }}
-            password: ${{ secrets.ftp_password }}
-            server-dir: www/
-            exclude: "[.git/**, .github/**, node_modules/**, assets/**, var/**, migrations/, public/bundles/apiplatform/**, .env, .gitignore, .prettierignore, .prettierrc, composer.json, composer.lock, exclude, package, postcss.config.js, README.md, start.bat, start.sh, symfony.lock, webpack.config.js, yarn.lock]"
+            host: ${{ secrets.FTP_SERVER }} # e.g. ftp.host.com or sftp.host.com (without ftp:// or ftps://)
+            username: ${{ secrets.FTP_USERNAME }} # FTP username
+            password: ${{ secrets.FTP_PASSWORD }} # FTP password
+            remote_folder: www/
+            local_folder: ./
+            cleanup: false # optional, remove existing files inside FTP remote folder
+            exclude: ['.git/**', '.github/**', 'node_modules/**', 'assets/**', 'var/**', 'migrations/', 'public/bundles/apiplatform/**', '.env', '.gitignore', '.prettierignore', '.prettierrc', 'composer.json', 'composer.lock', 'exclude', 'package', 'postcss.config.js', 'README.md', 'start.bat', 'start.sh', 'symfony.lock', 'webpack.config.js', 'yarn.lock']
+            pasive: true # optional
