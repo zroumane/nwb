@@ -1,0 +1,27 @@
+on:
+  release:
+    types: [published]
+jobs:
+  deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 10
+        - run: npm install
+        - run: npm run build
+        - uses: nick-zh/composer-php@master
+          with:
+            action: 'update --no-dev'
+        - uses: nick-zh/composer-php@master
+          with:
+            action: 'dump-env prod'
+        - uses: sebastianpopp/ftp-action@releases/v2
+          with:
+            host: ${{ secrets.FTP_SERVER }}
+            user: ${{ secrets.FTP_USERNAME }}
+            password: ${{ secrets.FTP_PASSWORD }}
+            localDir: "dist"
+            remoteDir: "www"
+            options: "--delete --asci"

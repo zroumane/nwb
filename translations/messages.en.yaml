@@ -1,5 +1,6 @@
 meta:
   sitetitle: New World Builder | Build, Database & PatchNote
+  soon: Soon
 
 navbar:
   build: Builds
@@ -23,10 +24,10 @@ create:
   builddesc: Description
   typename: Type
   siege: Siege
-  weapons: Weapons
-  chooseweapon: Choose weapon %number%
-  weapon: Weapon %number%
-  weaponalert: Please choose a weapon first
+  selectweapon: Select weapon %n%
+  weapon: Weapon %n%
+  gear: Gears
+  stat: Statistics
   save: Save
   reset: Reset
   modify: Modify

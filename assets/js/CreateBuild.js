@@ -8,13 +8,19 @@ const $weaponSelects = $qa(".weaponSelect");
 const $weaponSidebars = $qa(".weaponSidebar");
 const $skillSections = $qa(".skillSection");
 const $loadingSpinners = [$qa(".spinner1"), $qa(".spinner2")];
+
+const $progressBars = $qa(".progress-bar");
+const $pointProgresText = $qa(".pointProgresText");
+
+const $mainSkills = $qa(".mainSkill");
+const $mainSkillLists = [$qa(".mainskillList1"), $qa(".mainskillList2")];
+const $mainSkillSelecteds = [$qa(".mainSkillSelected1"), $qa(".mainSkillSelected2")];
+const $mainSkillDeletes = $qa(".mainSkillDelete");
+
+const $weaponResetButtons = $qa(".resetButton");
 const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
 const $skillContainers = [$qa(".skill-container1"), $qa(".skill-container2")];
 const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
-const $progressBars = $qa(".progress-bar");
-const $pointProgresText = $qa(".pointProgresText");
-const $mainSkills = $qa(".mainSkill");
-const $mainSkillDeletes = $qa(".mainSkillDelete");
 
 window.currentWeapons = [undefined, undefined];
 
@@ -31,14 +37,45 @@ window.currentWeapons = [undefined, undefined];
 //   ],
 // };
 
+/**
+ * Associe les skills à "weapon" aprçès un fetch de l'api
+ * @param {number} weapon
+ */
 const getSkills = async (weapon) => (weapon.skills = (await getMethod(`/api/weapons/${weapon.id}/skills`))["hydra:member"]);
 
+/**
+ * Met a jour le coutdown progress en fonction des points restants
+ * @param {index} weaponIndex
+ */
 const setCountdown = (weaponIndex) => {
   let n = window.currentWeapons[weaponIndex].countdown[0];
   $progressBars[weaponIndex].style.width = (n * 100) / 19 + "%";
   $pointProgresText[weaponIndex].innerText = window.messageLocal["RemainingPoint"] + n;
 };
 
+/**
+ * Change skill popover
+ * @param {HTMLElement} $skillContainer
+ * @param {string} title
+ * @param {string} description
+ */
+const changePopover = ($skillContainer, title, description) => {
+  $skillContainer.setAttribute("data-bs-original-title", title);
+  $skillContainer.setAttribute("data-bs-content", description);
+  Pop($skillContainer).show();
+};
+
+/**
+ * @param {HTMLElement} $skillContainer
+ * @returns Popover instance
+ */
+const Pop = ($skillContainer) => Popover.getInstance($skillContainer);
+// Popover.getInstance($skillContainer).show()
+
+/**
+ * Main : Permet de fetch les json, les weapons
+ * et si "/edit", les infos de la build en question
+ */
 const main = async () => {
   window.weaponLocal = await getMethod(`json/${lang}/weapon.json`);
   window.messageLocal = await getMethod(`json/${lang}/messageSkill.json`);
@@ -57,9 +94,6 @@ const main = async () => {
     // build.name;
     // build.description;
     // build.type;
-
-    window.build.mainSkills = build.mainSkills;
-
     build.weapons.forEach(async (weaponIRI, weaponIndex) => {
       let weapon = window.weapons.filter((w) => w["@id"] == weaponIRI)[0];
       $weaponSelects[weaponIndex].value = weapon.id;
@@ -70,6 +104,7 @@ const main = async () => {
         weapon.countdown[skill.side]++;
       });
       weapon.mainSkills = build.activeSkills[weaponIndex];
+      $weaponSelects[weaponIndex].value = weapon.id;
       changeWeapon(weaponIndex, weapon.id);
     });
   }
@@ -77,6 +112,13 @@ const main = async () => {
 
 main();
 
+/**
+ * Mise en place d'une arme (weaponId) dans l'onglet correspondant (weaponIndex)
+ * Fetch les skills si ce n'est pas déja fait. Mise en forme des skills, mainSkills
+ * coutdown en fonction de la séléction de l'utilisation
+ * @param {number} weaponIndex
+ * @param {number} weaponId
+ */
 const changeWeapon = async (weaponIndex, weaponId) => {
   $weaponSidebars[weaponIndex].classList.add("d-none");
   $skillSections[weaponIndex].classList.add("d-none");
@@ -91,15 +133,16 @@ const changeWeapon = async (weaponIndex, weaponId) => {
   if (!weapon.mainSkills) weapon.mainSkills = [null, null, null];
   if (!weapon.countdown) weapon.countdown = [19, 0, 0];
   setCountdown(weaponIndex);
+  $skillContainers[weaponIndex].forEach((el) => Pop(el).disable());
   $svgContainers[weaponIndex].forEach((el) => (el.firstElementChild.innerHTML = ""));
   for (let c = 1; c <= 3; c++) {
-    let $mainSkills = $qa(`#mainSkill-${weaponIndex + 1}-${c}`);
+    let $mainSkills = $mainSkillLists[weaponIndex][c - 1].children;
     $mainSkills.forEach(($mainSkill) => {
-      $mainSkill.dataset.id = 0;
-      $mainSkill.src = "/img/emptyCadre.png";
-      $mainSkill.parentElement.classList.add("d-none");
+      $mainSkill.firstElementChild.dataset.id = 0;
+      $mainSkill.firstElementChild.src = "/img/emptyCadre.png";
+      $mainSkill.classList.add("d-none");
     });
-    let $mainSkillSelected = $q(`#mainSkillSelected-${weaponIndex + 1}-${c}`);
+    let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][c - 1];
     $mainSkillSelected.dataset.id = 0;
     $mainSkillSelected.src = "/img/emptyCadre.png";
   }
@@ -113,7 +156,9 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/nwpng/${match.skillKey}.png)` : "";
     $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
     $skillContainer.dataset.id = match ? match.id : 0;
+    changePopover($skillContainer, match ? match.skillKey : "", match ? match.skillKey : "");
     if (match) {
+      Pop($skillContainer).enable();
       if (match.active == undefined) match.active = false;
       setBrightness($skillContainer, match);
       if (match.parent) {
@@ -126,20 +171,23 @@ const changeWeapon = async (weaponIndex, weaponId) => {
         }
       }
       if (match.type == 1) {
-        let $mainSkills = $qa(`.mainSkill[data-li="${mainSkillCount}"]`);
+        let isSelected = false;
+        let $mainSkills = [];
+        $mainSkillLists[weaponIndex].forEach((ul) => $mainSkills.push(ul.querySelector(`img[data-li="${mainSkillCount}"]`)));
         $mainSkills.forEach(($mainSkill, index) => {
           $mainSkill.src = `/img/nwpng/${match.skillKey}.png`;
           $mainSkill.dataset.id = match.id;
           if (match.active) {
             $mainSkill.parentElement.classList.remove("d-none");
             if (weapon.mainSkills[index] == match["@id"]) {
-              $mainSkills.forEach((el) => el.parentElement.classList.add("d-none"));
-              let $mainSkillSelected = $q(`#mainSkillSelected-${weaponIndex + 1}-${index + 1}`);
+              isSelected = true;
+              let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][index];
               $mainSkillSelected.src = $mainSkill.src;
               $mainSkillSelected.dataset.id = $mainSkill.dataset.id;
             }
           } else $mainSkill.parentElement.classList.add("d-none");
         });
+        if (isSelected) $mainSkills.forEach((el) => el.parentElement.classList.add("d-none"));
         mainSkillCount++;
       }
     }
@@ -149,6 +197,9 @@ const changeWeapon = async (weaponIndex, weaponId) => {
   $skillSections[weaponIndex].classList.remove("d-none");
 };
 
+/**
+ * Event du changement d'arme
+ */
 $weaponSelects.forEach(($weaponSelect, weaponIndex) => {
   $weaponSelect.addEventListener("change", () => {
     const $selectedOption = $weaponSelect.options[$weaponSelect.selectedIndex];
@@ -157,8 +208,21 @@ $weaponSelects.forEach(($weaponSelect, weaponIndex) => {
   });
 });
 
+window.p = Popover;
+
+/**
+ * Event du click sur un skill
+ * Condition activation / desactivation
+ * Mise a jour mainSkill si besoin
+ */
 $skillContainers.forEach(($skillContainers, weaponIndex) => {
   $skillContainers.forEach(($skillContainer) => {
+    new Popover($skillContainer, {
+      title: "Titre",
+      content: "Description",
+      trigger: "hover",
+    });
+
     $skillContainer.addEventListener("click", () => {
       let weapon = window.currentWeapons[weaponIndex];
       let skillId = $skillContainer.dataset.id;
@@ -170,7 +234,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       if (!skill.active) {
         // 1. Si tous les point utiliser
         if (weapon.countdown[0] == 0) {
-          alert("plus de point");
+          changePopover($skillContainer, skill.skillKey, window.messageLocal["NoMorePoint"]);
           return;
         }
 
@@ -178,30 +242,33 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (!parent.active) {
-            alert("skill parent inactive");
+            console.log(window.messageLocal["TopSkill"] + parent.skillKey);
+            changePopover($skillContainer, skill.skillKey, window.messageLocal["TopSkill"] + window.weaponLocal[parent.skillKey]);
             return;
           }
         }
         // 3. Si pas la première ligne, si aucun skill ligne précédente active
         if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.active).length == 0) {
-          alert("pas de skill ligne précédente active");
+          changePopover($skillContainer, skill.skillKey, window.messageLocal["Rowtop"]);
           return;
         }
 
         // 4. Si ultimate, si pas 10 point attribué sur le side
         if (skill.line == 6) {
           if (weapon.countdown[skill.side] < 10) {
-            alert("pas 10 selectionner dans le side");
+            console.log(window.messageLocal["TenPointSelect"] + weapon.branch[skill.side - 1]);
+            changePopover($skillContainer, skill.skillKey, window.messageLocal["TenPointSelect"] + window.weaponLocal[weapon.branch[skill.side - 1]]);
             return;
           }
         }
 
         skill.active = true;
         setBrightness($skillContainer, skill);
+        changePopover($skillContainer, skill.skillKey, skill.skillKey);
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
         if (skill.type == 1) {
-          $qa(`.mainSkill[data-id="${skill.id}"]`).forEach(($mainSkill, index) => {
+          $qa(`.mainSkill[data-id="${skill.id}"]`).forEach(($mainSkill) => {
             $mainSkill.parentElement.classList.remove("d-none");
           });
         }
@@ -211,34 +278,41 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       else {
         // 1. Si skill parent, si skill enfant active
         if (skill.children.length > 0) {
-          if (skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.active)[0]).length > 0) {
-            alert("skill enfant active");
+          let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.active)[0]);
+          if (ActiveChildren.length > 0) {
+            console.log(window.messageLocal["BottomSkill"] + weapon.skills.filter((s) => s["@id"] == ActiveChildren[0])[0].skillKey);
+            changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == ActiveChildren[0])[0].skillKey]);
             return;
           }
         }
 
-        // 2. Si skills ligne suivante active et pas de skill meme ligne active -> refuse
+        // 2. Si skills ligne suivante active et pas de skill meme ligne active
         if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.active).length > 0) {
           if (weapon.skills.filter((s) => s.line == skill.line && s.active).length > 0) {
-            alert("skill ligne suivante active");
+            changePopover($skillContainer, skill.skillKey, window.messageLocal["RowBottom"]);
             return;
           }
         }
 
         // 3. Si point dépenser dans la branche = 11, si skill derniere ligne active
-        if (weapon.countdown[skill.side] == 11 && weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.active).length > 0) {
-          alert("skill derniere ligne selectionner mais point == 11");
+        if (weapon.countdown[skill.side] == 11) {
+          let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.active);
+          if (LastLineSkill.length > 0) {
+            console.log(window.messageLocal["BottomSkill"] + weapon.skills.filter((s) => s["@id"] == LastLineSkill[0])[0].skillKey);
+            changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == LastLineSkill[0])[0].skillKey]);
+          }
           return;
         }
 
         skill.active = false;
         setBrightness($skillContainer, skill);
+        changePopover($skillContainer, skill.skillKey, skill.skillKey);
         weapon.countdown[0]++;
         weapon.countdown[skill.side]--;
         if (skill.type == 1) {
           $qa(`.mainSkill[data-id="${skill.id}"]`).forEach(($mainSkill, index) => {
             $mainSkill.parentElement.classList.add("d-none");
-            let $mainSkillSelected = $q(`#mainSkillSelected-${weaponIndex + 1}-${index + 1}`);
+            let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][index];
             if ($mainSkillSelected.dataset.id == skill.id) {
               $mainSkillSelected.dataset.id = 0;
               $mainSkillSelected.src = "/img/emptyCadre.png";
@@ -253,31 +327,50 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
   });
 });
 
+/**
+ * Event click sur un mainSkill
+ */
 $mainSkills.forEach(($mainSkill) => {
   $mainSkill.addEventListener("click", () => {
     let data = $mainSkill.id.split("-");
     let weaponIndex = data[1] - 1;
     let cadre = data[2];
     let skillId = $mainSkill.dataset.id;
-    let $mainSkillSelected = $q(`#mainSkillSelected-${weaponIndex + 1}-${cadre}`);
-    $qa(`.mainSkill[data-id="${$mainSkillSelected.dataset.id}"]`).forEach((el) => el.classList.remove("d-none"));
-    $qa(`.mainSkill[data-id="${skillId}"]`).forEach((el) => el.classList.add("d-none"));
+    let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][cadre - 1];
+    $qa(`.mainSkill[data-id="${$mainSkillSelected.dataset.id}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
+    $qa(`.mainSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.add("d-none"));
     $mainSkillSelected.dataset.id = skillId;
     $mainSkillSelected.src = $mainSkill.src;
     window.currentWeapons[weaponIndex].mainSkills[cadre - 1] = "/api/skills/" + skillId;
   });
 });
 
+/**
+ * Event de suppresion d'un mainSkill
+ */
 $mainSkillDeletes.forEach(($mainSkillDelete) => {
   $mainSkillDelete.addEventListener("click", (e) => {
     let data = $mainSkillDelete.id.split("-");
     let weaponIndex = data[1] - 1;
     let cadre = data[2];
-    let $mainSkillSelected = $q(`#mainSkillSelected-${weaponIndex + 1}-${cadre}`);
+    let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][cadre - 1];
     let skillId = $mainSkillSelected.dataset.id;
-    $qa(`.mainSkill[data-id="${skillId}"]`).forEach((el) => el.classList.remove("d-none"));
+    $qa(`.mainSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
     $mainSkillSelected.dataset.id = 0;
     $mainSkillSelected.src = "/img/emptyCadre.png";
     window.currentWeapons[weaponIndex].mainSkills[cadre - 1] = null;
+  });
+});
+
+/**
+ * Event de reset
+ */
+$weaponResetButtons.forEach(($weaponResetButton, weaponIndex) => {
+  $weaponResetButton.addEventListener("click", () => {
+    let weapon = window.currentWeapons[weaponIndex];
+    weapon.skills.forEach((s) => (s.active = false));
+    weapon.countdown = [19, 0, 0];
+    weapon.mainSkills = [null, null, null];
+    changeWeapon(weaponIndex, weapon.id);
   });
 });

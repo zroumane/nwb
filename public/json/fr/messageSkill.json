@@ -1,9 +1,9 @@
 {
   "RemainingPoint": "Point(s) restant(s) : ",
   "NoMorePoint": "Vous ne pouvez pas dépenser plus de 19 points.",
-  "TenPointSelect": "Pour débloquer cette compétence, dépensez 10 points répartis dans la branche ",
-  "InlineSkillTop": "Pour débloquer cette compétence, il vous faut apprendre la compétence ",
-  "InlineSkillBottom": "Vous devez, d'abord, désélectionner la compétence ",
-  "Rowtop": "Pour débloquer cette compétence, dépensez au moins un point dans chacune des lignes précédentes.",
-  "RowBottom": "Pour désélectionner cette compétence, vous devez désélectionner les compétences en dessous."
+  "TenPointSelect": "Pour sélectionner cette compétence, dépensez 10 points répartis dans la branche ",
+  "TopSkill": "Pour sélectionner cette compétence, il vous faut apprendre la compétence ",
+  "BottomSkill": "Vous devez d'abord désélectionner la compétence ",
+  "Rowtop": "Pour sélectionner cette compétence, sélectionner au moins une point dans chacune des lignes précédentes.",
+  "RowBottom": "Pour désélectionner cette compétence, désélectionner les compétences des lignes suivantes."
 }
