@@ -12,4 +12,8 @@ const getBuildId = () => {
   return !isNaN(last) ? last : null;
 };
 
-export { getMethod, getBuildId };
+const setBrightness = ($skillContainer, skill) => {
+  $skillContainer.style.filter = `brightness(${skill.active ? 1 : 0.4})`;
+};
+
+export { getMethod, getBuildId, setBrightness };

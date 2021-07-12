@@ -27,6 +27,7 @@ select {
 
 .skill-container,
 .skill-container-icon {
+  outline-offset: -2px;
   background-position: center;
   background-repeat: no-repeat;
   z-index: 10;

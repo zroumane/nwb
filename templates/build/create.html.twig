@@ -1,135 +1,137 @@
 {% extends "base.html.twig" %}
 
 {% block stylesheets %}
-  {{ parent() }}
-  {{ encore_entry_link_tags('CreateBuild') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('CreateBuild') }}
 {% endblock %}
 
 {% block javascripts %}
-  {{ parent() }}
-  {{ encore_entry_script_tags('CreateBuild') }}
+	{{ parent() }}
+	{{ encore_entry_script_tags('CreateBuild') }}
 {% endblock %}
 {% block body %}
-  {% if app.user %}
+	{% if app.user %}
+
+		<ul class="nav nav-fill nav-pills navbar-light bg-dark">
+			<li class="nav-item">
+				<a class="nav-link buildTab active" data-bs-toggle="tab" data-bs-target="#tab-weapon-1">Weapon 1</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link buildTab" data-bs-toggle="tab" data-bs-target="#tab-weapon-2">Weapon 2</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link buildTab disabled" data-bs-toggle="tab" data-bs-target="#tab-gears">
+					Gears
+					<span class="badge bg-warning">Soon</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link buildTab disabled">
+					Stats
+					<span class="badge bg-warning">Soon</span>
+				</a>
+			</li>
+		</ul>
+
+		<div class="tab-content p-2 p-lg-0">
+
+			{% for weapon in 1..2 %}
 
 
-  <nav>
-    <div class="nav nav-tabs nav-fill navbar-light bg-dark">
-      <button class="fs-5 nav-link active" data-bs-toggle="tab" data-bs-target="#tab-weapon-1" type="button">Weapon 1</button>
-      <button class="fs-5 nav-link" data-bs-toggle="tab" data-bs-target="#tab-weapon-2" type="button">Weapon 2</button>
-      <button class="fs-5 nav-link" data-bs-toggle="tab" data-bs-target="#tab-gears" type="button">Gears</button>
-      <button class="fs-5 nav-link" data-bs-toggle="tab" data-bs-target="#tab-stats" type="button">Stats</button>
-    </div>
-  </nav>
-  <div class="tab-content p-2 p-lg-0">
+				<div class="tab-pane fade {% if weapon == 1 %}show active{% endif %}" id="tab-weapon-{{weapon}}">
 
-    {% for weapon in 1..2 %}
+					<div class="my-4 row">
 
+						<div class="col-12 col-lg-3 p-2">
+							<select class="weaponSelect form-select my-2">
+								<option hidden selected>Select Weapon
+									{{weapon}}</option>
+							</select>
 
-    <div class="tab-pane fade {% if weapon == 1 %}show active{% endif %}" id="tab-weapon-{{weapon}}">
-      
-      <div class="my-4 row">
+							<div class="text-center mt-4 d-none spinner{{weapon}}">
+								<div class="spinner-border"></div>
+							</div>
 
-        <div class="col-12 col-lg-3 p-2">
-          <select class="weaponSelect form-select my-2">
-            <option hidden selected>Select Weapon {{weapon}}</option>
-          </select>
-            
-          <div class="text-center mt-4 d-none spinner{{weapon}}">
-            <div class="spinner-border"></div>
-          </div>
-          
-          <div class="weaponSidebar d-none">
+							<div class="weaponSidebar d-none">
 
 
-            <div class="progress position-relative mt-4">
-              <div class="progress-bar" id="pointProgres-{{weapon}}" role="progressbar"></div>
-              <div class="pointProgresText justify-content-center d-flex position-absolute w-100 fs-5 m-0">Points Restant : 15</div>
-            </div>
-        
-            <div class="row px-3 mt-4">
-              {% for cadre in 1..3 %}
-                <div class="col p-1">
-                  <div class="dropdown dropup">
-                    <button class="mainskillbtn btn dropdown-toggle w-100 p-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-                      <img class="dropdown-item p-0 mainSkillSelected" data-id="0" src="{{asset("img/mainSkill.png")}}"/>
-                    </button>
-                    <ul class="dropdown-menu p-0 mainskillul" weapon="{{weapon}}" id="ulMainSkill-{{weapon}}-{{cadre}}" aria-labelledby="dropdownMenuButton">
-                      {% for li in 1..7 %}
-                        <li class="w-100">
-                          <img class="mainskillli dropdown-item p-0 d-none" src="{{asset("img/mainSkill.png")}}" data-id="0"/>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
+								<div class="progress position-relative mt-4">
+									<div class="progress-bar" id="pointProgres-{{weapon}}" role="progressbar"></div>
+									<div class="pointProgresText justify-content-center d-flex position-absolute w-100 fs-5 m-0">Points Restant : 15</div>
+								</div>
+
+								<div class="row px-3 mt-4 justify-content-center" style="max-height:100px">
+									{% for cadre in 1..3 %}
+										<div class="col-1 col-lg-3 p-1">
+											<div class="dropdown">
+												<button class="mainskillbtn position-relative btn dropdown-toggle w-100 p-0" id="mainskillbtn-{{weapon}}-{{cadre}}" type="button" data-bs-toggle="dropdown">
+													<img id="mainSkillSelected-{{weapon}}-{{cadre}}" class="dropdown-item p-0 mainSkillSelected" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/mainSkill.png')}}')" data-id="0"/>
+													<svg id="mainSkillDelete-{{weapon}}-{{cadre}}" class="mainSkillDelete" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 123.05 123.05">
+														<path d="M121.325,10.925l-8.5-8.399c-2.3-2.3-6.1-2.3-8.5,0l-42.4,42.399L18.726,1.726c-2.301-2.301-6.101-2.301-8.5,0l-8.5,8.5c-2.301,2.3-2.301,6.1,0,8.5l43.1,43.1l-42.3,42.5c-2.3,2.3-2.3,6.1,0,8.5l8.5,8.5c2.3,2.3,6.1,2.3,8.5,0l42.399-42.4l42.4,42.4c2.3,2.3,6.1,2.3,8.5,0l8.5-8.5c2.3-2.3,2.3-6.1,0-8.5l-42.5-42.4l42.4-42.399C123.625,17.125,123.625,13.325,121.325,10.925z"/>
+													</svg>
+												</button>
+												<ul class="dropdown-menu p-0 mainskillList mainskillList{{weapon}}" id="mainskillList-{{weapon}}-{{cadre}}" aria-labelledby="mainskillbtn-{{weapon}}-{{cadre}}">
+													{% for li in 1..6 %}
+														<li class="w-100">
+															<img id="mainSkill-{{weapon}}-{{cadre}}" class="mainSkill dropdown-item p-0" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/mainSkill.png')}}')" data-id="0" data-li="{{li}}"/>
+														</li>
+													{% endfor %}
+												</ul>
+											</div>
+										</div>
+									{% endfor %}
+								</div>
 
 
-            <div class="p-2 mt-4">
-            <button type="button" class="btn btn-outline-danger w-100 resetButton">{% trans %}create.reset{% endtrans %}</button>
-          </div>
+								<div class="p-2 mt-4">
+									<button type="button" class="btn btn-outline-danger w-100 resetButton">{% trans %}create.reset{% endtrans %}</button>
+								</div>
 
-        </div>
-      </div>
+							</div>
+						</div>
 
-      <div class="col-12 col-lg-9 p-1">
-        <div class="text-center mt-4 d-none spinner{{weapon}}">
-          <div class="spinner-border"></div>
-        </div>
-        <div class="row py-3 gx-0 skillSection d-none">
-          {% for side in 1..2 %}
-            <div class="col" id="side-{{side}}">
-              <div class="row mb-2 justify-content-center fs-3 fw-bold branchName{{weapon}}"></div>
-              <div class="position-relative">
-                <div class="row m-0 p-2 svgContainer svgContainer{{weapon}}">
-                  <svg class="p-0 bgSvg" id="bgSvg-{{weapon}}-{{side}}"></svg>
-                </div>
-                <div class="row m-0 p-2">
-                  {% for row in 1..6 %}
-                    <div class="row gx-0">
-                      {% for col in 1..5 %}
-                        <div class="col skill-container skill-container{{weapon}}" id="skill-{{weapon}}-{{side}}-{{row}}-{{col}}" data-id="0">
-                          <div class="skill-container-icon">
-                            <img class="w-100" src="{{asset("img/emptyCadre.png")}}"/>
-                          </div>
-                        </div>
-                      {% endfor %}
-                    </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
+						<div class="col-12 col-lg-9 p-1">
+							<div class="text-center mt-4 d-none spinner{{weapon}}">
+								<div class="spinner-border"></div>
+							</div>
+							<div class="row py-3 gx-0 skillSection d-none">
+								{% for side in 1..2 %}
+									<div class="col" id="side-{{side}}">
+										<div class="row mb-2 justify-content-center fs-3 fw-bold branchName{{weapon}}"></div>
+										<div class="position-relative">
+											<div class="row m-0 p-2 svgContainer svgContainer{{weapon}}">
+												<svg class="p-0 bgSvg" id="bgSvg-{{weapon}}-{{side}}"></svg>
+											</div>
+											<div class="row m-0 p-2">
+												{% for row in 1..6 %}
+													<div class="row gx-0">
+														{% for col in 1..5 %}
+															<div class="col skill-container skill-container{{weapon}}" id="skill-{{weapon}}-{{side}}-{{row}}-{{col}}" data-id="0">
+																<div class="skill-container-icon">
+																	<img class="w-100" src="{{asset("img/emptyCadre.png")}}"/>
+																</div>
+															</div>
+														{% endfor %}
+													</div>
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
 
-      </div>
-    </div>
-    {% endfor %}
+					</div>
+				</div>
+			{% endfor %}
 
-    <div class="tab-pane fade" id="tab-stats">
-      <div class="my-4 fs-3 text-center">
-        Comming Soon
-      </div>
-    </div>
-
-    <div class="tab-pane fade" id="tab-gears">
-      <div class="my-4 fs-3 text-center">
-        Comming Soon
-      </div>
-    </div>
-
-  </div>
+		</div>
 
 
-
-
-  {% else %}
-    <div class="p-3 justify-content-center text-center">
-      <div class="fs-4 mb-4 text-center">{% trans %}create.connect{% endtrans %}</div>
-      <a href="{{path('app_security_login')}}" class="btn btn-outline-light fs-4">{% trans %}login.login{% endtrans %}</a>
-    </div>
-  {% endif %}
+	{% else %}
+		<div class="p-3 justify-content-center text-center">
+			<div class="fs-4 mb-4 text-center">{% trans %}create.connect{% endtrans %}</div>
+			<a href="{{path('app_security_login')}}" class="btn btn-outline-light fs-4">{% trans %}login.login{% endtrans %}</a>
+		</div>
+	{% endif %}
 {% endblock %}

@@ -81,7 +81,7 @@ class BuildsController extends AbstractController
    */
   public function edit(Request $request, Build $build): Response
   {
-    if($build){
+    if($build && $build->getAuthor() == $this->getUser()){
       return $this->render("build/create.html.twig", [
         "locale" => $request->getLocale(),
       ]);
