@@ -28,5 +28,5 @@ jobs:
             remote_folder: www/
             local_folder: ./
             cleanup: false # optional, remove existing files inside FTP remote folder
-            exclude: ['.git/**', '.github/**', 'node_modules/**', 'assets/**', 'var/**', 'migrations/', 'public/bundles/apiplatform/**', '.env', '.gitignore', '.prettierignore', '.prettierrc', 'composer.json', 'composer.lock', 'exclude', 'package', 'postcss.config.js', 'README.md', 'start.bat', 'start.sh', 'symfony.lock', 'webpack.config.js', 'yarn.lock']
+            exclude: "['.git/**', '.github/**', 'node_modules/**', 'assets/**', 'var/**', 'migrations/', 'public/bundles/apiplatform/**', '.env', '.gitignore', '.prettierignore', '.prettierrc', 'composer.json', 'composer.lock', 'exclude', 'package', 'postcss.config.js', 'README.md', 'start.bat', 'start.sh', 'symfony.lock', 'webpack.config.js', 'yarn.lock']"
             pasive: true # optional
