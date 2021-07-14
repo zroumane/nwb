@@ -9,7 +9,7 @@ jobs:
 
         - uses: MilesChou/composer-action@master
           with:
-            args: update --no-dev --no-cache
+            args: install --no-cache
         - uses: MilesChou/composer-action@master
           with:
             args: dump-env prod --no-cache
