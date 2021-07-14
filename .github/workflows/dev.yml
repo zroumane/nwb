@@ -7,11 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 10
-      - run: npm install
-      - run: npm run build
       - name: Rsync Upload
         uses: Pendect/action-rsyncer@v1.1.0
         env:
@@ -32,3 +27,5 @@ jobs:
             composer update --no-dev
             composer dump-env prod
             php bin/console cache:clear
+            yarn install
+            yarn run build
