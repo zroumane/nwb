@@ -20,7 +20,6 @@ class MainSkillValidator extends ConstraintValidator
         $this->context->buildViolation($constraint->messageLenght)->addViolation();
       }
       foreach ($weaponMainSkill as $key => $mainSkill) {
-        dd($mainSkill->getType());
         if($mainSkill == null){
           continue;
         }

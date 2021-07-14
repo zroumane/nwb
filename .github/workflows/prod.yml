@@ -25,6 +25,6 @@ jobs:
             cd ~/nwb-prod/
             composer update --no-dev
             composer dump-env prod
-            php bin/console cache:clear
             yarn install
             yarn run build
+            php bin/console cache:clear
