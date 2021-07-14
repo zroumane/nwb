@@ -28,7 +28,7 @@ jobs:
           username: "nwbuser"
           key: ${{secrets.DEPLOY_SSH_KEY}}
           script: |
-            cd ~/nwb/
+            cd ~/nwb-dev/
             composer update --no-dev
             composer dump-env prod
             php bin/console cache:clear

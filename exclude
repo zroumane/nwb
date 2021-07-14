@@ -20,3 +20,4 @@ start.sh
 symfony.lock
 webpack.config.js
 yarn.lock
+.env

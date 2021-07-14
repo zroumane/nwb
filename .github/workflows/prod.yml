@@ -3,27 +3,31 @@ on:
     types: [published]
 jobs:
   deploy:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-
-        - uses: MilesChou/composer-action@master
-          with:
-            args: update --no-cache
-        - uses: MilesChou/composer-action@master
-          with:
-            args: dump-env prod --no-cache
-            
-        - uses: actions/setup-node@v1
-          with:
-            node-version: 10
-        - run: npm install
-        - run: npm run build
-        
-        - uses: SamKirkland/FTP-Deploy-Action@4.1.0
-          with:
-            server: ${{ secrets.FTP_SERVER }}
-            username: ${{ secrets.FTP_USERNAME }}
-            password: ${{ secrets.FTP_PASSWORD }}
-            server-dir: "nwb/"
-            exclude: "[**/.git*/**, **/node_modules/**, **/assets/**, **/var/**, **/migrations/**, **/public/bundles/apiplatform/**, .env, .gitignore, .prettierignore, .prettierrc, composer.lock, exclude, package-lock.json, package.json, postcss.config.js, README.md, start.bat, start.sh, symfony.lock, webpack.config.js, yarn.lock]"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: npm install
+      - run: npm run build
+      - name: Rsync Upload
+        uses: Pendect/action-rsyncer@v1.1.0
+        env:
+          DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
+        with:
+          flags: "-av --delete"
+          options: "--exclude-from=exclude"
+          src: "./"
+          dest: "nwbuser@51.195.45.151:~/nwb/"
+      - name: Composer Setup
+        uses: appleboy/ssh-action@master
+        with:
+          host: "51.195.45.151"
+          username: "nwbuser"
+          key: ${{secrets.DEPLOY_SSH_KEY}}
+          script: |
+            cd ~/nwb-prod/
+            composer update --no-dev
+            composer dump-env prod
+            php bin/console cache:clear
