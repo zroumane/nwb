@@ -53,7 +53,7 @@ class Weapon
 
 	/**
 	 * @ORM\Column(type="json")
-	 * @JsonArrayLenght
+	 * @JsonArrayLenght(2)
 	 * @Assert\NotBlank
 	 */
 	#[Groups(['read:weapon', 'write:weapon'])]

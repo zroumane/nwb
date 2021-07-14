@@ -2,30 +2,39 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\BuildRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTime;
+use App\Entity\User;
+use App\Entity\Weapon;
+use App\Serializer\UserOwnedInterface;
+use DateTimeInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\BuildRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator\JsonArrayLenght;
+
 
 /**
  * @ORM\Entity(repositoryClass=BuildRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 #[ApiResource(
   normalizationContext: ['groups' => 'read:build'],
   denormalizationContext: ['groups' => 'write:build'],
   collectionOperations: [
     'get',
-    'post' => ['security' => 'is_granted("ROLE_ADMIN")']
+    'post'
   ],
   itemOperations: [
     'get',
-    'put' => ['security' => 'is_granted("ROLE_ADMIN")'],
-    'delete' => ['security' => 'is_granted("ROLE_ADMIN")']
+    'put',
+    'delete' => ['security' => 'object.author == user']
   ]
 )]
-class Build
+class Build implements UserOwnedInterface
 {
   /**
    * @ORM\Id
@@ -37,6 +46,7 @@ class Build
 
   /**
    * @ORM\Column(type="string", length=255)
+   * @Assert\NotBlank
    */
   #[Groups(['read:build', 'write:build'])]
   private $name;
@@ -49,6 +59,7 @@ class Build
 
   /**
    * @ORM\Column(type="integer")
+   * @Assert\Range(min = 1, max = 5)
    */
   #[Groups(['read:build', 'write:build'])]
   private $type;
@@ -73,13 +84,14 @@ class Build
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class, inversedBy="builds")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\JoinColumn(nullable=true)
    */
   #[Groups(['read:build'])]
   private $author;
 
   /**
    * @ORM\ManyToMany(targetEntity=Weapon::class)
+	 * @JsonArrayLenght(2)
    */
   #[Groups(['read:build', 'write:build'])]
   private $weapons;
@@ -96,7 +108,23 @@ class Build
   #[Groups(['read:build', 'write:build'])]
   private $mainSkills = [];
 
-
+  /**
+   * @ORM\PrePersist
+   */
+  public function setCreatedAtValue(): void
+  {
+    $this->created_at = new \DateTime("now");
+    $this->updated_at = new \DateTime("now");
+  }
+  
+  /**
+   * @ORM\PreUpdate
+   */
+  public function setUpdateAtValue(): void
+  {
+    $this->updated_at = new \DateTime("now");
+  }
+  
   public function __construct()
   {
     $this->weapons = new ArrayCollection();

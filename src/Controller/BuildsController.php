@@ -86,5 +86,6 @@ class BuildsController extends AbstractController
         "locale" => $request->getLocale(),
       ]);
     }
+    throw $this->createNotFoundException();
   }
 }

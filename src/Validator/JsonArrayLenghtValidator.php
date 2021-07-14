@@ -15,7 +15,7 @@ class JsonArrayLenghtValidator extends ConstraintValidator
       throw new UnexpectedTypeException($constraint, JsonArrayLenght::class);
     }
 
-    if (count($value) != 2) {
+    if (count($value) != $constraint->lenght['value']) {
       $this->context->buildViolation($constraint->message)->addViolation();
     }
 

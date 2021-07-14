@@ -5,5 +5,6 @@
   "InlineSkillTop": "To unlock this skill, you must unlock the skill ",
   "InlineSkillBottom": "To deselect this skill, you must deselect the skill ",
   "Rowtop": "To unlock this skill, spend at least one point in each of the previous rows.",
-  "RowBottom": "To deselect this skill, you must deselect the skills below."
+  "RowBottom": "To deselect this skill, you must deselect the skills below.",
+  "TitleLenght": "The title must contain at least 8 characters."
 }

@@ -5,5 +5,6 @@
   "TopSkill": "Pour sélectionner cette compétence, il vous faut apprendre la compétence ",
   "BottomSkill": "Vous devez d'abord désélectionner la compétence ",
   "Rowtop": "Pour sélectionner cette compétence, sélectionner au moins une point dans chacune des lignes précédentes.",
-  "RowBottom": "Pour désélectionner cette compétence, désélectionner les compétences des lignes suivantes."
+  "RowBottom": "Pour désélectionner cette compétence, désélectionner les compétences des lignes suivantes.",
+  "TitleLenght": "Le titre doit contenir au minimum 8 caractères."
 }

@@ -4,6 +4,12 @@ import Popover from "bootstrap/js/dist/popover";
 import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
 import { getMethod, getBuildId, setBrightness } from "./Utils";
 
+const $formBuildName = $q("#formBuildName");
+const $formBuildNameInvalid = $q("#formBuildNameInvalid");
+const $formBuildType = $q("#formBuildType");
+const $formBuildDesc = $q("#formBuildDesc");
+
+const $weaponTabs = $qa(".weaponTab");
 const $weaponSelects = $qa(".weaponSelect");
 const $weaponSidebars = $qa(".weaponSidebar");
 const $skillSections = $qa(".skillSection");
@@ -22,21 +28,10 @@ const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
 const $skillContainers = [$qa(".skill-container1"), $qa(".skill-container2")];
 const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 
-window.currentWeapons = [undefined, undefined];
+const $formBuildSave = $q("#formBuildSave");
+const $formBuildSaveLoader = $q("#formBuildSaveLoader");
 
-//TODO : construire cet object pour le body du POST
-// window.build = {
-//   name: "",
-//   description: "",
-//   type: 0,
-//   weapons: [],
-//   activeSkills: [[], []],
-//   mainSkills: [
-//     [null, null, null],
-//     [null, null, null],
-//   ],
-// };
-
+window.currentWeapons = [null, null];
 /**
  * Associe les skills à "weapon" aprçès un fetch de l'api
  * @param {number} weapon
@@ -59,55 +54,59 @@ const setCountdown = (weaponIndex) => {
  * @param {string} title
  * @param {string} description
  */
-const changePopover = ($skillContainer, title, description) => {
-  $skillContainer.setAttribute("data-bs-original-title", title);
-  $skillContainer.setAttribute("data-bs-content", description);
-  Pop($skillContainer).show();
+const changePopover = ($el, title, description) => {
+  $el.setAttribute("data-bs-original-title", title);
+  $el.setAttribute("data-bs-content", description);
+  Pop($el).show();
 };
 
 /**
- * @param {HTMLElement} $skillContainer
+ * @param {HTMLElement} $el
  * @returns Popover instance
  */
-const Pop = ($skillContainer) => Popover.getInstance($skillContainer);
-// Popover.getInstance($skillContainer).show()
+const Pop = ($el) => Popover.getInstance($el);
 
 /**
  * Main : Permet de fetch les json, les weapons
  * et si "/edit", les infos de la build en question
  */
 const main = async () => {
-  window.weaponLocal = await getMethod(`json/${lang}/weapon.json`);
-  window.messageLocal = await getMethod(`json/${lang}/messageSkill.json`);
+  window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
+  window.messageLocal = await getMethod(`/json/${lang}/message.json`);
+  window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
+  $formBuildNameInvalid.innerText = window.messageLocal["TitleLenght"];
   let data = await getMethod("/api/weapons");
   window.weapons = data["hydra:member"];
   window.weapons.forEach((weapon) => {
+    if (weapon.id == 1) return;
     let $weaponOption = document.createElement("option");
     $weaponOption.innerText = window.weaponLocal[weapon.weaponKey];
     $weaponOption.value = weapon.id;
     $weaponSelects.forEach((el) => el.appendChild($weaponOption.cloneNode(true)));
   });
-  let buildId = getBuildId();
-  if (buildId) {
-    let build = await getMethod(`/api/build/${buildId}`);
-    // TODO : fill build name, description, type
-    // build.name;
-    // build.description;
-    // build.type;
+  window.buildId = getBuildId();
+  if (window.buildId) {
+    let build = await getMethod(`/api/builds/${window.buildId}`);
+    $formBuildName.value = build.name;
+    $formBuildDesc.value = build.description;
+    $formBuildType.value = build.type;
     build.weapons.forEach(async (weaponIRI, weaponIndex) => {
+      $loadingSpinners[weaponIndex].forEach((el) => el.classList.remove("d-none"));
       let weapon = window.weapons.filter((w) => w["@id"] == weaponIRI)[0];
       $weaponSelects[weaponIndex].value = weapon.id;
       await getSkills(weapon);
+      weapon.countdown = [19, 0, 0];
       build.activeSkills[weaponIndex].forEach((skill) => {
-        weapon.skills.filter((s) => (s.id = skill.id))[0].active = true;
+        weapon.skills.filter((s) => s["@id"] == skill)[0].active = true;
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
       });
-      weapon.mainSkills = build.activeSkills[weaponIndex];
+      weapon.mainSkills = build.mainSkills[weaponIndex];
       $weaponSelects[weaponIndex].value = weapon.id;
-      changeWeapon(weaponIndex, weapon.id);
+      await changeWeapon(weaponIndex, weapon.id);
     });
   }
+  formBuildSave.classList.remove("d-none");
 };
 
 main();
@@ -123,6 +122,12 @@ const changeWeapon = async (weaponIndex, weaponId) => {
   $weaponSidebars[weaponIndex].classList.add("d-none");
   $skillSections[weaponIndex].classList.add("d-none");
   $loadingSpinners[weaponIndex].forEach((el) => el.classList.remove("d-none"));
+  if (weaponId == 0) {
+    window.currentWeapons[weaponIndex] = null;
+    $loadingSpinners[weaponIndex].forEach((el) => el.classList.add("d-none"));
+    return;
+  }
+  $weaponTabs.forEach((el) => el.classList.remove("text-danger"));
   window.currentWeapons[weaponIndex] = window.weapons.filter((w) => w.id == weaponId)[0];
   let weapon = window.currentWeapons[weaponIndex];
   let $diffWeaponSelectOptions = Array.from($weaponSelects[weaponIndex == 0 ? 1 : 0].options);
@@ -204,11 +209,10 @@ $weaponSelects.forEach(($weaponSelect, weaponIndex) => {
   $weaponSelect.addEventListener("change", () => {
     const $selectedOption = $weaponSelect.options[$weaponSelect.selectedIndex];
     if (window.currentWeapons[weaponIndex]?.id == $selectedOption.value) return;
+    if (window.currentWeapons[weaponIndex] == null && $selectedOption.value == 0) return;
     changeWeapon(weaponIndex, $selectedOption.value);
   });
 });
-
-window.p = Popover;
 
 /**
  * Event du click sur un skill
@@ -221,6 +225,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       title: "Titre",
       content: "Description",
       trigger: "hover",
+      customClass: "skillContainerPopover",
     });
 
     $skillContainer.addEventListener("click", () => {
@@ -242,7 +247,6 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (!parent.active) {
-            console.log(window.messageLocal["TopSkill"] + parent.skillKey);
             changePopover($skillContainer, skill.skillKey, window.messageLocal["TopSkill"] + window.weaponLocal[parent.skillKey]);
             return;
           }
@@ -256,7 +260,6 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         // 4. Si ultimate, si pas 10 point attribué sur le side
         if (skill.line == 6) {
           if (weapon.countdown[skill.side] < 10) {
-            console.log(window.messageLocal["TenPointSelect"] + weapon.branch[skill.side - 1]);
             changePopover($skillContainer, skill.skillKey, window.messageLocal["TenPointSelect"] + window.weaponLocal[weapon.branch[skill.side - 1]]);
             return;
           }
@@ -280,7 +283,6 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.children.length > 0) {
           let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.active)[0]);
           if (ActiveChildren.length > 0) {
-            console.log(window.messageLocal["BottomSkill"] + weapon.skills.filter((s) => s["@id"] == ActiveChildren[0])[0].skillKey);
             changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == ActiveChildren[0])[0].skillKey]);
             return;
           }
@@ -298,7 +300,6 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (weapon.countdown[skill.side] == 11) {
           let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.active);
           if (LastLineSkill.length > 0) {
-            console.log(window.messageLocal["BottomSkill"] + weapon.skills.filter((s) => s["@id"] == LastLineSkill[0])[0].skillKey);
             changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == LastLineSkill[0])[0].skillKey]);
           }
           return;
@@ -321,7 +322,6 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
           });
         }
       }
-
       setCountdown(weaponIndex);
     });
   });
@@ -373,4 +373,49 @@ $weaponResetButtons.forEach(($weaponResetButton, weaponIndex) => {
     weapon.mainSkills = [null, null, null];
     changeWeapon(weaponIndex, weapon.id);
   });
+});
+
+$formBuildName.addEventListener("change", () => {
+  if ($formBuildName.value.length >= 8) $formBuildNameInvalid.classList.add("d-none");
+});
+
+$formBuildSave.addEventListener("click", async () => {
+  $formBuildSave.disabled = true;
+  formBuildSaveLoader.classList.remove("d-none");
+  let build = {
+    name: $formBuildName.value,
+    description: $formBuildDesc.value,
+    type: parseInt($formBuildType.value),
+    weapons: window.currentWeapons.map((w) => w?.["@id"]),
+    activeSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.active).map((s) => s["@id"])),
+    mainSkills: window.currentWeapons.map((w) => w?.mainSkills),
+  };
+
+  let error = false;
+
+  if (build.name.length < 8) {
+    $formBuildNameInvalid.classList.remove("d-none");
+    error = true;
+  }
+
+  if (!build.weapons[0] && !build.weapons[1]) {
+    $weaponTabs.forEach((el) => el.classList.add("text-danger"));
+    error = true;
+  }
+
+  if (!error) {
+    build.weapons = build.weapons.map((w) => (!w ? "/api/weapons/1" : w));
+    let response = await fetch(`/api/builds${window.buildId ? `/${window.buildId}` : ""}`, {
+      headers: { "Content-Type": "application/json" },
+      method: window.buildId ? "PUT" : "POST",
+      body: JSON.stringify(build),
+    });
+    if (200 <= response.status && response.status < 300) {
+      let data = await response.json();
+      window.location.href = "/build/" + data.id;
+    } else alert("Server Error, Please contact Admin");
+  }
+
+  $formBuildSave.disabled = false;
+  formBuildSaveLoader.classList.add("d-none");
 });

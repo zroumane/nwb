@@ -19,11 +19,12 @@ build:
   update: Mise à jour
 
 create:
-  buildname: Nom du build
-  playername: Nom du joueur
+  buildtitle: Titre
   builddesc: Description
-  typename: Type
-  siege: Siège
+  buildtype:
+    type: Type
+    general: Général
+    war: Guerre
   selectweapon: Sélectionez l'arme %n%
   weapon: Arme %n%
   gear: Équipement

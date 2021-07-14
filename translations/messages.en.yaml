@@ -19,11 +19,12 @@ build:
   update: Last Update
 
 create:
-  buildname: Build name
-  playername: Player name
+  buildtitle: Title
   builddesc: Description
-  typename: Type
-  siege: Siege
+  buildtype:
+    type: Type
+    general: General
+    war: War
   selectweapon: Select weapon %n%
   weapon: Weapon %n%
   gear: Gears
