@@ -410,10 +410,10 @@ $formBuildSave.addEventListener("click", async () => {
       method: window.buildId ? "PUT" : "POST",
       body: JSON.stringify(build),
     });
+    let data = await response.json();
     if (200 <= response.status && response.status < 300) {
-      let data = await response.json();
       window.location.href = "/build/" + data.id;
-    } else alert("Server Error, Please contact Admin");
+    } else alert("Server Error, Please contact Admin\n" + data["hydra:description"]);
   }
 
   $formBuildSave.disabled = false;
