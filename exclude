@@ -2,6 +2,7 @@
 .github
 var
 vendor
+tests
 node_modules
 public/bundles/apiplatform
 .env
