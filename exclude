@@ -1,7 +1,5 @@
 .git
 .github
-node_modules
-assets
 var
 migrations
 public/bundles/apiplatform
@@ -12,11 +10,8 @@ public/bundles/apiplatform
 composer.lock
 exclude
 package-lock.json
-package.json
-postcss.config.js
 README.md
 start.bat
 start.sh
 symfony.lock
-webpack.config.js
 yarn.lock
