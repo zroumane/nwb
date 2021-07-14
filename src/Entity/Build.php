@@ -30,8 +30,8 @@ use App\Validator\JsonArrayLenght;
   ],
   itemOperations: [
     'get',
-    'put',
-    'delete' => ['security' => 'object.author == user']
+    'put' => ['access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")'],
+    'delete' => ['access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")']
   ]
 )]
 class Build implements UserOwnedInterface
