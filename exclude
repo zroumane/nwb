@@ -1,6 +1,8 @@
 .git
 .github
 var
+vendor
+node_modules
 public/bundles/apiplatform
 .env
 .gitignore
