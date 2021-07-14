@@ -1,10 +1,10 @@
-.git 
-.github 
-node_modules 
-assets 
-var 
-migrations 
-public/bundles/apiplatform 
+.git
+.github
+node_modules
+assets
+var
+migrations
+public/bundles/apiplatform
 .env
 .gitignore
 .prettierignore
@@ -20,4 +20,3 @@ start.sh
 symfony.lock
 webpack.config.js
 yarn.lock
-.env
