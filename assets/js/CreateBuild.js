@@ -387,8 +387,8 @@ $formBuildSave.addEventListener("click", async () => {
     description: $formBuildDesc.value,
     type: parseInt($formBuildType.value),
     weapons: window.currentWeapons.map((w) => w?.["@id"]),
-    activeSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.active).map((s) => s["@id"])),
-    mainSkills: window.currentWeapons.map((w) => w?.mainSkills),
+    activeSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.active).map((s) => s["@id"]) ?? []),
+    mainSkills: window.currentWeapons.map((w) => w?.mainSkills ?? [null, null, null]),
   };
 
   let error = false;

@@ -15,6 +15,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Validator\JsonArrayLenght;
+use App\Validator\MainSkill;
 
 
 /**
@@ -98,12 +99,15 @@ class Build implements UserOwnedInterface
 
   /**
    * @ORM\Column(type="json")
+   * @JsonArrayLenght(2)
    */
   #[Groups(['read:build', 'write:build'])]
   private $activeSkills = [];
 
   /**
    * @ORM\Column(type="array")
+   * @MainSkill
+   * @JsonArrayLenght(2)
    */
   #[Groups(['read:build', 'write:build'])]
   private $mainSkills = [];

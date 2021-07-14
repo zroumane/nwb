@@ -11,6 +11,7 @@ class JsonArrayLenghtValidator extends ConstraintValidator
 {
   public function validate($value, Constraint $constraint)
   {
+
     if (!$constraint instanceof JsonArrayLenght) {
       throw new UnexpectedTypeException($constraint, JsonArrayLenght::class);
     }

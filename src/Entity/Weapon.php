@@ -61,7 +61,6 @@ class Weapon
 
 	public function __construct()
 	{
-		$this->skills1 = new ArrayCollection();
 		$this->skills = new ArrayCollection();
 	}
 
