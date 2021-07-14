@@ -1,7 +1,6 @@
 .git
 .github
 var
-migrations
 public/bundles/apiplatform
 .env
 .gitignore
