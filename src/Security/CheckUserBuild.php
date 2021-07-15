@@ -1,10 +1,10 @@
 <?php
 namespace App\Security;
 
-use App\Entity\Build;
 use App\Entity\User;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use App\Entity\Build;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class CheckUserBuild extends Voter
 {

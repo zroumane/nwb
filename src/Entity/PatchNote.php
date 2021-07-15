@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\PatchNoteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PatchNoteRepository;
 
 /**
  * @ORM\Entity(repositoryClass=PatchNoteRepository::class)
