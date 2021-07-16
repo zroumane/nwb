@@ -144,7 +144,7 @@ const getSkills = async () => {
     if (match) {
       c.style.backgroundImage = `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')`;
       c.style.backgroundSize = [1, 3].includes(match.type) ? "90% 90%" : "70% 70%";
-      c.firstElementChild.style.backgroundImage = `url(/img/nwpng/${match.skillKey}.png)`;
+      c.firstElementChild.style.backgroundImage = `url(/img/skill/${match.skillKey}.png)`;
       c.firstElementChild.style.backgroundSize = [1, 3].includes(match.type) ? "90% 90%" : "70% 70%";
 
       c.dataset.id = match.id;
@@ -233,7 +233,7 @@ $qa(".skill-container").forEach((skillContainer) => {
     $skillFormType.querySelector(`input[value="${match ? match.type : 1}"]`).checked = true;
     $skillFormBgColor.querySelector(`input[value="${!match ? 1 : match.bgColor == 0 ? 1 : match.bgColor}"]`).checked = true;
     $skillFormParent.dataset.parentId = match && match.parent ? match.parent.split("/").reverse()[0] : "";
-    $skillFormParent.style.backgroundImage = match && match.parent ? `url("/img/nwpng/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png")` : "";
+    $skillFormParent.style.backgroundImage = match && match.parent ? `url("/img/skill/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png")` : "";
     $skillFormId.value = skillId;
     $skillFormSide.value = data[1];
     $skillFormRow.value = data[2];
