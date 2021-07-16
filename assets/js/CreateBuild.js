@@ -393,8 +393,6 @@ $formBuildSave.addEventListener("click", async () => {
     activedSkills: window.currentWeapons.map((w) => w?.activedSkills || [null, null, null]),
   };
 
-  console.log(build);
-
   let error = false;
 
   if (build.name.length < 8) {
@@ -417,6 +415,11 @@ $formBuildSave.addEventListener("click", async () => {
     if (200 <= response.status && response.status < 300) {
       window.location.href = "/build/" + data.id;
     } else alert("Server Error, Please contact Admin\n" + data["hydra:description"]);
+  } else {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   $formBuildSave.disabled = false;
