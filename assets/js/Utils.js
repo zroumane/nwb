@@ -8,8 +8,8 @@ const getMethod = async (url) => {
 };
 
 const getBuildId = () => {
-  let last = parseInt(window.location.href.split("/").reverse()[0]);
-  return !isNaN(last) ? last : null;
+  let $buildId = document.querySelector("#buildId");
+  return $buildId ? $buildId.value : null;
 };
 
 const setBrightness = ($skillContainer, skill) => {

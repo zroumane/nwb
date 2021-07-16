@@ -1,18 +1,123 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-
+	{{ parent() }}
+	{{ encore_entry_link_tags('Build') }}
 {% endblock %}
 
 {% block javascripts %}
-
+	{{ parent() }}
+	{{ encore_entry_script_tags('Build') }}
 {% endblock %}
 
 {% block body %}
-	<div class="fs-4">
-		{{ build.name }}|| {{ build.id }}
+
+	{% if build is defined %}
+		<input type="hidden" id="buildId" value="{{build.id}}">
+	{% endif %}
+
+
+	<div class="fs-1 text-center text-break lh-1">{{ build.name }}</div>
+	<div class="fs-6 mb-2 text-center">
+		{% trans %}build.by{% endtrans %}
+		{% if build.author %}
+			<a target="_blank" href="/profile/{{build.author.id}}">{{build.author.pseudo}}</a>
+		{% else %}
+			{% trans %}build.anonymous{% endtrans %}
+		{% endif %}
+
 	</div>
-	<div class="fs-6">
+
+	<div class="fs-5 px-2 mb-2 text-center text-break">
+		{% trans %}create.type.label{% endtrans %}
+		:
+		{% if build.type == 1 %}
+			{% trans %}create.type.general{% endtrans %}
+			{% elseif build.type == 2 %}PVP
+			{% elseif build.type == 3 %}PVE
+			{% elseif build.type == 4 %}PVX
+		{% elseif build.type == 5 %}
+			{% trans %}create.type.war{% endtrans %}
+		{% endif %}
+	</div>
+
+
+	<div class="fs-5 px-2 mb-2 text-break">
 		{{ build.description }}
 	</div>
+
+
+	<div id="spinner" class="text-center mt-4">
+		<div class="spinner-border"></div>
+	</div>
+
+	<div id="skillSection" class="d-none">
+
+		<ul class="nav nav-fill nav-pills navbar-light bg-dark mt-4">
+			<li class="nav-item">
+				<a class="nav-link buildTab active disabled" data-bs-toggle="tab" data-bs-target="#tab-weapon-1">
+					{% trans with {'%n%' : 1 }%}create.weapon{% endtrans %}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link buildTab disabled" data-bs-toggle="tab" data-bs-target="#tab-weapon-2">
+					{% trans with {'%n%' : 2 }%}create.weapon{% endtrans %}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link buildTab disabled" data-bs-toggle="tab" data-bs-target="#tab-gears">
+					{% trans %}create.gear{% endtrans %}
+				</a>
+			</li>
+		</ul>
+
+		<div class="tab-content p-2 p-lg-0 w-75 mx-auto lg:w-100 mx-auto">
+
+			{% for weapon in 1..2 %}
+
+				<div class="tab-pane fade mt-2 {% if weapon == 1 %}show active{% endif %}" id="tab-weapon-{{weapon}}">
+
+					<div class="row py-3 gx-0">
+						{% for side in 1..2 %}
+							<div class="col" id="side-{{side}}">
+								<div class="row mb-2 justify-content-center fs-3 fw-bold branchName{{weapon}}"></div>
+								<div class="position-relative">
+									<div class="row m-0 p-2 svgContainer svgContainer{{weapon}}">
+										<svg class="p-0 bgSvg" id="bgSvg-{{weapon}}-{{side}}"></svg>
+									</div>
+									<div class="row m-0 p-2">
+										{% for row in 1..6 %}
+											<div class="row gx-0">
+												{% for col in 1..5 %}
+													<div class="col skill-container skill-container{{weapon}}" id="skill-{{weapon}}-{{side}}-{{row}}-{{col}}">
+														<div class="skill-container-icon">
+															<img class="w-100" src="{{asset("img/emptyCadre.png")}}"/>
+														</div>
+													</div>
+												{% endfor %}
+											</div>
+										{% endfor %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+
+					<div class="mt-2 row">
+						<div class="col-lg-4 col-5 mx-auto d-flex flex-row justify-content-center">
+							{% for cadre in 1..3 %}
+								<div class="p-1">
+									<img id="activedSkill-{{weapon}}-{{cadre}}" class="dropdown-item p-0 activedSkillSelected" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/activedSkill.png')}}')"/>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+
+				</div>
+			{% endfor %}
+
+
+		</div>
+	</div>
+
 {% endblock %}

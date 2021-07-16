@@ -10,7 +10,7 @@ navbar:
   logout: Logout
   profil: Profile
 
-build:
+builds:
   name: Name
   author: Author
   weapon: Weapons
@@ -18,11 +18,20 @@ build:
   view: View
   update: Last Update
 
+build:
+  by: by
+  anonymous: Anonymous
+  edit: Edit
+
 create:
-  buildtitle: Title
-  builddesc: Description
-  buildtype:
-    type: Type
+  name:
+    label: Name
+    invalid: The title must contain between 8 and 80 characters.
+  description:
+    label: Description
+    invalid: The description must contain a maximum of 3000 characters.
+  type:
+    label: Type
     general: General
     war: War
   selectweapon: Select weapon %n%

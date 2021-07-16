@@ -47,12 +47,14 @@ class Build implements UserOwnedInterface
   /**
    * @ORM\Column(type="string", length=255)
    * @Assert\NotBlank
+   * @Assert\Length(min = 8, max = 80)
    */
   #[Groups(['read:build', 'write:build'])]
   private $name;
 
   /**
    * @ORM\Column(type="text", nullable=true)
+   * @Assert\Length(min = 0, max = 3000)
    */
   #[Groups(['read:build', 'write:build'])]
   private $description;

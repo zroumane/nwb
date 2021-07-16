@@ -1,3 +1,4 @@
+import "../css/Build.scss";
 import "../css/CreateBuild.scss";
 import "bootstrap/js/dist/tab";
 import Popover from "bootstrap/js/dist/popover";
@@ -8,6 +9,7 @@ const $formBuildName = $q("#formBuildName");
 const $formBuildNameInvalid = $q("#formBuildNameInvalid");
 const $formBuildType = $q("#formBuildType");
 const $formBuildDesc = $q("#formBuildDesc");
+const $formBuildDescInvalid = $q("#formBuildDescInvalid");
 
 const $weaponTabs = $qa(".weaponTab");
 const $weaponSelects = $qa(".weaponSelect");
@@ -74,7 +76,6 @@ const main = async () => {
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.messageLocal = await getMethod(`/json/${lang}/message.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
-  $formBuildNameInvalid.innerText = window.messageLocal["TitleLenght"];
   let data = await getMethod("/api/weapons");
   window.weapons = data["hydra:member"];
   window.weapons.forEach((weapon) => {
@@ -87,25 +88,22 @@ const main = async () => {
   window.buildId = getBuildId();
   if (window.buildId) {
     let build = await getMethod(`/api/builds/${window.buildId}`);
-    $formBuildName.value = build.name;
-    $formBuildDesc.value = build.description;
-    $formBuildType.value = build.type;
     build.weapons.forEach(async (weaponIRI, weaponIndex) => {
       $loadingSpinners[weaponIndex].forEach((el) => el.classList.remove("d-none"));
       let weapon = window.weapons.filter((w) => w["@id"] == weaponIRI)[0];
-      console.log(weapon);
-      $weaponSelects[weaponIndex].value = weapon.id;
-      await getSkills(weapon);
-      weapon.countdown = [19, 0, 0];
-      console.log(build);
-      build.selectedSkills[weaponIndex].forEach((skill) => {
-        weapon.skills.filter((s) => s["@id"] == skill)[0].selected = true;
-        weapon.countdown[0]--;
-        weapon.countdown[skill.side]++;
-      });
-      weapon.activedSkills = build.activedSkills[weaponIndex];
-      $weaponSelects[weaponIndex].value = weapon.id;
-      await changeWeapon(weaponIndex, weapon.id);
+      if (weapon) {
+        $weaponSelects[weaponIndex].value = weapon?.id && null;
+        await getSkills(weapon);
+        weapon.countdown = [19, 0, 0];
+        build.selectedSkills[weaponIndex].forEach((skill) => {
+          weapon.skills.filter((s) => s["@id"] == skill)[0].selected = true;
+          weapon.countdown[0]--;
+          weapon.countdown[skill.side]++;
+        });
+        weapon.activedSkills = build.activedSkills[weaponIndex];
+        $weaponSelects[weaponIndex].value = weapon.id;
+        await changeWeapon(weaponIndex, weapon.id);
+      }
     });
   }
   formBuildSave.classList.remove("d-none");
@@ -378,7 +376,11 @@ $weaponResetButtons.forEach(($weaponResetButton, weaponIndex) => {
 });
 
 $formBuildName.addEventListener("change", () => {
-  if ($formBuildName.value.length >= 8) $formBuildNameInvalid.classList.add("d-none");
+  if ($formBuildName.value.length >= 8 && $formBuildName.value.length <= 80) $formBuildNameInvalid.classList.add("d-none");
+});
+
+$formBuildDesc.addEventListener("change", () => {
+  if ($formBuildDesc.value.length <= 3000) $formBuildDescInvalid.classList.add("d-none");
 });
 
 $formBuildSave.addEventListener("click", async () => {
@@ -395,8 +397,13 @@ $formBuildSave.addEventListener("click", async () => {
 
   let error = false;
 
-  if (build.name.length < 8) {
+  if (build.name.length < 8 || build.name.length > 80) {
     $formBuildNameInvalid.classList.remove("d-none");
+    error = true;
+  }
+
+  if (build.description.length > 3000) {
+    $formBuildDescInvalid.classList.remove("d-none");
     error = true;
   }
 

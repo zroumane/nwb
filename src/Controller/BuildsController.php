@@ -84,6 +84,7 @@ class BuildsController extends AbstractController
     if($build && $build->getAuthor() == $this->getUser()){
       return $this->render("build/create.html.twig", [
         "locale" => $request->getLocale(),
+        "build" => $build
       ]);
     }
     throw $this->createNotFoundException();
