@@ -17,14 +17,22 @@ class SelectedSkillValidator extends ConstraintValidator{
     $this->iriConverter = $iriConverter;
   }
 
-  public function validate($selectedSkills, Constraint $constraint){
+  public function validate($selectedSkills, Constraint $constraint)
+  {
+
+    if (!$constraint instanceof SelectedSkill) {
+      throw new UnexpectedTypeException($constraint, SelectedSkill::class);
+    }
     
     /**
      * Iteration weapon 
      */
     foreach($selectedSkills as $weaponIndex => $weaponSelectedSkills) {
-      
-      $weaponItem = $this->context->getObject()->getWeapons()[$weaponIndex];
+      $weaponIRI = $this->context->getObject()->getWeapons()[$weaponIndex];
+      if(!$weaponIRI){
+        continue;
+      }
+      $weaponItem = $this->iriConverter->getItemFromIri($weaponIRI);
       $weaponKey = $weaponItem->getWeaponKey();
       $weaponBranches = $weaponItem->getBranch();
       $weaponSelectedSkillsItem = [];
@@ -37,7 +45,6 @@ class SelectedSkillValidator extends ConstraintValidator{
           ->addViolation();
       }
       
-
       /**
        * Iteration skill de l'arme 
        * Check si skill existe

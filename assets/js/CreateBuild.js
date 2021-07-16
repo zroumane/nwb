@@ -18,10 +18,10 @@ const $loadingSpinners = [$qa(".spinner1"), $qa(".spinner2")];
 const $progressBars = $qa(".progress-bar");
 const $pointProgresText = $qa(".pointProgresText");
 
-const $mainSkills = $qa(".mainSkill");
-const $mainSkillLists = [$qa(".mainskillList1"), $qa(".mainskillList2")];
-const $mainSkillSelecteds = [$qa(".mainSkillSelected1"), $qa(".mainSkillSelected2")];
-const $mainSkillDeletes = $qa(".mainSkillDelete");
+const $activedSkills = $qa(".activedSkill");
+const $activedSkillLists = [$qa(".activedSkillList1"), $qa(".activedSkillList2")];
+const $activedSkillSelecteds = [$qa(".activedSkillSelected1"), $qa(".activedSkillSelected2")];
+const $activedSkillDeletes = $qa(".activedSkillDelete");
 
 const $weaponResetButtons = $qa(".resetButton");
 const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
@@ -93,15 +93,17 @@ const main = async () => {
     build.weapons.forEach(async (weaponIRI, weaponIndex) => {
       $loadingSpinners[weaponIndex].forEach((el) => el.classList.remove("d-none"));
       let weapon = window.weapons.filter((w) => w["@id"] == weaponIRI)[0];
+      console.log(weapon);
       $weaponSelects[weaponIndex].value = weapon.id;
       await getSkills(weapon);
       weapon.countdown = [19, 0, 0];
-      build.activeSkills[weaponIndex].forEach((skill) => {
-        weapon.skills.filter((s) => s["@id"] == skill)[0].active = true;
+      console.log(build);
+      build.selectedSkills[weaponIndex].forEach((skill) => {
+        weapon.skills.filter((s) => s["@id"] == skill)[0].selected = true;
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
       });
-      weapon.mainSkills = build.mainSkills[weaponIndex];
+      weapon.activedSkills = build.activedSkills[weaponIndex];
       $weaponSelects[weaponIndex].value = weapon.id;
       await changeWeapon(weaponIndex, weapon.id);
     });
@@ -113,7 +115,7 @@ main();
 
 /**
  * Mise en place d'une arme (weaponId) dans l'onglet correspondant (weaponIndex)
- * Fetch les skills si ce n'est pas déja fait. Mise en forme des skills, mainSkills
+ * Fetch les skills si ce n'est pas déja fait. Mise en forme des skills, activedSkills
  * coutdown en fonction de la séléction de l'utilisation
  * @param {number} weaponIndex
  * @param {number} weaponId
@@ -135,23 +137,23 @@ const changeWeapon = async (weaponIndex, weaponId) => {
   $diffWeaponSelectOptions.filter((el) => el.value == weaponId)[0].classList.add("d-none");
   $branchNames[weaponIndex].forEach((el, i) => (el.innerText = window.weaponLocal[weapon.branch[i]]));
   if (!weapon.skills) await getSkills(weapon, weapon.id);
-  if (!weapon.mainSkills) weapon.mainSkills = [null, null, null];
+  if (!weapon.activedSkills) weapon.activedSkills = [null, null, null];
   if (!weapon.countdown) weapon.countdown = [19, 0, 0];
   setCountdown(weaponIndex);
   $skillContainers[weaponIndex].forEach((el) => Pop(el).disable());
   $svgContainers[weaponIndex].forEach((el) => (el.firstElementChild.innerHTML = ""));
   for (let c = 1; c <= 3; c++) {
-    let $mainSkills = $mainSkillLists[weaponIndex][c - 1].children;
-    $mainSkills.forEach(($mainSkill) => {
-      $mainSkill.firstElementChild.dataset.id = 0;
-      $mainSkill.firstElementChild.src = "/img/emptyCadre.png";
-      $mainSkill.classList.add("d-none");
+    let $activedSkills = $activedSkillLists[weaponIndex][c - 1].children;
+    $activedSkills.forEach(($activedSkill) => {
+      $activedSkill.firstElementChild.dataset.id = 0;
+      $activedSkill.firstElementChild.src = "/img/emptyCadre.png";
+      $activedSkill.classList.add("d-none");
     });
-    let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][c - 1];
-    $mainSkillSelected.dataset.id = 0;
-    $mainSkillSelected.src = "/img/emptyCadre.png";
+    let $activedSkillSelected = $activedSkillSelecteds[weaponIndex][c - 1];
+    $activedSkillSelected.dataset.id = 0;
+    $activedSkillSelected.src = "/img/emptyCadre.png";
   }
-  let mainSkillCount = 1;
+  let activedSkillCount = 1;
   $skillContainers[weaponIndex].forEach(($skillContainer) => {
     $skillContainer.style.filter = `brightness(1)`;
     let data = $skillContainer.id.split("-");
@@ -164,7 +166,7 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     changePopover($skillContainer, match ? match.skillKey : "", match ? match.skillKey : "");
     if (match) {
       Pop($skillContainer).enable();
-      if (match.active == undefined) match.active = false;
+      if (match.selected == undefined) match.selected = false;
       setBrightness($skillContainer, match);
       if (match.parent) {
         let parentMatch = weapon.skills.filter((s) => s["@id"] == match.parent)[0];
@@ -177,23 +179,23 @@ const changeWeapon = async (weaponIndex, weaponId) => {
       }
       if (match.type == 1) {
         let isSelected = false;
-        let $mainSkills = [];
-        $mainSkillLists[weaponIndex].forEach((ul) => $mainSkills.push(ul.querySelector(`img[data-li="${mainSkillCount}"]`)));
-        $mainSkills.forEach(($mainSkill, index) => {
-          $mainSkill.src = `/img/nwpng/${match.skillKey}.png`;
-          $mainSkill.dataset.id = match.id;
-          if (match.active) {
-            $mainSkill.parentElement.classList.remove("d-none");
-            if (weapon.mainSkills[index] == match["@id"]) {
+        let $activedSkills = [];
+        $activedSkillLists[weaponIndex].forEach((ul) => $activedSkills.push(ul.querySelector(`img[data-li="${activedSkillCount}"]`)));
+        $activedSkills.forEach(($activedSkill, index) => {
+          $activedSkill.src = `/img/nwpng/${match.skillKey}.png`;
+          $activedSkill.dataset.id = match.id;
+          if (match.selected) {
+            $activedSkill.parentElement.classList.remove("d-none");
+            if (weapon.activedSkills[index] == match["@id"]) {
               isSelected = true;
-              let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][index];
-              $mainSkillSelected.src = $mainSkill.src;
-              $mainSkillSelected.dataset.id = $mainSkill.dataset.id;
+              let $activedSkillSelected = $activedSkillSelecteds[weaponIndex][index];
+              $activedSkillSelected.src = $activedSkill.src;
+              $activedSkillSelected.dataset.id = $activedSkill.dataset.id;
             }
-          } else $mainSkill.parentElement.classList.add("d-none");
+          } else $activedSkill.parentElement.classList.add("d-none");
         });
-        if (isSelected) $mainSkills.forEach((el) => el.parentElement.classList.add("d-none"));
-        mainSkillCount++;
+        if (isSelected) $activedSkills.forEach((el) => el.parentElement.classList.add("d-none"));
+        activedSkillCount++;
       }
     }
   });
@@ -217,7 +219,7 @@ $weaponSelects.forEach(($weaponSelect, weaponIndex) => {
 /**
  * Event du click sur un skill
  * Condition activation / desactivation
- * Mise a jour mainSkill si besoin
+ * Mise a jour activedSkill si besoin
  */
 $skillContainers.forEach(($skillContainers, weaponIndex) => {
   $skillContainers.forEach(($skillContainer) => {
@@ -236,23 +238,23 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       if (!skill) return;
 
       //Conditions pour allumer le skill
-      if (!skill.active) {
+      if (!skill.selected) {
         // 1. Si tous les point utiliser
         if (weapon.countdown[0] == 0) {
           changePopover($skillContainer, skill.skillKey, window.messageLocal["NoMorePoint"]);
           return;
         }
 
-        // 2. Si skill enfant, si skill parent inactive
+        // 2. Si skill enfant, si skill parent unselected
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
-          if (!parent.active) {
+          if (!parent.selected) {
             changePopover($skillContainer, skill.skillKey, window.messageLocal["TopSkill"] + window.weaponLocal[parent.skillKey]);
             return;
           }
         }
-        // 3. Si pas la première ligne, si aucun skill ligne précédente active
-        if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.active).length == 0) {
+        // 3. Si pas la première ligne, si aucun skill ligne précédente selected
+        if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.selected).length == 0) {
           changePopover($skillContainer, skill.skillKey, window.messageLocal["Rowtop"]);
           return;
         }
@@ -265,59 +267,59 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
           }
         }
 
-        skill.active = true;
+        skill.selected = true;
         setBrightness($skillContainer, skill);
         changePopover($skillContainer, skill.skillKey, skill.skillKey);
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
         if (skill.type == 1) {
-          $qa(`.mainSkill[data-id="${skill.id}"]`).forEach(($mainSkill) => {
-            $mainSkill.parentElement.classList.remove("d-none");
+          $qa(`.activedSkill[data-id="${skill.id}"]`).forEach(($activedSkill) => {
+            $activedSkill.parentElement.classList.remove("d-none");
           });
         }
       }
 
       //Conditions pour eteindre le skill
       else {
-        // 1. Si skill parent, si skill enfant active
+        // 1. Si skill parent, si skill enfant selected
         if (skill.children.length > 0) {
-          let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.active)[0]);
+          let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.selected)[0]);
           if (ActiveChildren.length > 0) {
             changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == ActiveChildren[0])[0].skillKey]);
             return;
           }
         }
 
-        // 2. Si skills ligne suivante active et pas de skill meme ligne active
-        if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.active).length > 0) {
-          if (weapon.skills.filter((s) => s.line == skill.line && s.active).length == 1) {
+        // 2. Si skills ligne suivante selected et pas de skill meme ligne selected
+        if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.selected).length > 0) {
+          if (weapon.skills.filter((s) => s.line == skill.line && s.selected).length == 1) {
             changePopover($skillContainer, skill.skillKey, window.messageLocal["RowBottom"]);
             return;
           }
         }
 
-        // 3. Si point dépenser dans la branche = 11, si skill derniere ligne active
+        // 3. Si point dépenser dans la branche = 11, si skill derniere ligne selected
         if (weapon.countdown[skill.side] == 11) {
-          let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.active);
+          let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.selected);
           if (LastLineSkill.length > 0) {
             changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == LastLineSkill[0])[0].skillKey]);
           }
           return;
         }
 
-        skill.active = false;
+        skill.selected = false;
         setBrightness($skillContainer, skill);
         changePopover($skillContainer, skill.skillKey, skill.skillKey);
         weapon.countdown[0]++;
         weapon.countdown[skill.side]--;
         if (skill.type == 1) {
-          $qa(`.mainSkill[data-id="${skill.id}"]`).forEach(($mainSkill, index) => {
-            $mainSkill.parentElement.classList.add("d-none");
-            let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][index];
-            if ($mainSkillSelected.dataset.id == skill.id) {
-              $mainSkillSelected.dataset.id = 0;
-              $mainSkillSelected.src = "/img/emptyCadre.png";
-              weapon.mainSkills[index] = null;
+          $qa(`.activedSkill[data-id="${skill.id}"]`).forEach(($activedSkill, index) => {
+            $activedSkill.parentElement.classList.add("d-none");
+            let $activedSkillSelected = $activedSkillSelecteds[weaponIndex][index];
+            if ($activedSkillSelected.dataset.id == skill.id) {
+              $activedSkillSelected.dataset.id = 0;
+              $activedSkillSelected.src = "/img/emptyCadre.png";
+              weapon.activedSkills[index] = null;
             }
           });
         }
@@ -328,37 +330,37 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
 });
 
 /**
- * Event click sur un mainSkill
+ * Event click sur un activedSkill
  */
-$mainSkills.forEach(($mainSkill) => {
-  $mainSkill.addEventListener("click", () => {
-    let data = $mainSkill.id.split("-");
+$activedSkills.forEach(($activedSkill) => {
+  $activedSkill.addEventListener("click", () => {
+    let data = $activedSkill.id.split("-");
     let weaponIndex = data[1] - 1;
     let cadre = data[2];
-    let skillId = $mainSkill.dataset.id;
-    let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][cadre - 1];
-    $qa(`.mainSkill[data-id="${$mainSkillSelected.dataset.id}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
-    $qa(`.mainSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.add("d-none"));
-    $mainSkillSelected.dataset.id = skillId;
-    $mainSkillSelected.src = $mainSkill.src;
-    window.currentWeapons[weaponIndex].mainSkills[cadre - 1] = "/api/skills/" + skillId;
+    let skillId = $activedSkill.dataset.id;
+    let $activedSkillSelected = $activedSkillSelecteds[weaponIndex][cadre - 1];
+    $qa(`.activedSkill[data-id="${$activedSkillSelected.dataset.id}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
+    $qa(`.activedSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.add("d-none"));
+    $activedSkillSelected.dataset.id = skillId;
+    $activedSkillSelected.src = $activedSkill.src;
+    window.currentWeapons[weaponIndex].activedSkills[cadre - 1] = "/api/skills/" + skillId;
   });
 });
 
 /**
- * Event de suppresion d'un mainSkill
+ * Event de suppresion d'un activedSkill
  */
-$mainSkillDeletes.forEach(($mainSkillDelete) => {
-  $mainSkillDelete.addEventListener("click", (e) => {
-    let data = $mainSkillDelete.id.split("-");
+$activedSkillDeletes.forEach(($activedSkillDelete) => {
+  $activedSkillDelete.addEventListener("click", (e) => {
+    let data = $activedSkillDelete.id.split("-");
     let weaponIndex = data[1] - 1;
     let cadre = data[2];
-    let $mainSkillSelected = $mainSkillSelecteds[weaponIndex][cadre - 1];
-    let skillId = $mainSkillSelected.dataset.id;
-    $qa(`.mainSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
-    $mainSkillSelected.dataset.id = 0;
-    $mainSkillSelected.src = "/img/emptyCadre.png";
-    window.currentWeapons[weaponIndex].mainSkills[cadre - 1] = null;
+    let $activedSkillSelected = $activedSkillSelecteds[weaponIndex][cadre - 1];
+    let skillId = $activedSkillSelected.dataset.id;
+    $qa(`.activedSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
+    $activedSkillSelected.dataset.id = 0;
+    $activedSkillSelected.src = "/img/emptyCadre.png";
+    window.currentWeapons[weaponIndex].activedSkills[cadre - 1] = null;
   });
 });
 
@@ -368,9 +370,9 @@ $mainSkillDeletes.forEach(($mainSkillDelete) => {
 $weaponResetButtons.forEach(($weaponResetButton, weaponIndex) => {
   $weaponResetButton.addEventListener("click", () => {
     let weapon = window.currentWeapons[weaponIndex];
-    weapon.skills.forEach((s) => (s.active = false));
+    weapon.skills.forEach((s) => (s.selected = false));
     weapon.countdown = [19, 0, 0];
-    weapon.mainSkills = [null, null, null];
+    weapon.activedSkills = [null, null, null];
     changeWeapon(weaponIndex, weapon.id);
   });
 });
@@ -386,10 +388,12 @@ $formBuildSave.addEventListener("click", async () => {
     name: $formBuildName.value,
     description: $formBuildDesc.value,
     type: parseInt($formBuildType.value),
-    weapons: window.currentWeapons.map((w) => w?.["@id"]),
-    activeSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.active).map((s) => s["@id"]) ?? []),
-    mainSkills: window.currentWeapons.map((w) => w?.mainSkills ?? [null, null, null]),
+    weapons: window.currentWeapons.map((w) => w?.["@id"] || null),
+    selectedSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.selected).map((s) => s["@id"]) || []),
+    activedSkills: window.currentWeapons.map((w) => w?.activedSkills || [null, null, null]),
   };
+
+  console.log(build);
 
   let error = false;
 
@@ -404,7 +408,6 @@ $formBuildSave.addEventListener("click", async () => {
   }
 
   if (!error) {
-    build.weapons = build.weapons.map((w) => (!w ? "/api/weapons/1" : w));
     let response = await fetch(`/api/builds${window.buildId ? `/${window.buildId}` : ""}`, {
       headers: { "Content-Type": "application/json" },
       method: window.buildId ? "PUT" : "POST",

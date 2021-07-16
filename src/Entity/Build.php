@@ -10,12 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Validator\JsonArrayLenght;
 use App\Repository\BuildRepository;
 use App\Serializer\UserOwnedInterface;
+use App\Validator\Weapon as WeaponValidate;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * @ORM\Entity(repositoryClass=BuildRepository::class)
@@ -90,11 +90,12 @@ class Build implements UserOwnedInterface
   private $author;
 
   /**
-   * @ORM\ManyToMany(targetEntity=Weapon::class)
-	 * @JsonArrayLenght(2)
+   * @ORM\Column(type="array")
+   * @JsonArrayLenght(2)
+   * @WeaponValidate
    */
   #[Groups(['read:build', 'write:build'])]
-  private $weapons;
+  private $weapons = [];
 
   /**
    * @ORM\Column(type="json")
@@ -111,6 +112,7 @@ class Build implements UserOwnedInterface
    */
   #[Groups(['read:build', 'write:build'])]
   private $activedSkills = [];
+
 
   /**
    * @ORM\PrePersist
@@ -223,23 +225,6 @@ class Build implements UserOwnedInterface
     return $this;
   }
 
-  /**
-   * @return Collection|Weapon[]
-   */
-  public function getWeapons(): Collection
-  {
-    return $this->weapons;
-  }
-
-  public function addWeapon(Weapon $weapon): self
-  {
-    if (!$this->weapons->contains($weapon)) {
-      $this->weapons[] = $weapon;
-    }
-
-    return $this;
-  }
-
   public function removeWeapon(Weapon $weapon): self
   {
     $this->weapons->removeElement($weapon);
@@ -261,13 +246,25 @@ class Build implements UserOwnedInterface
 
   public function getActivedSkills(): ?array
   {
-      return $this->activedSkills;
+    return $this->activedSkills;
   }
 
   public function setActivedSkills(array $activedSkills): self
   {
-      $this->activedSkills = $activedSkills;
+    $this->activedSkills = $activedSkills;
 
-      return $this;
+    return $this;
+  }
+
+  public function getWeapons()
+  {
+    return $this->weapons;
+  }
+
+  public function setWeapons(array $weapons): self
+  {
+    $this->weapons = $weapons;
+
+    return $this;
   }
 }

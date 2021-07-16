@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 
-class activedSkillValidator extends ConstraintValidator
+class ActiveSkillValidator extends ConstraintValidator
 {
 
   private $iriConverter;
@@ -21,6 +21,12 @@ class activedSkillValidator extends ConstraintValidator
 
   public function validate($activedSkills, Constraint $constraint)
   {
+
+    if (!$constraint instanceof ActiveSkill) {
+      throw new UnexpectedTypeException($constraint, ActiveSkill::class);
+    }
+
+
     $selectedSkills = $this->context->getObject()->getSelectedSkills();
 
     /**

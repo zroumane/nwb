@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraint;
 class ActiveSkill extends Constraint
 {
   public $Lenght = "Array lenght is wrong.";
-  public $NotFound = "{{ skill }} not exist.";
+  public $NotFound = "{{ skill }} not found.";
   public $SkillDuplicate = "{{ skill }} is duplicated.";
   public $NotActived = "{{ skill }} is not selected.";
   public $NotAbility = "{{ skill }} is not an ability.";

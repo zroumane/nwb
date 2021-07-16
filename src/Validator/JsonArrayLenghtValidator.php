@@ -20,10 +20,10 @@ class JsonArrayLenghtValidator extends ConstraintValidator
       $this->context->buildViolation($constraint->message)->addViolation();
     }
 
-    foreach ($value as $key) {
-      if ($key == "") {
-        $this->context->buildViolation($constraint->messageblank)->addViolation();
-      }
-    }
+    // foreach ($value as $key) {
+    //   if ($key == "") {
+    //     $this->context->buildViolation($constraint->messageblank)->addViolation();
+    //   }
+    // }
   }
 }

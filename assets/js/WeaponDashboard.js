@@ -75,7 +75,6 @@ const getWeapon = async () => {
     .filter((c) => c.value != 0)
     .forEach((c) => c.remove());
   window.weapons.forEach((weapon) => {
-    if (weapon.id == 1) return;
     let $weaponOption = document.createElement("option");
     $weaponOption.value = weapon.id;
     $weaponOption.innerText = weapon.weaponKey;

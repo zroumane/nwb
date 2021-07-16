@@ -93,16 +93,16 @@
 								{% for cadre in 1..3 %}
 									<div class="col-1 col-lg-3 p-1">
 										<div class="dropdown">
-											<button class="mainskillbtn position-relative btn dropdown-toggle w-100 p-0" id="mainskillbtn-{{weapon}}-{{cadre}}" type="button" data-bs-toggle="dropdown">
-												<img id="mainSkillSelected-{{weapon}}-{{cadre}}" class="dropdown-item p-0 mainSkillSelected mainSkillSelected{{weapon}}" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/mainSkill.png')}}')" data-id="0"/>
-												<svg id="mainSkillDelete-{{weapon}}-{{cadre}}" class="mainSkillDelete" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 123.05 123.05">
+											<button class="activedSkillbtn position-relative btn dropdown-toggle w-100 p-0" id="activedSkillbtn-{{weapon}}-{{cadre}}" type="button" data-bs-toggle="dropdown">
+												<img id="activedSkillSelected-{{weapon}}-{{cadre}}" class="dropdown-item p-0 activedSkillSelected activedSkillSelected{{weapon}}" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/activedSkill.png')}}')" data-id="0"/>
+												<svg id="activedSkillDelete-{{weapon}}-{{cadre}}" class="activedSkillDelete" fill="#fff" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 123.05 123.05">
 													<path d="M121.325,10.925l-8.5-8.399c-2.3-2.3-6.1-2.3-8.5,0l-42.4,42.399L18.726,1.726c-2.301-2.301-6.101-2.301-8.5,0l-8.5,8.5c-2.301,2.3-2.301,6.1,0,8.5l43.1,43.1l-42.3,42.5c-2.3,2.3-2.3,6.1,0,8.5l8.5,8.5c2.3,2.3,6.1,2.3,8.5,0l42.399-42.4l42.4,42.4c2.3,2.3,6.1,2.3,8.5,0l8.5-8.5c2.3-2.3,2.3-6.1,0-8.5l-42.5-42.4l42.4-42.399C123.625,17.125,123.625,13.325,121.325,10.925z"/>
 												</svg>
 											</button>
-											<ul class="dropdown-menu p-0 mainskillList mainskillList{{weapon}}" aria-labelledby="mainskillbtn-{{weapon}}-{{cadre}}">
+											<ul class="dropdown-menu p-0 activedSkillList activedSkillList{{weapon}}" aria-labelledby="activedSkillbtn-{{weapon}}-{{cadre}}">
 												{% for li in 1..6 %}
 													<li class="w-100">
-														<img id="mainSkill-{{weapon}}-{{cadre}}" class="mainSkill dropdown-item p-0" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/mainSkill.png')}}')" data-id="0" data-li="{{li}}" data-weapon="{{weapon}}"/>
+														<img id="activedSkill-{{weapon}}-{{cadre}}" class="activedSkill dropdown-item p-0" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/activedSkill.png')}}')" data-id="0" data-li="{{li}}" data-weapon="{{weapon}}"/>
 													</li>
 												{% endfor %}
 											</ul>
@@ -165,7 +165,7 @@
 
 
 	{# <div class="p-3 justify-content-center text-center">
-																																																												<div class="fs-4 mb-4 text-center">{% trans %}create.connect{% endtrans %}</div>
-																																																												<a href="{{path('app_security_login')}}" class="btn btn-outline-light fs-4">{% trans %}login.login{% endtrans %}</a>
-																																																											</div> #}
+																																																														<div class="fs-4 mb-4 text-center">{% trans %}create.connect{% endtrans %}</div>
+																																																														<a href="{{path('app_security_login')}}" class="btn btn-outline-light fs-4">{% trans %}login.login{% endtrans %}</a>
+																																																													</div> #}
 {% endblock %}

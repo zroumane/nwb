@@ -13,7 +13,7 @@ const getBuildId = () => {
 };
 
 const setBrightness = ($skillContainer, skill) => {
-  $skillContainer.style.filter = `brightness(${skill.active ? 1 : 0.4})`;
+  $skillContainer.style.filter = `brightness(${skill.selected ? 1 : 0.4})`;
 };
 
 export { getMethod, getBuildId, setBrightness };
