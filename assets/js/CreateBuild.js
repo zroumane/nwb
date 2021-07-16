@@ -290,7 +290,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
 
         // 2. Si skills ligne suivante active et pas de skill meme ligne active
         if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.active).length > 0) {
-          if (weapon.skills.filter((s) => s.line == skill.line && s.active).length > 0) {
+          if (weapon.skills.filter((s) => s.line == skill.line && s.active).length == 1) {
             changePopover($skillContainer, skill.skillKey, window.messageLocal["RowBottom"]);
             return;
           }

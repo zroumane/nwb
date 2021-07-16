@@ -2,20 +2,19 @@
 
 namespace App\Entity;
 
-use DateTime;
 use App\Entity\User;
 use App\Entity\Weapon;
-use App\Serializer\UserOwnedInterface;
-use DateTimeInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\ActiveSkill;
+use App\Validator\SelectedSkill;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator\JsonArrayLenght;
 use App\Repository\BuildRepository;
+use App\Serializer\UserOwnedInterface;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use App\Validator\JsonArrayLenght;
-use App\Validator\MainSkill;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -100,17 +99,18 @@ class Build implements UserOwnedInterface
   /**
    * @ORM\Column(type="json")
    * @JsonArrayLenght(2)
+   * @SelectedSkill
    */
   #[Groups(['read:build', 'write:build'])]
-  private $activeSkills = [];
+  private $selectedSkills = [];
 
   /**
    * @ORM\Column(type="array")
-   * @MainSkill
    * @JsonArrayLenght(2)
+   * @ActiveSkill
    */
   #[Groups(['read:build', 'write:build'])]
-  private $mainSkills = [];
+  private $activedSkills = [];
 
   /**
    * @ORM\PrePersist
@@ -247,26 +247,26 @@ class Build implements UserOwnedInterface
     return $this;
   }
 
-  public function getActiveSkills(): ?array
+  public function getSelectedSkills(): ?array
   {
-    return $this->activeSkills;
+    return $this->selectedSkills;
   }
 
-  public function setActiveSkills(array $activeSkills): self
+  public function setSelectedSkills(array $selectedSkills): self
   {
-    $this->activeSkills = $activeSkills;
+    $this->selectedSkills = $selectedSkills;
 
     return $this;
   }
 
-  public function getMainSkills(): ?array
+  public function getActivedSkills(): ?array
   {
-      return $this->mainSkills;
+      return $this->activedSkills;
   }
 
-  public function setMainSkills(array $mainSkills): self
+  public function setActivedSkills(array $activedSkills): self
   {
-      $this->mainSkills = $mainSkills;
+      $this->activedSkills = $activedSkills;
 
       return $this;
   }
