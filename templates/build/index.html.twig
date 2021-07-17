@@ -29,40 +29,37 @@
 			</tr>
 		</thead>
 		<tbody>
-			{# {% for build in builds %}
-							<tr>
-								<td>
-									<a href="{{path('app_builds_show',{: builds.id})}}">{{ builds.name }}</a>
-								</td>
-								<td>
-									{{ builds.author.pseudo }}
-								</td>
-								<td>
-									{{ builds.weapons|join(' / ') }}
-								</td>
-								<td>
-									{% if builds.type == 0 %}//{% endif %}
-									{% if builds.type == 1 %}PVP{% endif %}
-									{% if builds.type == 2 %}PVE{% endif %}
-									{% if builds.type == 3 %}
-										PVPVE
-									{% endif %}
-									{% if builds.type == 4 %}Siège{% endif %}
-								</td>
-								<td>
-									{{ builds.views }}
-								</td>
-								<td>
-									{% set distance = date('now').diff(date(builds.UpdatedAt)).days %}il
-									y a{% if distance <= 1 %}
-										1 jour
-									{% else %}
-										{{ distance }}
-										jours
-									{% endif %}
-								</td>
-							</tr>
-						{% endfor %} #}
+			{% for build in builds %}
+				<tr>
+					<td>
+						<a href="{{path('app_builds_show',{id: build.id})}}">{{ build.name }}</a>
+					</td>
+					<td>
+						<a href="{{path('app_profile_profile',{id: build.author.id})}}">{{ build.author.pseudo }}</a>
+					</td>
+					<td>
+						{{ build.weapons|join(' / ') }}
+					</td>
+					<td>
+						{% if build.type == 1 %}
+							{% trans %}create.type.general{% endtrans %}
+							{% elseif build.type == 2 %}PVP
+							{% elseif build.type == 3 %}PVE
+							{% elseif build.type == 4 %}PVX
+						{% elseif build.type == 5 %}
+							{% trans %}create.type.war{% endtrans %}
+						{% endif %}
+					</td>
+					<td>
+						{{ build.views }}
+					</td>
+					<td>
+						{% set distance = date('now').diff(date(build.UpdatedAt)).days %}
+						{{ distance }}
+						{% trans %}builds.day{% endtrans %}
+					</td>
+				</tr>
+			{% endfor %}
 		</tbody>
 	</table>
 {% endblock %}

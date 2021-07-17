@@ -16,6 +16,7 @@ builds:
   type: Type
   view: Vue
   update: Mise à jour
+  day: jour(s)
 
 build:
   by: par

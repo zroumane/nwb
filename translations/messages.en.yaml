@@ -16,6 +16,7 @@ builds:
   type: Type
   view: View
   update: Last Update
+  day: day(s)
 
 build:
   by: by
