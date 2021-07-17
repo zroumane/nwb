@@ -44,7 +44,7 @@ const main = async () => {
       build.activedSkills[weaponIndex].forEach((activedSkill, i) => {
         if (activedSkill) {
           let match = weapon.skills.filter((s) => s["@id"] == activedSkill)[0];
-          $q(`#activedSkill-${weaponIndex + 1}-${i + 1}`).src = `/img/skill/${match.skillKey}.png`;
+          $q(`#activedSkill-${weaponIndex + 1}-${i + 1}`).src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
         }
       });
       $buildTabs[weaponIndex].innerText = window.weaponLocal[weapon.weaponKey];
