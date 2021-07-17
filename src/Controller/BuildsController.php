@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Build;
+use App\Controller\ConvertWeapon;
 use App\Repository\BuildRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Core\Api\IriConverterInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -17,46 +17,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class BuildsController extends AbstractController
 {
-  private $kernel;
-  private $iriConverter;
-
-  public function __construct(KernelInterface $kernel, IriConverterInterface $iriConverter)
-  {
-    $this->kernel = $kernel;
-    $this->iriConverter = $iriConverter;
-  }
 
   /**
    * @Route("/")
    */
-  public function index(Request $request, BuildRepository $repo): Response
+  public function index(Request $request, BuildRepository $repo, IriConverterInterface $iriconverter, KernelInterface $kernel): Response
   {
-    $weaponLocal = json_decode(file_get_contents($this->kernel->getProjectDir() . "/public/json/" . $request->getLocale() . "/weapon.json"));
     
     $builds = $repo->findAll();
 
-    $builds = array_map(function($build) use ($weaponLocal){
-      $build->setWeapons(array_map(function($w) use ($weaponLocal){
-        try{
-          $weaponKey = $this->iriConverter->getItemFromIri($w)->getWeaponKey();
-          try{
-            return $weaponLocal->{$weaponKey};
-          }
-          catch(\Throwable $th){
-            return $weaponKey;
-          }
-        }
-        catch(\Throwable $th){
-          return;
-        }
-      }, $build->getWeapons()));
-
-      $build->setWeapons(array_filter($build->getWeapons(), function($w){return !is_null($w);}));
-      return $build;
-    }, $builds);
+    $builds = ConvertWeapon::convert($iriconverter, $kernel, $builds, $request->getLocale());
 
     return $this->render("build/index.html.twig", [
-      "locale" => $request->getLocale(),
+      "global" => true,
       "builds" => $builds,
     ]);
   }
@@ -80,7 +53,7 @@ class BuildsController extends AbstractController
   /**
    * @Route("/build/{id}", requirements={"id"="\d+"})
    */
-  public function show(Request $request, Build $build): Response
+  public function show(Build $build): Response
   {
     $views = $build->getViews();
     $build->setViews($views + 1);
@@ -96,7 +69,6 @@ class BuildsController extends AbstractController
     }
 
     return $this->render("build/build.html.twig", [
-      "locale" => $request->getLocale(),
       "build" => $build,
       "liked" => $liked
     ]);
@@ -134,24 +106,34 @@ class BuildsController extends AbstractController
   /**
    * @Route("/create")
    */
-  public function create(Request $request): Response
+  public function create(): Response
   {
-    return $this->render("build/create.html.twig", [
-      "locale" => $request->getLocale(),
-    ]);
+    return $this->render("build/create.html.twig");
   }
 
   /**
    * @Route("/edit/{id}", requirements={"id"="\d+"})
    */
-  public function edit(Request $request, Build $build): Response
+  public function edit(Build $build): Response
   {
     if($build && $build->getAuthor() == $this->getUser()){
       return $this->render("build/create.html.twig", [
-        "locale" => $request->getLocale(),
         "build" => $build
       ]);
     }
     throw $this->createNotFoundException();
+  }
+
+  /**
+   * @Route("/delete/{id}", requirements={"id"="\d+"})
+   */
+  public function delete(Build $build): Response
+  {
+    if($build && $build->getAuthor() == $this->getUser()){
+      $em = $this->getDoctrine()->getManager();
+			$em->remove($build);
+			$em->flush();
+      return $this->redirectToRoute('app_profile_index');
+    }
   }
 }

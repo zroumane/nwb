@@ -11,8 +11,13 @@
 {% endblock %}
 {% block body %}
 
+	{% if not app.user %}
+		<div class="alert alert-warning">
+			{% trans %}create.nouser{% endtrans %}
+		</div>
+	{% endif %}
 
-	<div class="testform row py-2 needs-validation" novalidate>
+	<div class="row py-2" novalidate>
 
 		{% if build is defined %}
 			<input type="hidden" id="buildId" value="{{build.id}}">

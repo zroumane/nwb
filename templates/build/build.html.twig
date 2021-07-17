@@ -16,37 +16,53 @@
 		<input type="hidden" id="buildId" value="{{build.id}}">
 	{% endif %}
 
-	<div class="fs-1 text-center text-break lh-1">{{ build.name }}
-
-		<a href="{% if liked %} {{path('app_builds_dislike',{id: build.id})}} {% else %} {{path('app_builds_like',{id: build.id})}} {% endif %}" class="btn btn-{% if liked %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
-			{{build.liked|length}}
-			| Like</a>
+	<div class="d-flex flex-row">
+		<div class="flex-item flex-fill">
+			<div class="fs-2 mb-2 text-break lh-1">
+				{{ build.name }}
+			</div>
+			<div class="fs-5 mb-2">
+				{% trans %}build.by{% endtrans %}
+				{% if build.author %}
+					<a target="_blank" href="{{path('app_profile_show',{id: build.author.id})}}">{{build.author.pseudo}}</a>
+				{% else %}
+					{% trans %}build.anonymous{% endtrans %}
+				{% endif %}
+			</div>
+			<div class="fs-5 mb-2">
+				{% trans %}create.type.label{% endtrans %}
+				:
+				{% if build.type == 1 %}
+					{% trans %}create.type.general{% endtrans %}
+					{% elseif build.type == 2 %}PVP
+					{% elseif build.type == 3 %}PVE
+					{% elseif build.type == 4 %}PVX
+				{% elseif build.type == 5 %}
+					{% trans %}create.type.war{% endtrans %}
+				{% endif %}
+			</div>
+		</div>
+		<div class="flex-item">
+			<div class="p-1 text-end">
+				<a href="{% if liked %} {{path('app_builds_dislike',{id: build.id})}} {% else %} {{path('app_builds_like',{id: build.id})}} {% endif %}" class="btn btn-sm btn-{% if liked %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
+					{{build.liked|length}}
+					| Like</a>
+			</div>
+			{% if app.user %}
+				{% if build.author.id == app.user.id %}
+					<div class="p-1 text-end">
+						<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
+					</div>
+					<div class="p-1 text-end">
+						<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
+					</div>
+				{% endif %}
+			{% endif %}
+		</div>
 	</div>
-	<div class="fs-6 mb-2 text-center">
-		{% trans %}build.by{% endtrans %}
-		{% if build.author %}
-			<a target="_blank" href="{{path('app_profile_profile',{id: build.author.id})}}">{{build.author.pseudo}}</a>
-		{% else %}
-			{% trans %}build.anonymous{% endtrans %}
-		{% endif %}
-	</div>
-	<div class="fs-6 mb-2 text-center"></div>
-
-	<div class="fs-5 px-2 mb-2 text-center text-break">
-		{% trans %}create.type.label{% endtrans %}
-		:
-		{% if build.type == 1 %}
-			{% trans %}create.type.general{% endtrans %}
-			{% elseif build.type == 2 %}PVP
-			{% elseif build.type == 3 %}PVE
-			{% elseif build.type == 4 %}PVX
-		{% elseif build.type == 5 %}
-			{% trans %}create.type.war{% endtrans %}
-		{% endif %}
-	</div>
 
 
-	<div class="fs-5 px-2 mb-2 text-break">
+	<div class="fs-5 mb-2 text-break">
 		{% autoescape 'html' %}
 			{{ build.description|striptags|raw }}
 		{% endautoescape %}
@@ -120,5 +136,4 @@
 
 		</div>
 	</div>
-
 {% endblock %}

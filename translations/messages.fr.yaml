@@ -8,6 +8,8 @@ navbar:
   login: Connexion
   logout: Deconnexion
   profil: Profil
+  settings: Settings
+
 
 builds:
   name: Nom
@@ -21,7 +23,11 @@ builds:
 build:
   by: par
   anonymous: Anonyme
-  edit: Modifier
+  actions:
+    label: Actions
+    edit: Modifier
+    delete: Supprimer
+    like: Like
 
 create:
   name:
@@ -41,7 +47,7 @@ create:
   save: Enregistrer
   reset: Réinitialiser
   modify: Modifier
-  connect: Veuillez vous connecter afin de pouvoir créer un build.
+  nouser: Attention, si vous choisissez de créer un build sans être connecté, vous ne le conserverez qu'avec son lien de partage.
 
 patchnote:
   goback: Revenir
@@ -69,6 +75,7 @@ login:
     nocheck: Veuillez verifier votre compte. Nous venons de vous envoyer un email de verification.
     noemail: Email invalide
     already: Email déjà vérifié
+    noreceive: Si vous ne le recevez pas, regarder dans votre dossier spam
 
 password:
   resetpass: Mot de passe oublié ?
@@ -86,5 +93,4 @@ password:
     send: Envoyer l'email
     description: Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
     issend: Si un compte correspond à cette adresse email, un email contenant un lien pour réinitialiser votre mot de passe vous a été envoyé.
-    noreceive: Si vous ne recevez pas d'email, regarder dans votre dossier spam ou
-    tryagain: réessayer
+    tryagain: ou réessayer

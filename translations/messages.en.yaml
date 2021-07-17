@@ -8,6 +8,7 @@ navbar:
   login: Login
   logout: Logout
   profil: Profile
+  settings: Paramètre
 
 builds:
   name: Name
@@ -21,7 +22,11 @@ builds:
 build:
   by: by
   anonymous: Anonymous
-  edit: Edit
+  actions:
+    label: Actions
+    edit: Modifier
+    delete: Supprimer
+    like: Like
 
 create:
   name:
@@ -42,6 +47,7 @@ create:
   reset: Reset
   modify: Modify
   connect: Please login to be able to create a build.
+  nouser: Be careful, if you choose to create a build without being connected, you will only keep it with its share link.
 
 patchnote:
   goback: Go back to list
@@ -69,6 +75,7 @@ login:
     nocheck: Please verify your account. We just sent you a verification email.
     noemail: Invalid Email
     already: Email already verified
+    noreceive: If you don't receive it please check your spam folder
 
 password:
   resetpass: Forgot your password ?
@@ -82,5 +89,4 @@ password:
     send: Send email
     description: Enter your email address and we we will send you a link to reset your password.
     issend: If an account matching your email exists, then an email was just sent that contains a link that you can use to reset your password.
-    noreceive: If you don't receive an email please check your spam folder or
-    tryagain: try again
+    tryagain: or try again

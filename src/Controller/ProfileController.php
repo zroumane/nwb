@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\EditProfileType;
+use App\Controller\ConvertWeapon;
+use App\Repository\BuildRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use ApiPlatform\Core\Api\IriConverterInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProfileController extends AbstractController
@@ -16,8 +19,20 @@ class ProfileController extends AbstractController
    */
   public function index(): Response
   {
+    if($user = $this->getUser()){
+      return $this->redirectToRoute('app_profile_show', ['id' => $user->getId()]);
+    }else{
+      return $this->redirectToRoute('app_security_login');
+    }
+  }
+
+    /**
+   * @Route("/settings")
+   */
+  public function settings(): Response
+  {
     if ($this->getUser()) {
-      return $this->render("profile/index.html.twig");
+      return $this->render("profile/settings.html.twig");
     } else {
       return $this->redirectToRoute("app_security_login");
     }
@@ -26,15 +41,21 @@ class ProfileController extends AbstractController
   /**
    * @Route("/profile/{id}", requirements={"id"="\d+"})
    */
-  public function profile(User $user): Response
+  public function show(Request $request, User $user, IriConverterInterface $iriconverter, KernelInterface $kernel): Response
   {
-    if ($this->getUser() == $user) {
-      return $this->redirectToRoute("app_profile_index");
-    } else {
-      return $this->render("profile/index.html.twig", [
-        "user" => $user,
-      ]);
-    }
+
+    $persistentCollection = $user->getBuilds();
+    $persistentCollection->initialize();
+    $builds = $persistentCollection->getSnapshot();
+        
+    $builds = ConvertWeapon::convert($iriconverter, $kernel, $builds, $request->getLocale());
+
+    
+    return $this->render("profile/index.html.twig", [
+      "user" => $user,
+      "global" => false,
+      "builds" => $builds,
+    ]);
   }
 
   /**
