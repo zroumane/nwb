@@ -26,15 +26,13 @@ use Symfony\Component\Validator\Constraints as Assert;
   normalizationContext: ['groups' => 'read:build'],
   denormalizationContext: ['groups' => 'write:build'],
   collectionOperations: [
-    'get',
     'post'
   ],
   itemOperations: [
     'get',
     'put' => [
       'access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")'
-    ],
-    'delete' => ['access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")']
+    ]
   ]
 )]
 class Build implements UserOwnedInterface
@@ -52,46 +50,47 @@ class Build implements UserOwnedInterface
    * @Assert\NotBlank
    * @Assert\Length(min = 8, max = 80)
    */
-  #[Groups(['read:build', 'write:build'])]
+  #[Groups(['write:build'])]
   private $name;
 
   /**
    * @ORM\Column(type="text", nullable=true)
    * @Assert\Length(min = 0, max = 3000)
    */
-  #[Groups(['read:build', 'write:build'])]
+  #[Groups(['write:build'])]
   private $description;
 
   /**
    * @ORM\Column(type="integer")
    * @Assert\Range(min = 1, max = 5)
    */
-  #[Groups(['read:build', 'write:build'])]
+  #[Groups(['write:build'])]
   private $type;
 
   /**
    * @ORM\Column(type="datetime")
    */
-  #[Groups(['read:build'])]
   private $created_at;
 
   /**
    * @ORM\Column(type="datetime")
    */
-  #[Groups(['read:build'])]
   private $updated_at;
 
   /**
    * @ORM\Column(type="bigint")
    */
-  #[Groups(['read:build'])]
   private $views = 0;
+
+  /**
+   * @ORM\ManyToMany(targetEntity=User::class)
+   */
+  private $liked;
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class, inversedBy="builds")
    * @ORM\JoinColumn(nullable=true)
    */
-  #[Groups(['read:build'])]
   private $author;
 
   /**
@@ -117,7 +116,6 @@ class Build implements UserOwnedInterface
    */
   #[Groups(['read:build', 'write:build'])]
   private $activedSkills = [];
-  
 
   /**
    * @ORM\PrePersist
@@ -140,6 +138,7 @@ class Build implements UserOwnedInterface
   public function __construct()
   {
     $this->weapons = new ArrayCollection();
+    $this->liked = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -272,5 +271,29 @@ class Build implements UserOwnedInterface
     $this->weapons = $weapons;
 
     return $this;
+  }
+
+  /**
+   * @return Collection|User[]
+   */
+  public function getLiked(): Collection
+  {
+      return $this->liked;
+  }
+
+  public function addLiked(User $liked): self
+  {
+      if (!$this->liked->contains($liked)) {
+          $this->liked[] = $liked;
+      }
+
+      return $this;
+  }
+
+  public function removeLiked(User $liked): self
+  {
+      $this->liked->removeElement($liked);
+
+      return $this;
   }
 }

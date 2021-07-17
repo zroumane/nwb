@@ -21,6 +21,9 @@
 					{% trans %}builds.type{% endtrans %}
 				</th>
 				<th scope="col">
+					Like
+				</th>
+				<th scope="col">
 					{% trans %}builds.view{% endtrans %}
 				</th>
 				<th scope="col">
@@ -35,7 +38,11 @@
 						<a href="{{path('app_builds_show',{id: build.id})}}">{{ build.name }}</a>
 					</td>
 					<td>
-						<a href="{{path('app_profile_profile',{id: build.author.id})}}">{{ build.author.pseudo }}</a>
+						{% if build.author %}
+							<a href="{{path('app_profile_profile',{id: build.author.id})}}">{{ build.author.pseudo }}</a>
+						{% else %}
+							{% trans %}build.anonymous{% endtrans %}
+						{% endif %}
 					</td>
 					<td>
 						{{ build.weapons|join(' / ') }}
@@ -49,6 +56,9 @@
 						{% elseif build.type == 5 %}
 							{% trans %}create.type.war{% endtrans %}
 						{% endif %}
+					</td>
+					<td>
+						{{ build.liked|length }}
 					</td>
 					<td>
 						{{ build.views }}

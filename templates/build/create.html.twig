@@ -62,18 +62,11 @@
 				{% trans with {'%n%' : 2 }%}create.weapon{% endtrans %}
 			</a>
 		</li>
-		<li class="nav-item">
-			<a class="nav-link buildTab disabled" data-bs-toggle="tab" data-bs-target="#tab-gears">
-				{% trans %}create.gear{% endtrans %}
-				<span class="badge bg-warning">{% trans %}meta.soon{% endtrans %}</span>
-			</a>
-		</li>
 	</ul>
 
 	<div class="tab-content p-2 p-lg-0">
 
 		{% for weapon in 1..2 %}
-
 
 			<div class="tab-pane fade {% if weapon == 1 %}show active{% endif %}" id="tab-weapon-{{weapon}}">
 
@@ -118,7 +111,6 @@
 									</div>
 								{% endfor %}
 							</div>
-
 
 							<div class="p-2 mt-4">
 								<button type="button" class="btn btn-outline-danger w-100 resetButton">{% trans %}create.reset{% endtrans %}</button>

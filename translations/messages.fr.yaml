@@ -34,7 +34,7 @@ create:
     type: Type
     general: Général
     war: Guerre
-  selectweapon: Sélectionez l'arme %n%
+  selectweapon: Sélectionnez l'arme %n%
   weapon: Arme %n%
   gear: Équipement
   stat: Statistiques

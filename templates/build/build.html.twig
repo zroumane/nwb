@@ -16,17 +16,19 @@
 		<input type="hidden" id="buildId" value="{{build.id}}">
 	{% endif %}
 
-
-	<div class="fs-1 text-center text-break lh-1">{{ build.name }}</div>
+	<div class="fs-1 text-center text-break lh-1">{{ build.name }}
+		<a href="{{path('app_builds_like',{id: build.id})}}" class="btn btn-primary">{{build.liked|length}}
+			Like</a>
+	</div>
 	<div class="fs-6 mb-2 text-center">
 		{% trans %}build.by{% endtrans %}
 		{% if build.author %}
-			<a target="_blank" href="/profile/{{build.author.id}}">{{build.author.pseudo}}</a>
+			<a target="_blank" href="{{path('app_profile_profile',{id: build.author.id})}}">{{build.author.pseudo}}</a>
 		{% else %}
 			{% trans %}build.anonymous{% endtrans %}
 		{% endif %}
-
 	</div>
+	<div class="fs-6 mb-2 text-center"></div>
 
 	<div class="fs-5 px-2 mb-2 text-center text-break">
 		{% trans %}create.type.label{% endtrans %}
@@ -64,11 +66,6 @@
 			<li class="nav-item">
 				<a class="nav-link buildTab disabled" data-bs-toggle="tab" data-bs-target="#tab-weapon-2">
 					{% trans with {'%n%' : 2 }%}create.weapon{% endtrans %}
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link buildTab disabled" data-bs-toggle="tab" data-bs-target="#tab-gears">
-					{% trans %}create.gear{% endtrans %}
 				</a>
 			</li>
 		</ul>
