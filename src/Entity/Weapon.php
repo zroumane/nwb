@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=WeaponRepository::class)
  */
 #[ApiResource(
+	attributes: ["pagination_items_per_page" => 50],
 	normalizationContext: ['groups' => 'read:weapon'],
 	denormalizationContext: ['groups' => 'write:weapon'],
 	collectionOperations: [

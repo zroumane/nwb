@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=SkillRepository::class)
  */
 #[ApiResource(
+  attributes: ["pagination_items_per_page" => 50],
   normalizationContext: ['groups' => 'read:skill'],
   denormalizationContext: ['groups' => 'write:skill'],
   collectionOperations: [
