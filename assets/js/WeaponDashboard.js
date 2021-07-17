@@ -97,6 +97,7 @@ const updateWeaponForm = (weapon) => {
   $q("#branchName-2").innerText = weapon ? weapon.branch[1] : "";
   if (weapon != undefined) {
     window.currentWeapon = weapon.id;
+    window.currentWeaponKey = weapon.weaponKey;
     getSkills();
   }
 };
@@ -144,7 +145,7 @@ const getSkills = async () => {
     if (match) {
       c.style.backgroundImage = `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')`;
       c.style.backgroundSize = [1, 3].includes(match.type) ? "90% 90%" : "70% 70%";
-      c.firstElementChild.style.backgroundImage = `url(/img/skill/${match.skillKey}.png)`;
+      c.firstElementChild.style.backgroundImage = `url(/img/skill/${window.currentWeaponKey}/${match.skillKey}.png)`;
       c.firstElementChild.style.backgroundSize = [1, 3].includes(match.type) ? "90% 90%" : "70% 70%";
 
       c.dataset.id = match.id;

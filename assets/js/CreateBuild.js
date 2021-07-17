@@ -158,7 +158,7 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     let match = weapon.skills.filter((s) => s.side == data[2] && s.line == data[3] && s.col == data[4])[0];
     $skillContainer.style.backgroundImage = match ? `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')` : "";
     $skillContainer.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
-    $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/skill/${match.skillKey}.png)` : "";
+    $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/skill/${weapon.weaponKey}/${match.skillKey}.png)` : "";
     $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
     $skillContainer.dataset.id = match ? match.id : 0;
     changePopover($skillContainer, match ? match.skillKey : "", match ? match.skillKey : "");
@@ -180,7 +180,7 @@ const changeWeapon = async (weaponIndex, weaponId) => {
         let $activedSkills = [];
         $activedSkillLists[weaponIndex].forEach((ul) => $activedSkills.push(ul.querySelector(`img[data-li="${activedSkillCount}"]`)));
         $activedSkills.forEach(($activedSkill, index) => {
-          $activedSkill.src = `/img/skill/${match.skillKey}.png`;
+          $activedSkill.src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
           $activedSkill.dataset.id = match.id;
           if (match.selected) {
             $activedSkill.parentElement.classList.remove("d-none");
