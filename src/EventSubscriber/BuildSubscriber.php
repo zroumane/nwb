@@ -44,15 +44,16 @@ final class BuildSubscriber implements EventSubscriberInterface
       }else{
         $authorTitle  = "Build edited by %s :";
       }
-
+      
       $timestamp = date("c", strtotime("now"));
       $author = $build->getAuthor();
+      $buildId = $build->getId();
   
       $json_data = json_encode([
         "embeds" => [
           [
             "title" => $build->getName(),
-            "url" => sprintf("https://newworld-builder.com/build/%d", $build->getId()),
+            "url" => sprintf("https://newworld-builder.com/build/%d", $buildId),
             "author" => [
               "name" => sprintf($authorTitle, $author->getPseudo()),
               "url" => sprintf("https://newworld-builder.com/profile/%d", $author->getId()),
