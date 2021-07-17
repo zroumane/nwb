@@ -13,6 +13,7 @@ use App\Serializer\UserOwnedInterface;
 use App\Validator\Weapon as WeaponValidate;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Controller\CreateDiscordWebhook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -30,7 +31,9 @@ use Symfony\Component\Validator\Constraints as Assert;
   ],
   itemOperations: [
     'get',
-    'put' => ['access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")'],
+    'put' => [
+      'access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")'
+    ],
     'delete' => ['access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")']
   ]
 )]
@@ -115,6 +118,24 @@ class Build implements UserOwnedInterface
   #[Groups(['read:build', 'write:build'])]
   private $activedSkills = [];
   
+
+  /**
+   * @ORM\PrePersist
+   */
+  public function setCreatedAtValue(): void
+  {
+    $this->created_at = new \DateTime("now");
+    $this->updated_at = new \DateTime("now");
+  }
+  
+  /**
+   * @ORM\PreUpdate
+   */
+  public function setUpdateAtValue(): void
+  {
+    $this->updated_at = new \DateTime("now");
+  }
+
   
   public function __construct()
   {
