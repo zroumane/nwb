@@ -114,24 +114,7 @@ class Build implements UserOwnedInterface
    */
   #[Groups(['read:build', 'write:build'])]
   private $activedSkills = [];
-
-
-  /**
-   * @ORM\PrePersist
-   */
-  public function setCreatedAtValue(): void
-  {
-    $this->created_at = new \DateTime("now");
-    $this->updated_at = new \DateTime("now");
-  }
   
-  /**
-   * @ORM\PreUpdate
-   */
-  public function setUpdateAtValue(): void
-  {
-    $this->updated_at = new \DateTime("now");
-  }
   
   public function __construct()
   {
