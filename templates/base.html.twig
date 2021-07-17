@@ -1,184 +1,182 @@
 {% set locale = app.request.locale %}
 
 {% if app.request.pathinfo == '/' or app.request.pathinfo starts with '/build'%}
-  {% set current_menu = 'builds' %}
+	{% set current_menu = 'builds' %}
 {% elseif app.request.pathinfo starts with '/create' %}
-  {% set current_menu = 'create' %}
+	{% set current_menu = 'create' %}
 {% elseif app.request.pathinfo starts with '/patchnote' %}
-  {% set current_menu = 'patchnote' %}
+	{% set current_menu = 'patchnote' %}
 {% elseif app.request.pathinfo starts with '/login' %}
-  {% set current_menu = 'login' %}
+	{% set current_menu = 'login' %}
 {% elseif app.request.pathinfo == '/profile' %}
-  {% set current_menu = 'profile' %}
+	{% set current_menu = 'profile' %}
 {% else %}
-  {% set current_menu = '' %}
+	{% set current_menu = '' %}
 {% endif %}
 
 <!DOCTYPE html>
 <html lang="{{ locale }}">
 
-  <head>
-    <meta charset="UTF-8">
-    <title>
-      {% block title %}
-        {% trans %}meta.sitetitle{% endtrans %}
-      {% endblock %}
-    </title>
-    <meta name="keywords" locale="'{{ locale }}" content="build, create, newworld, new, world"/>
-    <meta name="description" content=""/>
-    <link rel="shortcut icon" href="{{asset('/img/favicon.ico')}}"/>
-    {{ encore_entry_link_tags('App') }}
-    {% block stylesheets %}{% endblock %}
-    {{ encore_entry_script_tags('App') }}
-    {% block javascripts %}{% endblock %}
-  </head>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			New World Builder | Build, Database & PatchNote
+		</title>
+		<meta name="keywords" locale="'{{ locale }}" content="build, create, newworld, new, world, amazon games, mmo"/>
+		<meta name="description" content="Discover New World Builder, a website that will allow you to make builds for your weapons on the Amazon Games MMO: New World."/>
+		<link rel="shortcut icon" href="{{asset('/img/favicon.ico')}}"/>
+		{{ encore_entry_link_tags('App') }}
+		{% block stylesheets %}{% endblock %}
+		{{ encore_entry_script_tags('App') }}
+		{% block javascripts %}{% endblock %}
+	</head>
 
-  <body>
+	<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-lg">
-        <a class="navbar-brand position-relative" href="{{path('app_builds_index')}}">
-          <img src="{{asset('/img/nwicone.png')}}" alt="" width="100" height="100">
-          <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger" style="top:15px">
-            Beta
-          </span>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse fs-4" id="navbarTogglerDemo02">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link {% if current_menu == 'builds' %}active{% endif %}" href="{{path('app_builds_index')}}">{% trans %}navbar.build{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans %}navbar.create{% endtrans %}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans %}navbar.patchnote{% endtrans %}</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ml-auto">
-            {% if app.user %}
-              <li class="nav-item dropdown fs-5 d-flex align-items-center">
-                <a class="nav-link dropdown-toggle {% if current_menu == 'profile' %}active{% endif %}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {{ app.user.pseudo }}
-                </a>
-                <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
-                  <li>
-                    <a class="dropdown-item" href="{{path('app_profile_index')}}">{% trans %}navbar.profil{% endtrans %}</a>
-                  </li>
-                  {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                      <a class="dropdown-item" href="{{path('app_admin_index')}}">Admin</a>
-                    </li>
-                  {% endif %}
-                  <li>
-                    <a class="dropdown-item" href="{{path('app_security_logout')}}">{% trans %}navbar.logout{% endtrans %}</a>
-                  </li>
-                </ul>
-              </li>
-            {% else  %}
-              <li class="nav-item">
-                <a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans %}navbar.login{% endtrans %}</a>
-              </li>
-            {% endif %}
-            <li class="nav-item dropdown fs-5 d-flex align-items-center">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {% if locale == 'en' %}English
-                {% endif %}
-                {% if locale == 'fr' %}Français
-                {% endif %}
-                {# {% if locale == 'de' %}Deutsche{% endif %}
-                {% if locale == 'es' %}España{% endif %}
-                {% if locale == 'it' %}Italiano{% endif %}
-                {% if locale == 'pl' %}Polskie{% endif %}
-                {% if locale == 'pt' %}Português{% endif %} #}
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li class="d-flex flex-row py-1 px-3">
-                  <a class="dropdown-item flex-fill p-0" href="{{ path('app_setlocal_index', {'locale': 'en'}) }}">English</a>
-                  <img src="{{ asset('/img/flag/en.svg') }}" class="flag">
-                </li>
-                <li class="d-flex flex-row py-1 px-3">
-                  <a class="dropdown-item flex-fill p-0" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a>
-                  <img src="{{ asset('/img/flag/fr.svg') }}" class="flag">
-                </li>
-                {# <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'de'}) }}">Deutsche</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li> #}
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-lg">
+				<a class="navbar-brand position-relative" href="{{path('app_builds_index')}}">
+					<img src="{{asset('/img/nwicone.png')}}" alt="" width="100" height="100">
+					<span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger" style="top:15px">
+						Beta
+					</span>
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse fs-4" id="navbarTogglerDemo02">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link {% if current_menu == 'builds' %}active{% endif %}" href="{{path('app_builds_index')}}">{% trans %}navbar.build{% endtrans %}</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans %}navbar.create{% endtrans %}</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans %}navbar.patchnote{% endtrans %}</a>
+						</li>
+					</ul>
+					<ul class="navbar-nav ml-auto">
+						{% if app.user %}
+							<li class="nav-item dropdown fs-5 d-flex align-items-center">
+								<a class="nav-link dropdown-toggle {% if current_menu == 'profile' %}active{% endif %}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									{{ app.user.pseudo }}
+								</a>
+								<ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
+									<li>
+										<a class="dropdown-item" href="{{path('app_profile_index')}}">{% trans %}navbar.profil{% endtrans %}</a>
+									</li>
+									{% if is_granted('ROLE_ADMIN') %}
+										<li>
+											<a class="dropdown-item" href="{{path('app_admin_index')}}">Admin</a>
+										</li>
+									{% endif %}
+									<li>
+										<a class="dropdown-item" href="{{path('app_security_logout')}}">{% trans %}navbar.logout{% endtrans %}</a>
+									</li>
+								</ul>
+							</li>
+						{% else  %}
+							<li class="nav-item">
+								<a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans %}navbar.login{% endtrans %}</a>
+							</li>
+						{% endif %}
+						<li class="nav-item dropdown fs-5 d-flex align-items-center">
+							<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								{% if locale == 'en' %}English
+								{% endif %}
+								{% if locale == 'fr' %}Français
+								{% endif %}
+								{# {% if locale == 'de' %}Deutsche{% endif %}
+																																																																								                {% if locale == 'es' %}España{% endif %}
+																																																																								                {% if locale == 'it' %}Italiano{% endif %}
+																																																																								                {% if locale == 'pl' %}Polskie{% endif %}
+																																																																								                {% if locale == 'pt' %}Português{% endif %} #}
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<li class="d-flex flex-row py-1 px-3">
+									<a class="dropdown-item flex-fill p-0" href="{{ path('app_setlocal_index', {'locale': 'en'}) }}">English</a>
+									<img src="{{ asset('/img/flag/en.svg') }}" class="flag">
+								</li>
+								<li class="d-flex flex-row py-1 px-3">
+									<a class="dropdown-item flex-fill p-0" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a>
+									<img src="{{ asset('/img/flag/fr.svg') }}" class="flag">
+								</li>
+								{# <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'de'}) }}">Deutsche</a></li>
+																																																																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'es'}) }}">España</a></li>
+																																																																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'it'}) }}">Italiano</a></li>
+																																																																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pl'}) }}">Polskie</a></li>
+																																																																								                <li><a class="dropdown-item" href="{{ path('app_setlocal_index', {'locale': 'pt'}) }}">Português</a></li> #}
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-    <div class="text-light container-lg mt-4 mb-4">
+		<div class="text-light container-lg mt-4 mb-4">
 
-      <div>
+			<div>
 
-        {% if app.flashes('verify_warning') %}
-          <div class="alert alert-warning mx-2 my-1 mb-3" role="alert">
-            {% trans %}login.verify.nocheck{% endtrans %}
-          </div>
-        {% endif %}
+				{% if app.flashes('verify_warning') %}
+					<div class="alert alert-warning mx-2 my-1 mb-3" role="alert">
+						{% trans %}login.verify.nocheck{% endtrans %}
+					</div>
+				{% endif %}
 
-        {% if app.flashes('verify_succes') %}
-          <div class="alert alert-success mx-2 my-1 mb-3" role="alert">
-            {% trans %}login.verify.check{% endtrans %}
-          </div>
-        {% endif %}
+				{% if app.flashes('verify_succes') %}
+					<div class="alert alert-success mx-2 my-1 mb-3" role="alert">
+						{% trans %}login.verify.check{% endtrans %}
+					</div>
+				{% endif %}
 
-        {% for flashError in app.flashes('verify_error') %}
-          <div class="alert alert-danger mx-2 my-1 mb-3" role="alert">{{ flashError|trans }}</div>
-        {% endfor %}
+				{% for flashError in app.flashes('verify_error') %}
+					<div class="alert alert-danger mx-2 my-1 mb-3" role="alert">{{ flashError|trans }}</div>
+				{% endfor %}
 
-        {% if error.messageKey is defined %}
+				{% if error.messageKey is defined %}
 
-          {% if error.messageKey == 'login.incorrect' %}
-            <div class="px-2">
-              <div class="alert alert-danger m-0 my-1" mb-3="mb-3">{{ error.messageKey|trans }}</div>
-            </div>
-          {% endif %}
+					{% if error.messageKey == 'login.incorrect' %}
+						<div class="px-2">
+							<div class="alert alert-danger m-0 my-1" mb-3="mb-3">{{ error.messageKey|trans }}</div>
+						</div>
+					{% endif %}
 
-          {% if error.messageKey == 'login.verify.nocheck' %}
-            <div class="alert alert-warning mx-2 my-1 mb-3" role="alert">
-              {% trans %}login.verify.nocheck{% endtrans %}
-            </div>
-          {% endif %}
+					{% if error.messageKey == 'login.verify.nocheck' %}
+						<div class="alert alert-warning mx-2 my-1 mb-3" role="alert">
+							{% trans %}login.verify.nocheck{% endtrans %}
+						</div>
+					{% endif %}
 
-        {% endif %}
+				{% endif %}
 
-      </div>
+			</div>
 
-      {% block body %}{% endblock %}
-    </div>
+			{% block body %}{% endblock %}
+		</div>
 
-    <div class="footer container-fluid bg-dark text-light">
-      <div class="container-lg p-3">
-        <div class="row">
-          {# <div class="col">
-															              <div class="fs-4">About</div>
-															              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
-															                  molestias.
-															              </p>
-															          </div>
-															          <div class="col-3 text-end">
-															              <div class="fs-4">Links</div>
-															              <ul class="list-unstyled">
-															                  <li><a href="">Discord</a></li>
-															              </ul>
-															          </div> #}
-          <div class="text-center">
-            ©
-            {{ "now"|date("Y") }}
-            <a href="https://www.newworld-builder.com/">NewWorld-Builder.com</a>
-          </div>
-        </div>
-      </div>
-
-  </body>
+		<div class="footer container-fluid bg-dark text-light">
+			<div class="container-lg p-3">
+				<div class="row">
+					{# <div class="col"> #}
+					{# <div class="fs-4">About</div> #}
+					{# <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis #}
+					{# molestias. #}
+					{# </p> #}
+					{# </div> #}
+					{# <div class="col-3 text-end"> #}
+					{# <div class="fs-4">Links</div> #}
+					{# <ul class="list-unstyled"> #}
+					{# <li><a href="">Discord</a></li> #}
+					{# </ul> #}
+					{# </div> #}
+						<div class="text-center"> ©
+						{{ "now"|date("Y") }}
+						<a href="https://newworld-builder.com/">NewWorld-Builder.com</a>
+						- New World is a trademark of Amazon Game Studios. We are not affiliated with or endorsed by Amazon Game Studios.
+					</div>
+				</div>
+			</div>
+		</body>
+	</body>
 </html>
