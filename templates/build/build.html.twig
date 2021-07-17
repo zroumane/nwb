@@ -43,7 +43,9 @@
 
 
 	<div class="fs-5 px-2 mb-2 text-break">
-		{{ build.description }}
+		{% autoescape 'html' %}
+			{{ build.description|striptags|raw }}
+		{% endautoescape %}
 	</div>
 
 
