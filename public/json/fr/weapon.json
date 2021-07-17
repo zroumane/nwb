@@ -1,48 +1,35 @@
 {
-  "sword" : "Epée",
-  "swordmaster" : "Swordmaster",
-  "defender" : "Defender",
-  
-  "rapier" : "Rapier",
-  "blood" : "Blood",
-  "grace" : "Grace",
-
-  "hatchet" : "Hâche de jet",
-  "berserker" : "Rage",
-  "throwing" : "Lancer",
-  
-
-  "spear" : "Spear",
-  "zoner": "Zoner",
-  "impaler" : "Impaler",
-
-  "greatAxe" : "Great Axe",
-  "reaper": "Reaper",
-  "mauler" : "Mauler",
-
-  "warHammer" : "Marteau de guerre",
-  "huggernaut": "Mastodonte",
-  "crowdCrusher" : "Ecrase Foule",
-  
-
-  "bow" : "Bow",
+  "sword": "Epée",
+  "swordmaster": "Swordmaster",
+  "defender": "Defender",
+  "rapier": "Rapier",
+  "blood": "Blood",
+  "grace": "Grace",
+  "hatchet": "Hâche de jet",
+  "berserker": "Rage",
+  "throwing": "Lancer",
+  "spear": "Lance",
+  "zoner": "Piquier",
+  "impaler": "Empaleur",
+  "greatAxe": "Hache Double",
+  "reaper": "Faucheuse",
+  "mauler": "Mutilateur",
+  "warHammer": "Marteau d'armes",
+  "juggernaut": "Juggernaut",
+  "crowdCrusher": "Écrase-Foule",
+  "bow": "Bow",
   "skirmisher": "Tirailleur",
   "hunter": "Chasseur",
-
-  "musket" : "Mousquet",
-  "sharpshooter" : "Fin Tireur",
-  "trapper" : "Trappeur",
-
-
-  "fireStaff" : "Fire Staff",
-  "fireMage" : "Invocateur De Flamme",
-  "pyromancer": "Pyromane",
-
-  "lifeStaff" : "Life Staff",
-  "healing" : "Soigneur",
-  "protector" : "Protecteur",
-
-  "iceGauntlet" : "Ice Gauntlet",
-  "iceTempest" : "Ice Tempest",
-  "builder" : "Builder"
+  "musket": "Mousquet",
+  "sharpshooter": "Fin Tireur",
+  "trapper": "Trappeur",
+  "fireStaff": "Bâton de Feu",
+  "fireMage": "Mage de Feu",
+  "pyromancer": "Pyromancier",
+  "lifeStaff": "Bâton De Vie",
+  "healing": "Soins",
+  "protector": "Protecteur",
+  "iceGauntlet": "Gantelets de Glace",
+  "iceTempest": "Tempête de glace",
+  "builder": "Structure"
 }
