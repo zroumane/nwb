@@ -27,7 +27,7 @@ const main = async () => {
         let $skillContainer = $q(`#skill-${weaponIndex + 1}-${skill.side}-${skill.line}-${skill.col}`);
         $skillContainer.style.backgroundImage = `url('/img/bg/bg${skill.bgColor}${skill.type == 1 ? "" : "c"}.png')`;
         $skillContainer.style.backgroundSize = [1, 3].includes(skill.type) ? "90% 90%" : "70% 70%";
-        $skillContainer.firstElementChild.style.backgroundImage = `url(/img/skill/${skill.skillKey}.png)`;
+        $skillContainer.firstElementChild.style.backgroundImage = `url(/img/skill/${weapon.weaponKey}/${skill.skillKey}.png)`;
         $skillContainer.firstElementChild.style.backgroundSize = [1, 3].includes(skill.type) ? "90% 90%" : "70% 70%";
         build.selectedSkills[weaponIndex].includes(skill["@id"]) ? (skill.selected = true) : (skill.selected = false);
         setBrightness($skillContainer, skill);
