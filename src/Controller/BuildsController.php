@@ -87,9 +87,18 @@ class BuildsController extends AbstractController
     $em = $this->getDoctrine()->getManager();
     $em->flush();
 
+    $liked = false;
+
+    if($user = $this->getUser()){
+      if($build->getLiked()->contains($user)){
+        $liked = true;
+      }
+    }
+
     return $this->render("build/build.html.twig", [
       "locale" => $request->getLocale(),
       "build" => $build,
+      "liked" => $liked
     ]);
   }
 
@@ -101,6 +110,20 @@ class BuildsController extends AbstractController
   {
     if($user = $this->getUser()){
       $build->addLiked($user);
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+    }
+
+    return $this->redirectToRoute('app_builds_show', ['id' => $build->getId()]);
+  }
+
+  /**
+   * @Route("/build/{id}/dislike", requirements={"id"="\d+"})
+   */
+  public function dislike(Build $build): Response
+  {
+    if($user = $this->getUser()){
+      $build->removeLiked($user);
       $em = $this->getDoctrine()->getManager();
       $em->flush();
     }
