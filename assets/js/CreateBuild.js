@@ -161,7 +161,7 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/skill/${weapon.weaponKey}/${match.skillKey}.png)` : "";
     $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
     $skillContainer.dataset.id = match ? match.id : 0;
-    changePopover($skillContainer, match ? match.skillKey : "", match ? match.skillKey : "");
+    changePopover($skillContainer, match ? window.skillLocal[match.skillKey] : "", match ? window.skillLocal[match.skillKey + "_description"] : "");
     if (match) {
       Pop($skillContainer).enable();
       if (match.selected == undefined) match.selected = false;
@@ -267,7 +267,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
 
         skill.selected = true;
         setBrightness($skillContainer, skill);
-        changePopover($skillContainer, skill.skillKey, skill.skillKey);
+        changePopover($skillContainer, window.skillLocal[skill.skillKey], window.skillLocal[skill.skillKey + "_description"]);
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
         if (skill.type == 1) {
@@ -307,7 +307,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
 
         skill.selected = false;
         setBrightness($skillContainer, skill);
-        changePopover($skillContainer, skill.skillKey, skill.skillKey);
+        changePopover($skillContainer, window.skillLocal[skill.skillKey], window.skillLocal[skill.skillKey + "_description"]);
         weapon.countdown[0]++;
         weapon.countdown[skill.side]--;
         if (skill.type == 1) {

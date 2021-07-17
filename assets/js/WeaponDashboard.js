@@ -179,7 +179,7 @@ $skillFormSend.addEventListener("click", () => {
     side: parseInt($skillFormSide.value),
     line: parseInt($skillFormRow.value),
     col: parseInt($skillFormCol.value),
-    bgColor: type == 4 ? 0 : parseInt($skillFormBgColor.querySelector('[type="radio"]:checked').value),
+    bgColor: parseInt($skillFormBgColor.querySelector('[type="radio"]:checked').value),
     type: type,
     parent: $skillFormParent.dataset.parentId != 0 ? `/api/skills/${$skillFormParent.dataset.parentId}` : null,
   };
@@ -232,9 +232,10 @@ $qa(".skill-container").forEach((skillContainer) => {
     let match = window.currentSkills.filter((s) => s.id == skillId)[0];
     $skillFormSkillKey.value = match ? match.skillKey : "";
     $skillFormType.querySelector(`input[value="${match ? match.type : 1}"]`).checked = true;
-    $skillFormBgColor.querySelector(`input[value="${!match ? 1 : match.bgColor == 0 ? 1 : match.bgColor}"]`).checked = true;
+    $skillFormBgColor.querySelector(`input[value="${match ? match.bgColor : 0}"]`).checked = true;
     $skillFormParent.dataset.parentId = match && match.parent ? match.parent.split("/").reverse()[0] : "";
-    $skillFormParent.style.backgroundImage = match && match.parent ? `url("/img/skill/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png")` : "";
+    $skillFormParent.style.backgroundImage =
+      match && match.parent ? `url("/img/skill/${window.currentWeaponKey}/${window.currentSkills.filter((s) => s["@id"] == match.parent)[0].skillKey}.png")` : "";
     $skillFormId.value = skillId;
     $skillFormSide.value = data[1];
     $skillFormRow.value = data[2];
