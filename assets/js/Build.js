@@ -1,5 +1,6 @@
 import "../css/Build.scss";
 import "bootstrap/js/dist/tab";
+import Popover from "bootstrap/js/dist/popover";
 import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
 import { getMethod, getBuildId, setBrightness } from "./Utils";
 
@@ -31,6 +32,11 @@ const main = async () => {
         $skillContainer.firstElementChild.style.backgroundSize = [1, 3].includes(skill.type) ? "90% 90%" : "70% 70%";
         build.selectedSkills[weaponIndex].includes(skill["@id"]) ? (skill.selected = true) : (skill.selected = false);
         setBrightness($skillContainer, skill);
+        new Popover($skillContainer, {
+          title: window.skillLocal[skill.skillKey],
+          content: window.skillLocal[skill.skillKey + "_description"],
+          trigger: "hover",
+        });
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (parent) {
@@ -44,7 +50,13 @@ const main = async () => {
       build.activedSkills[weaponIndex].forEach((activedSkill, i) => {
         if (activedSkill) {
           let match = weapon.skills.filter((s) => s["@id"] == activedSkill)[0];
-          $q(`#activedSkill-${weaponIndex + 1}-${i + 1}`).src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
+          let $activedSkill = $q(`#activedSkill-${weaponIndex + 1}-${i + 1}`);
+          $activedSkill.src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
+          new Popover($activedSkill, {
+            title: window.skillLocal[match.skillKey],
+            content: window.skillLocal[match.skillKey + "_description"],
+            trigger: "hover",
+          });
         }
       });
       $buildTabs[weaponIndex].innerText = window.weaponLocal[weapon.weaponKey];
