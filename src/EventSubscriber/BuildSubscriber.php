@@ -29,6 +29,11 @@ final class BuildSubscriber implements EventSubscriberInterface
         return;
       }
 
+      $author = $build->getAuthor();
+      if(!$author){
+        return;
+      }
+
       $webhookurl = "";
 
       if($_SERVER['APP_ENV'] == "dev"){
@@ -44,9 +49,10 @@ final class BuildSubscriber implements EventSubscriberInterface
       }else{
         $authorTitle  = "Build edited by %s :";
       }
+
+
       
       $timestamp = date("c", strtotime("now"));
-      $author = $build->getAuthor();
       $buildId = $build->getId();
   
       $json_data = json_encode([
