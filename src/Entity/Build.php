@@ -83,7 +83,7 @@ class Build implements UserOwnedInterface
   private $views = 0;
 
   /**
-   * @ORM\ManyToMany(targetEntity=User::class)
+   * @ORM\ManyToMany(targetEntity=User::class, inversedBy="liked")
    */
   private $liked;
 
@@ -230,13 +230,6 @@ class Build implements UserOwnedInterface
     return $this;
   }
 
-  public function removeWeapon(Weapon $weapon): self
-  {
-    $this->weapons->removeElement($weapon);
-
-    return $this;
-  }
-
   public function getSelectedSkills(): ?array
   {
     return $this->selectedSkills;
@@ -269,6 +262,13 @@ class Build implements UserOwnedInterface
   public function setWeapons(array $weapons): self
   {
     $this->weapons = $weapons;
+
+    return $this;
+  }
+
+  public function removeWeapon(Weapon $weapon): self
+  {
+    $this->weapons->removeElement($weapon);
 
     return $this;
   }

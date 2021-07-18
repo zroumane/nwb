@@ -34,11 +34,11 @@
 		<div class="col-3">
 			<label class="form-label">{% trans %}create.type.label{% endtrans %}</label>
 			<select autocomplete="off" class="form-select" id="formBuildType">
-				<option value="1" {% if build is defined and build.type == 1 %} selected {% elseif build is not defined %} selected {% endif %}>{% trans %}create.type.general{% endtrans %}</option>
+				<option value="1" {% if build is defined and build.type == 1 %} selected {% elseif build is not defined %} selected {% endif %}>{% trans %}type.general{% endtrans %}</option>
 				<option value="2" {% if build is defined and build.type == 2 %} selected {% endif %}>PVP</option>
 				<option value="3" {% if build is defined and build.type == 3 %} selected {% endif %}>PVE</option>
 				<option value="4" {% if build is defined and build.type == 4 %} selected {% endif %}>PVX</option>
-				<option value="5" {% if build is defined and build.type == 5 %} selected {% endif %}>{% trans %}create.type.war{% endtrans %}</option>
+				<option value="5" {% if build is defined and build.type == 5 %} selected {% endif %}>{% trans %}type.war{% endtrans %}</option>
 			</select>
 		</div>
 	</div>

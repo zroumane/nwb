@@ -30,15 +30,15 @@
 				{% endif %}
 			</div>
 			<div class="fs-5 mb-2">
-				{% trans %}create.type.label{% endtrans %}
+				{% trans %}type.label{% endtrans %}
 				:
 				{% if build.type == 1 %}
-					{% trans %}create.type.general{% endtrans %}
+					{% trans %}type.general{% endtrans %}
 					{% elseif build.type == 2 %}PVP
 					{% elseif build.type == 3 %}PVE
 					{% elseif build.type == 4 %}PVX
 				{% elseif build.type == 5 %}
-					{% trans %}create.type.war{% endtrans %}
+					{% trans %}type.war{% endtrans %}
 				{% endif %}
 			</div>
 		</div>

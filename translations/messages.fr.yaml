@@ -15,10 +15,17 @@ builds:
   name: Nom
   author: Auteur
   weapon: Armes
-  type: Type
   view: Vue
   update: Mise à jour
   day: jour(s)
+  filter:
+    all: Tous
+    alls: Toutes
+    search: Rechercher
+    weapons: Arme(s)
+    type: Type
+    reset: Réinitialiser
+    label: Filtrer
 
 build:
   by: par
@@ -29,6 +36,11 @@ build:
     delete: Supprimer
     like: Like
 
+type:
+  label: Type
+  general: General
+  war: Guerre
+
 create:
   name:
     label: Nom
@@ -36,10 +48,6 @@ create:
   description:
     label: Description
     invalid: La description doit contenir au maximum 3000 caractère.
-  type:
-    type: Type
-    general: Général
-    war: Guerre
   selectweapon: Sélectionnez l'arme %n%
   weapon: Arme %n%
   gear: Équipement

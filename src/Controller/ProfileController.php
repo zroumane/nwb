@@ -8,6 +8,8 @@ use App\Repository\BuildRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Core\Api\IriConverterInterface;
+use App\Repository\WeaponRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,20 +43,20 @@ class ProfileController extends AbstractController
   /**
    * @Route("/profile/{id}", requirements={"id"="\d+"})
    */
-  public function show(Request $request, User $user, IriConverterInterface $iriconverter, KernelInterface $kernel): Response
+  public function show(Request $request, User $user, BuildRepository $buildRep, KernelInterface $kernel, PaginatorInterface $paginator, WeaponRepository $weaponRep): Response
   {
 
-    $persistentCollection = $user->getBuilds();
-    $persistentCollection->initialize();
-    $builds = $persistentCollection->getSnapshot();
-        
-    $builds = ConvertWeapon::convert($iriconverter, $kernel, $builds, $request->getLocale());
+    $query = $buildRep->findAllQuery($request->query, $user);
+    $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
+    $parser = new EntityParser($kernel);
+    $parser->setWeaponLocal($request->getLocale());
+    $parser->setWeapons($weaponRep->findAll());
+    $builds->setItems(array_map(fn($build) => $parser->parseBuild($build), (array)$builds->getItems()));
 
-    
-    return $this->render("profile/index.html.twig", [
+    return $this->render("build/index.html.twig", [
       "user" => $user,
-      "global" => false,
       "builds" => $builds,
+      "weapons" => $parser->getWeapons()
     ]);
   }
 

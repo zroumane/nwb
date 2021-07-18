@@ -1,10 +1,86 @@
+<div class="div mb-3">
+	<form method="get" class="row justify-content-center mb-2" id="filterBuildForm">
+
+		{# <div class="p-1 col-4"> #}
+		{# <div> #}
+		{# <label>{% trans %}builds.filter.search{% endtrans %}</label> #}
+		{# <input autocomplete="off" type="text" id="filterBuildSearch" name="s" class="form-control"> #}
+		{# </div> #}
+		{# </div> #}
+
+			<div class="p-1 col-2"> <div>
+				<label id="weaponLabel">{% trans %}builds.filter.weapons{% endtrans %}</label>
+				<div>
+					<a class="btn btn-primary w-100" id="allWeaponText" data-bs-toggle="collapse" href="#filterBuildWeapon" aria-controls="collapseExample">
+						{% trans %}builds.filter.alls{% endtrans %}
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="p-1 col-2">
+			<div>
+				<label>{% trans %}builds.filter.type{% endtrans %}</label>
+				<select autocomplete="off" id="filterBuildType" name="t" class="form-control">
+					<option value="0" selected>{% trans %}builds.filter.all{% endtrans %}</option>
+					<option value="1">{% trans %}type.general{% endtrans %}</option>
+					<option value="2">PVP</option>
+					<option value="3">PVE</option>
+					<option value="4">PVX</option>
+					<option value="5">{% trans %}type.war{% endtrans %}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="p-1 col-1 align-self-end text-end" style="width:min-content">
+			<span id="filterBuildReset" class="btn btn-secondary">{% trans %}builds.filter.reset{% endtrans %}</span>
+		</div>
+
+		<div class="p-1 col-1 align-self-end">
+			<button class="btn btn-outline-light w-100" type="submit">
+				{% trans %}builds.filter.label{% endtrans %}
+			</button>
+		</div>
+
+	</form>
+
+	<div>
+		<div class="collapse w-50 mx-auto bg-secondary text-light rounded" id="filterBuildWeapon">
+			<div class="form-check mx-3 py-3" id="allWeaponCheck">
+				<input autocomplete="off" class="form-check-input" type="checkbox" checked disabled>
+				<label class="form-check-label">
+					{% trans %}builds.filter.alls{% endtrans %}
+				</label>
+			</div>
+			<div class="border-bottom border-3 px-3 mx-auto"></div>
+			<div class="p-3 row justify-content-center">
+				<div class="col-6">
+					{% for id, key in weapons %}
+						<div class="form-check">
+							<input autocomplete="off" class="form-check-input" type="checkbox" data-id="{{id}}">
+							<label class="form-check-label">
+								{{key}}
+							</label>
+						</div>
+						{% if loop.index == (weapons|length / 2)|round  %}
+						</div>
+						<div class="col-6">
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
 <table class="table table-dark table-striped table-hover text-center table-bordered">
 	<thead>
 		<tr>
 			<th scope="col">
 				{% trans %}builds.name{% endtrans %}
 			</th>
-			{% if global %}
+			{% if user is not defined %}
 				<th scope="col">
 					{% trans %}builds.author{% endtrans %}
 				</th>
@@ -13,21 +89,23 @@
 				{% trans %}builds.weapon{% endtrans %}
 			</th>
 			<th scope="col">
-				{% trans %}builds.type{% endtrans %}
+				{% trans %}type.label{% endtrans %}
 			</th>
 			<th scope="col">
-				Like
+				{{ knp_pagination_sortable(builds, 'Like' , 'l') }}
 			</th>
 			<th scope="col">
-				{% trans %}builds.view{% endtrans %}
+				{{ knp_pagination_sortable(builds, 'builds.view'|trans , 'v') }}
 			</th>
-			<th scope="col">
-				{% trans %}builds.update{% endtrans %}
+			<th scope="col" class="sorted">
+				{{ knp_pagination_sortable(builds, 'builds.update'|trans , 'd') }}
 			</th>
-			{% if not global %}
-				<th scope="col">
-					{% trans %}build.actions.label{% endtrans %}
-				</th>
+			{% if app.user and user is defined%}
+				{% if app.user == user %}
+					<th scope="col">
+						{% trans %}build.actions.label{% endtrans %}
+					</th>
+				{% endif %}
 			{% endif %}
 		</tr>
 	</thead>
@@ -40,10 +118,10 @@
 						{% endif %}
 					</a>
 				</td>
-				{% if global %}
+				{% if user is not defined %}
 					<td>
-						{% if build.author %}
-							<a href="{{path('app_profile_show',{id: build.author.id})}}">{{ build.author.pseudo }}</a>
+						{% if build.pseudo %}
+							<a href="{{path('app_profile_show',{id: build.author_id})}}">{{ build.pseudo }}</a>
 						{% else %}
 							{% trans %}build.anonymous{% endtrans %}
 						{% endif %}
@@ -54,32 +132,41 @@
 				</td>
 				<td>
 					{% if build.type == 1 %}
-						{% trans %}create.type.general{% endtrans %}
+						{% trans %}type.general{% endtrans %}
 						{% elseif build.type == 2 %}PVP
 						{% elseif build.type == 3 %}PVE
 						{% elseif build.type == 4 %}PVX
 					{% elseif build.type == 5 %}
-						{% trans %}create.type.war{% endtrans %}
+						{% trans %}type.war{% endtrans %}
 					{% endif %}
 				</td>
 				<td>
-					{{ build.liked|length }}
+					{{ build.l }}
 				</td>
 				<td>
-					{{ build.views }}
+					{{ build.v }}
 				</td>
 				<td>
-					{% set distance = date('now').diff(date(build.UpdatedAt)).days %}
+					{% set distance = date('now').diff(date(build.d)).days %}
 					{{ distance }}
 					{% trans %}builds.day{% endtrans %}
 				</td>
-				{% if not global %}
-					<td scope="col">
-						<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
-						<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
-					</td>
+				{% if app.user and user is defined%}
+					{% if app.user == user %}
+						<td scope="col">
+							<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
+							<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
+						</td>
+					{% endif %}
 				{% endif %}
 			</tr>
 		{% endfor %}
 	</tbody>
 </table>
+<div class="navigation">
+
+
+	{{ knp_pagination_render(builds, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig', {}, {
+			'align': 'center',
+			'rounded': true,
+		}) }}</div></th></tr></thead></th></tr></thead>

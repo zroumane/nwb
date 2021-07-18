@@ -14,6 +14,7 @@ Encore
 
   .addEntry("App", "./assets/js/App.js")
   .addEntry("Build", "./assets/js/Build.js")
+  .addEntry("Builds", "./assets/js/Builds.js")
   .addEntry("CreateBuild", "./assets/js/CreateBuild.js")
   .addEntry("WeaponDashboard", "./assets/js/WeaponDashboard.js")
 

@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Build;
-use App\Controller\ConvertWeapon;
+use App\Controller\EntityParse;
 use App\Repository\BuildRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use ApiPlatform\Core\Api\IriConverterInterface;
+use App\Repository\WeaponRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,17 +23,21 @@ class BuildsController extends AbstractController
   /**
    * @Route("/")
    */
-  public function index(Request $request, BuildRepository $repo, IriConverterInterface $iriconverter, KernelInterface $kernel): Response
+  public function index(Request $request, PaginatorInterface $paginator, BuildRepository $buildRep, WeaponRepository $weaponRep, KernelInterface $kernel): Response
   {
-    
-    $builds = $repo->findAll();
 
-    $builds = ConvertWeapon::convert($iriconverter, $kernel, $builds, $request->getLocale());
+    $query = $buildRep->findAllQuery($request->query);
+    $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
 
+    $parser = new EntityParser($kernel);
+    $parser->setWeaponLocal($request->getLocale());
+    $parser->setWeapons($weaponRep->findAll());
+    $builds->setItems(array_map(fn($build) => $parser->parseBuild($build), (array)$builds->getItems()));
     return $this->render("build/index.html.twig", [
-      "global" => true,
       "builds" => $builds,
+      "weapons" => $parser->getWeapons()
     ]);
+
   }
 
   /**
@@ -63,7 +69,7 @@ class BuildsController extends AbstractController
     $liked = false;
 
     if($user = $this->getUser()){
-      if($build->getLiked()->contains($user)){
+      if($user->getLiked()->contains($build)){
         $liked = true;
       }
     }

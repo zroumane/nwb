@@ -14,10 +14,17 @@ builds:
   name: Name
   author: Author
   weapon: Weapons
-  type: Type
   view: View
   update: Last Update
   day: day(s)
+  filter:
+    all: All
+    alls: All
+    search: Search
+    weapons: Weapon(s)
+    type: Type
+    reset: Reset
+    label: Filter
 
 build:
   by: by
@@ -28,6 +35,11 @@ build:
     delete: Supprimer
     like: Like
 
+type:
+  label: Type
+  general: General
+  war: War
+
 create:
   name:
     label: Name
@@ -35,10 +47,6 @@ create:
   description:
     label: Description
     invalid: The description must contain a maximum of 3000 characters.
-  type:
-    label: Type
-    general: General
-    war: War
   selectweapon: Select weapon %n%
   weapon: Weapon %n%
   gear: Gears

@@ -1,8 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('Builds') }}
+{% endblock %}
 
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('Builds') }}
+{% endblock %}
 
 {% block body %}
 	{% include "build/_table.html.twig" %}

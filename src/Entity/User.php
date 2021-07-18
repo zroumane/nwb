@@ -52,15 +52,22 @@ class User implements UserInterface
    */
   private $builds;
 
-  public function __construct()
-  {
-    $this->builds = new ArrayCollection();
-  }
-
   /**
    * @ORM\Column(type="boolean")
    */
   private $isVerified = false;
+
+  /**
+   * @ORM\ManyToMany(targetEntity=Build::class, mappedBy="liked")
+   */
+  private $liked;
+
+
+  public function __construct()
+  {
+    $this->builds = new ArrayCollection();
+    $this->liked = new ArrayCollection();
+  }
 
   public function getId(): ?int
   {
@@ -195,5 +202,32 @@ class User implements UserInterface
     }
 
     return $this;
+  }
+
+  /**
+   * @return Collection|Build[]
+   */
+  public function getLiked(): Collection
+  {
+      return $this->liked;
+  }
+
+  public function addLiked(Build $liked): self
+  {
+      if (!$this->liked->contains($liked)) {
+          $this->liked[] = $liked;
+          $liked->addLiked($this);
+      }
+
+      return $this;
+  }
+
+  public function removeLiked(Build $liked): self
+  {
+      if ($this->liked->removeElement($liked)) {
+          $liked->removeLiked($this);
+      }
+
+      return $this;
   }
 }
