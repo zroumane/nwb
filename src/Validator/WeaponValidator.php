@@ -30,7 +30,7 @@ class WeaponValidator extends ConstraintValidator
       $this->context->buildViolation($constraint->noWeapon)->addViolation();
     }
 
-    if($weapons[0] == $weapons[0]){
+    if($weapons[0] == $weapons[1]){
       $this->context
       ->buildViolation($constraint->weaponsDuplicate)
       ->addViolation();

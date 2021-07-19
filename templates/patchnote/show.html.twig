@@ -4,19 +4,22 @@
 	{{ include('admin/_goadmin.html.twig') }}
 
 	<div class="fs-5 mb-2">
-		<a class="btn btn-sm btn btn-outline-light"
-			href="{{ path('app_patchnote_index') }}">
+		<a class="btn btn-sm btn btn-outline-light" href="{{ path('app_patchnote_index') }}">
 			←{% trans %}patchnote.goback{% endtrans %}
 		</a>
 	</div>
 
 	<div class="fs-3">
-		{{ patchnote.igVersion }} | {{ patchnote.title }}
+		{{ patchnote.igVersion }}
+		|
+		{{ patchnote.title }}
 		<i class="fs-6">{{ patchnote.igDate|date('m/d/Y') }}</i>
 	</div>
 
 	<div class="mb-3">
-		{{ patchnote.content }}
+		{% autoescape false  %}
+			{{ patchnote.content }}
+		{% endautoescape %}
 	</div>
 
 	{% if is_granted('ROLE_ADMIN') %}
