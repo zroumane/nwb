@@ -32,7 +32,7 @@
 		</div>
 
 		<div class="col-3">
-			<label class="form-label">{% trans %}create.type.label{% endtrans %}</label>
+			<label class="form-label">{% trans %}type.label{% endtrans %}</label>
 			<select autocomplete="off" class="form-select" id="formBuildType">
 				<option value="1" {% if build is defined and build.type == 1 %} selected {% elseif build is not defined %} selected {% endif %}>{% trans %}type.general{% endtrans %}</option>
 				<option value="2" {% if build is defined and build.type == 2 %} selected {% endif %}>PVP</option>
