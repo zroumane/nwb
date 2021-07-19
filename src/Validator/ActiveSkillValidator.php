@@ -39,7 +39,7 @@ class ActiveSkillValidator extends ConstraintValidator
        * Check active skill array lenght
        */
       if(count($weaponactivedSkills) != 3){
-        $this->context->buildViolation($constraint->messageLenght)->addViolation();
+        $this->context->buildViolation($constraint->Lenght)->addViolation();
       }
 
       /**
@@ -60,17 +60,32 @@ class ActiveSkillValidator extends ConstraintValidator
         try {
           $activedSkillItem = $this->iriConverter->getItemFromIri($activedSkill);
           if($activedSkillItem->getType() != 1){
-            $this->context->buildViolation($constraint->messageNotAbility)->addViolation();
+            $this->context->buildViolation($constraint->NotAbility)->addViolation();
           }
+
+          /**
+           * Check doublon
+           */
+          if(count(array_filter($weaponactivedSkills, function($s) use ($activedSkill){
+            return $s == $activedSkill;
+          })) > 1){
+            $this->context
+              ->buildViolation($constraint->SkillDuplicate)
+              ->setParameter('{{ skill }}', $activedSkillItem->getSkillKey())
+              ->addViolation();
+            continue;
+          }
+
+
         } catch (\Throwable $th) {
-          $this->context->buildViolation($constraint->messageNotFound)->addViolation();
+          $this->context->buildViolation($constraint->NotFound)->addViolation();
         }
 
         /**
          * Check si skill selected
          */
         if(!in_array($activedSkill, $weaponSelectedSkills)){
-          $this->context->buildViolation($constraint->messageNotActived)->addViolation();
+          $this->context->buildViolation($constraint->NotActived)->addViolation();
         }
 
       }

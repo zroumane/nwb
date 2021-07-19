@@ -10,4 +10,5 @@ use Symfony\Component\Validator\Constraint;
 class Weapon extends Constraint
 {
   public $noWeapon = "At least one weapon expected.";
+  public $weaponsDuplicate = "The weapons are duplicate.";
 }

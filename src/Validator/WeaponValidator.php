@@ -11,13 +11,6 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 class WeaponValidator extends ConstraintValidator
 {
 
-  private $iriConverter;
-
-  public function __construct(IriConverterInterface $iriConverter)
-  {
-    $this->iriConverter = $iriConverter;
-  }
-  
   public function validate($weapons, Constraint $constraint)
   {
 
@@ -36,5 +29,12 @@ class WeaponValidator extends ConstraintValidator
     if($nullCount > 1){
       $this->context->buildViolation($constraint->noWeapon)->addViolation();
     }
+
+    if($weapons[0] == $weapons[0]){
+      $this->context
+      ->buildViolation($constraint->weaponsDuplicate)
+      ->addViolation();
+    }
+
   }
 }
