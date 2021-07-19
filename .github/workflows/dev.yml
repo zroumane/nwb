@@ -6,21 +6,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+
       - name: Rsync Upload
         uses: Pendect/action-rsyncer@v1.1.0
         env:
           DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
+          USER: ${{secrets.USER}}
+          HOST: ${{secrets.HOST}}
+      - uses: actions/checkout@v2
         with:
           flags: "-av --delete"
           options: "--exclude-from=exclude"
           src: "./"
-          dest: "nwbuser@51.195.45.151:~/nwb-dev/"
+          dest: "$USER@$HOST:~/nwb-dev/"
       - name: Composer Setup
         uses: appleboy/ssh-action@master
         with:
-          host: "51.195.45.151"
-          username: "nwbuser"
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USER}}
           key: ${{secrets.DEPLOY_SSH_KEY}}
           script: |
             cd ~/nwb-dev/
