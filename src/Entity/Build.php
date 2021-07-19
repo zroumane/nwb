@@ -123,7 +123,6 @@ class Build implements UserOwnedInterface
   public function setCreatedAtValue(): void
   {
     $this->created_at = new \DateTime("now");
-    $this->updated_at = new \DateTime("now");
   }
   
   public function __construct()
