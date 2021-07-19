@@ -15,7 +15,6 @@ const main = async () => {
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
   let data = await fetch(`/api/builds/${getBuildId()}`);
   let build = await data.json();
-  console.log(build);
   build.weapons.forEach(async (weaponIRI, weaponIndex) => {
     if (weaponIRI) {
       let weapon = await (await fetch(weaponIRI)).json();
@@ -23,7 +22,6 @@ const main = async () => {
         $branchNames[weaponIndex][i].innerText = window.weaponLocal[b];
       });
       weapon.skills = (await (await fetch(weaponIRI + "/skills")).json())["hydra:member"];
-      console.log(weapon);
       weapon.skills.forEach(async (skill) => {
         let $skillContainer = $q(`#skill-${weaponIndex + 1}-${skill.side}-${skill.line}-${skill.col}`);
         $skillContainer.style.backgroundImage = `url('/img/bg/bg${skill.bgColor}${skill.type == 1 ? "" : "c"}.png')`;

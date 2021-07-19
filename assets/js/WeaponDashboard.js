@@ -253,7 +253,6 @@ $qa(".skill-container").forEach((skillContainer) => {
     event.preventDefault();
     event.target.style.outline = "";
     var target = event.target.parentElement;
-    console.log(target);
     if (!target.classList.contains("skill-container-icon")) return;
     if (target.parentElement == window.$draggedSkill) return;
     let match = window.currentSkills.filter((s) => s.id == window.$draggedSkill.dataset.id)[0];

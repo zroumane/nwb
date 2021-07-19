@@ -297,12 +297,12 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         }
 
         // 3. Si point dépenser dans la branche = 11, si skill derniere ligne selected
-        if (weapon.countdown[skill.side] == 11) {
+        if (skill.line != 6 && weapon.countdown[skill.side] == 11) {
           let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.selected);
           if (LastLineSkill.length > 0) {
-            changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == LastLineSkill[0])[0].skillKey]);
+            changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.skillLocal[LastLineSkill[0].skillKey]);
+            return;
           }
-          return;
         }
 
         skill.selected = false;
