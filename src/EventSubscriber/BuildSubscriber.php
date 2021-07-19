@@ -29,11 +29,6 @@ final class BuildSubscriber implements EventSubscriberInterface
         return;
       }
 
-      $author = $build->getAuthor();
-      if(!$author){
-        return;
-      }
-
       $webhookurl = "";
 
       if($_SERVER['APP_ENV'] == "dev"){
@@ -42,34 +37,39 @@ final class BuildSubscriber implements EventSubscriberInterface
         $webhookurl = "https://discord.com/api/webhooks/865831325441327124/L0YbNlzIBxguEASqN7h-NtLCOGk30xxEu8Omd2d1DcYyqhmT10WJ7FdF9Tbey-cgKwJp";
       }
 
-      $authorTitle = "";
-
-      if($method == "POST"){
-        $authorTitle  = "New build by %s :";
-      }else{
-        $authorTitle  = "Build edited by %s :";
-      }
-
 
       
       $timestamp = date("c", strtotime("now"));
       $buildId = $build->getId();
-  
-      $json_data = json_encode([
+
+      $embed = [
         "embeds" => [
           [
             "title" => $build->getName(),
             "url" => sprintf("https://newworld-builder.com/build/%d", $buildId),
-            "author" => [
-              "name" => sprintf($authorTitle, $author->getPseudo()),
-              "url" => sprintf("https://newworld-builder.com/profile/%d", $author->getId()),
-            ],
             "timestamp" => $timestamp,
             "color" => hexdec("ffffff")
           ]
         ]
-      ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-  
+      ];
+
+      
+      $author = $build->getAuthor();
+      if(!$author){
+        $embed['embeds'][0]['author']['name'] = "New build by Anonymous :";
+      }else{
+        $authorTitle = "";
+        if($method == "POST"){
+          $authorTitle  = "New build by %s :";
+        }else{
+          $authorTitle  = "Build edited by %s :";
+        }
+        $embed['embeds'][0]['author']['name'] = sprintf($authorTitle, $author->getPseudo());
+        $embed['embeds'][0]['author']['url'] = sprintf("https://newworld-builder.com/profile/%d", $author->getId());
+      }
+
+      $json_data = json_encode($embed, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+
   
       $ch = curl_init( $webhookurl );
       curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
@@ -79,7 +79,6 @@ final class BuildSubscriber implements EventSubscriberInterface
       curl_setopt( $ch, CURLOPT_HEADER, 0);
       curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
       curl_exec( $ch );
-      curl_close( $ch );
-        
+      curl_close( $ch );        
     }
 }
