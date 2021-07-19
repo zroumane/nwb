@@ -41,14 +41,22 @@ class BuildRepository extends ServiceEntityRepository
         ->setParameter('type', $type);
     }
 
-
-    $weapons = explode(',', $query->get('w'));
-    foreach ($weapons as $key => $id) {
-      if(is_numeric($id)){
-        $q->andWhere('b.weapons Like :weapon')
-        ->setParameter('weapon', '%"/api/weapons/'.$id.'"%');
+    $w = explode(',', $query->get('w'));
+    $weapons = [$w[0] ?? null, $w[1] ?? null];
+    for ($i = 0; $i <= 1 ; $i++) {
+      if(is_numeric($weapons[$i])){
+        $q->andWhere('b.weapons Like :weapon'.$i)
+        ->setParameter('weapon'.$i, '%"/api/weapons/'.$weapons[$i].'"%');
       }
     }
+
+    // $weapons = explode(',', $query->get('w'));
+    // foreach ($weapons as $key => $id) {
+    //   if(is_numeric($id)){
+    //     $q->andWhere('b.weapons Like :weapon')
+    //     ->setParameter('weapon', '%"/api/weapons/'.$id.'"%');
+    //   }
+    // }
 
     if($user){
       $q->andWhere('b.author = :userid')

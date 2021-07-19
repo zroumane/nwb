@@ -8,7 +8,7 @@
 		{# </div> #}
 		{# </div> #}
 
-			<div class="p-1 col-2"> <div>
+			<div class="p-1 col-3"> <div>
 				<label id="weaponLabel">{% trans %}builds.filter.weapons{% endtrans %}</label>
 				<div>
 					<a class="btn btn-primary w-100" id="allWeaponText" data-bs-toggle="collapse" href="#filterBuildWeapon" aria-controls="collapseExample">
@@ -57,8 +57,8 @@
 				<div class="col-6">
 					{% for id, key in weapons %}
 						<div class="form-check">
-							<input autocomplete="off" class="form-check-input" type="checkbox" data-id="{{id}}">
-							<label class="form-check-label">
+							<input autocomplete="off" class="form-check-input weaponCheck" type="checkbox" data-id="{{id}}">
+							<label class="form-check-label weaponCheckLabel" data-id="{{id}}">
 								{{key}}
 							</label>
 						</div>

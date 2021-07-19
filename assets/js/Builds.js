@@ -6,13 +6,14 @@ const $filterBuildReset = $q("#filterBuildReset");
 // const $filterBuildSearch = $q("#filterBuildSearch");
 const $filterBuildWeapon = $q("#filterBuildWeapon");
 const $allWeaponCheck = $q("#allWeaponCheck").querySelector("input");
-const $weaponsChecks = $filterBuildWeapon.querySelectorAll("input[data-id]");
+const $weaponsChecks = Array.from($filterBuildWeapon.querySelectorAll(".weaponCheck"));
+const $weaponsCheckLabels = Array.from($filterBuildWeapon.querySelectorAll(".weaponCheckLabel"));
 const $filterBuildType = $q("#filterBuildType");
 
 const $allWeaponText = $q("#allWeaponText");
 const allWeaponText = $allWeaponText.innerText;
-const weaponLabelText = $q("#weaponLabel").innerText;
 
+window.selectedWeapon = [];
 let url = new URL(window.location.href);
 
 /**
@@ -24,7 +25,8 @@ const sendForm = () => {
   let weaponCheck = Array.from($weaponsChecks)
     .filter(($w) => $w.checked)
     .map(($w) => $w.dataset.id);
-  weaponCheck.length ? url.searchParams.set("w", weaponCheck.join(",")) : url.searchParams.delete("w");
+  let ids = window.selectedWeapon.filter((id) => id);
+  ids.length ? url.searchParams.set("w", ids.join(",")) : url.searchParams.delete("w");
   url.searchParams.delete("page");
   window.location.href = url.href;
 };
@@ -33,21 +35,24 @@ const sendForm = () => {
  * Update weapons label
  */
 const updateWeapon = () => {
-  let count = 0;
-  $weaponsChecks.forEach(($w) => {
-    if ($w.checked) count++;
-  });
-  if (count == $weaponsChecks.length || count == 0) {
-    $weaponsChecks.forEach(($w) => {
-      $w.checked = false;
-    });
-    $allWeaponCheck.checked = true;
-    $allWeaponCheck.disabled = true;
-    $allWeaponText.innerText = allWeaponText;
-  } else {
-    $allWeaponCheck.checked = false;
+  let checkedWeapon = $weaponsChecks.filter(($w) => $w.checked);
+  for (let i = 0; i < 2; i++) window.selectedWeapon[i] = checkedWeapon[i]?.dataset.id ?? null;
+  window.selectedWeapon = window.selectedWeapon;
+  if (checkedWeapon.length > 0) {
+    let checkedWeaponid = checkedWeapon.map(($w) => $w.dataset.id);
+    let weaponText = $weaponsCheckLabels.filter(($wl) => checkedWeaponid.includes($wl.dataset.id)).map(($wl) => $wl.innerText);
+    $allWeaponText.innerText = weaponText.join(",").replaceAll("\n", "");
     $allWeaponCheck.disabled = false;
-    $allWeaponText.innerText = `${count} ${weaponLabelText}`;
+    $allWeaponCheck.checked = false;
+    if (checkedWeapon.length == 1) $weaponsChecks.forEach(($w) => ($w.disabled = false));
+    else
+      $weaponsChecks.forEach(($w) => {
+        if (!checkedWeapon.includes($w)) $w.disabled = true;
+      });
+  } else {
+    $allWeaponText.innerText = allWeaponText;
+    $allWeaponCheck.disabled = true;
+    $allWeaponCheck.checked = true;
   }
 };
 
@@ -57,15 +62,13 @@ const updateWeapon = () => {
 const main = () => {
   // $filterBuildSearch.value = url.searchParams.get("s");
   $filterBuildType.value = url.searchParams.get("t") ?? "0";
-
   if (url.searchParams.get("w")) {
     let weapon = url.searchParams.get("w").split(",");
-
+    let index = 0;
     $weaponsChecks.forEach(($w) => {
+      if (index == 2) return;
       if (weapon.includes($w.dataset.id)) {
         $w.checked = true;
-        $allWeaponCheck.checked = false;
-        $allWeaponCheck.disabled = false;
       }
     });
     updateWeapon();
@@ -78,10 +81,6 @@ main();
  */
 $weaponsChecks.forEach(($w) => {
   $w.addEventListener("change", () => {
-    if ($w.checked) {
-      $allWeaponCheck.checked = false;
-      $allWeaponCheck.disabled = false;
-    }
     updateWeapon();
   });
 });
@@ -93,7 +92,9 @@ $allWeaponCheck.addEventListener("change", () => {
   if ($allWeaponCheck.checked) {
     $weaponsChecks.forEach(($w) => {
       $w.checked = false;
+      $w.disabled = false;
     });
+    window.selectedWeapon = window.selectedWeapon.map((id) => null);
     $allWeaponCheck.disabled = true;
     updateWeapon();
   }
