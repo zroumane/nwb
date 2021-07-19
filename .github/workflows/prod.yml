@@ -5,14 +5,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-
+      - uses: actions/checkout@v2
       - name: Rsync Upload
         uses: Pendect/action-rsyncer@v1.1.0
         env:
           DEPLOY_KEY: ${{secrets.DEPLOY_SSH_KEY}}
           USER: ${{secrets.USER}}
           HOST: ${{secrets.HOST}}
-      - uses: actions/checkout@v2
         with:
           flags: "-av --delete"
           options: "--exclude-from=exclude"
