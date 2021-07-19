@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Build;
-use App\Controller\EntityParse;
+use App\Entity\EntityParser;
 use App\Repository\BuildRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Repository\WeaponRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;

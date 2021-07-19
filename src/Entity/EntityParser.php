@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Entity;
 
 use App\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;

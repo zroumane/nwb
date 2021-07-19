@@ -126,15 +126,6 @@ class Build implements UserOwnedInterface
     $this->updated_at = new \DateTime("now");
   }
   
-  /**
-   * @ORM\PreUpdate
-   */
-  public function setUpdateAtValue(): void
-  {
-    $this->updated_at = new \DateTime("now");
-  }
-
-  
   public function __construct()
   {
     $this->weapons = new ArrayCollection();

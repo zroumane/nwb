@@ -29,6 +29,8 @@ final class BuildSubscriber implements EventSubscriberInterface
         return;
       }
 
+      $build->setUpdatedAt(new \DateTime("now"));
+
       $webhookurl = "";
 
       if($_SERVER['APP_ENV'] == "dev"){
