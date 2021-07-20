@@ -18,7 +18,9 @@
 
 	<div class="mb-3">
 		{% autoescape false  %}
+			{% apply markdown_to_html %}
 			{{ patchnote.content }}
+			{% endapply %}
 		{% endautoescape %}
 	</div>
 
