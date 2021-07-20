@@ -37,8 +37,8 @@ const main = async () => {
         build.selectedSkills[weaponIndex].includes(skill["@id"]) ? (skill.selected = true) : (skill.selected = false);
         setBrightness($skillContainer, skill);
         new Popover($skillContainer, {
-          title: window.skillLocal[skill.skillKey] ?? "Not Found",
-          content: window.skillLocal[skill.skillKey + "_description"] ?? "Not Found",
+          title: window.skillLocal[skill.skillKey] ?? skill.skillKey,
+          content: window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey,
           trigger: "hover",
         });
         if (skill.parent) {
@@ -57,8 +57,8 @@ const main = async () => {
           let $activedSkill = $q(`#activedSkill-${weaponIndex + 1}-${i + 1}`);
           $activedSkill.src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
           new Popover($activedSkill, {
-            title: window.skillLocal[match.skillKey],
-            content: window.skillLocal[match.skillKey + "_description"],
+            title: window.skillLocal[match.skillKey] ?? match.skillKey,
+            content: window.skillLocal[match.skillKey + "_description"] ?? match.skillKey,
             trigger: "hover",
           });
         }

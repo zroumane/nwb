@@ -170,7 +170,7 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/skill/${weapon.weaponKey}/${match.skillKey}.png)` : "";
     $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
     $skillContainer.dataset.id = match ? match.id : 0;
-    changePopover($skillContainer, match ? window.skillLocal[match.skillKey] : "", match ? window.skillLocal[match.skillKey + "_description"] : "");
+    changePopover($skillContainer, window.skillLocal[match?.skillKey] ?? match?.skillKey, window.skillLocal[match?.skillKey + "_description"] ?? match?.skillKey);
     if (match) {
       Pop($skillContainer).enable();
       if (match.selected == undefined) match.selected = false;
@@ -248,7 +248,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       if (!skill.selected) {
         // 1. Si tous les point utiliser
         if (weapon.countdown[0] == 0) {
-          changePopover($skillContainer, skill.skillKey, window.messageLocal["NoMorePoint"]);
+          changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["NoMorePoint"]);
           return;
         }
 
@@ -256,27 +256,31 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (!parent.selected) {
-            changePopover($skillContainer, skill.skillKey, window.messageLocal["TopSkill"] + window.weaponLocal[parent.skillKey]);
+            changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["TopSkill"] + (window.weaponLocal[parent.skillKey] ?? skill.skillKey));
             return;
           }
         }
         // 3. Si pas la première ligne, si aucun skill ligne précédente selected
         if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.selected).length == 0) {
-          changePopover($skillContainer, skill.skillKey, window.messageLocal["Rowtop"]);
+          changePopover($skillContainer, window.skill[Localskill.skillKey] ?? skill.skillKey, window.messageLocal["Rowtop"]);
           return;
         }
 
         // 4. Si ultimate, si pas 10 point attribué sur le side
         if (skill.line == 6) {
           if (weapon.countdown[skill.side] < 10) {
-            changePopover($skillContainer, skill.skillKey, window.messageLocal["TenPointSelect"] + window.weaponLocal[weapon.branch[skill.side - 1]]);
+            changePopover(
+              $skillContainer,
+              window.skill[skill.skillKey] ?? skill.skillKey,
+              window.messageLocal["TenPointSelect"] + (window.weaponLocal[weapon.branch[skill.side - 1]] ?? skill.skillKey)
+            );
             return;
           }
         }
 
         skill.selected = true;
         setBrightness($skillContainer, skill);
-        changePopover($skillContainer, window.skillLocal[skill.skillKey], window.skillLocal[skill.skillKey + "_description"]);
+        changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey);
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
         if (skill.type == 1) {
@@ -292,7 +296,11 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.children.length > 0) {
           let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.selected)[0]);
           if (ActiveChildren.length > 0) {
-            changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.weaponLocal[weapon.skills.filter((s) => s["@id"] == ActiveChildren[0])[0].skillKey]);
+            changePopover(
+              $skillContainer,
+              window.skillLocal[skill.skillKey] ?? skill.skillKey,
+              window.messageLocal["BottomSkill"] + window.weaponLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey
+            );
             return;
           }
         }
@@ -300,7 +308,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         // 2. Si skills ligne suivante selected et pas de skill meme ligne selected
         if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.selected).length > 0) {
           if (weapon.skills.filter((s) => s.line == skill.line && s.selected).length == 1) {
-            changePopover($skillContainer, skill.skillKey, window.messageLocal["RowBottom"]);
+            changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["RowBottom"]);
             return;
           }
         }
@@ -309,14 +317,18 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.line != 6 && weapon.countdown[skill.side] == 11) {
           let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.selected);
           if (LastLineSkill.length > 0) {
-            changePopover($skillContainer, skill.skillKey, window.messageLocal["BottomSkill"] + window.skillLocal[LastLineSkill[0].skillKey]);
+            changePopover(
+              $skillContainer,
+              window.skillLocal[skill.skillKey] ?? skill.skillKey,
+              window.messageLocal["BottomSkill"] + (window.skillLocal[LastLineSkill[0].skillKey] ?? LastLineSkill[0].skillKey)
+            );
             return;
           }
         }
 
         skill.selected = false;
         setBrightness($skillContainer, skill);
-        changePopover($skillContainer, window.skillLocal[skill.skillKey], window.skillLocal[skill.skillKey + "_description"]);
+        changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey);
         weapon.countdown[0]++;
         weapon.countdown[skill.side]--;
         if (skill.type == 1) {
