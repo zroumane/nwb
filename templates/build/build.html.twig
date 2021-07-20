@@ -48,7 +48,7 @@
 					{{build.liked|length}}
 					| Like</a>
 			</div>
-			{% if app.user %}
+			{% if app.user and build.author %}
 				{% if build.author.id == app.user.id %}
 					<div class="p-1 text-end">
 						<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
@@ -123,8 +123,8 @@
 					<div class="mt-2 row">
 						<div class="col-lg-4 col-5 mx-auto d-flex flex-row justify-content-center">
 							{% for cadre in 1..3 %}
-								<div class="p-1">
-									<img id="activedSkill-{{weapon}}-{{cadre}}" class="dropdown-item p-0 activedSkillSelected" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/activedSkill.png')}}')"/>
+								<div class="p-1 w-100">
+									<img id="activedSkill-{{weapon}}-{{cadre}}" class="w-100 p-0 activedSkillSelected" src="{{asset('/img/emptyCadre.png')}}" style="background-image: url('{{asset('/img/activedSkill.png')}}')"/>
 								</div>
 							{% endfor %}
 						</div>
