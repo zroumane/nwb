@@ -128,7 +128,7 @@
 					</td>
 				{% endif %}
 				<td>
-					{{ build.weapons|join(' / ') }}
+					{{ build.weapons|filter(w => w)|join(' / ') }}
 				</td>
 				<td>
 					{% if build.type == 1 %}

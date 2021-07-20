@@ -137,6 +137,15 @@ const changeWeapon = async (weaponIndex, weaponId) => {
   if (!weapon.skills) await getSkills(weapon, weapon.id);
   if (!weapon.activedSkills) weapon.activedSkills = [null, null, null];
   if (!weapon.countdown) weapon.countdown = [19, 0, 0];
+  if (!weapon.skillParsed) {
+    let skillInfoLocal = await getMethod(`/json/${weapon.weaponKey}.json`);
+    let skillLocal = JSON.stringify(window.skillLocal);
+    Object.keys(skillInfoLocal).forEach((k) => {
+      skillLocal = skillLocal.replaceAll(k, skillInfoLocal[k]);
+    });
+    window.skillLocal = JSON.parse(skillLocal);
+    weapon.skillParsed = true;
+  }
   setCountdown(weaponIndex);
   $skillContainers[weaponIndex].forEach((el) => Pop(el).disable());
   $svgContainers[weaponIndex].forEach((el) => (el.firstElementChild.innerHTML = ""));

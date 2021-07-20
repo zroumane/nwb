@@ -18,6 +18,12 @@ const main = async () => {
   build.weapons.forEach(async (weaponIRI, weaponIndex) => {
     if (weaponIRI) {
       let weapon = await (await fetch(weaponIRI)).json();
+      let skillInfoLocal = await getMethod(`/json/${weapon.weaponKey}.json`);
+      let skillLocal = JSON.stringify(window.skillLocal);
+      Object.keys(skillInfoLocal).forEach((k) => {
+        skillLocal = skillLocal.replaceAll(k, skillInfoLocal[k]);
+      });
+      window.skillLocal = JSON.parse(skillLocal);
       weapon.branch.forEach((b, i) => {
         $branchNames[weaponIndex][i].innerText = window.weaponLocal[b];
       });
@@ -31,8 +37,8 @@ const main = async () => {
         build.selectedSkills[weaponIndex].includes(skill["@id"]) ? (skill.selected = true) : (skill.selected = false);
         setBrightness($skillContainer, skill);
         new Popover($skillContainer, {
-          title: window.skillLocal[skill.skillKey],
-          content: window.skillLocal[skill.skillKey + "_description"],
+          title: window.skillLocal[skill.skillKey] ?? "Not Found",
+          content: window.skillLocal[skill.skillKey + "_description"] ?? "Not Found",
           trigger: "hover",
         });
         if (skill.parent) {
