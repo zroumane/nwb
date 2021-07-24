@@ -158,7 +158,10 @@ const setCar = (car, add, n) => {
 
 const resetCar = () => {
   window.characteristics = [190, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]];
-  for (let i = 0; i <= 4; i++) setHtmlCar(i);
+  for (let i = 0; i <= 4; i++) {
+    $carBonusInputs[i].value = 0;
+    setHtmlCar(i);
+  }
 };
 resetCar();
 
