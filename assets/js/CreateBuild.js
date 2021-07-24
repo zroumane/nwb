@@ -11,14 +11,26 @@ const $formBuildType = $q("#formBuildType");
 const $formBuildDesc = $q("#formBuildDesc");
 const $formBuildDescInvalid = $q("#formBuildDescInvalid");
 
+const $remove5pointsButtons = $qa(".remove5points");
+const $remove1pointButtons = $qa(".remove1point");
+const $carPointTexts = $qa(".carPointText");
+const $add1pointButtons = $qa(".add1point");
+const $add5pointsButtons = $qa(".add5points");
+const $carBonusInputs = $qa(".carBonusInput");
+const $carProgress = $qa(".carProgress");
+const $carBonusProgress = $qa(".carBonusProgress");
+const $carCaps = [$qa(".carCap1"), $qa(".carCap2"), $qa(".carCap3"), $qa(".carCap4"), $qa(".carCap5"), $qa(".carCap6")];
+const $carTotalPointText = $q("#carTotalPointText");
+const $carReset = $q("#carReset");
+
 const $weaponTabs = $qa(".weaponTab");
 const $weaponSelects = $qa(".weaponSelect");
 const $weaponSidebars = $qa(".weaponSidebar");
 const $skillSections = $qa(".skillSection");
 const $loadingSpinners = [$qa(".spinner1"), $qa(".spinner2")];
 
-const $progressBars = $qa(".progress-bar");
-const $pointProgresText = $qa(".pointProgresText");
+const $progressBars = $qa(".pointProgressBar");
+const $pointProgressText = $qa(".pointProgressText");
 
 const $activedSkills = $qa(".activedSkill");
 const $activedSkillLists = [$qa(".activedSkillList1"), $qa(".activedSkillList2")];
@@ -31,9 +43,9 @@ const $skillContainers = [$qa(".skill-container1"), $qa(".skill-container2")];
 const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 
 const $formBuildSave = $q("#formBuildSave");
-const $formBuildSaveLoader = $q("#formBuildSaveLoader");
 
 window.currentWeapons = [null, null];
+
 /**
  * Associe les skills à "weapon" aprçès un fetch de l'api
  * @param {number} weapon
@@ -47,7 +59,7 @@ const getSkills = async (weapon) => (weapon.skills = (await getMethod(`/api/weap
 const setCountdown = (weaponIndex) => {
   let n = window.currentWeapons[weaponIndex].countdown[0];
   $progressBars[weaponIndex].style.width = (n * 100) / 19 + "%";
-  $pointProgresText[weaponIndex].innerText = window.messageLocal["RemainingPoint"] + n;
+  $pointProgressText[weaponIndex].innerText = window.messageLocal["RemainingPoint"] + n;
 };
 
 /**
@@ -88,6 +100,10 @@ const main = async () => {
   window.buildId = getBuildId();
   if (window.buildId) {
     let build = await getMethod(`/api/builds/${window.buildId}`);
+    if (build.characteristics) {
+      window.characteristics = build.characteristics;
+      for (let i = 0; i <= 4; i++) setHtmlCar(i);
+    }
     build.weapons.forEach(async (weaponIRI, weaponIndex) => {
       $loadingSpinners[weaponIndex].forEach((el) => el.classList.remove("d-none"));
       let weapon = window.weapons.filter((w) => w["@id"] == weaponIRI)[0];
@@ -110,6 +126,78 @@ const main = async () => {
 };
 
 main();
+
+// const $carPointTexts = $qa(".carPointText");
+const setHtmlCar = (car) => {
+  let point = window.characteristics[1][car];
+  let bonusPoint = window.characteristics[2][car];
+  $carTotalPointText.innerText = window.characteristics[0];
+  $carPointTexts[car].innerText = point + 5;
+  $carProgress[car].style.width = `${((point + 5) * 100) / 300}%`;
+  $carBonusProgress[car].style.width = `${(bonusPoint * 100) / 300}%`;
+  for (let i = 0; i <= 5; i++) {
+    if (point + 5 - 50 >= i * 50) $carCaps[car][i].style.backgroundColor = "#FFC107";
+    else if (point + 5 + bonusPoint - 50 >= i * 50) $carCaps[car][i].style.backgroundColor = "#0D6EFD";
+    else $carCaps[car][i].style.backgroundColor = "#fff";
+  }
+};
+
+const setCar = (car, add, n) => {
+  if (add) {
+    if (window.characteristics[0] - n < 0) return;
+    window.characteristics[0] -= n;
+    window.characteristics[1][car] += n;
+  } else {
+    if (window.characteristics[0] + n > 190) return;
+    if (window.characteristics[1][car] == 0) return;
+    window.characteristics[0] += n;
+    window.characteristics[1][car] -= n;
+  }
+  setHtmlCar(car);
+};
+
+const resetCar = () => {
+  window.characteristics = [190, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]];
+  for (let i = 0; i <= 4; i++) setHtmlCar(i);
+};
+resetCar();
+
+// const $remove5pointsButtons = $qa(".remove5points");
+$remove5pointsButtons.forEach(($remove5pointsButton, car) => {
+  $remove5pointsButton.addEventListener("click", () => setCar(car, false, 5));
+});
+
+// const $remove1pointButtons = $qa(".remove1point");
+$remove1pointButtons.forEach(($remove1pointButton, car) => {
+  $remove1pointButton.addEventListener("click", () => setCar(car, false, 1));
+});
+
+// const $add1pointButtons = $qa(".add1point");
+$add1pointButtons.forEach(($add1pointButton, car) => {
+  $add1pointButton.addEventListener("click", () => setCar(car, true, 1));
+});
+
+// const $add5pointsButtons = $qa(".add5points");
+$add5pointsButtons.forEach(($add5pointsButton, car) => {
+  $add5pointsButton.addEventListener("click", () => setCar(car, true, 5));
+});
+
+// const $carBonusInputs = $qa(".carBonusInput");
+$carBonusInputs.forEach(($carBonusInput, car) => {
+  $carBonusInput.addEventListener("change", () => {
+    let oldvalue = $carBonusInput.dataset.old;
+    if ($carBonusInput.value < 0 || $carBonusInput.value >= 1000) $carBonusInput.value = oldvalue;
+    else {
+      window.characteristics[2][car] = parseInt($carBonusInput.value);
+      $carBonusInput.dataset.old = $carBonusInput.value;
+      setHtmlCar(car);
+    }
+  });
+});
+
+$carReset.addEventListener("click", () => {
+  resetCar();
+});
 
 /**
  * Mise en place d'une arme (weaponId) dans l'onglet correspondant (weaponIndex)
@@ -414,6 +502,7 @@ $formBuildSave.addEventListener("click", async () => {
     weapons: window.currentWeapons.map((w) => w?.["@id"] || null),
     selectedSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.selected).map((s) => s["@id"]) || []),
     activedSkills: window.currentWeapons.map((w) => w?.activedSkills || [null, null, null]),
+    characteristics: window.characteristics,
   };
 
   let error = false;

@@ -5,7 +5,6 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class JsonArrayLenghtValidator extends ConstraintValidator
 {
@@ -19,11 +18,5 @@ class JsonArrayLenghtValidator extends ConstraintValidator
     if (count($value) != $constraint->lenght['value']) {
       $this->context->buildViolation($constraint->message)->addViolation();
     }
-
-    // foreach ($value as $key) {
-    //   if ($key == "") {
-    //     $this->context->buildViolation($constraint->messageblank)->addViolation();
-    //   }
-    // }
   }
 }

@@ -8,12 +8,12 @@ use App\Validator\ActiveSkill;
 use App\Validator\SelectedSkill;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator\JsonArrayLenght;
+use App\Validator\Characteristics;
 use App\Repository\BuildRepository;
 use App\Serializer\UserOwnedInterface;
 use App\Validator\Weapon as WeaponValidate;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Controller\CreateDiscordWebhook;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -118,6 +118,14 @@ class Build implements UserOwnedInterface
    */
   #[Groups(['read:build', 'write:build'])]
   private $activedSkills = [];
+
+  /**
+   * @ORM\Column(type="json")
+   * @JsonArrayLenght(3)
+   * @Characteristics
+   */
+  #[Groups(['read:build', 'write:build'])]
+  private $characteristics = [];
 
 
   /**
@@ -378,6 +386,18 @@ class Build implements UserOwnedInterface
   public function removeLiked(User $liked): self
   {
       $this->liked->removeElement($liked);
+
+      return $this;
+  }
+
+  public function getCharacteristics(): ?array
+  {
+      return $this->characteristics;
+  }
+
+  public function setCharacteristics(array $characteristics): self
+  {
+      $this->characteristics = $characteristics;
 
       return $this;
   }

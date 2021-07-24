@@ -6,6 +6,11 @@ import { getMethod, getBuildId, setBrightness } from "./Utils";
 
 const $spinner = $q("#spinner");
 const $shareButton = $q("#shareButton");
+const $carTexts = $qa(".carPointText");
+const $carBonusTexts = $qa(".carPointBonusText");
+const $carProgress = $qa(".carProgress");
+const $carBonusProgress = $qa(".carBonusProgress");
+const $carCaps = [$qa(".carCap1"), $qa(".carCap2"), $qa(".carCap3"), $qa(".carCap4"), $qa(".carCap5"), $qa(".carCap6")];
 const $buildTabs = $qa(".buildTab");
 const $skillSection = $q("#skillSection");
 const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
@@ -16,6 +21,23 @@ const main = async () => {
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
   let data = await fetch(`/api/builds/${getBuildId()}`);
   let build = await data.json();
+  if (!build.characteristics) {
+    build.characteristics = [190, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]];
+  }
+  for (let car = 0; car <= 4; car++) {
+    let point = build.characteristics[1][car];
+    let bonusPoint = build.characteristics[2][car];
+    $carTexts[car].innerText = point + 5;
+    $carBonusTexts[car].innerText = "+" + bonusPoint;
+    $carProgress[car].style.width = `${((point + 5) * 100) / 300}%`;
+    $carBonusProgress[car].style.width = `${(bonusPoint * 100) / 300}%`;
+    for (let i = 0; i <= 5; i++) {
+      if (point + 5 - 50 >= i * 50) $carCaps[car][i].style.backgroundColor = "#FFC107";
+      else if (point + 5 + bonusPoint - 50 >= i * 50) $carCaps[car][i].style.backgroundColor = "#0D6EFD";
+      else $carCaps[car][i].style.backgroundColor = "#fff";
+    }
+  }
+
   build.weapons.forEach(async (weaponIRI, weaponIndex) => {
     if (weaponIRI) {
       let weapon = await (await fetch(weaponIRI)).json();
@@ -68,12 +90,6 @@ const main = async () => {
       $buildTabs[weaponIndex].classList.remove("disabled");
     }
   });
-  if (build.gears) {
-    $buildTabs[2].classList.remove("disabled");
-  }
-  if (build.stats) {
-    $buildTabs[3].classList.remove("disabled");
-  }
   $spinner.classList.add("d-none");
   $skillSection.classList.remove("d-none");
 };

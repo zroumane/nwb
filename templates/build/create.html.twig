@@ -56,6 +56,47 @@
 		</script>
 	{% endif %}
 
+	<div class="py-3">
+		{% for car in 1..5 %}
+			<div class="carDiv d-flex flex-row">
+				<div class="rightborder px-3 align-bottom carPointDiv pt-4">
+					<span class="remove5points fs-6 align-middle carArrow mx-1">⮜⮜</span>
+					<span class="remove1point fs-5 align-middle carArrow mx-1">⮜</span>
+					<span class="carPointText s50px d-inline-block text-center fs-2 align-middle mx-1">5</span>
+					<span class="add1point fs-5 align-middle carArrow mx-1">⮞</span>
+					<span class="add5points fs-6 align-middle carArrow mx-1">⮞⮞</span>
+				</div>
+				<div class="rightborder ps-2 pe-3 align-bottom pt-4" aria-label="Stuff Bonus">
+					<span class="fs-3">+</span>
+					<input autocomplete="off" min="0" id="carInput-{{car}}" value="0" data-old="0" class="carBonusInput text-center fs-6 p-2 rounded-circle">
+				</div>
+				<div class="px-3 pt-2 flex-fill">
+					<div class="fs-4 ps-2">
+						{{ "characteristic.#{car-1}"|trans }}
+					</div>
+					<div class="position-relative">
+						<div class="carCapDiv position-absolute d-flex flex-row justify-content-between">
+							<span class="carCap invisible rounded-circle bg-success"></span>
+							{% for i in 1..6 %}
+								<span class="carCap carCap{{car}} rounded-circle"></span>
+							{% endfor %}
+						</div>
+						<div class="carProgressDiv progress">
+							<div class="carProgress progress-bar bg-warning" role="progressbar" style="width: 1.6%"></div>
+							<div class="carBonusProgress progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		<div class="px-3 pt-2 mt-2 fs-2">
+			<span id="carTotalPointText">190</span>
+			<span>{% trans %}create.remaining{% endtrans %}</span>
+			<button id="carReset" class="btn btn-outline-danger btn-sm">Reset</button>
+		</div>
+	</div>
+
+
 	<ul class="nav nav-fill nav-pills navbar-light bg-dark mt-4">
 		<li class="nav-item">
 			<a class="nav-link buildTab active weaponTab" data-bs-toggle="tab" data-bs-target="#tab-weapon-1">
@@ -90,9 +131,9 @@
 						<div class="weaponSidebar d-none">
 
 
-							<div class="progress position-relative mt-4">
-								<div class="progress-bar" id="pointProgres-{{weapon}}" role="progressbar"></div>
-								<div class="pointProgresText justify-content-center d-flex position-absolute w-100 fs-5 m-0">Points Restant : 15</div>
+							<div class="pointProgress progress position-relative mt-4">
+								<div class="pointProgressBar progress-bar" id="pointProgres-{{weapon}}" role="progressbar"></div>
+								<div class="pointProgressText justify-content-center d-flex position-absolute w-100 fs-5 m-0">Points Restant : 15</div>
 							</div>
 
 							<div class="row px-3 mt-4 justify-content-center" style="max-height:100px">

@@ -44,6 +44,13 @@ type:
   general: General
   war: War
 
+characteristic:
+  - Strength
+  - Dexterity
+  - Intelligence
+  - Focus
+  - Consitution
+
 create:
   name:
     label: Name
@@ -53,8 +60,7 @@ create:
     invalid: The description must contain a maximum of 3000 characters.
   selectweapon: Select weapon %n%
   weapon: Weapon %n%
-  gear: Gears
-  stat: Statistics
+  remaining: remaining
   save: Save
   reset: Reset
   modify: Modify

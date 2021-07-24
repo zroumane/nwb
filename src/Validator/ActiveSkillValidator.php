@@ -6,7 +6,6 @@ use Symfony\Component\Validator\Constraint;
 use ApiPlatform\Core\Api\IriConverterInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 
 class ActiveSkillValidator extends ConstraintValidator

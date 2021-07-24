@@ -1,3 +1,31 @@
+.carProgressDiv {
+  height: 18px;
+  border-radius: 10px !important;
+}
+
+.carCapDiv {
+  top: -4px;
+  bottom: -4px;
+  left: -10px;
+  right: -10px;
+}
+
+.carCap {
+  height: 26px;
+  width: 26px;
+  border: 1px black solid;
+  background-color: white;
+  z-index: 100;
+}
+
+.rightborder {
+  border-right: 1px white solid;
+}
+
+.s50px {
+  width: 50px;
+}
+
 nav button {
   color: white;
   border: 1px white solid;

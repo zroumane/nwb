@@ -1,18 +1,60 @@
+/** Caractéristiques */
+
+.carPointDiv {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.carBonusInput {
+  height: 50px;
+  width: 50px;
+  border: none;
+}
+
+#carInput-1 {
+  background-color: #b0ccf5;
+}
+
+#carInput-2 {
+  background-color: #fcebb9;
+}
+
+#carInput-3 {
+  background-color: #c0e2d3;
+}
+
+#carInput-4 {
+  background-color: #d2b8fc;
+}
+
+#carInput-5 {
+  background-color: #f7c4c9;
+}
+
+.carArrow {
+  letter-spacing: -4px;
+  cursor: pointer;
+}
+
 /** Progress Skill Point */
 
-.progress {
+.pointProgress {
   height: 40px;
   background-color: white;
   border: 3px white solid;
   border-radius: 0.2rem;
 }
 
-.pointProgresText {
+.pointProgressText {
   color: black;
   height: 100%;
 }
 
-.progress-bar {
+.pointProgressBar {
   width: 100%;
   background-color: #ffc107;
   border-radius: 0.2rem;
