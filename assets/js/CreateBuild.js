@@ -149,7 +149,7 @@ const setCar = (car, add, n) => {
     window.characteristics[1][car] += n;
   } else {
     if (window.characteristics[0] + n > 190) return;
-    if (window.characteristics[1][car] == 0) return;
+    if (window.characteristics[1][car] - n < 0) return;
     window.characteristics[0] += n;
     window.characteristics[1][car] -= n;
   }
