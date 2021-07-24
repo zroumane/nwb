@@ -5,6 +5,7 @@ import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
 import { getMethod, getBuildId, setBrightness } from "./Utils";
 
 const $spinner = $q("#spinner");
+const $shareButton = $q("#shareButton");
 const $buildTabs = $qa(".buildTab");
 const $skillSection = $q("#skillSection");
 const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
@@ -77,3 +78,10 @@ const main = async () => {
   $skillSection.classList.remove("d-none");
 };
 main();
+
+$shareButton.addEventListener("click", () => {
+  navigator.clipboard.writeText(window.location.href);
+  $shareButton.firstElementChild.innerText = "✓";
+  $shareButton.classList.remove("btn-primary");
+  $shareButton.classList.add("btn-success");
+});

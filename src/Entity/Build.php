@@ -76,12 +76,14 @@ class Build implements UserOwnedInterface
    * @ORM\Column(type="datetime")
    */
   private $updated_at;
-
+  
   /**
    * @ORM\Column(type="bigint")
    */
   private $views = 0;
-
+  
+  private $isViewEdit = false;
+  
   /**
    * @ORM\ManyToMany(targetEntity=User::class, inversedBy="liked")
    */
@@ -117,13 +119,94 @@ class Build implements UserOwnedInterface
   #[Groups(['read:build', 'write:build'])]
   private $activedSkills = [];
 
+
   /**
    * @ORM\PrePersist
    */
   public function setCreatedAtValue(): void
   {
-    $this->created_at = new \DateTime("now");
+    $this->setCreatedAt(new \DateTime("now"));
+    $this->setUpdatedAt(new \DateTime("now"));
   }
+
+  /**
+   * @ORM\PreUpdate
+   */
+  public function setUpdateAtvalue(): void
+  {
+    if(!$this->getIsViewEdit()){
+      $this->setUpdatedAt(new \DateTime("now"));
+    }
+  }
+
+  /**
+   * @ORM\PostPersist
+   */
+  public function preUpdate(): void
+  {
+    $this->sendDiscordWebhook(false);
+  }
+
+  /**
+   * @ORM\PostUpdate
+   */
+  public function postUpdate(): void
+  {
+    $this->sendDiscordWebhook(true);
+  }
+  
+  public function sendDiscordWebhook($updated): void
+  {
+    if(!$this->getIsViewEdit()){
+
+      $build = $this;
+      $webhookurl = "";
+      if($_SERVER['APP_ENV'] == "dev"){
+        $webhookurl = "https://discord.com/api/webhooks/865887749214830603/vLjFkK4aknq_KhQytBocz7XniBQx-t8_5s-EhcTli73aawge0ab2V6NyJ4a-jq7KRcyr";
+      }else{
+        $webhookurl = "https://discord.com/api/webhooks/868344360524214272/_4onLMp3h0lU_8NZM5fhJZg4z5fedQ_RrHUH25L6OQpFrtijx5pgosgkU_WG_8HVGEoV";
+      }
+
+      
+      $timestamp = date("c", strtotime("now"));
+      $buildId = $build->getId();
+
+      $embed = [
+        "embeds" => [
+          [
+            "title" => $build->getName(),
+            "url" => sprintf("https://newworld-builder.com/build/%d", $buildId),
+            "timestamp" => $timestamp,
+            "color" => hexdec("ffffff")
+          ]
+        ]
+      ];
+      
+      $author = $build->getAuthor();
+      $authorTitle = "";
+      if($updated){
+        $authorTitle = "Build edited by %s :";
+      }else{
+        $authorTitle = "New build by %s :";
+      }
+      $embed['embeds'][0]['author']['name'] = sprintf($authorTitle, $author ? $author->getPseudo() : '//');
+      $embed['embeds'][0]['author']['url'] = $author ? sprintf("https://newworld-builder.com/profile/%d",$author->getId()) : null;
+
+      $json_data = json_encode($embed, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+
+
+      $ch = curl_init( $webhookurl );
+      curl_setopt( $ch, CURLOPT_HTTPHEADER, array('Content-type: application/json'));
+      curl_setopt( $ch, CURLOPT_POST, 1);
+      curl_setopt( $ch, CURLOPT_POSTFIELDS, $json_data);
+      curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+      curl_setopt( $ch, CURLOPT_HEADER, 0);
+      curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_exec( $ch );
+      curl_close( $ch );
+    }
+  }
+
   
   public function __construct()
   {
@@ -204,6 +287,18 @@ class Build implements UserOwnedInterface
   public function setViews(string $views): self
   {
     $this->views = $views;
+
+    return $this;
+  }
+
+  public function getIsViewEdit(): ?bool
+  {
+    return $this->isViewEdit;
+  }
+
+  public function setIsViewEdit(bool $isViewEdit): self
+  {
+    $this->isViewEdit = $isViewEdit;
 
     return $this;
   }

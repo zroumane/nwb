@@ -152,7 +152,7 @@
 		<div class="footer container-fluid bg-dark text-light">
 			<div class="container-lg p-3">
 				<div class="text-center discord">
-					<span>Please, feedback us on our</span>
+					<span>{% trans %}meta.feedback{% endtrans %}</span>
 					<a class="h-100" target="_blank" href="https://discord.gg/qYjG93TS8C">
 						<img class="rounded h-100" src="{{asset('img/discord.png')}}" alt="discord">
 					</a>
@@ -162,7 +162,8 @@
 					©
 					{{ "now"|date("Y") }}
 					<a href="https://newworld-builder.com/">NewWorld-Builder.com</a>
-					- New World is a trademark of Amazon Game Studios. We are not affiliated with or endorsed by Amazon Game Studios.
+					-
+					{% trans %}meta.footer{% endtrans %}
 				</div>
 			</div>
 		</div>

@@ -44,6 +44,11 @@
 		</div>
 		<div class="flex-item">
 			<div class="p-1 text-end">
+				<button id="shareButton" class="btn btn-sm btn-primary">{% trans %}build.share{% endtrans %}
+					<span></span>
+				</button>
+			</div>
+			<div class="p-1 text-end">
 				<a href="{% if liked %} {{path('app_builds_dislike',{id: build.id})}} {% else %} {{path('app_builds_like',{id: build.id})}} {% endif %}" class="btn btn-sm btn-{% if liked %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
 					{{build.liked|length}}
 					| Like</a>

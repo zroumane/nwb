@@ -1,5 +1,7 @@
 meta:
   soon: Bientôt
+  feedback: S'il vous plaît, faites-nous part de vos retours sur notre
+  footer: New World est une marque déposée d'Amazon Game Studios. Nous ne sommes pas affiliés d'Amazon Game Studios.
 
 navbar:
   build: Builds
@@ -31,6 +33,7 @@ builds:
 build:
   by: par
   anonymous: Anonyme
+  share: Copier le lien
   actions:
     label: Actions
     edit: Modifier

@@ -256,13 +256,13 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (!parent.selected) {
-            changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["TopSkill"] + (window.weaponLocal[parent.skillKey] ?? skill.skillKey));
+            changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["TopSkill"] + (window.skillLocal[parent.skillKey] ?? parent.skillKey));
             return;
           }
         }
         // 3. Si pas la première ligne, si aucun skill ligne précédente selected
         if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.selected).length == 0) {
-          changePopover($skillContainer, window.skill[Localskill.skillKey] ?? skill.skillKey, window.messageLocal["Rowtop"]);
+          changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["Rowtop"]);
           return;
         }
 
@@ -299,7 +299,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
             changePopover(
               $skillContainer,
               window.skillLocal[skill.skillKey] ?? skill.skillKey,
-              window.messageLocal["BottomSkill"] + window.weaponLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey
+              window.messageLocal["BottomSkill"] + window.skillLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey
             );
             return;
           }

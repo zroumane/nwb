@@ -1,8 +1,8 @@
 {
-  "{[DamageTable.IceMagic_Spikes.DmgCoef * 100]}": "56.0",
-  "{[DamageTable.IceMagic_Spikes_End.DmgCoef * 100]}": "157.0",
-  "{[DamageTable.IceMagic_IceStorm.DmgCoef * 100]}": "17.0",
-  "{[DamageTable.IceMagic_WindChill.DmgCoef * 100]}": "16.0",
-  "{[DamageTable.IceMagic_Spike_Reach.DmgCoef * 100]}": "118.0",
-  "{[DamageTable.IceMagic_Pylon.DmgCoef * 100]}": "50.0"
+  "{[DamageTable.IceMagic_Spikes.DmgCoef * 100]}": "56",
+  "{[DamageTable.IceMagic_Spikes_End.DmgCoef * 100]}": "157",
+  "{[DamageTable.IceMagic_IceStorm.DmgCoef * 100]}": "17",
+  "{[DamageTable.IceMagic_WindChill.DmgCoef * 100]}": "16",
+  "{[DamageTable.IceMagic_Spike_Reach.DmgCoef * 100]}": "118",
+  "{[DamageTable.IceMagic_Pylon.DmgCoef * 100]}": "50"
 }

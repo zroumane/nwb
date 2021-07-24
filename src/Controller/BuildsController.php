@@ -62,6 +62,7 @@ class BuildsController extends AbstractController
   {
     $views = $build->getViews();
     $build->setViews($views + 1);
+    $build->setIsViewEdit(true);
     $em = $this->getDoctrine()->getManager();
     $em->flush();
 
