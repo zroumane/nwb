@@ -7,7 +7,7 @@ navbar:
   patchnote: PatchNote
   login: Login
   logout: Logout
-  profil: Profile
+  mybuild: My builds
   settings: Paramètre
 
 builds:
@@ -17,6 +17,7 @@ builds:
   view: View
   update: Last Update
   day: day(s)
+  nofound: No build found !
   filter:
     all: All
     alls: All

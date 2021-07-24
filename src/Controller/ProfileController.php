@@ -30,14 +30,14 @@ class ProfileController extends AbstractController
     /**
    * @Route("/settings")
    */
-  public function settings(): Response
-  {
-    if ($this->getUser()) {
-      return $this->render("profile/settings.html.twig");
-    } else {
-      return $this->redirectToRoute("app_security_login");
-    }
-  }
+  // public function settings(): Response
+  // {
+  //   if ($this->getUser()) {
+  //     return $this->render("profile/settings.html.twig");
+  //   } else {
+  //     return $this->redirectToRoute("app_security_login");
+  //   }
+  // }
 
   /**
    * @Route("/profile/{id}", requirements={"id"="\d+"})
@@ -64,6 +64,6 @@ class ProfileController extends AbstractController
    */
   public function admin(): Response
   {
-    return $this->render("profile/admin.html.twig");
+    return $this->render("admin/user.html.twig");
   }
 }

@@ -53,8 +53,11 @@
 							<a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans %}navbar.create{% endtrans %}</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans %}navbar.patchnote{% endtrans %}</a>
+							<a class="nav-link {% if current_menu == 'profile' %}active{% endif %}" href="{{path('app_profile_index')}}">{% trans %}navbar.mybuild{% endtrans %}</a>
 						</li>
+						{# <li class="nav-item"> #}
+					{# <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans %}navbar.patchnote{% endtrans %}</a> #}
+						{# </li> #}
 					</ul>
 					<ul class="navbar-nav ml-auto">
 						{% if app.user %}
@@ -64,10 +67,7 @@
 								</a>
 								<ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
 									<li>
-										<a class="dropdown-item" href="{{path('app_profile_index')}}">{% trans %}navbar.profil{% endtrans %}</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="{{path('app_profile_settings')}}">{% trans %}navbar.settings{% endtrans %}</a>
+										<a class="dropdown-item" href="{{path('app_profile_index')}}">{% trans %}navbar.mybuild{% endtrans %}</a>
 									</li>
 									{% if is_granted('ROLE_ADMIN') %}
 										<li>

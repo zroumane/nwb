@@ -26,3 +26,4 @@ security:
                 secret:   '%kernel.secret%'
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/patchnote, roles: ROLE_ADMIN }

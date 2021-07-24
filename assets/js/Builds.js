@@ -22,9 +22,6 @@ let url = new URL(window.location.href);
 const sendForm = () => {
   // $filterBuildSearch.value != "" ? url.searchParams.set("s", $filterBuildSearch.value) : url.searchParams.delete("s");
   $filterBuildType.value != 0 ? url.searchParams.set("t", $filterBuildType.value) : url.searchParams.delete("t");
-  let weaponCheck = Array.from($weaponsChecks)
-    .filter(($w) => $w.checked)
-    .map(($w) => $w.dataset.id);
   let ids = window.selectedWeapon.filter((id) => id);
   ids.length ? url.searchParams.set("w", ids.join(",")) : url.searchParams.delete("w");
   url.searchParams.delete("page");
@@ -41,7 +38,8 @@ const updateWeapon = () => {
   if (checkedWeapon.length > 0) {
     let checkedWeaponid = checkedWeapon.map(($w) => $w.dataset.id);
     let weaponText = $weaponsCheckLabels.filter(($wl) => checkedWeaponid.includes($wl.dataset.id)).map(($wl) => $wl.innerText);
-    $allWeaponText.innerText = weaponText.join(",").replaceAll("\n", "");
+    console.log(weaponText);
+    $allWeaponText.innerText = weaponText.join(", ").replaceAll("\n", "").replaceAll("\t", "");
     $allWeaponCheck.disabled = false;
     $allWeaponCheck.checked = false;
     if (checkedWeapon.length == 1) $weaponsChecks.forEach(($w) => ($w.disabled = false));

@@ -110,57 +110,69 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% for build in builds %}
+		{% if builds|length == 0 %}
+
 			<tr>
-				<td>
-					<a href="{{path('app_builds_show',{id: build.id})}}">{{ build.name|slice(0, 30) }}
-						{% if build.name|length > 30 %}...
-						{% endif %}
-					</a>
+				<td colspan="100%">
+					<div class="fs-4 text-center">
+						{% trans %}builds.nofound{% endtrans %}
+					</div>
 				</td>
-				{% if user is not defined %}
+			</tr>
+
+		{% else %}
+			{% for build in builds %}
+				<tr>
 					<td>
-						{% if build.pseudo %}
-							<a href="{{path('app_profile_show',{id: build.author_id})}}">{{ build.pseudo }}</a>
-						{% else %}
-							{% trans %}build.anonymous{% endtrans %}
-						{% endif %}
+						<a href="{{path('app_builds_show',{id: build.id})}}">{{ build.name|slice(0, 30) }}
+							{% if build.name|length > 30 %}...
+							{% endif %}
+						</a>
 					</td>
-				{% endif %}
-				<td>
-					{{ build.weapons|filter(w => w)|join(' / ') }}
-				</td>
-				<td>
-					{% if build.type == 1 %}
-						{% trans %}type.general{% endtrans %}
-						{% elseif build.type == 2 %}PVP
-						{% elseif build.type == 3 %}PVE
-						{% elseif build.type == 4 %}PVX
-					{% elseif build.type == 5 %}
-						{% trans %}type.war{% endtrans %}
-					{% endif %}
-				</td>
-				<td>
-					{{ build.l }}
-				</td>
-				<td>
-					{{ build.v }}
-				</td>
-				<td>
-					{% set distance = date('now').diff(date(build.d)).days %}
-					{{ distance }}
-					{% trans %}builds.day{% endtrans %}
-				</td>
-				{% if app.user and user is defined%}
-					{% if app.user == user %}
-						<td scope="col">
-							<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
-							<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
+					{% if user is not defined %}
+						<td>
+							{% if build.pseudo %}
+								<a href="{{path('app_profile_show',{id: build.author_id})}}">{{ build.pseudo }}</a>
+							{% else %}
+								{% trans %}build.anonymous{% endtrans %}
+							{% endif %}
 						</td>
 					{% endif %}
-				{% endif %}
-			</tr>
-		{% endfor %}
+					<td>
+						{{ build.weapons|filter(w => w)|join(' / ') }}
+					</td>
+					<td>
+						{% if build.type == 1 %}
+							{% trans %}type.general{% endtrans %}
+							{% elseif build.type == 2 %}PVP
+							{% elseif build.type == 3 %}PVE
+							{% elseif build.type == 4 %}PVX
+						{% elseif build.type == 5 %}
+							{% trans %}type.war{% endtrans %}
+						{% endif %}
+					</td>
+					<td>
+						{{ build.l }}
+					</td>
+					<td>
+						{{ build.v }}
+					</td>
+					<td>
+						{% set distance = date('now').diff(date(build.d)).days %}
+						{{ distance }}
+						{% trans %}builds.day{% endtrans %}
+					</td>
+					{% if app.user and user is defined%}
+						{% if app.user == user %}
+							<td scope="col">
+								<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
+								<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
+							</td>
+						{% endif %}
+					{% endif %}
+				</tr>
+			{% endfor %}
+		{% endif %}
 	</tbody>
 </table>
 <div class="navigation">
