@@ -88,6 +88,7 @@ class BuildsController extends AbstractController
   {
     if($user = $this->getUser()){
       $build->addLiked($user);
+      $build->setIsViewEdit(true);
       $em = $this->getDoctrine()->getManager();
       $em->flush();
     }
@@ -102,6 +103,7 @@ class BuildsController extends AbstractController
   {
     if($user = $this->getUser()){
       $build->removeLiked($user);
+      $build->setIsViewEdit(true);
       $em = $this->getDoctrine()->getManager();
       $em->flush();
     }

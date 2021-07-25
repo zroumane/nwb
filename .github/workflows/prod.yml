@@ -29,4 +29,5 @@ jobs:
             composer dump-env prod
             yarn install
             yarn run build
+	    php bin/console doctrine:migration:migrate
             php bin/console cache:clear
