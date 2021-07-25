@@ -362,7 +362,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
           if (weapon.countdown[skill.side] < 10) {
             changePopover(
               $skillContainer,
-              window.skill[skill.skillKey] ?? skill.skillKey,
+              window.skillLocal[skill.skillKey] ?? skill.skillKey,
               window.messageLocal["TenPointSelect"] + (window.weaponLocal[weapon.branch[skill.side - 1]] ?? skill.skillKey)
             );
             return;
