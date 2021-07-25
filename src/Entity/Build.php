@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
   itemOperations: [
     'get',
     'put' => [
-      'access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_ADMIN")'
+      'access_control' => 'is_granted("CheckUserBuild", object) or is_granted("ROLE_BUILD_ADMIN")'
     ]
   ]
 )]

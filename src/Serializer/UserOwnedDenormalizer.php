@@ -20,9 +20,10 @@ class UserOwnedDenormalizer implements ContextAwareDenormalizerInterface, Denorm
 
   public function supportsDenormalization($data, string $type, ?string $format = null, array $context = [])
   {
+    $method = $context['item_operation_name'] ?? $context['collection_operation_name'];
     $reflectionClass = new \ReflectionClass($type);
     $alreadyCalled = $context[self::ALREADY_CALLED_DENORMALIZER] ?? false;
-    return $reflectionClass->implementsInterface(UserOwnedInterface::class) && $alreadyCalled === false;
+    return $reflectionClass->implementsInterface(UserOwnedInterface::class) && $alreadyCalled === false && $method == 'post';
   }
   
   public function denormalize($data, string $type, ?string $format = null, array $context = [])

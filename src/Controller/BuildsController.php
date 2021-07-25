@@ -124,7 +124,7 @@ class BuildsController extends AbstractController
    */
   public function edit(Build $build): Response
   {
-    if($build && $build->getAuthor() == $this->getUser()){
+    if($build && ($build->getAuthor() == $this->getUser() || $this->getUser() ? in_array('ROLE_BUILD_ADMIN', $this->getUser()->getRoles()) : false)){
       return $this->render("build/create.html.twig", [
         "build" => $build
       ]);
