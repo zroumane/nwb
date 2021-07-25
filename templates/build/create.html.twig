@@ -42,19 +42,22 @@
 			</select>
 		</div>
 	</div>
-
 	<div class="py-2">
 		<label class="form-label">{% trans %}create.description.label{% endtrans %}</label>
-		<textarea autocomplete="off" class="form-control" id="formBuildDesc"></textarea>
+
+
+		{% if build is defined %}
+			{% autoescape false %}
+				{{ "<textarea style='height:200px' autocomplete='off' class='form-control' id='formBuildDesc'>#{build.description|raw}</textarea>" }}
+			{% endautoescape %}
+		{% endif %}
+
+
 		<div id="formBuildDescInvalid" class="d-none text-danger">
 			{% trans %}create.description.invalid{% endtrans %}
 		</div>
 	</div>
-	{% if build is defined %}
-		<script>
-			document.querySelector('#formBuildDesc').innerText = "{{ build.description }}"
-		</script>
-	{% endif %}
+
 
 	<div class="py-3">
 		{% for car in 1..5 %}

@@ -74,11 +74,15 @@
 	</div>
 
 
-	<div class="fs-5 mb-2 text-break">
-		{% autoescape 'html' %}
-			{{ build.description|striptags|raw }}
-		{% endautoescape %}
-	</div>
+	{% if build.description %}
+		<hr>
+		<div class="fs-5 mb-2 p-2 rounded text-break">
+			{% autoescape false %}
+				{{ build.description|striptags|raw|replace({"\n": "<br>"})}}
+			{% endautoescape %}
+		</div>
+	{% endif %}
+	<hr>
 
 	<div class="py-2">
 		{% for car in 1..5 %}
@@ -109,6 +113,8 @@
 			</div>
 		{% endfor %}
 	</div>
+
+	<hr>
 
 
 	<div id="spinner" class="text-center mt-4">
