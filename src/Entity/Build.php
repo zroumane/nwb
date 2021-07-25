@@ -82,7 +82,7 @@ class Build implements UserOwnedInterface
    */
   private $views = 0;
   
-  private $isViewEdit = false;
+  private $notSendDiscord = false;
   
   /**
    * @ORM\ManyToMany(targetEntity=User::class, inversedBy="liked")
@@ -142,7 +142,7 @@ class Build implements UserOwnedInterface
    */
   public function setUpdateAtvalue(): void
   {
-    if(!$this->getIsViewEdit()){
+    if(!$this->getNotSendDiscord()){
       $this->setUpdatedAt(new \DateTime("now"));
     }
   }
@@ -165,7 +165,7 @@ class Build implements UserOwnedInterface
   
   public function sendDiscordWebhook($updated): void
   {
-    if(!$this->getIsViewEdit()){
+    if(!$this->getNotSendDiscord()){
 
       $build = $this;
       $webhookurl = "";
@@ -299,14 +299,14 @@ class Build implements UserOwnedInterface
     return $this;
   }
 
-  public function getIsViewEdit(): ?bool
+  public function getNotSendDiscord(): ?bool
   {
-    return $this->isViewEdit;
+    return $this->notSendDiscord;
   }
 
-  public function setIsViewEdit(bool $isViewEdit): self
+  public function setNotSendDiscord(bool $notSendDiscord): self
   {
-    $this->isViewEdit = $isViewEdit;
+    $this->notSendDiscord = $notSendDiscord;
 
     return $this;
   }

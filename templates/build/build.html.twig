@@ -12,9 +12,16 @@
 
 {% block body %}
 
-	{% if build is defined %}
-		<input type="hidden" id="buildId" value="{{build.id}}">
+	{% if is_granted('ROLE_BUILD_ADMIN') %}
+		<div class="mb-3">
+			<span>Admin :
+			</span>
+			<a class="btn btn-sm btn-primary" href="{{path('app_builds_edit', {id: build.id})}}">Edit</a>
+			<a class="btn btn-sm btn-danger" href="{{path('app_builds_delete', {id: build.id})}}">Delete</a>
+		</div>
 	{% endif %}
+
+	<input type="hidden" id="buildId" value="{{build.id}}">
 
 	<div class="d-flex flex-row">
 		<div class="flex-item flex-fill">

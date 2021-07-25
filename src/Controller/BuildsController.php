@@ -19,6 +19,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class BuildsController extends AbstractController
 {
 
+  public function checkPermission($build){
+    return $build && ($build->getAuthor() == $this->getUser() || $this->getUser() ? in_array('ROLE_BUILD_ADMIN', $this->getUser()->getRoles()) : false);
+  }
+
   /**
    * @Route("/")
    */
@@ -62,7 +66,7 @@ class BuildsController extends AbstractController
   {
     $views = $build->getViews();
     $build->setViews($views + 1);
-    $build->setIsViewEdit(true);
+    $build->setNotSendDiscord(true);
     $em = $this->getDoctrine()->getManager();
     $em->flush();
 
@@ -88,7 +92,7 @@ class BuildsController extends AbstractController
   {
     if($user = $this->getUser()){
       $build->addLiked($user);
-      $build->setIsViewEdit(true);
+      $build->setNotSendDiscord(true);
       $em = $this->getDoctrine()->getManager();
       $em->flush();
     }
@@ -103,7 +107,7 @@ class BuildsController extends AbstractController
   {
     if($user = $this->getUser()){
       $build->removeLiked($user);
-      $build->setIsViewEdit(true);
+      $build->setNotSendDiscord(true);
       $em = $this->getDoctrine()->getManager();
       $em->flush();
     }
@@ -124,7 +128,7 @@ class BuildsController extends AbstractController
    */
   public function edit(Build $build): Response
   {
-    if($build && ($build->getAuthor() == $this->getUser() || $this->getUser() ? in_array('ROLE_BUILD_ADMIN', $this->getUser()->getRoles()) : false)){
+    if($this->checkPermission($build)){
       return $this->render("build/create.html.twig", [
         "build" => $build
       ]);
@@ -137,7 +141,7 @@ class BuildsController extends AbstractController
    */
   public function delete(Build $build): Response
   {
-    if($build && $build->getAuthor() == $this->getUser()){
+    if($this->checkPermission($build)){
       $em = $this->getDoctrine()->getManager();
 			$em->remove($build);
 			$em->flush();
