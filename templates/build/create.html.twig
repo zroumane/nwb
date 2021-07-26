@@ -48,8 +48,11 @@
 
 		{% if build is defined %}
 			{% autoescape false %}
-				{{ "<textarea style='height:200px' autocomplete='off' class='form-control' id='formBuildDesc'>#{build.description|raw}</textarea>" }}
+				{{ "<textarea id='formBuildDesc' style='height:200px' autocomplete='off' class='form-control' id='formBuildDesc'>#{build.description|raw}</textarea>" }}
 			{% endautoescape %}
+		{% else %}
+			{{ "<textarea id='formBuildDesc' style='height:200px' autocomplete='off' class='form-control' id='formBuildDesc'></textarea>" }}
+
 		{% endif %}
 
 
