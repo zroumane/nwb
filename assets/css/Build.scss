@@ -1,3 +1,16 @@
+.carArrow {
+  letter-spacing: -4px;
+  cursor: pointer;
+}
+.noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 .carProgressDiv {
   height: 18px;
   border-radius: 10px !important;
@@ -20,10 +33,6 @@
 
 .rightborder {
   border-right: 1px white solid;
-}
-
-.s50px {
-  width: 50px;
 }
 
 nav button {

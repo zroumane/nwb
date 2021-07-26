@@ -52,7 +52,7 @@ class ProfileController extends AbstractController
     $parser->setWeapons($weaponRep->findAll());
     $builds->setItems(array_map(fn($build) => $parser->parseBuild($build), (array)$builds->getItems()));
 
-    return $this->render("build/index.html.twig", [
+    return $this->render("build/user.html.twig", [
       "user" => $user,
       "builds" => $builds,
       "weapons" => $parser->getWeapons()

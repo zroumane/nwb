@@ -45,11 +45,16 @@ type:
   war: War
 
 characteristic:
-  - Strength
-  - Dexterity
-  - Intelligence
-  - Focus
-  - Consitution
+  label: Characteristics
+  point: Points
+  stuff: Stuff caracteristics
+  remaining: restant(s)
+  characteristic:
+    - Strength
+    - Dexterity
+    - Intelligence
+    - Focus
+    - Consitution
 
 create:
   name:
@@ -60,7 +65,6 @@ create:
     invalid: The description must contain a maximum of 3000 characters.
   selectweapon: Select weapon %n%
   weapon: Weapon %n%
-  remaining: remaining
   save: Save
   reset: Reset
   modify: Modify
@@ -71,7 +75,7 @@ patchnote:
   goback: Go back to list
 
 profile:
-  title: Builds of %pseudo%
+  title: "%pseudo%'s build(s)"
   yourbuild: Your builds
 
 login:

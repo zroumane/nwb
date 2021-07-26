@@ -46,11 +46,16 @@ type:
   war: Guerre
 
 characteristic:
-  - Force
-  - Dextérité
-  - Intelligence
-  - Concentration
-  - Forme
+  label: Caractéristiques
+  point: Points
+  stuff: Caractéristiques d'équipements
+  remaining: restant(s)
+  characteristic:
+    - Force
+    - Dextérité
+    - Intelligence
+    - Concentration
+    - Forme
 
 create:
   name:
@@ -61,7 +66,6 @@ create:
     invalid: La description doit contenir au maximum 3000 caractère.
   selectweapon: Sélectionnez l'arme %n%
   weapon: Arme %n%
-  remaining: restant(s)
   save: Enregistrer
   reset: Réinitialiser
   modify: Modifier
@@ -71,7 +75,7 @@ patchnote:
   goback: Revenir
 
 profile:
-  title: Builds de %pseudo%
+  title: Build(s) de %pseudo%
   yourbuild: Vos builds
 
 login:

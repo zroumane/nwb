@@ -16,7 +16,9 @@ const $remove1pointButtons = $qa(".remove1point");
 const $carPointTexts = $qa(".carPointText");
 const $add1pointButtons = $qa(".add1point");
 const $add5pointsButtons = $qa(".add5points");
-const $carBonusInputs = $qa(".carBonusInput");
+const $carBonusRemoveButtons = $qa(".carBonusRemove");
+const $carBonusTexts = $qa(".carBonus");
+const $carBonusAddButtons = $qa(".carBonusAdd");
 const $carProgress = $qa(".carProgress");
 const $carBonusProgress = $qa(".carBonusProgress");
 const $carCaps = [$qa(".carCap1"), $qa(".carCap2"), $qa(".carCap3"), $qa(".carCap4"), $qa(".carCap5"), $qa(".carCap6")];
@@ -133,6 +135,7 @@ const setHtmlCar = (car) => {
   let bonusPoint = window.characteristics[2][car];
   $carTotalPointText.innerText = window.characteristics[0];
   $carPointTexts[car].innerText = point + 5;
+  $carBonusTexts[car].innerText = bonusPoint;
   $carProgress[car].style.width = `${((point + 5) * 100) / 300}%`;
   $carBonusProgress[car].style.width = `${(bonusPoint * 100) / 300}%`;
   for (let i = 0; i <= 5; i++) {
@@ -159,7 +162,7 @@ const setCar = (car, add, n) => {
 const resetCar = () => {
   window.characteristics = [190, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]];
   for (let i = 0; i <= 4; i++) {
-    $carBonusInputs[i].value = 0;
+    $carBonusTexts[i].value = 0;
     setHtmlCar(i);
   }
 };
@@ -185,17 +188,27 @@ $add5pointsButtons.forEach(($add5pointsButton, car) => {
   $add5pointsButton.addEventListener("click", () => setCar(car, true, 5));
 });
 
-// const $carBonusInputs = $qa(".carBonusInput");
-$carBonusInputs.forEach(($carBonusInput, car) => {
-  $carBonusInput.addEventListener("change", () => {
-    let oldvalue = $carBonusInput.dataset.old;
-    if ($carBonusInput.value < 0 || $carBonusInput.value >= 1000) $carBonusInput.value = oldvalue;
-    else {
-      window.characteristics[2][car] = parseInt($carBonusInput.value);
-      $carBonusInput.dataset.old = $carBonusInput.value;
-      setHtmlCar(car);
-    }
-  });
+// const $carBonusTexts = $qa(".carBonus");
+const setBonus = (car, add) => {
+  if (add) {
+    if (window.characteristics[2][car] + 1 >= 1000) return;
+    window.characteristics[2][car]++;
+    setHtmlCar(car);
+  } else {
+    if (window.characteristics[2][car] - 1 < 0) return;
+    window.characteristics[2][car]--;
+    setHtmlCar(car);
+  }
+};
+
+// const $carBonusRemoveButtons = $qa(".carBonusRemove");
+$carBonusRemoveButtons.forEach(($carBonusRemoveButton, car) => {
+  $carBonusRemoveButton.addEventListener("click", () => setBonus(car, false));
+});
+
+// const $carBonusAddButtons = $qa(".carBonusAdd");
+$carBonusAddButtons.forEach(($carBonusAddButton, car) => {
+  $carBonusAddButton.addEventListener("click", () => setBonus(car, true));
 });
 
 $carReset.addEventListener("click", () => {
