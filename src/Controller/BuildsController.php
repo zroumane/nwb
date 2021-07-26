@@ -20,7 +20,7 @@ class BuildsController extends AbstractController
 {
 
   public function checkPermission($build){
-    return $build && ($build->getAuthor() == $this->getUser() || $this->getUser() ? in_array('ROLE_BUILD_ADMIN', $this->getUser()->getRoles()) : false);
+    return $build->getAuthor() == $this->getUser() or $this->getUser() ? in_array('ROLE_BUILD_ADMIN', $this->getUser()->getRoles()) : false;
   }
 
   /**
@@ -128,7 +128,7 @@ class BuildsController extends AbstractController
    */
   public function edit(Build $build): Response
   {
-    if($this->checkPermission($build)){
+    if($build && $this->checkPermission($build)){
       return $this->render("build/create.html.twig", [
         "build" => $build
       ]);
@@ -141,7 +141,7 @@ class BuildsController extends AbstractController
    */
   public function delete(Build $build): Response
   {
-    if($this->checkPermission($build)){
+    if($build && $this->checkPermission($build)){
       $em = $this->getDoctrine()->getManager();
 			$em->remove($build);
 			$em->flush();
