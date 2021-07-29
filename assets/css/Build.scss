@@ -35,6 +35,17 @@
   border-right: 1px white solid;
 }
 
+.popover-header {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(14, 14, 14) !important;
+}
+
+.popover-arrow,
+.popover-body {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(24, 24, 24) !important;
+}
+
 nav button {
   color: white;
   border: 1px white solid;

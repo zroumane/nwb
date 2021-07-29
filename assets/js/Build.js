@@ -2,7 +2,7 @@ import "../css/Build.scss";
 import "bootstrap/js/dist/tab";
 import Popover from "bootstrap/js/dist/popover";
 import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
-import { getMethod, getBuildId, setBrightness } from "./Utils";
+import { getMethod, getBuildId, setBrightness, initCarCapsPopover } from "./Utils";
 
 const $spinner = $q("#spinner");
 const $shareButton = $q("#shareButton");
@@ -19,6 +19,7 @@ const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 const main = async () => {
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
+  initCarCapsPopover($carCaps);
   let data = await fetch(`/api/builds/${getBuildId()}`);
   let build = await data.json();
   if (!build.characteristics) {
@@ -63,6 +64,7 @@ const main = async () => {
           title: window.skillLocal[skill.skillKey] ?? skill.skillKey,
           content: window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey,
           trigger: "hover",
+          html: true,
         });
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];

@@ -50,12 +50,11 @@ characteristic:
   point: Points
   stuff: Caractéristiques d'équipements
   remaining: restant(s)
-  characteristic:
-    - Force
-    - Dextérité
-    - Intelligence
-    - Concentration
-    - Forme
+  Str: Force
+  Dex: Dextérité
+  Int: Intelligence
+  Foc: Concentration
+  Con: Forme
 
 create:
   name:

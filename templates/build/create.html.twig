@@ -72,6 +72,7 @@
 				{% trans %}characteristic.label{% endtrans %}
 			</div>
 		</div>
+		{% set carKey = ['Str', 'Dex', 'Int', 'Foc', 'Con'] %}
 		{% for car in 1..5 %}
 			<div class="row">
 				<div class="col-2 rightborder align-bottom noSelect text-center pt-3 d-flex justify-content-evenly">
@@ -88,13 +89,13 @@
 				</div>
 				<div class="col">
 					<div class="fs-4 ps-2">
-						{{ "characteristic.characteristic.#{car-1}"|trans }}
+						{{ "characteristic.#{carKey[car-1]}"|trans }}
 					</div>
 					<div class="position-relative">
 						<div class="carCapDiv position-absolute d-flex flex-row justify-content-between">
 							<span class="carCap invisible rounded-circle bg-success"></span>
 							{% for i in 1..6 %}
-								<span class="carCap carCap{{car}} rounded-circle"></span>
+								<span data-carkey="{{ carKey[car - 1] }}" class="carCap carCap{{car}} rounded-circle"></span>
 							{% endfor %}
 						</div>
 						<div class="carProgressDiv progress">
@@ -136,7 +137,7 @@
 
 					<div class="col-12 col-lg-3 p-2">
 						<select autocomplete="off" class="weaponSelect form-select my-2">
-							<option selected value="0">
+							<option selected hidden value="0">
 								{% trans with {'%n%' : weapon }%}create.selectweapon{% endtrans %}</option>
 						</select>
 

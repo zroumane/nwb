@@ -49,12 +49,11 @@ characteristic:
   point: Points
   stuff: Stuff caracteristics
   remaining: restant(s)
-  characteristic:
-    - Strength
-    - Dexterity
-    - Intelligence
-    - Focus
-    - Consitution
+  Str: Strength
+  Dex: Dexterity
+  Int: Intelligence
+  Foc: Focus
+  Con: Consitution
 
 create:
   name:

@@ -3,7 +3,7 @@ import "../css/CreateBuild.scss";
 import "bootstrap/js/dist/tab";
 import Popover from "bootstrap/js/dist/popover";
 import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
-import { getMethod, getBuildId, setBrightness } from "./Utils";
+import { getMethod, getBuildId, setBrightness, initCarCapsPopover } from "./Utils";
 
 const $formBuildName = $q("#formBuildName");
 const $formBuildNameInvalid = $q("#formBuildNameInvalid");
@@ -90,6 +90,7 @@ const main = async () => {
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.messageLocal = await getMethod(`/json/${lang}/message.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
+  initCarCapsPopover($carCaps);
   let data = await getMethod("/api/weapons");
   window.weapons = data["hydra:member"];
   window.weapons.forEach((weapon) => {
@@ -338,7 +339,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       title: "Titre",
       content: "Description",
       trigger: "hover",
-      customClass: "skillContainerPopover",
+      html: true,
     });
 
     $skillContainer.addEventListener("click", () => {
