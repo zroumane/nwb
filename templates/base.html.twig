@@ -84,22 +84,19 @@
 								<a class="nav-link fs-5 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">{% trans %}navbar.login{% endtrans %}</a>
 							</li>
 						{% endif %}
+
+						{% set locales = ['en', 'fr'] %}
 						<li class="nav-item dropdown fs-5 d-flex align-items-center">
 							<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								{% if locale == 'en' %}English
-								{% endif %}
-								{% if locale == 'fr' %}Français
-								{% endif %}
+								<img src="{{ asset("/img/flag/#{locale}.svg") }}" class="flag">
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-								<li class="d-flex flex-row py-1 px-3">
-									<a class="dropdown-item flex-fill p-0" href="{{ path('app_setlocal_index', {'locale': 'en'}) }}">English</a>
-									<img src="{{ asset('/img/flag/en.svg') }}" class="flag">
-								</li>
-								<li class="d-flex flex-row py-1 px-3">
-									<a class="dropdown-item flex-fill p-0" href="{{ path('app_setlocal_index', {'locale': 'fr'}) }}">Français</a>
-									<img src="{{ asset('/img/flag/fr.svg') }}" class="flag">
-								</li>
+								{% for l in locales %}
+									<li class="d-flex flex-row py-1 px-3">
+										<a class="dropdown-item flex-fill p-0 flag-text" href="{{ path('app_setlocal_index', {'locale': l}) }}">{{ "locales.#{l}"|trans }}</a>
+										<img src="{{ asset("/img/flag/#{l}.svg") }}" class="flag">
+									</li>
+								{% endfor %}
 							</ul>
 						</li>
 					</ul>

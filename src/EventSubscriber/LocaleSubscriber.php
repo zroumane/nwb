@@ -17,6 +17,7 @@ class LocaleSubscriber implements EventSubscriberInterface
 
   public function onKernelRequest(RequestEvent $event)
   {
+    
     $request = $event->getRequest();
     if (!$request->hasPreviousSession()) {
       if (array_key_exists("HTTP_ACCEPT_LANGUAGE", $_SERVER)) {

@@ -1,7 +1,10 @@
-.carArrow {
+.carArrow,
+.carBonusRemove,
+.carBonusAdd {
   letter-spacing: -4px;
   cursor: pointer;
 }
+
 .noSelect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;

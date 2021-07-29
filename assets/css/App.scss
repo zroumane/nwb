@@ -21,7 +21,17 @@ body {
 }
 
 .flag {
-  width: 30px;
+  width: 48px;
+  height: 32px;
+}
+
+.flag-text {
+  height: 25px;
+  margin: auto;
+}
+
+.flag-text:hover {
+  background-color: white;
 }
 
 .discord {
