@@ -2,6 +2,9 @@
 /vendor/
 /.idea/
 /.vscode/
+/cdn/
+/public/img
+/public/json
 phpunit.xml.dist
 ###> symfony/webpack-encore-bundle ###
 /node_modules/

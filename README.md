@@ -24,3 +24,5 @@ sh start.sh
 ## Déploiement
 
 > Github Action
+
+\unpacked_out\lyshineui\images\icons\items_hires

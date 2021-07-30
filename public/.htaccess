@@ -20,6 +20,9 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
     
+    RedirectMatch 301 /img/(.*) https://cdn.newworld-builder.com/img/$1
+    RedirectMatch 301 /json/(.*) https://cdn.newworld-builder.com/json/$1
+
     RewriteCond %{HTTPS} off
     RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
     # Determine the RewriteBase automatically and set it as environment variable.

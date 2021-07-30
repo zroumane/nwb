@@ -26,13 +26,13 @@ class BuildsController extends AbstractController
   /**
    * @Route("/")
    */
-  public function index(Request $request, PaginatorInterface $paginator, BuildRepository $buildRep, WeaponRepository $weaponRep, KernelInterface $kernel): Response
+  public function index(Request $request, PaginatorInterface $paginator, BuildRepository $buildRep, WeaponRepository $weaponRep): Response
   {
 
     $query = $buildRep->findAllQuery($request->query);
     $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
 
-    $parser = new EntityParser($kernel);
+    $parser = new EntityParser();
     $parser->setWeaponLocal($request->getLocale());
     $parser->setWeapons($weaponRep->findAll());
     $builds->setItems(array_map(fn($build) => $parser->parseBuild($build), (array)$builds->getItems()));

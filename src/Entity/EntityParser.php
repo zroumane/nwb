@@ -7,19 +7,17 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 Class EntityParser{
 
-  private $kernel;
   private $weaponLocal;
   private $weapons;
 
-  public function __construct(KernelInterface $kernel)
+  public function __construct()
   {
-    $this->kernel = $kernel;
     $this->weaponLocal = [];
     $this->weapons = [];
   }
 
   public function setWeaponLocal($local){
-    $this->weaponLocal = (array)json_decode(file_get_contents($this->kernel->getProjectDir() . "/public/json/" . $local . "/weapon.json"));
+    $this->weaponLocal = (array)json_decode(file_get_contents("https://cdn.newworld-builder.com/json/" . $local . "/weapon.json"));
   }
 
   public function getWeaponLocal(){
