@@ -176,9 +176,5 @@
 	</tbody>
 </table>
 <div class="navigation">
-
-
-	{{ knp_pagination_render(builds, '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig', {}, {
-			'align': 'center',
-			'rounded': true,
-		}) }}</div></th></tr></thead></th></tr></thead>
+	{{ knp_pagination_render(builds, 'build/_pagination.html.twig') }}
+</div>

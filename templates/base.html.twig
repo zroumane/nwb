@@ -20,9 +20,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			New World Builder | Build, Database & PatchNote
+			{% block title %}
+				New World Builder | Build, Database & More
+			{% endblock %}
 		</title>
-		<meta name="keywords" locale="'{{ locale }}" content="build, create, newworld, new, world, amazon games, mmo"/>
+		<meta name="keywords" locale="'{{ locale }}" content="build, create, craft, newworld, new, world, amazon games, mmo"/>
 		<meta name="description" content="Discover New World Builder, a website that will allow you to make builds for your weapons on the Amazon Games MMO: New World."/>
 		<link rel="shortcut icon" href="{{asset('/img/favicon.ico')}}"/>
 		{{ encore_entry_link_tags('App') }}
