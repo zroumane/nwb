@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BuildRepository::class)
+ * @ORM\Table(name="build", indexes={@ORM\Index(columns={"name"}, flags={"fulltext"})})
  * @ORM\HasLifecycleCallbacks()
  */
 #[ApiResource(

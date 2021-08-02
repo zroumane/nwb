@@ -3,7 +3,7 @@ import { $q } from "./Global";
 
 const $filterBuildForm = $q("#filterBuildForm");
 const $filterBuildReset = $q("#filterBuildReset");
-// const $filterBuildSearch = $q("#filterBuildSearch");
+const $filterBuildSearch = $q("#filterBuildSearch");
 const $filterBuildWeapon = $q("#filterBuildWeapon");
 const $allWeaponCheck = $q("#allWeaponCheck").querySelector("input");
 const $weaponsChecks = Array.from($filterBuildWeapon.querySelectorAll(".weaponCheck"));
@@ -20,7 +20,7 @@ let url = new URL(window.location.href);
  * Refresh with filter
  */
 const sendForm = () => {
-  // $filterBuildSearch.value != "" ? url.searchParams.set("s", $filterBuildSearch.value) : url.searchParams.delete("s");
+  $filterBuildSearch.value != "" ? url.searchParams.set("q", $filterBuildSearch.value) : url.searchParams.delete("q");
   $filterBuildType.value != 0 ? url.searchParams.set("t", $filterBuildType.value) : url.searchParams.delete("t");
   let ids = window.selectedWeapon.filter((id) => id);
   ids.length ? url.searchParams.set("w", ids.join(",")) : url.searchParams.delete("w");
@@ -58,7 +58,7 @@ const updateWeapon = () => {
  * Set filter input at startup
  */
 const main = () => {
-  // $filterBuildSearch.value = url.searchParams.get("s");
+  $filterBuildSearch.value = url.searchParams.get("q");
   $filterBuildType.value = url.searchParams.get("t") ?? "0";
   if (url.searchParams.get("w")) {
     let weapon = url.searchParams.get("w").split(",");

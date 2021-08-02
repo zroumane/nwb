@@ -18,6 +18,12 @@ ul.pagination {
   margin: 0;
 }
 
+#allWeaponText {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 #allWeaponCheck {
   width: max-content;
 }

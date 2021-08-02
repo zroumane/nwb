@@ -1,14 +1,15 @@
 <div class="div mb-3">
 	<form method="get" class="row justify-content-center mb-2" id="filterBuildForm">
 
-		{# <div class="p-1 col-4"> #}
-		{# <div> #}
-		{# <label>{% trans %}builds.filter.search{% endtrans %}</label> #}
-		{# <input autocomplete="off" type="text" id="filterBuildSearch" name="s" class="form-control"> #}
-		{# </div> #}
-		{# </div> #}
+		<div class="p-1 col-4">
+			<div>
+				<label>{% trans %}builds.filter.search{% endtrans %}</label>
+				<input autocomplete="off" type="text" id="filterBuildSearch" name="s" class="form-control">
+			</div>
+		</div>
 
-			<div class="p-1 col-3"> <div>
+		<div class="p-1 col-3">
+			<div>
 				<label id="weaponLabel">{% trans %}builds.filter.weapons{% endtrans %}</label>
 				<div>
 					<a class="btn btn-primary w-100" id="allWeaponText" data-bs-toggle="collapse" href="#filterBuildWeapon" aria-controls="collapseExample">

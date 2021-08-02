@@ -50,23 +50,15 @@ class BuildRepository extends ServiceEntityRepository
       }
     }
 
-    // $weapons = explode(',', $query->get('w'));
-    // foreach ($weapons as $key => $id) {
-    //   if(is_numeric($id)){
-    //     $q->andWhere('b.weapons Like :weapon')
-    //     ->setParameter('weapon', '%"/api/weapons/'.$id.'"%');
-    //   }
-    // }
-
     if($user){
       $q->andWhere('b.author = :userid')
       ->setParameter('userid', $user->getId());
     }
 
-
-    // if($search = $query->get('s')){
-    //   //TODO Serach Engine
-    // }
+    if($search = $query->get('q')){
+      $q->andWhere('MATCH_AGAINST(b.name) AGAINST (:word boolean)>0')
+      ->setParameter('word', $search);
+    }
 
     return $q->getQuery();
 
