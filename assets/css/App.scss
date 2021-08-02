@@ -1,3 +1,11 @@
+$popover-bg: rgb(24, 24, 24) !default;
+$popover-header-bg: rgb(14, 14, 14);
+$popover-header-color: white;
+$popover-body-color: white;
+$popover-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !default;
+$popover-arrow-color: $popover-bg;
+$popover-border-color: rgb(65, 65, 65);
+
 @import "~bootstrap/scss/bootstrap";
 
 body {
