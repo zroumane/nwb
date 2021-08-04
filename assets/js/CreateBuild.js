@@ -114,8 +114,9 @@ const main = async () => {
         $weaponSelects[weaponIndex].value = weapon?.id && null;
         await getSkills(weapon);
         weapon.countdown = [19, 0, 0];
-        build.selectedSkills[weaponIndex].forEach((skill) => {
-          weapon.skills.filter((s) => s["@id"] == skill)[0].selected = true;
+        build.selectedSkills[weaponIndex].forEach((skillIRI) => {
+          let skill = weapon.skills.filter((s) => s["@id"] == skillIRI)[0];
+          skill.selected = true;
           weapon.countdown[0]--;
           weapon.countdown[skill.side]++;
         });
@@ -412,7 +413,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
 
         // 2. Si skills ligne suivante selected et pas de skill meme ligne selected
         if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.selected).length > 0) {
-          if (weapon.skills.filter((s) => s.line == skill.line && s.selected).length == 1) {
+          if (weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line && s.selected).length <= 1) {
             changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["RowBottom"]);
             return;
           }
