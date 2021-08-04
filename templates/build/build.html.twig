@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}
+	{% apply spaceless %}
 	New World Builder |
 	{{build.name}}
+	{% endapply %}
 {% endblock %}
+
+
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('Build') }}
