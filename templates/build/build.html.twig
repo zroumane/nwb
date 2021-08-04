@@ -1,13 +1,8 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}
-	{% apply spaceless %}
-	New World Builder |
-	{{build.name}}
-	{% endapply %}
+	{{ "<title>New World Builder | #{build.name}</title>"|spaceless }}
 {% endblock %}
-
 
 {% block stylesheets %}
 	{{ parent() }}
