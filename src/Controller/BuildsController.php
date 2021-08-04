@@ -64,23 +64,23 @@ class BuildsController extends AbstractController
    */
   public function show(Build $build): Response
   {
-    $views = $build->getViews();
-    $build->setViews($views + 1);
-    $build->setNotSendDiscord(true);
-    $em = $this->getDoctrine()->getManager();
-    $em->flush();
+    $session = $this->get('session');
+    $sessionViews = $session->get('views');
+    $buildId = $build->getId();
 
-    $liked = false;
-
-    if($user = $this->getUser()){
-      if($user->getLiked()->contains($build)){
-        $liked = true;
-      }
+    if(!in_array($buildId, $sessionViews)){
+      $views = $build->getViews();
+      $build->setViews($views + 1);
+      $build->setNotSendDiscord(true);
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+      array_push($sessionViews, $buildId);
+      $session->set('views', $sessionViews);
     }
-
+    
     return $this->render("build/build.html.twig", [
       "build" => $build,
-      "liked" => $liked
+      "favorite" => $build->getFavorites()->contains($this->getUser() ?? null)
     ]);
   }
 
@@ -91,7 +91,7 @@ class BuildsController extends AbstractController
   public function like(Build $build): Response
   {
     if($user = $this->getUser()){
-      $build->addLiked($user);
+      $build->addFavorites($user);
       $build->setNotSendDiscord(true);
       $em = $this->getDoctrine()->getManager();
       $em->flush();
@@ -106,7 +106,7 @@ class BuildsController extends AbstractController
   public function dislike(Build $build): Response
   {
     if($user = $this->getUser()){
-      $build->removeLiked($user);
+      $build->removeFavorites($user);
       $build->setNotSendDiscord(true);
       $em = $this->getDoctrine()->getManager();
       $em->flush();

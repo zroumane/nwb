@@ -58,15 +58,15 @@ class User implements UserInterface
   private $isVerified = false;
 
   /**
-   * @ORM\ManyToMany(targetEntity=Build::class, mappedBy="liked")
+   * @ORM\ManyToMany(targetEntity=Build::class, mappedBy="favorites")
    */
-  private $liked;
+  private $favorites;
 
 
   public function __construct()
   {
     $this->builds = new ArrayCollection();
-    $this->liked = new ArrayCollection();
+    $this->favorites = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -207,25 +207,25 @@ class User implements UserInterface
   /**
    * @return Collection|Build[]
    */
-  public function getLiked(): Collection
+  public function getFavorites(): Collection
   {
-      return $this->liked;
+      return $this->favorites;
   }
 
-  public function addLiked(Build $liked): self
+  public function addFavorites(Build $favorites): self
   {
-      if (!$this->liked->contains($liked)) {
-          $this->liked[] = $liked;
-          $liked->addLiked($this);
+      if (!$this->favorites->contains($favorites)) {
+          $this->favorites[] = $favorites;
+          $favorites->addFavorites($this);
       }
 
       return $this;
   }
 
-  public function removeLiked(Build $liked): self
+  public function removeFavorites(Build $favorites): self
   {
-      if ($this->liked->removeElement($liked)) {
-          $liked->removeLiked($this);
+      if ($this->favorites->removeElement($favorites)) {
+          $favorites->removeFavorites($this);
       }
 
       return $this;

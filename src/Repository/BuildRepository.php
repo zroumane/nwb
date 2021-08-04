@@ -9,6 +9,7 @@ use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr;
 
 /**
  * @method Build|null find($id, $lockMode = null, $lockVersion = null)
@@ -27,12 +28,12 @@ class BuildRepository extends ServiceEntityRepository
   public function findAllQuery($query, $user = null): Query
   {
     $q = $this->createQueryBuilder('b')
-      ->select('b.id, b.name, b.description ,b.type ,b.weapons ,b.updated_at as d,b.views as v')
+      ->select('b.id, b.name, b.description, b.type, b.weapons, b.updated_at as d, b.views as v')
       ->addOrderBy('b.updated_at', 'DESC')
       ->leftJoin('b.author', 'a')
       ->addSelect('a.pseudo, a.id as author_id')
-      ->leftJoin('b.liked', 'likes')
-      ->addSelect('COUNT(likes.id) AS l')
+      ->leftJoin('b.favorites', 'favorites')
+      ->addSelect('COUNT(favorites.id) AS f')
       ->groupBy('b.id');
 
     $type = $query->get('t');
@@ -64,6 +65,7 @@ class BuildRepository extends ServiceEntityRepository
 
 
   }
+
 
   // /**
   //  * @return Build[] Returns an array of Build objects

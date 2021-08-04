@@ -85,6 +85,7 @@ const main = async () => {
             title: window.skillLocal[match.skillKey] ?? match.skillKey,
             content: window.skillLocal[match.skillKey + "_description"] ?? match.skillKey,
             trigger: "hover",
+            html: true,
           });
         }
       });

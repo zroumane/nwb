@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
 
             
               for ($o = 1; $o <= mt_rand(1, 5); $o++) { 
-                $build->addLiked($this->userRepository->findOneBy(['id' => $o]));
+                $build->addFavorites($this->userRepository->findOneBy(['id' => $o]));
               }
 
 

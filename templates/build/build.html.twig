@@ -60,8 +60,8 @@
 				</button>
 			</div>
 			<div class="p-1 text-end">
-				<a href="{% if liked %} {{path('app_builds_dislike',{id: build.id})}} {% else %} {{path('app_builds_like',{id: build.id})}} {% endif %}" class="btn btn-sm btn-{% if liked %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
-					{{build.liked|length}}
+				<a href="{% if favorite %} {{path('app_builds_dislike',{id: build.id})}} {% else %} {{path('app_builds_like',{id: build.id})}} {% endif %}" class="btn btn-sm btn-{% if favorite %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
+					{{build.favorites|length}}
 					| Like</a>
 			</div>
 			{% if app.user and build.author %}

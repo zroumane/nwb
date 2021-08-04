@@ -2,9 +2,6 @@
 
 namespace App\Entity;
 
-use App\Kernel;
-use Symfony\Component\HttpKernel\KernelInterface;
-
 Class EntityParser{
 
   private $weaponLocal;
@@ -17,7 +14,7 @@ Class EntityParser{
   }
 
   public function setWeaponLocal($local){
-    $this->weaponLocal = (array)json_decode(file_get_contents("https://cdn.newworld-builder.com/json/" . $local . "/weapon.json"));
+    $this->weaponLocal = (array)json_decode(file_get_contents("https://newworld-builder.com/json/" . $local . "/weapon.json"));
   }
 
   public function getWeaponLocal(){
@@ -54,26 +51,5 @@ Class EntityParser{
     }, $build['weapons']);
     return $build;
   }
-
-  // public function convertBuild($iriConverter, $kernel, $builds, $local): Array
-  // {
-
-  //   $builds = array_map(function($build) use ($iriConverter, $kernel, $local){
-  //     $build->setWeapons(array_map(function($w) use ($iriConverter, $kernel, $local){
-  //       try{
-  //         $weapon = $iriConverter->getItemFromIri($w);
-  //         return self::weapon($kernel, $weapon, $local)->getWeaponKey();
-  //       }
-  //       catch(\Throwable $th){
-  //         return $w;
-  //       }
-  //     }, $build->getWeapons()));
-
-  //     $build->setWeapons(array_filter($build->getWeapons(), function($w){return !is_null($w);}));
-  //     return $build;
-  //   }, $builds);
-
-  //   return $builds;
-  // }
   
 }

@@ -86,9 +86,9 @@ class Build implements UserOwnedInterface
   private $notSendDiscord = false;
   
   /**
-   * @ORM\ManyToMany(targetEntity=User::class, inversedBy="liked")
+   * @ORM\ManyToMany(targetEntity=User::class, inversedBy="favorites")
    */
-  private $liked;
+  private $favorites;
 
   /**
    * @ORM\ManyToOne(targetEntity=User::class, inversedBy="builds")
@@ -220,7 +220,7 @@ class Build implements UserOwnedInterface
   public function __construct()
   {
     $this->weapons = new ArrayCollection();
-    $this->liked = new ArrayCollection();
+    $this->favorites = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -370,23 +370,23 @@ class Build implements UserOwnedInterface
   /**
    * @return Collection|User[]
    */
-  public function getLiked(): Collection
+  public function getFavorites(): Collection
   {
-      return $this->liked;
+      return $this->favorites;
   }
 
-  public function addLiked(User $liked): self
+  public function addFavorites(User $favorites): self
   {
-      if (!$this->liked->contains($liked)) {
-          $this->liked[] = $liked;
+      if (!$this->favorites->contains($favorites)) {
+          $this->favorites[] = $favorites;
       }
 
       return $this;
   }
 
-  public function removeLiked(User $liked): self
+  public function removeFavorites(User $favorites): self
   {
-      $this->liked->removeElement($liked);
+      $this->favorites->removeElement($favorites);
 
       return $this;
   }
