@@ -17,3 +17,5 @@ start.bat
 start.sh
 symfony.lock
 yarn.lock
+public/json
+public/img
