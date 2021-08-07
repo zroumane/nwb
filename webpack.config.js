@@ -17,6 +17,7 @@ Encore
   .addEntry("Builds", "./assets/js/Builds.js")
   .addEntry("CreateBuild", "./assets/js/CreateBuild.js")
   .addEntry("WeaponDashboard", "./assets/js/WeaponDashboard.js")
+  .addEntry("ItemDashboard", "./assets/js/ItemDashboard.js")
 
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()
