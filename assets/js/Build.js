@@ -16,7 +16,7 @@ const $skillSection = $q("#skillSection");
 const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
 const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 
-const main = async () => {
+(async () => {
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
   initCarCapsPopover($carCaps);
@@ -95,8 +95,7 @@ const main = async () => {
   });
   $spinner.classList.add("d-none");
   $skillSection.classList.remove("d-none");
-};
-main();
+})();
 
 $shareButton.addEventListener("click", () => {
   navigator.clipboard.writeText(window.location.href);

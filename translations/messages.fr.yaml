@@ -10,10 +10,10 @@ locales:
 navbar:
   build: Builds
   create: Créer
-  patchnote: Patch Note
+  craft: Craft
+  mybuild: Mes builds
   login: Connexion
   logout: Deconnexion
-  mybuild: Mes builds
   settings: Settings
 
 
@@ -73,9 +73,6 @@ create:
   reset: Réinitialiser
   modify: Modifier
   nouser: Attention, si vous choisissez de créer un build sans être connecté, vous ne le conserverez qu'avec son lien de partage.
-
-patchnote:
-  goback: Revenir
 
 profile:
   title: Build(s) de %pseudo%

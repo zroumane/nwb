@@ -4,10 +4,10 @@
 	{% set current_menu = 'builds' %}
 {% elseif app.request.pathinfo starts with '/create' %}
 	{% set current_menu = 'create' %}
-{% elseif app.request.pathinfo starts with '/patchnote' %}
-	{% set current_menu = 'patchnote' %}
 {% elseif app.request.pathinfo starts with '/login' %}
 	{% set current_menu = 'login' %}
+{% elseif app.request.pathinfo starts with '/craft' %}
+	{% set current_menu = 'craft' %}
 {% elseif app.request.pathinfo == '/profile' %}
 	{% set current_menu = 'profile' %}
 {% else %}
@@ -56,11 +56,11 @@
 							<a class="nav-link {% if current_menu == 'create' %}active{% endif %}" href="{{path('app_builds_create')}}">{% trans %}navbar.create{% endtrans %}</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link {% if current_menu == 'craft' %}active{% endif %}" href="{{path('app_craft_index')}}">{% trans %}navbar.craft{% endtrans %}</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link {% if current_menu == 'profile' %}active{% endif %}" href="{{path('app_profile_index')}}">{% trans %}navbar.mybuild{% endtrans %}</a>
 						</li>
-						{# <li class="nav-item"> #}
-					{# <a class="nav-link {% if current_menu == 'patchnote' %}active{% endif %}" href="{{path('app_patchnote_index')}}">{% trans %}navbar.patchnote{% endtrans %}</a> #}
-						{# </li> #}
 					</ul>
 					<ul class="navbar-nav ml-auto">
 						{% if app.user %}

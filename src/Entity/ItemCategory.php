@@ -48,12 +48,13 @@ class ItemCategory
      * @ORM\ManyToOne(targetEntity=ItemCategory::class, inversedBy="children")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
+    #[Groups(['write:itemCategory'])]
     private $parent;
     
     /**
      * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="parent")
      */
-    #[Groups(['read:itemCategory', 'write:itemCategory'])]
+    #[Groups(['read:itemCategory'])]
     private $children;
 
     /**

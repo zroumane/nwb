@@ -1,0 +1,16 @@
+.categoryLabel {
+  cursor: move;
+}
+svg {
+  cursor: pointer;
+}
+
+#categorySection {
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.categoryHeader {
+  display: inline-block;
+  white-space: nowrap;
+}

@@ -86,7 +86,7 @@ const Pop = ($el) => Popover.getInstance($el);
  * Main : Permet de fetch les json, les weapons
  * et si "/edit", les infos de la build en question
  */
-const main = async () => {
+(async () => {
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.messageLocal = await getMethod(`/json/${lang}/message.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
@@ -127,9 +127,7 @@ const main = async () => {
     });
   }
   formBuildSave.classList.remove("d-none");
-};
-
-main();
+})();
 
 // const $carPointTexts = $qa(".carPointText");
 const setHtmlCar = (car) => {
