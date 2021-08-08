@@ -83,11 +83,11 @@ const $makeCategory = (category, $parent) => {
 
   setCategoryListener($categoryLabel, category, categoryTree);
 
-  let $actions = $category.firstElementChild.lastElementChild.children;
-  $actions[0].addEventListener("click", () => {
+  let $actions = $category.firstElementChild.children;
+  $actions[2].addEventListener("click", () => {
     loadCategoryModal(category);
   });
-  $actions[1].addEventListener("click", async () => {
+  $actions[3].addEventListener("click", async () => {
     if (window.confirm(`Delete ${category.category}`)) {
       fetch(`/api/item_categories/${category.id}`, { method: "DELETE" }).then(() => {});
       getCategories();
