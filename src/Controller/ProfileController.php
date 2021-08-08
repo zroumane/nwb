@@ -64,6 +64,6 @@ class ProfileController extends AbstractController
    */
   public function admin(): Response
   {
-    return $this->render("admin/user.html.twig");
+    return $this->render("security/user.html.twig");
   }
 }

@@ -57,7 +57,7 @@ const updateWeapon = () => {
 /**
  * Set filter input at startup
  */
-const main = () => {
+(() => {
   $filterBuildSearch.value = url.searchParams.get("q");
   $filterBuildType.value = url.searchParams.get("t") ?? "0";
   if (url.searchParams.get("w")) {
@@ -71,8 +71,7 @@ const main = () => {
     });
     updateWeapon();
   }
-};
-main();
+})();
 
 /**
  * Add a weapon

@@ -10,10 +10,10 @@ locales:
 navbar:
   build: Builds
   create: Create
-  patchnote: PatchNote
+  craft: Craft
+  mybuild: My builds
   login: Login
   logout: Logout
-  mybuild: My builds
   settings: Paramètre
 
 builds:
@@ -73,10 +73,7 @@ create:
   modify: Modify
   connect: Please login to be able to create a build.
   nouser: Be careful, if you choose to create a build without being connected, you will only keep it with its share link.
-
-patchnote:
-  goback: Go back to list
-
+  
 profile:
   title: "%pseudo%'s build(s)"
   yourbuild: Your builds
