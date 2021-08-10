@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
     normalizationContext: ['groups' => 'read:itemCategory'],
     denormalizationContext: ['groups' => 'write:itemCategory'],
     collectionOperations: [
+        'get',
         'post' => ['security' => 'is_granted("ROLE_ADMIN")']
     ],
     itemOperations: [

@@ -25,7 +25,8 @@ const loadCategoryModal = (category) => {
       method: category ? "PUT" : "POST",
       body: JSON.stringify({
         category: $categoryModal.querySelector('input[type="text"]').value ?? "new_category",
-        parent: "/api/item_categories/0",
+        position: !category ? -1 : category.position < 0 ? -1 : category.position,
+        parent: null,
       }),
     }).then(() => {
       getCategories().then(() => {
@@ -39,9 +40,9 @@ const loadCategoryModal = (category) => {
 };
 
 const canDropCategroy = ($moveDiv) => {
-  let draggedParentId = window.curentDragCategory.parent ? window.curentDragCategory.parent.split("/").reverse()[0] : 0;
+  let draggedParentId = window.curentDragCategory.parent ? window.curentDragCategory.parent.split("/").reverse()[0] : null;
   let rawTargetTree = $moveDiv.parentElement.dataset?.tree;
-  let targetTree = rawTargetTree ? rawTargetTree.split("-") : [0];
+  let targetTree = rawTargetTree ? rawTargetTree.split("-") : [null];
   if (targetTree.includes(window.curentDragCategory.id.toString())) return false;
   if (draggedParentId == targetTree.reverse()[0])
     if (window.curentDragCategory.position == $moveDiv.dataset.position || window.curentDragCategory.position + 1 == $moveDiv.dataset.position) return false;
@@ -72,7 +73,7 @@ const setCategoryListener = ($moveDiv) => {
         headers: { "Content-Type": "application/json" },
         method: "PUT",
         body: JSON.stringify({
-          parent: "/api/item_categories/" + parent,
+          parent: parent ? "/api/item_categories/" + parent : null,
           position: parseInt($moveDiv.dataset.position),
         }),
       }).then(() => getCategories());
@@ -95,6 +96,9 @@ const $makeCategory = (category, $parent) => {
     loadCategoryModal(category);
   });
   $actions[3].addEventListener("click", async () => {
+    if (category.children.length != 0) {
+      return window.alert("Before deleting this category, you have to move or delete its children.");
+    }
     if (window.confirm(`Delete ${category.category}`)) {
       fetch(`/api/item_categories/${category.id}`, { method: "DELETE" }).then(() => {});
       getCategories();
@@ -125,9 +129,9 @@ const $makeCategory = (category, $parent) => {
 
 const getCategories = async () => {
   $categorySection.innerHTML = "";
-  const root = await getMethod("/api/item_categories/0");
-  console.log(root.children);
-  root.children.forEach((category) => $makeCategory(category));
+  const categories = (await getMethod("/api/item_categories"))["hydra:member"];
+  console.log(categories);
+  categories.forEach((category) => $makeCategory(category));
 };
 
 (async () => {
