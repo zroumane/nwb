@@ -5,21 +5,18 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
-use App\Repository\ItemCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass=ItemCategoryRepository::class)
- */
 #[ApiResource(
-	attributes: ["pagination_enabled" => false],
+    attributes: ["pagination_enabled" => false, "order" => ["position" => "ASC"]],
     normalizationContext: ['groups' => 'read:itemCategory'],
     denormalizationContext: ['groups' => 'write:itemCategory'],
     collectionOperations: [
-        'get',
         'post' => ['security' => 'is_granted("ROLE_ADMIN")']
     ],
     itemOperations: [
@@ -27,7 +24,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'put' => ['security' => 'is_granted("ROLE_ADMIN")'],
         'delete' => ['security' => 'is_granted("ROLE_ADMIN")']
     ]
-  )]
+)]
+/**
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ */
 class ItemCategory
 {
     /**
@@ -39,20 +39,30 @@ class ItemCategory
     private $id;
 
     /**
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
+     */
+    #[Groups(['read:itemCategory', 'write:itemCategory'])]
+    private $position;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     #[Groups(['read:itemCategory', 'write:itemCategory'])]
     private $category;
 
     /**
+     * @Gedmo\SortableGroup
      * @ORM\ManyToOne(targetEntity=ItemCategory::class, inversedBy="children")
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
-    #[Groups(['write:itemCategory'])]
-    private $parent;
+    #[Groups(['read:itemCategory', 'write:itemCategory'])]
+    #[ApiProperty(readableLink: false, writableLink: false)]
+    private $parent = 0;
     
     /**
      * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="parent")
+     * @OrderBy({"position" = "ASC"})
      */
     #[Groups(['read:itemCategory'])]
     private $children;
@@ -72,6 +82,16 @@ class ItemCategory
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     public function getCategory(): ?string

@@ -8,7 +8,6 @@ const $categorySection = $q("#categorySection");
 const $categoryModal = $q("#categoryModal");
 let categoryModal = new Modal($categoryModal, {});
 const $addCategoryBtn = $q("#addCategoryBtn");
-const $categoryRoot = $q("#categoryRoot");
 window.currentCategory = null;
 
 const loadCategoryModal = (category) => {
@@ -24,7 +23,10 @@ const loadCategoryModal = (category) => {
     fetch(`/api/item_categories${category ? `/${category.id}` : ""}`, {
       headers: { "Content-Type": "application/json" },
       method: category ? "PUT" : "POST",
-      body: JSON.stringify({ category: $categoryModal.querySelector('input[type="text"]').value ?? "new_category" }),
+      body: JSON.stringify({
+        category: $categoryModal.querySelector('input[type="text"]').value ?? "new_category",
+        parent: "/api/item_categories/0",
+      }),
     }).then(() => {
       getCategories().then(() => {
         categoryModal.hide();
@@ -36,34 +38,43 @@ const loadCategoryModal = (category) => {
   categoryModal.show();
 };
 
+const canDropCategroy = ($moveDiv) => {
+  let draggedParentId = window.curentDragCategory.parent ? window.curentDragCategory.parent.split("/").reverse()[0] : 0;
+  let rawTargetTree = $moveDiv.parentElement.dataset?.tree;
+  let targetTree = rawTargetTree ? rawTargetTree.split("-") : [0];
+  if (targetTree.includes(window.curentDragCategory.id.toString())) return false;
+  if (draggedParentId == targetTree.reverse()[0])
+    if (window.curentDragCategory.position == $moveDiv.dataset.position || window.curentDragCategory.position + 1 == $moveDiv.dataset.position) return false;
+  return true;
+};
 /**
- * @param {HTMLElement} $category
- * @param {object} category
- * @param {string} categoryTree
+ * @param {HTMLElement} $moveDiv
  */
-const setCategoryListener = ($category, category, categoryTree) => {
-  if (category) $category.addEventListener("dragstart", () => (window.curentDragCategory = category));
-  $category.addEventListener("dragover", (event) => event.preventDefault());
-  $category.addEventListener("dragenter", (event) => {
-    if (window.curentDragCategory === event.target.parentElement) return;
-    $category.style.backgroundColor = "white";
+const setCategoryListener = ($moveDiv) => {
+  $moveDiv.addEventListener("dragover", (event) => event.preventDefault());
+  $moveDiv.addEventListener("dragenter", () => {
+    if (!canDropCategroy($moveDiv)) return;
+    $moveDiv.style.backgroundColor = "white";
+    $moveDiv.parentElement.style.opacity = "0.7";
   });
-  $category.addEventListener("dragleave", (event) => {
-    if (window.curentDragCategory === event.target.parentElement) return;
-    $category.style.backgroundColor = "";
+  $moveDiv.addEventListener("dragleave", () => {
+    $moveDiv.style.backgroundColor = "";
+    $moveDiv.parentElement.style.opacity = "1";
   });
-  $category.addEventListener("drop", (event) => {
+  $moveDiv.addEventListener("drop", (event) => {
     event.preventDefault();
-    $category.style.backgroundColor = "";
-
-    if (window.curentDragCategory.id == category?.id) return;
-    if (category && category.children.find((c) => c.id == window.curentDragCategory.id)) return;
-    if (categoryTree && categoryTree.split("-").includes(window.curentDragCategory.id.toString())) return;
-    if (window.confirm(`Move ${window.curentDragCategory.category} ${category ? `under ${category.category}` : "to root"} ?`)) {
+    $moveDiv.style.backgroundColor = "";
+    $moveDiv.parentElement.style.opacity = "1";
+    if (!canDropCategroy($moveDiv)) return;
+    let parent = $moveDiv.parentElement.dataset.id;
+    if (window.confirm(`Move ${window.curentDragCategory.category} ${parent ? `under category ${parent}` : "to root"} and with position ${$moveDiv.dataset.position} ?`)) {
       fetch(`/api/item_categories/${window.curentDragCategory.id}`, {
         headers: { "Content-Type": "application/json" },
         method: "PUT",
-        body: JSON.stringify({ parent: category ? category["@id"] : null }),
+        body: JSON.stringify({
+          parent: "/api/item_categories/" + parent,
+          position: parseInt($moveDiv.dataset.position),
+        }),
       }).then(() => getCategories());
     }
   });
@@ -76,12 +87,8 @@ const setCategoryListener = ($category, category, categoryTree) => {
 const $makeCategory = (category, $parent) => {
   let $category = $categoryTemplate.content.cloneNode(true).firstElementChild;
   let $categoryLabel = $category.firstElementChild.firstElementChild;
+  $categoryLabel.addEventListener("dragstart", () => (window.curentDragCategory = category));
   $categoryLabel.innerText = category.category;
-  let parentTree = $parent?.parentElement?.dataset.tree;
-  let categoryTree = parentTree ? (parentTree += `-${category.id}`) : category.id.toString();
-  $category.dataset.tree = categoryTree;
-
-  setCategoryListener($categoryLabel, category, categoryTree);
 
   let $actions = $category.firstElementChild.children;
   $actions[2].addEventListener("click", () => {
@@ -94,18 +101,36 @@ const $makeCategory = (category, $parent) => {
     }
   });
 
+  const $makeCategoryMove = ($parent, position) => {
+    let $moveDiv = document.createElement("div");
+    $moveDiv.classList.add("categoryMoveDiv");
+    $moveDiv.dataset.position = position;
+    setCategoryListener($moveDiv);
+    $parent.appendChild($moveDiv);
+  };
+
+  let parentTree = $parent?.dataset.tree;
+  let categoryTree = parentTree ? (parentTree += `-${category.id}`) : category.id.toString();
+  $category.lastElementChild.dataset.tree = categoryTree;
+  $category.lastElementChild.dataset.id = category.id;
+
+  if ($parent && $parent.children.length === 0) $makeCategoryMove($parent, 0);
+  if ($category.lastElementChild.children.length === 0) $makeCategoryMove($category.lastElementChild, 0);
+  if ($categorySection.children.length == 0) $makeCategoryMove($categorySection, 0);
+
   $parent ? $parent.appendChild($category) : $categorySection.appendChild($category);
+  $makeCategoryMove($parent ?? $categorySection, category.position + 1);
   category.children.forEach((c) => $makeCategory(c, $category.lastElementChild));
 };
 
 const getCategories = async () => {
   $categorySection.innerHTML = "";
-  const categories = (await getMethod("/api/item_categories"))["hydra:member"];
-  categories.forEach((category) => $makeCategory(category));
+  const root = await getMethod("/api/item_categories/0");
+  console.log(root.children);
+  root.children.forEach((category) => $makeCategory(category));
 };
 
 (async () => {
   getCategories();
   $addCategoryBtn.addEventListener("click", () => loadCategoryModal());
-  setCategoryListener($categoryRoot);
 })();
