@@ -5,7 +5,9 @@ import Popover from "bootstrap/js/dist/popover";
  * @returns []
  */
 const getMethod = async (url) => {
-  var data = await fetch(url);
+  var data = await fetch(url, {
+    cache: "no-store",
+  });
   return await data.json();
 };
 

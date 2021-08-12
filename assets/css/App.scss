@@ -8,6 +8,26 @@ $popover-border-color: rgb(65, 65, 65);
 
 @import "~bootstrap/scss/bootstrap";
 
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(114, 114, 114);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(56, 56, 56);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgb(36, 36, 36);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background: rgb(24, 24, 24);
+}
+
 body {
   padding: 0;
   background: rgb(41, 40, 38);
