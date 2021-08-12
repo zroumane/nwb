@@ -88,6 +88,8 @@ class ItemCategory
     public function setPosition($position)
     {
         $this->position = $position;
+        
+        return $this;
     }
 
     public function getPosition()
