@@ -48,6 +48,7 @@ const loadEntity = {
       let items = (await getMethod(`/api/item_categories/${window.currentCategory[1].id}/items`))["hydra:member"];
       items.forEach((item) => {
         let $item = $itemTemplate.content.cloneNode(true).firstElementChild;
+        $item.children[0].src = `/img/items/${item.itemKey}.png`;
         $item.children[1].innerText = item.itemKey;
         $item.children[1].addEventListener("dragstart", () => (window.currentDrag = ["items", item]));
         let $actions = $item.children;
