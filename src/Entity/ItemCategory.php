@@ -59,7 +59,7 @@ class ItemCategory
      */
     #[Groups(['read:itemCategory', 'write:itemCategory'])]
     #[ApiProperty(readableLink: false, writableLink: false)]
-    private $parent = 0;
+    private $parent = null;
     
     /**
      * @ORM\OneToMany(targetEntity=ItemCategory::class, mappedBy="parent")
