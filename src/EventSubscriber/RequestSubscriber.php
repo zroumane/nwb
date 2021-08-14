@@ -21,10 +21,6 @@ class RequestSubscriber implements EventSubscriberInterface
     $request = $event->getRequest();
     $session = $request->getSession();
 
-    if (!$request->hasPreviousSession()) {
-      return;
-    }
-
     if ($locale = $request->attributes->get('_locale')) {
       $request->getSession()->set('_locale', $locale);
     } else {

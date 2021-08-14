@@ -67,7 +67,7 @@ class BuildsController extends AbstractController
     $session = $this->get('session');
     $sessionViews = $session->get('views');
     $buildId = $build->getId();
-
+    
     if(!in_array($buildId, $sessionViews)){
       $views = $build->getViews();
       $build->setViews($views + 1);

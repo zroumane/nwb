@@ -57,7 +57,7 @@ characteristic:
   Dex: Dexterity
   Int: Intelligence
   Foc: Focus
-  Con: Consitution
+  Con: Constitution
 
 create:
   name:
