@@ -17,11 +17,6 @@ class RequestSubscriber implements EventSubscriberInterface
     ];
   }
 
-  function startsWith( $haystack, $needle ) {
-    $length = strlen( $needle );
-    return substr( $haystack, 0, $length ) === $needle;
-  }
-
   public function onKernelRequest(RequestEvent $event)
   {    
     $request = $event->getRequest();
@@ -29,11 +24,11 @@ class RequestSubscriber implements EventSubscriberInterface
 
     $uri = explode('/', $request->getRequestUri());
     $locale_array = ["en", "fr"];
-    
-    if($uri[1] != ("api" || "_profiler" || "_wdt")){ 
-      if(!in_array($uri[1], $locale_array)){
-        $event->setResponse(new RedirectResponse('/en' . $request->getRequestUri()));
-      }
+
+    $bypass = ['api', '_profiler', '_wdt'];
+
+    if( !in_array($uri[1], $bypass) && !in_array($uri[1], $locale_array) ){
+      $event->setResponse(new RedirectResponse('/en' . $request->getRequestUri()));
     }
 
     if(!$session->get('views')){
