@@ -5,29 +5,23 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @param String $locale
- * @return array
- */
-class SetLocalController
+
+class SetLocalController extends AbstractController
 {
   /**
-   * @Route("/setlocale/{locale}")
+   * @Route("/setlocale/{_locale}")
    */
-  public function index(Request $request, $locale = null)
+  public function index(Request $request, $_locale)
   {
     $locale_array = ["en", "fr"];
 
-    if (in_array($locale, $locale_array)) {
-      $request->getSession()->set("_locale", $locale);
+    if (in_array($_locale, $locale_array)) {
+      $request->getSession()->set("_locale", $_locale);
     }
     
     $url = $request->headers->get("referer");
-    if (empty($url)) {
-      $url = $this->container->get("router")->generate("index");
-    }
-
-    return new RedirectResponse($url);
+    return new RedirectResponse($url ?? '/');
   }
 }

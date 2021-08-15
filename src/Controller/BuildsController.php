@@ -97,8 +97,7 @@ class BuildsController extends AbstractController
       $em->flush();
     }
 
-    // return $this->redirectToRoute('app_builds_show', ['id' => $build->getId()]);
-    return $this->show($build);
+    return $this->redirectToRoute('app_builds_show', ['id' => $build->getId()]);
   }
 
   /**
@@ -113,8 +112,7 @@ class BuildsController extends AbstractController
       $em->flush();
     }
 
-    // return $this->redirectToRoute('app_builds_show', ['id' => $build->getId()]);
-    return $this->show($build);
+    return $this->redirectToRoute('app_builds_show', ['id' => $build->getId()]);
   }
 
   /**
