@@ -11,13 +11,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RequestSubscriber implements EventSubscriberInterface
 {
 
-  private $requestStack;
-
-  public function __construct(RequestStack $requestStack)
-  {
-      $this->requestStack = $requestStack;
-  }
-
   public static function getSubscribedEvents()
   {
     return [
@@ -28,7 +21,7 @@ class RequestSubscriber implements EventSubscriberInterface
   public function onKernelRequest(RequestEvent $event)
   {    
     $request = $event->getRequest();
-    $session = $this->requestStack->getSession();
+    $session = $request->getSession();
 
     $uri = explode('/', $request->getRequestUri());
     $locale_array = ["en", "fr"];
@@ -42,5 +35,6 @@ class RequestSubscriber implements EventSubscriberInterface
     if(!$session->get('views')){
       $session->set('views', []);
     }
+
   }
 }

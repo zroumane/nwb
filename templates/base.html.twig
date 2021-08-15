@@ -2,17 +2,17 @@
 {% set route = app.request.attributes.get('_route') %}
 {% set route_params = app.request.attributes.get('_route_params') %}
 {% set params = route_params|merge(app.request.query.all) %}
+{% set pathname = app.request.pathinfo|split('/') %}
 
-
-{% if app.request.pathinfo == '/' or app.request.pathinfo starts with '/build'%}
+{% if pathname[2] == 'build' or not pathname[2] %}
 	{% set current_menu = 'builds' %}
-{% elseif app.request.pathinfo starts with '/create' %}
+{% elseif pathname[2] == 'create' %}
 	{% set current_menu = 'create' %}
-{% elseif app.request.pathinfo starts with '/login' %}
+{% elseif pathname[2] == 'login' %}
 	{% set current_menu = 'login' %}
-{% elseif app.request.pathinfo starts with '/craft' %}
+{% elseif pathname[2] == 'craft' %}
 	{% set current_menu = 'craft' %}
-{% elseif app.request.pathinfo == '/profile' %}
+{% elseif pathname[2] == 'profile' %}
 	{% set current_menu = 'profile' %}
 {% else %}
 	{% set current_menu = '' %}
