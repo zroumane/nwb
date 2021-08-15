@@ -4,6 +4,7 @@ namespace App\EventSubscriber;
 
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RequestSubscriber implements EventSubscriberInterface
@@ -16,19 +17,23 @@ class RequestSubscriber implements EventSubscriberInterface
     ];
   }
 
+  function startsWith( $haystack, $needle ) {
+    $length = strlen( $needle );
+    return substr( $haystack, 0, $length ) === $needle;
+  }
+
   public function onKernelRequest(RequestEvent $event)
   {    
     $request = $event->getRequest();
     $session = $request->getSession();
 
-    if (!$request->hasPreviousSession()) {
-      return;
-  }
-
-    if ($locale = $request->attributes->get('_locale')) {
-      $request->getSession()->set('_locale', $locale);
-    } else {
-      $request->setLocale($request->getSession()->get('_locale', 'en'));
+    $uri = explode('/', $request->getRequestUri());
+    $locale_array = ["en", "fr"];
+    
+    if($uri[1] != ("api" || "_profiler" || "_wdt")){ 
+      if(!in_array($uri[1], $locale_array)){
+        $event->setResponse(new RedirectResponse('/en' . $request->getRequestUri()));
+      }
     }
 
     if(!$session->get('views')){

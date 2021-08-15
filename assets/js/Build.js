@@ -20,7 +20,9 @@ const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
   initCarCapsPopover($carCaps);
-  let data = await fetch(`/api/builds/${getBuildId()}`);
+  let data = await fetch(`/api/builds/${getBuildId()}`, {
+    cache: "no-store",
+  });
   let build = await data.json();
   if (!build.characteristics) {
     build.characteristics = [190, [0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]];
@@ -98,7 +100,8 @@ const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 })();
 
 $shareButton.addEventListener("click", () => {
-  navigator.clipboard.writeText(window.location.href);
+  let url = window.location.origin + window.location.pathname.substr(3);
+  navigator.clipboard.writeText(url);
   $shareButton.firstElementChild.innerText = "✓";
   $shareButton.classList.remove("btn-primary");
   $shareButton.classList.add("btn-success");

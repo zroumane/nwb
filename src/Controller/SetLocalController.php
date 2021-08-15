@@ -10,18 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SetLocalController extends AbstractController
 {
-  /**
-   * @Route("/setlocale/{_locale}")
-   */
-  public function index(Request $request, $_locale)
-  {
-    $locale_array = ["en", "fr"];
 
-    if (in_array($_locale, $locale_array)) {
-      $request->getSession()->set("_locale", $_locale);
-    }
+  // public function index(Request $request, $_locale)
+  // {
+  //   $locale_array = ["en", "fr"];
+
+  //   if (in_array($_locale, $locale_array)) {
+  //     $request->getSession()->set("_locale", $_locale);
+  //   }
     
-    $url = $request->headers->get("referer");
-    return new RedirectResponse($url ?? '/');
-  }
+  //   $url = $request->headers->get("referer");
+  //   return new RedirectResponse($url ?? '/');
+  // }
+
 }
