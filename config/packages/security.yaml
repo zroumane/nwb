@@ -26,4 +26,3 @@ security:
                 secret:   '%kernel.secret%'
     access_control:
         - { path: ^/(%app_locales%)/admin, roles: ROLE_ADMIN }
-    access_denied_url: /en/login

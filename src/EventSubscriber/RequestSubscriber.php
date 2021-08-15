@@ -3,12 +3,20 @@
 namespace App\EventSubscriber;
 
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RequestSubscriber implements EventSubscriberInterface
 {
+
+  private $requestStack;
+
+  public function __construct(RequestStack $requestStack)
+  {
+      $this->requestStack = $requestStack;
+  }
 
   public static function getSubscribedEvents()
   {
@@ -20,7 +28,7 @@ class RequestSubscriber implements EventSubscriberInterface
   public function onKernelRequest(RequestEvent $event)
   {    
     $request = $event->getRequest();
-    $session = $request->getSession();
+    $session = $this->requestStack->getSession();
 
     $uri = explode('/', $request->getRequestUri());
     $locale_array = ["en", "fr"];
