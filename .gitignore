@@ -5,6 +5,7 @@
 /cdn/
 /public/img
 /public/json
+translations
 phpunit.xml.dist
 ###> symfony/webpack-encore-bundle ###
 /node_modules/

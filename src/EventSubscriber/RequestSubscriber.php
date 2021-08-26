@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,6 +11,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class RequestSubscriber implements EventSubscriberInterface
 {
+
+  function __construct()
+  {
+    $this->locale_array = ["de", "en", "es", "fr", "it", "pl", "pt"];
+  }
 
   public static function getSubscribedEvents()
   {
@@ -23,13 +29,12 @@ class RequestSubscriber implements EventSubscriberInterface
     $request = $event->getRequest();
     $session = $request->getSession();
 
-    $uri = explode('/', $request->getRequestUri());
-    $locale_array = ["en", "fr"];
-
-    $bypass = ['api', '_profiler', '_wdt'];
-
-    if( !in_array($uri[1], $bypass) && !in_array($uri[1], $locale_array) ){
-      $event->setResponse(new RedirectResponse('/en' . $request->getRequestUri()));
+    
+    if(substr($request->attributes->get('_route'), 0, 3) == "app"){
+      $uri = explode('/', $request->getRequestUri());
+      if(!in_array($uri[1], $this->locale_array)){
+        $event->setResponse(new RedirectResponse('/en' . $request->getRequestUri()));
+      }
     }
 
     if(!$session->get('views')){

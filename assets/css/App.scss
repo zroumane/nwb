@@ -49,17 +49,9 @@ body {
 }
 
 .flag {
-  width: 48px;
-  height: 32px;
-}
-
-.flag-text {
-  height: 25px;
-  margin: auto;
-}
-
-.flag-text:hover {
-  background-color: white;
+  width: 45px;
+  height: 30px;
+  border: rgb(94, 94, 94) solid 1px;
 }
 
 .discord {

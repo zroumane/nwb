@@ -15,11 +15,10 @@ class CraftController extends AbstractController
   /**
    * @Route("/craft")
    */
-  public function index(): Response
-  {
-    return $this->render("craft/index.html.twig");
-
-  }
+  // public function index(): Response
+  // {
+  //   return $this->render("craft/index.html.twig");
+  // }
 
   /**
    * @Route("/admin/craft")
