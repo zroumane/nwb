@@ -48,7 +48,7 @@ class ProfileController extends AbstractController
     $query = $buildRep->findAllQuery($request->query, $user, true);
     $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
     $parser = new EntityParser();
-    $parser->setWeaponLocal($request->getLocale());
+    $parser->setWeaponLocal($request->getLocale(), $this->getParameter('kernel.project_dir'));
     $parser->setWeapons($weaponRep->findAll());
     $builds->setItems(array_map(fn($build) => $parser->parseBuild($build), (array)$builds->getItems()));
 

@@ -6,15 +6,15 @@ Class EntityParser{
 
   private $weaponLocal;
   private $weapons;
+  private $pwd;
 
-  public function __construct()
-  {
+  public function __construct() {
     $this->weaponLocal = [];
     $this->weapons = [];
   }
 
-  public function setWeaponLocal($local){
-    $this->weaponLocal = (array)json_decode(file_get_contents(__DIR__ . '/../../cdn/json/'.$local.'/weapon.json'));
+  public function setWeaponLocal($local, $pwd){
+    $this->weaponLocal = (array)json_decode(file_get_contents($pwd . '/public/json/'.$local.'/weapon.json'));
   }
 
   public function getWeaponLocal(){
