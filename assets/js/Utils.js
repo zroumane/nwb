@@ -54,7 +54,7 @@ const changePopover = ({ el, skill, key, suffix }, init) => {
   } else {
     let desckey = skill.skillKey + "_description";
     description = window.skillLocal[desckey] ?? desckey;
-    description += "<br><br>" + window.messageLocal["cooldown"] + (skill.cooldown ? `${skill.cooldown}s` : "//");
+    if (skill.cooldown) description += "<br><br>" + window.messageLocal["cooldown"] + `${skill.cooldown}s`;
   }
   el.setAttribute("data-bs-content", description);
   if (!init) popover.show();

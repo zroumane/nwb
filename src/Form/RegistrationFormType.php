@@ -63,15 +63,6 @@ class RegistrationFormType extends AbstractType
             "maxMessage" => "password.max",
           ]),
         ],
-      ])
-      ->add("agreeTerms", CheckboxType::class, [
-        "label_format" => "login.agreeterms",
-        "mapped" => false,
-        "constraints" => [
-          new IsTrue([
-            "message" => "agreeterms.istrue",
-          ]),
-        ],
       ]);
   }
 

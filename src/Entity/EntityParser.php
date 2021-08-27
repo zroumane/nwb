@@ -14,7 +14,7 @@ Class EntityParser{
   }
 
   public function setWeaponLocal($local){
-    $this->weaponLocal = (array)json_decode(file_get_contents("https://newworld-builder.com/json/" . $local . "/weapon.json"));
+    $this->weaponLocal = (array)json_decode(file_get_contents(__DIR__ . '/../../cdn/json/'.$local.'/weapon.json'));
   }
 
   public function getWeaponLocal(){

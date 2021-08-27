@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="fs-2 mb-3">
+		{% trans with {'%pseudo%': app.user.pseudo} %}login.loged{% endtrans %}
+	</div>
+
+  <a  href="{{ path('app_password_forgot') }}" class="btn btn-primary">{% trans %}password.modifypass{% endtrans %}</a>
+{% endblock %}

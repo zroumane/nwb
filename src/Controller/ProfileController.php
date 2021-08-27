@@ -27,17 +27,17 @@ class ProfileController extends AbstractController
     }
   }
 
-    /**
+  /**
    * @Route("/settings")
    */
-  // public function settings(): Response
-  // {
-  //   if ($this->getUser()) {
-  //     return $this->render("profile/settings.html.twig");
-  //   } else {
-  //     return $this->redirectToRoute("app_security_login");
-  //   }
-  // }
+  public function settings(): Response
+  {
+    if ($this->getUser()) {
+      return $this->render("security/settings.html.twig");
+    } else {
+      return $this->redirectToRoute("app_security_login");
+    }
+  }
 
   /**
    * @Route("/profile/{id}", requirements={"id"="\d+"})
