@@ -3,7 +3,7 @@ import "../css/CreateBuild.scss";
 import "bootstrap/js/dist/tab";
 import Popover from "bootstrap/js/dist/popover";
 import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
-import { getMethod, getBuildId, setBrightness, initCarCapsPopover } from "./Utils";
+import { getMethod, getBuildId, setBrightness, initCarCapsPopover, Pop, changePopover } from "./Utils";
 
 const $formBuildName = $q("#formBuildName");
 const $formBuildNameInvalid = $q("#formBuildNameInvalid");
@@ -63,24 +63,6 @@ const setCountdown = (weaponIndex) => {
   $progressBars[weaponIndex].style.width = (n * 100) / 19 + "%";
   $pointProgressText[weaponIndex].innerText = window.messageLocal["RemainingPoint"] + n;
 };
-
-/**
- * Change skill popover
- * @param {HTMLElement} $skillContainer
- * @param {string} title
- * @param {string} description
- */
-const changePopover = ($el, title, description) => {
-  $el.setAttribute("data-bs-original-title", title);
-  $el.setAttribute("data-bs-content", description);
-  Pop($el).show();
-};
-
-/**
- * @param {HTMLElement} $el
- * @returns Popover instance
- */
-const Pop = ($el) => Popover.getInstance($el);
 
 /**
  * Main : Permet de fetch les json, les weapons
@@ -275,7 +257,7 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/skill/${weapon.weaponKey}/${match.skillKey}.png)` : "";
     $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
     $skillContainer.dataset.id = match ? match.id : 0;
-    changePopover($skillContainer, window.skillLocal[match?.skillKey] ?? match?.skillKey, window.skillLocal[match?.skillKey + "_description"] ?? match?.skillKey);
+    changePopover({ el: $skillContainer, skill: match }, true);
     if (match) {
       Pop($skillContainer).enable();
       if (match.selected == undefined) match.selected = false;
@@ -335,13 +317,7 @@ $weaponSelects.forEach(($weaponSelect, weaponIndex) => {
  */
 $skillContainers.forEach(($skillContainers, weaponIndex) => {
   $skillContainers.forEach(($skillContainer) => {
-    new Popover($skillContainer, {
-      title: "Titre",
-      content: "Description",
-      trigger: "hover",
-      html: true,
-    });
-
+    new Popover($skillContainer, { title: "Titre", content: "Description", trigger: "hover", html: true });
     $skillContainer.addEventListener("click", () => {
       let weapon = window.currentWeapons[weaponIndex];
       let skillId = $skillContainer.dataset.id;
@@ -353,7 +329,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       if (!skill.selected) {
         // 1. Si tous les point utiliser
         if (weapon.countdown[0] == 0) {
-          changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["NoMorePoint"]);
+          changePopover({ el: $skillContainer, skill, key: "NoMorePoint" });
           return;
         }
 
@@ -361,31 +337,27 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (!parent.selected) {
-            changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["TopSkill"] + (window.skillLocal[parent.skillKey] ?? parent.skillKey));
+            changePopover({ el: $skillContainer, skill, key: "TopSkill", suffix: window.skillLocal[parent.skillKey] ?? parent.skillKey });
             return;
           }
         }
         // 3. Si pas la première ligne, si aucun skill ligne précédente selected
         if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.selected).length == 0) {
-          changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["Rowtop"]);
+          changePopover({ el: $skillContainer, skill, key: "Rowtop" });
           return;
         }
 
         // 4. Si ultimate, si pas 10 point attribué sur le side
         if (skill.line == 6) {
           if (weapon.countdown[skill.side] < 10) {
-            changePopover(
-              $skillContainer,
-              window.skillLocal[skill.skillKey] ?? skill.skillKey,
-              window.messageLocal["TenPointSelect"] + (window.weaponLocal[weapon.branch[skill.side - 1]] ?? skill.skillKey)
-            );
+            changePopover({ el: $skillContainer, skill, key: "TenPointSelect", suffix: window.weaponLocal[weapon.branch[skill.side - 1]] ?? weapon.branch[skill.side - 1] });
             return;
           }
         }
 
         skill.selected = true;
         setBrightness($skillContainer, skill);
-        changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey);
+        changePopover({ el: $skillContainer, skill });
         weapon.countdown[0]--;
         weapon.countdown[skill.side]++;
         if (skill.type == 1) {
@@ -401,11 +373,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.children.length > 0) {
           let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.selected)[0]);
           if (ActiveChildren.length > 0) {
-            changePopover(
-              $skillContainer,
-              window.skillLocal[skill.skillKey] ?? skill.skillKey,
-              window.messageLocal["BottomSkill"] + window.skillLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey
-            );
+            changePopover({ el: $skillContainer, skill, key: "BottomSkill", suffix: window.skillLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey });
             return;
           }
         }
@@ -413,7 +381,7 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         // 2. Si skills ligne suivante selected et pas de skill meme ligne selected
         if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.selected).length > 0) {
           if (weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line && s.selected).length <= 1) {
-            changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.messageLocal["RowBottom"]);
+            changePopover({ el: $skillContainer, skill, key: "RowBottom" });
             return;
           }
         }
@@ -422,18 +390,14 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.line != 6 && weapon.countdown[skill.side] == 11) {
           let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.selected);
           if (LastLineSkill.length > 0) {
-            changePopover(
-              $skillContainer,
-              window.skillLocal[skill.skillKey] ?? skill.skillKey,
-              window.messageLocal["BottomSkill"] + (window.skillLocal[LastLineSkill[0].skillKey] ?? LastLineSkill[0].skillKey)
-            );
+            changePopover({ el: $skillContainer, skill, key: "BottomSkill", suffix: window.skillLocal[LastLineSkill[0].skillKey] ?? LastLineSkill[0].skillKey });
             return;
           }
         }
 
         skill.selected = false;
         setBrightness($skillContainer, skill);
-        changePopover($skillContainer, window.skillLocal[skill.skillKey] ?? skill.skillKey, window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey);
+        changePopover({ el: $skillContainer, skill });
         weapon.countdown[0]++;
         weapon.countdown[skill.side]--;
         if (skill.type == 1) {

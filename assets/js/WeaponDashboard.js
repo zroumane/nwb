@@ -18,6 +18,7 @@ const $skillFormTitle = $skillForm.querySelector("#skillFormTitle");
 const $skillFormTitleId = $skillForm.querySelector("#skillFormTitleId");
 const $skillFormId = $skillForm.querySelector("#skillFormId");
 const $skillFormSkillKey = $skillForm.querySelector("#skillFormSkillKey");
+const $skillFormCooldown = $skillForm.querySelector("#skillFormCooldown");
 const $skillFormType = $skillForm.querySelector("#skillFormType");
 const $skillFormBgColor = $skillForm.querySelector("#skillFormBgColor");
 const $skillFormParent = $skillForm.querySelector("#skillFormParent");
@@ -179,6 +180,7 @@ $skillFormSend.addEventListener("click", () => {
     side: parseInt($skillFormSide.value),
     line: parseInt($skillFormRow.value),
     col: parseInt($skillFormCol.value),
+    cooldown: parseFloat($skillFormCooldown.value),
     bgColor: parseInt($skillFormBgColor.querySelector('[type="radio"]:checked').value),
     type: type,
     parent: $skillFormParent.dataset.parentId != 0 ? `/api/skills/${$skillFormParent.dataset.parentId}` : null,
@@ -231,6 +233,7 @@ $qa(".skill-container").forEach((skillContainer) => {
     }
     let match = window.currentSkills.filter((s) => s.id == skillId)[0];
     $skillFormSkillKey.value = match ? match.skillKey : "";
+    $skillFormCooldown.value = match ? match.cooldown : "";
     $skillFormType.querySelector(`input[value="${match ? match.type : 1}"]`).checked = true;
     $skillFormBgColor.querySelector(`input[value="${match ? match.bgColor : 0}"]`).checked = true;
     $skillFormParent.dataset.parentId = match && match.parent ? match.parent.split("/").reverse()[0] : "";

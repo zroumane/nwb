@@ -34,4 +34,36 @@ const initCarCapsPopover = ($carCaps) => {
   });
 };
 
-export { getMethod, getBuildId, setBrightness, initCarCapsPopover };
+/**
+ * Change skill popover
+ * @param {HTMLElement} $skillContainer
+ * @param {string} title
+ * @param {string} description
+ */
+const changePopover = ({ el, skill, key, suffix }, init) => {
+  el.dataset.alert = 0;
+  let popover = Pop(el);
+  if (!skill) return popover.disable();
+  popover.enable();
+  el.setAttribute("data-bs-original-title", window.skillLocal[skill.skillKey] ?? skill.skillKey);
+  let description;
+  if (key && el.dataset.alert == 0) {
+    description = window.messageLocal[key] ?? key;
+    if (suffix) description += suffix;
+    el.dataset.alert = 1;
+  } else {
+    let desckey = skill.skillKey + "_description";
+    description = window.skillLocal[desckey] ?? desckey;
+    description += "<br><br>" + window.messageLocal["cooldown"] + (skill.cooldown ? `${skill.cooldown}s` : "//");
+  }
+  el.setAttribute("data-bs-content", description);
+  if (!init) popover.show();
+};
+
+/**
+ * @param {HTMLElement} $el
+ * @returns Popover instance
+ */
+const Pop = ($el) => Popover.getInstance($el);
+
+export { getMethod, getBuildId, setBrightness, initCarCapsPopover, changePopover, Pop };

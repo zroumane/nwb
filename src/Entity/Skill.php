@@ -102,6 +102,12 @@ class Skill
   #[Groups(['read:skill', 'write:skill'])]
   private $type;
 
+  /**
+   * @ORM\Column(type="float", nullable=true)
+   */
+  #[Groups(['read:skill', 'write:skill'])]
+  private $cooldown;
+
   public function __construct()
   {
     $this->children = new ArrayCollection();
@@ -234,6 +240,18 @@ class Skill
   public function setType(int $type): self
   {
       $this->type = $type;
+
+      return $this;
+  }
+
+  public function getCooldown(): ?float
+  {
+      return $this->cooldown;
+  }
+
+  public function setCooldown(?float $cooldown): self
+  {
+      $this->cooldown = $cooldown;
 
       return $this;
   }

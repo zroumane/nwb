@@ -38,7 +38,6 @@ const updateWeapon = () => {
   if (checkedWeapon.length > 0) {
     let checkedWeaponid = checkedWeapon.map(($w) => $w.dataset.id);
     let weaponText = $weaponsCheckLabels.filter(($wl) => checkedWeaponid.includes($wl.dataset.id)).map(($wl) => $wl.innerText);
-    console.log(weaponText);
     $allWeaponText.innerText = weaponText.join(", ").replaceAll("\n", "").replaceAll("\t", "");
     $allWeaponCheck.disabled = false;
     $allWeaponCheck.checked = false;

@@ -2,7 +2,7 @@ import "../css/Build.scss";
 import "bootstrap/js/dist/tab";
 import Popover from "bootstrap/js/dist/popover";
 import { $q, $qa, MAX_COL, MAX_ROW, lang } from "./Global";
-import { getMethod, getBuildId, setBrightness, initCarCapsPopover } from "./Utils";
+import { getMethod, getBuildId, setBrightness, initCarCapsPopover, changePopover } from "./Utils";
 
 const $spinner = $q("#spinner");
 const $shareButton = $q("#shareButton");
@@ -17,6 +17,7 @@ const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
 const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 
 (async () => {
+  window.messageLocal = await getMethod(`/json/${lang}/message.json`);
   window.weaponLocal = await getMethod(`/json/${lang}/weapon.json`);
   window.skillLocal = await getMethod(`/json/${lang}/skill.json`);
   initCarCapsPopover($carCaps);
@@ -62,12 +63,8 @@ const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
         $skillContainer.firstElementChild.style.backgroundSize = [1, 3].includes(skill.type) ? "90% 90%" : "70% 70%";
         build.selectedSkills[weaponIndex].includes(skill["@id"]) ? (skill.selected = true) : (skill.selected = false);
         setBrightness($skillContainer, skill);
-        new Popover($skillContainer, {
-          title: window.skillLocal[skill.skillKey] ?? skill.skillKey,
-          content: window.skillLocal[skill.skillKey + "_description"] ?? skill.skillKey,
-          trigger: "hover",
-          html: true,
-        });
+        new Popover($skillContainer, { trigger: "hover", html: true });
+        changePopover({ el: $skillContainer, skill }, true);
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (parent) {
@@ -83,12 +80,8 @@ const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
           let match = weapon.skills.filter((s) => s["@id"] == activedSkill)[0];
           let $activedSkill = $q(`#activedSkill-${weaponIndex + 1}-${i + 1}`);
           $activedSkill.src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
-          new Popover($activedSkill, {
-            title: window.skillLocal[match.skillKey] ?? match.skillKey,
-            content: window.skillLocal[match.skillKey + "_description"] ?? match.skillKey,
-            trigger: "hover",
-            html: true,
-          });
+          new Popover($activedSkill, { trigger: "hover", html: true });
+          changePopover({ el: $activedSkill, skill: match }, true);
         }
       });
       $buildTabs[weaponIndex].innerText = window.weaponLocal[weapon.weaponKey];
