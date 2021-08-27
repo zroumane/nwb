@@ -28,7 +28,6 @@ class BuildsController extends AbstractController
    */
   public function index(Request $request, PaginatorInterface $paginator, BuildRepository $buildRep, WeaponRepository $weaponRep): Response
   {
-
     $query = $buildRep->findAllQuery($request->query, $this->getUser() ?? null);
     $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
     $parser = new EntityParser();
