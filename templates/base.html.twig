@@ -1,7 +1,7 @@
 {% set locale = app.request.locale %}
 {% set route = app.request.attributes.get('_route') %}
 {% set route_params = app.request.attributes.get('_route_params') %}
-{% set params = route_params|merge(app.request.query.all) %}
+{% set params = route_params|merge(app.request.query) %}
 {% set pathname = app.request.pathinfo|split('/') %}
 
 {% if pathname[2] == 'build' or not pathname[2] %}

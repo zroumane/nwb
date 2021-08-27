@@ -107,7 +107,8 @@ $filterBuildForm.addEventListener("submit", (event) => {
 /**
  * Reseting
  */
-$filterBuildReset.addEventListener("click", () => {
+$filterBuildReset.addEventListener("click", (e) => {
+  e.preventDefault();
   url.search = "";
   window.location.href = url.href;
 });

@@ -1,8 +1,8 @@
 # Projet "New World Builders"
 
-Website : newworld-builder.com
+Prod : newworld-builder.com
 
-Dev Demo : https://nwb.zph.ovh
+Dev: dev.newworld-builder.com
 
 ## Requis
 
@@ -11,6 +11,12 @@ Dev Demo : https://nwb.zph.ovh
 - [NodeJs](https://nodejs.org/)
 
 ## Intallation
+
+Depuis le CDN :
+
+- 'translations' -> ./translations
+- 'img' -> ./public/img
+- 'json' -> ./public/json
 
 ```sh
 git clone https://github.com/zroumane/nwb
@@ -21,8 +27,8 @@ npm run build
 sh start.sh
 ```
 
+Renommer `default.env` en `.env` et le remplir
+
 ## Déploiement
 
 > Github Action
-
-\unpacked_out\lyshineui\images\icons\items_hires

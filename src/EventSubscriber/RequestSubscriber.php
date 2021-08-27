@@ -30,7 +30,7 @@ class RequestSubscriber implements EventSubscriberInterface
     $session = $request->getSession();
 
     
-    if(substr($request->attributes->get('_route'), 0, 3) == "app"){
+    if(substr($request->attributes->get('_route'), 0, 3) == "app" || $request->attributes->get('_controller') == "error_controller"){
       $uri = explode('/', $request->getRequestUri());
       if(!in_array($uri[1], $this->locale_array)){
         $event->setResponse(new RedirectResponse('/en' . $request->getRequestUri()));

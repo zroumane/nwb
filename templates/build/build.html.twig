@@ -45,13 +45,10 @@
 				{% endif %}
 			</div>
 			<div class="fs-5 mb-2">
-				{% trans %}type.label{% endtrans %}
-				:
+				{% trans %}type.label{% endtrans %} :
 				{% if build.type == 1 %}
 					{% trans %}type.general{% endtrans %}
-					{% elseif build.type == 2 %}PVP
-					{% elseif build.type == 3 %}PVE
-					{% elseif build.type == 4 %}PVX
+					{% elseif build.type == 2 %}PVP {% elseif build.type == 3 %}PVE {% elseif build.type == 4 %}PVX
 				{% elseif build.type == 5 %}
 					{% trans %}type.war{% endtrans %}
 				{% endif %}
@@ -64,9 +61,8 @@
 				</button>
 			</div>
 			<div class="p-1 text-end">
-				<a href="{% if favorite %} {{path('app_builds_dislike',{id: build.id})}} {% else %} {{path('app_builds_like',{id: build.id})}} {% endif %}" class="btn btn-sm btn-{% if favorite %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
-					{{build.favorites|length}}
-					| Like</a>
+				<a href="{% if favorite %} {{path('app_builds_unfav',{id: build.id})}} {% else %} {{path('app_builds_fav',{id: build.id})}} {% endif %}" class="btn btn-sm btn-{% if favorite %}success{% else %}primary{% endif %} {% if not app.user %} disabled {% endif %}">
+					{{build.favorites|length}} | {% trans %}build.favorites{% endtrans %}</a>
 			</div>
 			{% if app.user and build.author %}
 				{% if build.author.id == app.user.id %}
@@ -149,7 +145,9 @@
 
 			{% for weapon in 1..2 %}
 
-				<div class="tab-pane fade mt-2 {% if weapon == 1 %}show active{% endif %}" id="tab-weapon-{{weapon}}">
+				<div
+					class="tab-pane fade mt-2 {% if weapon == 1 %}show active{% endif %}"
+					id="tab-weapon-{{weapon}}">
 
 					<div class="row py-3 gx-0">
 						{% for side in 1..2 %}
@@ -163,7 +161,9 @@
 										{% for row in 1..6 %}
 											<div class="row gx-0">
 												{% for col in 1..5 %}
-													<div class="col skill-container skill-container{{weapon}}" id="skill-{{weapon}}-{{side}}-{{row}}-{{col}}">
+													<div
+														class="col skill-container skill-container{{weapon}}"
+														id="skill-{{weapon}}-{{side}}-{{row}}-{{col}}">
 														<div class="skill-container-icon">
 															<img class="w-100" src="{{asset("img/emptyCadre.png")}}"/>
 														</div>

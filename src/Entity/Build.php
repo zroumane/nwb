@@ -49,7 +49,7 @@ class Build implements UserOwnedInterface
   /**
    * @ORM\Column(type="string", length=255)
    * @Assert\NotBlank
-   * @Assert\Length(min = 8, max = 80)
+   * @Assert\Length(min = 8, max = 60)
    */
   #[Groups(['write:build'])]
   private $name;

@@ -28,9 +28,9 @@ class BuildsController extends AbstractController
    */
   public function index(Request $request, PaginatorInterface $paginator, BuildRepository $buildRep, WeaponRepository $weaponRep): Response
   {
-    $query = $buildRep->findAllQuery($request->query);
-    $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
 
+    $query = $buildRep->findAllQuery($request->query, $this->getUser() ?? null);
+    $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
     $parser = new EntityParser();
     $parser->setWeaponLocal($request->getLocale());
     $parser->setWeapons($weaponRep->findAll());
@@ -85,9 +85,9 @@ class BuildsController extends AbstractController
 
 
   /**
-   * @Route("/build/{id}/like", requirements={"id"="\d+"})
+   * @Route("/build/{id}/fav", requirements={"id"="\d+"})
    */
-  public function like(Build $build): Response
+  public function fav(Build $build): Response
   {
     if($user = $this->getUser()){
       $build->addFavorites($user);
@@ -100,9 +100,9 @@ class BuildsController extends AbstractController
   }
 
   /**
-   * @Route("/build/{id}/dislike", requirements={"id"="\d+"})
+   * @Route("/build/{id}/unfav", requirements={"id"="\d+"})
    */
-  public function dislike(Build $build): Response
+  public function unfav(Build $build): Response
   {
     if($user = $this->getUser()){
       $build->removeFavorites($user);

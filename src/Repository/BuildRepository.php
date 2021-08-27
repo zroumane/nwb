@@ -25,23 +25,23 @@ class BuildRepository extends ServiceEntityRepository
   }
 
 
-  public function findAllQuery($query, $user = null): Query
+  public function findAllQuery($query, $user = null, $profile = false): Query
   {
     $q = $this->createQueryBuilder('b')
-      ->select('b.id, b.name, b.description, b.type, b.weapons, b.updated_at as d, b.views as v')
-      ->addOrderBy('b.updated_at', 'DESC')
-      ->leftJoin('b.author', 'a')
-      ->addSelect('a.pseudo, a.id as author_id')
-      ->leftJoin('b.favorites', 'favorites')
-      ->addSelect('COUNT(favorites.id) AS f')
-      ->groupBy('b.id');
-
+    ->select('b.id, b.name, b.description, b.type, b.weapons, b.updated_at as d, b.views as v')
+    ->addOrderBy('b.updated_at', 'DESC')
+    ->leftJoin('b.author', 'a')
+    ->addSelect('a.pseudo, a.id as author_id')
+    ->leftJoin('b.favorites', 'favorites')
+    ->addSelect('COUNT(favorites.id) AS f')
+    ->groupBy('b.id');
+    
     $type = $query->get('t');
     if(0 < $type && $type <= 5){
       $q->where('b.type = :type')
-        ->setParameter('type', $type);
+      ->setParameter('type', $type);
     }
-
+    
     $w = explode(',', $query->get('w'));
     $weapons = [$w[0] ?? null, $w[1] ?? null];
     for ($i = 0; $i <= 1 ; $i++) {
@@ -50,29 +50,34 @@ class BuildRepository extends ServiceEntityRepository
         ->setParameter('weapon'.$i, '%"/api/weapons/'.$weapons[$i].'"%');
       }
     }
-
+    
     if($user){
-      $q->andWhere('b.author = :userid')
-      ->setParameter('userid', $user->getId());
+      if($query->get('fav') == 1){
+        $q->andWhere('favorites IN (:userid1)');
+        $q->setParameter('userid1', $user->getId());
+      }
+      if($profile){
+        $q->andWhere('b.author = :userid2');
+        $q->setParameter('userid2', $user->getId());
+      }
     }
-
+    
     if($search = $query->get('q')){
       $q->andWhere('MATCH_AGAINST(b.name) AGAINST (:word boolean)>0')
       ->setParameter('word', $search);
     }
 
-    return $q->getQuery();
-
-
+    dump($q->getQuery());
+    return $q->getQuery();    
   }
-
-
+  
+  
   // /**
   //  * @return Build[] Returns an array of Build objects
   //  */
   /*
-    public function findByExampleField($value)
-    {
+  public function findByExampleField($value)
+  {
         return $this->createQueryBuilder('b')
             ->andWhere('b.exampleField = :val')
             ->setParameter('val', $value)

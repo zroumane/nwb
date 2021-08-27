@@ -488,7 +488,7 @@ $formBuildSave.addEventListener("click", async () => {
 
   let error = false;
 
-  if (build.name.length < 8 || build.name.length > 80) {
+  if (build.name.length < 8 || build.name.length > 60) {
     $formBuildNameInvalid.classList.remove("d-none");
     error = true;
   }

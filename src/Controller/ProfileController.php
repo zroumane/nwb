@@ -45,7 +45,7 @@ class ProfileController extends AbstractController
   public function show(Request $request, User $user, BuildRepository $buildRep, PaginatorInterface $paginator, WeaponRepository $weaponRep): Response
   {
 
-    $query = $buildRep->findAllQuery($request->query, $user);
+    $query = $buildRep->findAllQuery($request->query, $user, true);
     $builds = $paginator->paginate($query, $request->query->get('p') ?? 1, 20);
     $parser = new EntityParser();
     $parser->setWeaponLocal($request->getLocale());
