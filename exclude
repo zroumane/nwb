@@ -19,3 +19,4 @@ symfony.lock
 yarn.lock
 public/json
 public/img
+translations

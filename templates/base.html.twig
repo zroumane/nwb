@@ -22,21 +22,41 @@
 <html lang="{{ locale }}">
 
 	<head>
-		<meta charset="UTF-8">
-		{% apply spaceless %}
+		<meta charset="UTF-8"> {% apply spaceless %}
 		{% block title %}
 			<title>{% trans %}meta.title{% endtrans %}</title>
 		{% endblock %}
-		{% endapply %}
-		<meta name="keywords" locale="{{ locale }}" content="build, create, craft, newworld, new, world, amazon games, mmo"/>
+		{% endapply %} <meta name="keywords" locale="{{ locale }}" content="build, create, craft, newworld, new, world, amazon games, mmo"/>
 		{% block description %}
 			<meta name="description" content="{% trans %}meta.description{% endtrans %}"/>
 		{% endblock %}
-		<link rel="shortcut icon" href="{{asset('/img/favicon.ico')}}"/>
-		{{ encore_entry_link_tags('App') }}
+		<link rel="shortcut icon" href="{{asset('/img/favicon.ico')}}"/> {{ encore_entry_link_tags('App') }}
 		{% block stylesheets %}{% endblock %}
 		{{ encore_entry_script_tags('App') }}
 		{% block javascripts %}{% endblock %}
+
+		<!-- Matomo -->
+		<script>
+			var _paq = window._paq = window._paq || [];
+/* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+_paq.push(['trackPageView']);
+_paq.push(['enableLinkTracking']);
+(function () {
+var u = "//analytics.newworld-builder.com/";
+_paq.push([
+'setTrackerUrl',
+u + 'matomo.php'
+]);
+_paq.push(['setSiteId', '1']);
+var d = document,
+g = d.createElement('script'),
+s = d.getElementsByTagName('script')[0];
+g.async = true;
+g.src = u + 'matomo.js';
+s.parentNode.insertBefore(g, s);
+})();
+		</script>
+		<!-- End Matomo Code -->
 	</head>
 
 	<body>
@@ -50,7 +70,13 @@
 				<div class="d-lg-none d-block">
 					{% include "_locale.html.twig" %}
 				</div>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false">
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarTogglerDemo02"
+					aria-controls="navbarTogglerDemo02"
+					aria-expanded="false">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse fs-4" id="navbarTogglerDemo02">
@@ -69,7 +95,12 @@
 					<ul class="navbar-nav ml-auto">
 						{% if app.user %}
 							<li class="nav-item dropdown fs-5 d-flex align-items-center">
-								<a class="nav-link dropdown-toggle {% if current_menu == 'profile' %}active{% endif %}" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<a
+									class="nav-link dropdown-toggle {% if current_menu == 'profile' %}active{% endif %}"
+									id="navbarDropdownMenuLink"
+									role="button"
+									data-bs-toggle="dropdown"
+									aria-expanded="false">
 									{{ app.user.pseudo }}
 								</a>
 								<ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
@@ -151,11 +182,9 @@
 					<span>!</span>
 				</div>
 				<div class="text-center text-secondary">
-					©
-					{{ "now"|date("Y") }}
+					© {{ "now"|date("Y") }}
 					<a href="https://newworld-builder.com/">NewWorld-Builder.com</a>
-					-
-					{% trans %}meta.footer{% endtrans %}
+					- {% trans %}meta.footer{% endtrans %}
 				</div>
 			</div>
 		</div>
