@@ -67,7 +67,6 @@ class BuildRepository extends ServiceEntityRepository
       ->setParameter('word', $search);
     }
 
-    dump($q->getQuery());
     return $q->getQuery();    
   }
   
