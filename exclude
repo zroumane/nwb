@@ -6,6 +6,7 @@ tests
 node_modules
 public/bundles/apiplatform
 .env
+.env.local.php
 .gitignore
 .prettierignore
 .prettierr

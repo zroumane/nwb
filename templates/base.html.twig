@@ -72,11 +72,11 @@ s.parentNode.insertBefore(g, s);
 					<img src="{{asset('/img/nwicone.png')}}" alt="" width="100" height="100">
 				</a>
 				<div class="d-lg-none d-block flex-grow-1"></div>
-				<ul class="d-flex flex-row p-0 m-0 justify-content-end align-items-center me-3">
-					<li class="d-lg-none d-block nav-item dropdown">
+				<ul class="navbar-nav d-flex flex-row p-0 m-0 justify-content-end align-items-center me-3">
+					<li class="d-lg-none d-block dropdown">
 						{% include "meta/_profile.dropdown.html.twig" %}
 					</li>
-					<li class="d-lg-none d-block nav-item dropdown">
+					<li class="d-lg-none d-block dropdown">
 						{% include "meta/_locale.html.twig" %}
 					</li>
 				</ul>
@@ -163,7 +163,7 @@ s.parentNode.insertBefore(g, s);
 
 		<div class="container-fluid bg-dark text-light">
 			<div class="container-lg p-3">
-				<div class="text-center">
+				<div class="text-center fs-6">
 					<span>{% trans %}meta.feedback{% endtrans %}</span>
 					{% apply spaceless %}
 					<a target="_blank" href="https://discord.gg/qYjG93TS8C">
@@ -172,12 +172,12 @@ s.parentNode.insertBefore(g, s);
 					{% endapply %}
 					<span>!</span>
 				</div>
-				<div class="text-center text-secondary">
+				<div class="text-center text-secondary fs-6">
 					© {{ "now"|date("Y") }}
 					<a href="https://newworld-builder.com/">NewWorld-Builder.com</a>
 					- {% trans %}meta.footer{% endtrans %}
 				</div>
-				<div class="text-white text-center mt-1">
+				<div class="text-white text-center mt-1 fs-6">
 					<a class="mx-2 link-light text-decoration-none" href="{{path('app_meta_contact')}}">Contact</a>
 					<a class="mx-2 link-light text-decoration-none" href="https://discord.gg/qYjG93TS8C" target="_blank">Discord</a>
 					<a class="mx-2 link-light text-decoration-none" href="{{path('app_meta_privacy')}}">Privacy Policy</a>
