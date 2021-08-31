@@ -1,0 +1,38 @@
+{% if app.user %}
+  <a
+    class="nav-link dropdown-toggle fs-4 {% if current_menu == 'profile' %}active{% endif %}"
+    id="navbarDropdownMenuLink"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false">
+      {{ app.user.pseudo }}
+  </a>
+  <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
+    <li>
+      <a class="dropdown-item" href="{{path('app_profile_index')}}">
+        <h6>{% trans %}navbar.mybuild{% endtrans %}</h6>
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="{{path('app_profile_settings')}}">
+        <h6>{% trans %}navbar.settings{% endtrans %}</h6>
+      </a>
+    </li>
+    {% if is_granted('ROLE_ADMIN') %}
+      <li>
+        <a class="dropdown-item" href="{{path('app_admin_index')}}">
+          <h6>Admin</h6>
+        </a>
+      </li>
+    {% endif %}
+    <li>
+      <a class="dropdown-item" href="{{path('app_security_logout')}}">
+        <h6>{% trans %}navbar.logout{% endtrans %}</h6>
+      </a>
+    </li>
+  </ul>
+{% else  %}
+  <a class="nav-link fs-4 {% if current_menu == 'login' %}active{% endif %}" href="{{path('app_security_login')}}">
+    {% trans %}navbar.login{% endtrans %}
+  </a>
+{% endif %}

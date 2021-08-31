@@ -3,16 +3,16 @@
 {% block body %}
   {% if app.user %}
 
-	<div class="fs-3 mb-2">{% trans with {'%pseudo%' : app.user.pseudo} %}login.loged{% endtrans %}</div>
-	<a class="fs-3 link-danger" href="{{ path('app_security_logout') }}">{% trans %}navbar.logout{% endtrans %}</a>
+	<h3 class="mb-2">{% trans with {'%pseudo%' : app.user.pseudo} %}login.loged{% endtrans %}</h3>
+	<h3><a class="link-danger" href="{{ path('app_security_logout') }}">{% trans %}navbar.logout{% endtrans %}</a></h3>
 
   {% else %}
     <div class="row p-2">
       <div class="col-lg m-lg-1 mb-4">
         <form method="post" class="border rounded p-2">
-          <div class="fs-1 p-1">
+          <h1 class="p-1">
             {% trans %}login.login{% endtrans %}
-          </div>
+          </h1>
 
           {% if error and error.messageKey != 'login.verify.nocheck' %}
             <div class="px-2">
@@ -58,9 +58,9 @@
       <div class="col-lg m-lg-1">
         {{form_start(registrationForm,{attr: {class: 'border rounded p-2'}})}}
 
-          <div class="fs-1 p-1">
+          <h1 class="p-1">
             {% trans %}login.register{% endtrans %}
-          </div>
+          </h1>
 
           <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 

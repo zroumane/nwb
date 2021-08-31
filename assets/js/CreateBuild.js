@@ -52,7 +52,8 @@ window.currentWeapons = [null, null];
  * Associe les skills à "weapon" aprçès un fetch de l'api
  * @param {number} weapon
  */
-const getSkills = async (weapon) => (weapon.skills = (await getMethod(`/api/weapons/${weapon.id}/skills`))["hydra:member"]);
+const getSkills = async (weapon) =>
+  (weapon.skills = (await getMethod(`/api/weapons/${weapon.id}/skills`))["hydra:member"]);
 
 /**
  * Met a jour le coutdown progress en fonction des points restants
@@ -252,10 +253,18 @@ const changeWeapon = async (weaponIndex, weaponId) => {
     $skillContainer.style.filter = `brightness(1)`;
     let data = $skillContainer.id.split("-");
     let match = weapon.skills.filter((s) => s.side == data[2] && s.line == data[3] && s.col == data[4])[0];
-    $skillContainer.style.backgroundImage = match ? `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')` : "";
+    $skillContainer.style.backgroundImage = match
+      ? `url('/img/bg/bg${match.bgColor}${match.type == 1 ? "" : "c"}.png')`
+      : "";
     $skillContainer.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
-    $skillContainer.firstElementChild.style.backgroundImage = match ? `url(/img/skill/${weapon.weaponKey}/${match.skillKey}.png)` : "";
-    $skillContainer.firstElementChild.style.backgroundSize = match ? ([1, 3].includes(match.type) ? "90% 90%" : "70% 70%") : "";
+    $skillContainer.firstElementChild.style.backgroundImage = match
+      ? `url(/img/skill/${weapon.weaponKey}/${match.skillKey}.png)`
+      : "";
+    $skillContainer.firstElementChild.style.backgroundSize = match
+      ? [1, 3].includes(match.type)
+        ? "90% 90%"
+        : "70% 70%"
+      : "";
     $skillContainer.dataset.id = match ? match.id : 0;
     changePopover({ el: $skillContainer, skill: match }, true);
     if (match) {
@@ -274,7 +283,9 @@ const changeWeapon = async (weaponIndex, weaponId) => {
       if (match.type == 1) {
         let isSelected = false;
         let $activedSkills = [];
-        $activedSkillLists[weaponIndex].forEach((ul) => $activedSkills.push(ul.querySelector(`img[data-li="${activedSkillCount}"]`)));
+        $activedSkillLists[weaponIndex].forEach((ul) =>
+          $activedSkills.push(ul.querySelector(`img[data-li="${activedSkillCount}"]`))
+        );
         $activedSkills.forEach(($activedSkill, index) => {
           $activedSkill.src = `/img/skill/${weapon.weaponKey}/${match.skillKey}.png`;
           $activedSkill.dataset.id = match.id;
@@ -337,12 +348,20 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.parent) {
           let parent = weapon.skills.filter((s) => s["@id"] == skill.parent)[0];
           if (!parent.selected) {
-            changePopover({ el: $skillContainer, skill, key: "TopSkill", suffix: window.skillLocal[parent.skillKey] ?? parent.skillKey });
+            changePopover({
+              el: $skillContainer,
+              skill,
+              key: "TopSkill",
+              suffix: window.skillLocal[parent.skillKey] ?? parent.skillKey,
+            });
             return;
           }
         }
         // 3. Si pas la première ligne, si aucun skill ligne précédente selected
-        if (skill.line != 1 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.selected).length == 0) {
+        if (
+          skill.line != 1 &&
+          weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line - 1 && s.selected).length == 0
+        ) {
           changePopover({ el: $skillContainer, skill, key: "Rowtop" });
           return;
         }
@@ -350,7 +369,12 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         // 4. Si ultimate, si pas 10 point attribué sur le side
         if (skill.line == 6) {
           if (weapon.countdown[skill.side] < 10) {
-            changePopover({ el: $skillContainer, skill, key: "TenPointSelect", suffix: window.weaponLocal[weapon.branch[skill.side - 1]] ?? weapon.branch[skill.side - 1] });
+            changePopover({
+              el: $skillContainer,
+              skill,
+              key: "TenPointSelect",
+              suffix: window.weaponLocal[weapon.branch[skill.side - 1]] ?? weapon.branch[skill.side - 1],
+            });
             return;
           }
         }
@@ -371,15 +395,25 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
       else {
         // 1. Si skill parent, si skill enfant selected
         if (skill.children.length > 0) {
-          let ActiveChildren = skill.children.filter((c) => weapon.skills.filter((s) => s["@id"] == c && s.selected)[0]);
+          let ActiveChildren = skill.children.filter(
+            (c) => weapon.skills.filter((s) => s["@id"] == c && s.selected)[0]
+          );
           if (ActiveChildren.length > 0) {
-            changePopover({ el: $skillContainer, skill, key: "BottomSkill", suffix: window.skillLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey });
+            changePopover({
+              el: $skillContainer,
+              skill,
+              key: "BottomSkill",
+              suffix: window.skillLocal[ActiveChildren[0].skillKey] ?? ActiveChildren[0].skillKey,
+            });
             return;
           }
         }
 
         // 2. Si skills ligne suivante selected et pas de skill meme ligne selected
-        if (skill.line != 6 && weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.selected).length > 0) {
+        if (
+          skill.line != 6 &&
+          weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line + 1 && s.selected).length > 0
+        ) {
           if (weapon.skills.filter((s) => s.side == skill.side && s.line == skill.line && s.selected).length <= 1) {
             changePopover({ el: $skillContainer, skill, key: "RowBottom" });
             return;
@@ -390,7 +424,12 @@ $skillContainers.forEach(($skillContainers, weaponIndex) => {
         if (skill.line != 6 && weapon.countdown[skill.side] == 11) {
           let LastLineSkill = weapon.skills.filter((s) => s.side == skill.side && s.line == 6 && s.selected);
           if (LastLineSkill.length > 0) {
-            changePopover({ el: $skillContainer, skill, key: "BottomSkill", suffix: window.skillLocal[LastLineSkill[0].skillKey] ?? LastLineSkill[0].skillKey });
+            changePopover({
+              el: $skillContainer,
+              skill,
+              key: "BottomSkill",
+              suffix: window.skillLocal[LastLineSkill[0].skillKey] ?? LastLineSkill[0].skillKey,
+            });
             return;
           }
         }
@@ -427,7 +466,9 @@ $activedSkills.forEach(($activedSkill) => {
     let cadre = data[2];
     let skillId = $activedSkill.dataset.id;
     let $activedSkillSelected = $activedSkillSelecteds[weaponIndex][cadre - 1];
-    $qa(`.activedSkill[data-id="${$activedSkillSelected.dataset.id}"]`).forEach((el) => el.parentElement.classList.remove("d-none"));
+    $qa(`.activedSkill[data-id="${$activedSkillSelected.dataset.id}"]`).forEach((el) =>
+      el.parentElement.classList.remove("d-none")
+    );
     $qa(`.activedSkill[data-id="${skillId}"]`).forEach((el) => el.parentElement.classList.add("d-none"));
     $activedSkillSelected.dataset.id = skillId;
     $activedSkillSelected.src = $activedSkill.src;
@@ -466,7 +507,8 @@ $weaponResetButtons.forEach(($weaponResetButton, weaponIndex) => {
 });
 
 $formBuildName.addEventListener("change", () => {
-  if ($formBuildName.value.length >= 8 && $formBuildName.value.length <= 80) $formBuildNameInvalid.classList.add("d-none");
+  if ($formBuildName.value.length >= 8 && $formBuildName.value.length <= 80)
+    $formBuildNameInvalid.classList.add("d-none");
 });
 
 $formBuildDesc.addEventListener("change", () => {
@@ -498,6 +540,13 @@ $formBuildSave.addEventListener("click", async () => {
     error = true;
   }
 
+  if (error) {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
   if (!build.weapons[0] && !build.weapons[1]) {
     $weaponTabs.forEach((el) => el.classList.add("text-danger"));
     error = true;
@@ -513,11 +562,6 @@ $formBuildSave.addEventListener("click", async () => {
     if (200 <= response.status && response.status < 300) {
       window.location.href = "/build/" + data.id;
     } else alert("Server Error, Please contact Admin\n" + data["hydra:description"]);
-  } else {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
   }
 
   $formBuildSave.disabled = false;

@@ -111,7 +111,7 @@
 					{% trans %}type.label{% endtrans %}
 				</th>
 				<th scope="col">
-					{{ knp_pagination_sortable(builds, 'builds.favorite'|trans , 'f') }}
+					{{ knp_pagination_sortable(builds, 'builds.favorite'|trans , 'l') }}
 				</th>
 				<th scope="col">
 					{{ knp_pagination_sortable(builds, 'builds.view'|trans , 'v') }}
@@ -133,9 +133,9 @@
 
 				<tr>
 					<td colspan="100%">
-						<div class="fs-4 text-center">
+						<h4 class="text-center">
 							{% trans %}builds.nofound{% endtrans %}
-						</div>
+						</h4>
 					</td>
 				</tr>
 
@@ -169,7 +169,7 @@
 							{% endif %}
 						</td>
 						<td>
-							{{ build.f }}
+							{{ build.l }}
 						</td>
 						<td>
 							{{ build.v }}

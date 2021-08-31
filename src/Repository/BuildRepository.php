@@ -33,7 +33,7 @@ class BuildRepository extends ServiceEntityRepository
     ->leftJoin('b.author', 'a')
     ->addSelect('a.pseudo, a.id as author_id')
     ->leftJoin('b.favorites', 'favorites')
-    ->addSelect('COUNT(favorites.id) AS f')
+    ->addSelect('COUNT(favorites.id) AS l')
     ->groupBy('b.id');
     
     $type = $query->get('t');

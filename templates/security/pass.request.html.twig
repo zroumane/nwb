@@ -18,13 +18,13 @@
 
 	{{ form_start(requestForm, {attr: {class: 'border rounded p-2 col-lg-6 col mx-auto'}}) }}
 
-	<div class="fs-2 p-1">
+	<h2 class="p-1">
 		{% trans %}password.reset.title{% endtrans %}
-	</div>
+	</h2>
 
-	<div class="fs-5 m-2">
+	<h5 class="m-2">
 		{% trans %}password.request.description{% endtrans %}
-	</div>
+	</h5>
 
 	<div class="p-2">
 		{{ form_row(requestForm.email) }}
