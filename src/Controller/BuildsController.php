@@ -135,15 +135,17 @@ class BuildsController extends AbstractController
   }
 
   /**
-   * @Route("/delete/{id}", requirements={"id"="\d+"})
+   * @Route("/delete/{id}", requirements={"id"="\d+"}, methods={"POST"})
    */
-  public function delete(Build $build): Response
+  public function delete(Build $build, Request $request): Response
   {
-    if($build && $this->checkPermission($build)){
-      $em = $this->getDoctrine()->getManager();
-			$em->remove($build);
-			$em->flush();
-      return $this->redirectToRoute('app_profile_index');
+    if ($this->isCsrfTokenValid('delete'.$build->getId(), $request->request->get('_token'))) {
+      if($build && $this->checkPermission($build)){
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($build);
+        $entityManager->flush();
+      }
     }
+    return $this->redirectToRoute('app_profile_index');
   }
 }

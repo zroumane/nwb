@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('app_builds_delete', {'id': buildId}) }}" onsubmit="return confirm('{% trans %}build.actions.confirm{% endtrans %}');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ buildId) }}">
+    <button class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</button>
+</form>
+
