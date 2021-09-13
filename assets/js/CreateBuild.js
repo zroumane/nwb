@@ -173,6 +173,7 @@ $add5pointsButtons.forEach(($add5pointsButton, car) => {
 
 const setBonus = (car, buff) => {
   if (buff) buff == "1" ? $carBonus[car].value++ : $carBonus[car].value--;
+  if ($carBonus[car].value == "") $carBonus[car].value = 0;
   if ($carBonus[car].value < 0 || $carBonus[car].value >= 1000) $carBonus[car].value = $carBonus[car].dataset.old;
   window.characteristics[2][car] = parseInt($carBonus[car].value);
   $carBonus[car].dataset.old = $carBonus[car].value;

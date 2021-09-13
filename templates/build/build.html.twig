@@ -70,7 +70,7 @@
 						<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
 					</div>
 					<div class="p-1 text-end">
-						{% include "build/_delete.html.twig" with {buildId: build.id} %}
+						<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
 					</div>
 				{% endif %}
 			{% endif %}

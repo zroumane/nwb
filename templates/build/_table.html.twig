@@ -181,9 +181,9 @@
 						</td>
 						{% if app.user and user is defined%}
 							{% if app.user == user %}
-								<td scope="col" class="d-flex flex-nowrap justify-content-center py-1 w-h">
-									<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary me-1">{% trans %}build.actions.edit{% endtrans %}</a>
-									{% include "build/_delete.html.twig" with {buildId: build.id} %}
+								<td scope="col" class="btn-group w-100">
+									<a href="{{path('app_builds_edit', {id: build.id})}}" class="btn btn-sm btn-primary">{% trans %}build.actions.edit{% endtrans %}</a>
+									<a href="{{path('app_builds_delete', {id: build.id})}}" class="btn btn-sm btn-danger">{% trans %}build.actions.delete{% endtrans %}</a>
 								</td>
 							{% endif %}
 						{% endif %}

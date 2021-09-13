@@ -135,17 +135,31 @@ class BuildsController extends AbstractController
   }
 
   /**
-   * @Route("/delete/{id}", requirements={"id"="\d+"}, methods={"POST"})
+   * @Route("/delete/{id}", requirements={"id"="\d+"})
    */
   public function delete(Build $build, Request $request): Response
+  {
+    if($build && $this->checkPermission($build)){
+      return $this->render("build/delete.html.twig", [
+        "build" => $build
+      ]);
+    }
+    throw $this->createAccessDeniedException();
+  }
+
+  /**
+   * @Route("/delete/{id}/confirm", requirements={"id"="\d+"}, methods={"POST"})
+   */
+  public function confirm_delete(Build $build, Request $request): Response
   {
     if ($this->isCsrfTokenValid('delete'.$build->getId(), $request->request->get('_token'))) {
       if($build && $this->checkPermission($build)){
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($build);
         $entityManager->flush();
+        return $this->redirectToRoute('app_profile_index');
       }
     }
-    return $this->redirectToRoute('app_profile_index');
+    throw $this->createAccessDeniedException();
   }
 }
