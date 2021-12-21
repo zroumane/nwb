@@ -44,6 +44,7 @@ const $branchNames = [$qa(".branchName1"), $qa(".branchName2")];
 const $skillContainers = [$qa(".skill-container1"), $qa(".skill-container2")];
 const $svgContainers = [$qa(".svgContainer1"), $qa(".svgContainer2")];
 
+const $visibilityCheck = $q("#visibilityCheck");
 const $formBuildSave = $q("#formBuildSave");
 
 window.currentWeapons = [null, null];
@@ -527,6 +528,7 @@ $formBuildSave.addEventListener("click", async () => {
     selectedSkills: window.currentWeapons.map((w) => w?.skills.filter((s) => s.selected).map((s) => s["@id"]) || []),
     activedSkills: window.currentWeapons.map((w) => w?.activedSkills || [null, null, null]),
     characteristics: window.characteristics,
+    private: $visibilityCheck.checked,
   };
 
   let error = false;

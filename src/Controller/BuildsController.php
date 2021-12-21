@@ -134,10 +134,25 @@ class BuildsController extends AbstractController
     throw $this->createNotFoundException();
   }
 
+    /**
+   * @Route("/visibility/{id}/{visibility}", requirements={"id"="\d+","visibility"="[0-1]"})
+   */
+  public function visibility(Build $build, $visibility, Request $request): Response
+  {
+    if($build && $this->checkPermission($build)){
+      $build->setPrivate($visibility);
+      $build->setNotSendDiscord(true);
+      $em = $this->getDoctrine()->getManager();
+      $em->flush();
+      return $this->redirectToRoute("app_profile_index");
+    }
+    throw $this->createAccessDeniedException();
+  }
+
   /**
    * @Route("/delete/{id}", requirements={"id"="\d+"})
    */
-  public function delete(Build $build, Request $request): Response
+  public function delete(Build $build): Response
   {
     if($build && $this->checkPermission($build)){
       return $this->render("build/delete.html.twig", [

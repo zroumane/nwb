@@ -18,6 +18,12 @@
 	{{ encore_entry_script_tags('Build') }}
 {% endblock %}
 
+{% block robots %}
+	{% if build.private == true %}
+		<meta name="robots" content="noindex"/>
+	{% endif %}
+{% endblock %}
+
 {% block body %}
 
 	{% if is_granted('ROLE_BUILD_ADMIN') %}

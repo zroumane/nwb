@@ -128,6 +128,12 @@ class Build implements UserOwnedInterface
   #[Groups(['read:build', 'write:build'])]
   private $characteristics = [];
 
+  /**
+   * @ORM\Column(type="boolean")
+   */
+  #[Groups(['read:build', 'write:build'])]
+  private $private;
+
 
   /**
    * @ORM\PrePersist
@@ -166,12 +172,12 @@ class Build implements UserOwnedInterface
   
   public function sendDiscordWebhook($updated): void
   {
-    if(!$this->getNotSendDiscord()){
+    if(!$this->getNotSendDiscord() && !$this->getPrivate()){
 
       $build = $this;
       $webhookurl = "";
       if($_SERVER['APP_ENV'] == "dev"){
-        $webhookurl = "https://discord.com/api/webhooks/865887749214830603/vLjFkK4aknq_KhQytBocz7XniBQx-t8_5s-EhcTli73aawge0ab2V6NyJ4a-jq7KRcyr";
+        $webhookurl = "https://discord.com/api/webhooks/922956558202183802/Tw-LSFAa6kjsAWSZ1ScwB3hAnHQDrFgYNrKbRAMAUyo07XlNprrtvMeoKG_dfO8FjSto";
       }else{
         $webhookurl = "https://discord.com/api/webhooks/868344360524214272/_4onLMp3h0lU_8NZM5fhJZg4z5fedQ_RrHUH25L6OQpFrtijx5pgosgkU_WG_8HVGEoV";
       }
@@ -399,6 +405,18 @@ class Build implements UserOwnedInterface
   public function setCharacteristics(array $characteristics): self
   {
       $this->characteristics = $characteristics;
+
+      return $this;
+  }
+
+  public function getPrivate(): ?bool
+  {
+      return $this->private;
+  }
+
+  public function setPrivate(bool $private): self
+  {
+      $this->private = $private;
 
       return $this;
   }

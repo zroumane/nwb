@@ -220,6 +220,21 @@
 	</div>
 
 
+	{% if app.user %}
+		<div class="form-check mt-4 h5">
+			<input autocomplete="off" class="form-check-input" type="checkbox" id="visibilityCheck" 
+				{% if build is defined and build.private == true %}checked{% endif %}>
+			<span>
+			<label class="form-check-label" for="flexCheckChecked">
+				{% trans %}create.private{% endtrans %}
+			</label>
+			-
+			<span class="h6">{% trans %}create.visibility{% endtrans %}</span>
+			</span>
+		</div>
+	{% endif %}
+
+
 	<div class="mt-4">
 		<button type="button" id="formBuildSave" class="btn btn-outline-light w-100 d-none">
 			<span id="formBuildSaveLoader" class="spinner-border spinner-border d-none"></span>

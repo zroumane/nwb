@@ -28,17 +28,21 @@ class BuildRepository extends ServiceEntityRepository
   public function findAllQuery($query, $user = null, $profile = false): Query
   {
     $q = $this->createQueryBuilder('b')
-    ->select('b.id, b.name, b.description, b.type, b.weapons, b.updated_at as d, b.views as v')
+    ->select('b.id, b.name, b.description, b.type, b.weapons, b.updated_at as d, b.views as v, b.private as p')
     ->addOrderBy('b.updated_at', 'DESC')
     ->leftJoin('b.author', 'a')
     ->addSelect('a.pseudo, a.id as author_id')
     ->leftJoin('b.favorites', 'favorites')
     ->addSelect('COUNT(favorites.id) AS l')
     ->groupBy('b.id');
+
+    if(!$profile){
+      $q->where('b.private = 0');
+    }
     
     $type = $query->get('t');
     if(0 < $type && $type <= 5){
-      $q->where('b.type = :type')
+      $q->and>here('b.type = :type')
       ->setParameter('type', $type);
     }
     

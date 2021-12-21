@@ -96,6 +96,9 @@
 	<table class="table table-dark table-striped table-hover text-center table-bordered">
 		<thead>
 			<tr>
+			{% if app.user is defined and user is defined and app.user == user %}
+				<th scope="col"></th>
+			{% endif %}
 				<th scope="col">
 					{% trans %}builds.name{% endtrans %}
 				</th>
@@ -142,6 +145,13 @@
 			{% else %}
 				{% for build in builds %}
 					<tr>
+						{% if app.user is defined and user is defined and app.user == user %}
+						<td>
+							<a href="{{path('app_builds_visibility', {id: build.id, visibility: build.p ? '0' : '1'})}}">
+								<img src="{{ asset("/img/visibility#{build.p}.svg") }}" alt="">
+							</a>
+						</td>
+						{% endif %}
 						<td>
 							<a href="{{path('app_builds_show',{id: build.id})}}">{{ build.name|slice(0, 30) }}
 								{% if build.name|length > 30 %}...
